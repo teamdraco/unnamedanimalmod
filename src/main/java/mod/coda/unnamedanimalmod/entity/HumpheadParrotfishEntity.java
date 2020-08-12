@@ -125,7 +125,7 @@ public class HumpheadParrotfishEntity extends AnimalEntity {
         Vec3d vec3d = getPositionVec();
         BlockPos.PooledMutable mutable = BlockPos.PooledMutable.retain(start.getX(), start.getY(), start.getZ());
         BlockPos.getAllInBox(start.add(-16, -16, -16), start.add(16, 16, 16)).forEach(pos -> {
-            if (world.getBlockState(pos).isIn(BlockTags.CORALS)) {
+            if (world.getBlockState(pos).isIn(BlockTags.CORAL_BLOCKS)) {
                 BlockRayTraceResult rayTrace = this.world.rayTraceBlocks(new RayTraceContext(vec3d, new Vec3d(pos), RayTraceContext.BlockMode.COLLIDER, RayTraceContext.FluidMode.NONE, this));
                 if (rayTrace.getType() != RayTraceResult.Type.MISS && rayTrace.getPos().equals(pos)) {
                     BlockPos.PooledMutable p = mutable.setPos(pos);
@@ -241,7 +241,7 @@ public class HumpheadParrotfishEntity extends AnimalEntity {
 
     @Override
     public boolean isBreedingItem(ItemStack stack) {
-        return stack.getItem() == Items.BRAIN_CORAL;
+        return Block.getBlockFromItem(stack.getItem()).isIn(BlockTags.CORAL_BLOCKS);
     }
 
     public boolean isPushedByWater() {
