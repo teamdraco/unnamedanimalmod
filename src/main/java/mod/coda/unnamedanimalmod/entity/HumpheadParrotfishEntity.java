@@ -96,13 +96,16 @@ public class HumpheadParrotfishEntity extends AnimalEntity {
     @Override
     public void tick() {
         super.tick();
-        if (target == null && ticksExisted % 500 == 0) {
-            selectTarget();
-        }
 
-        if (target != null) {
-            if (navigator.noPath()) navigator.tryMoveToXYZ(target.getX(), target.getY(), target.getZ(), 0.3);
-            else if (getDistanceSq(target.getX(), target.getY(), target.getZ()) <= 4) breakBlock();
+        if (!world.isRemote) {
+            if (target == null && ticksExisted % 500 == 0) {
+                selectTarget();
+            }
+
+            if (target != null) {
+                if (navigator.noPath()) navigator.tryMoveToXYZ(target.getX(), target.getY(), target.getZ(), 0.3);
+                else if (getDistanceSq(target.getX(), target.getY(), target.getZ()) <= 4) breakBlock();
+            }
         }
     }
 
@@ -122,22 +125,9 @@ public class HumpheadParrotfishEntity extends AnimalEntity {
     private void selectTarget() {
         List<BlockPos> possible = new ArrayList<>();
         BlockPos start = getPosition();
-        Vec3d vec3d = getPositionVec();
-        BlockPos.PooledMutable mutable = BlockPos.PooledMutable.retain(start.getX(), start.getY(), start.getZ());
         BlockPos.getAllInBox(start.add(-16, -16, -16), start.add(16, 16, 16)).forEach(pos -> {
             if (world.getBlockState(pos).isIn(BlockTags.CORAL_BLOCKS)) {
-                BlockRayTraceResult rayTrace = this.world.rayTraceBlocks(new RayTraceContext(vec3d, new Vec3d(pos), RayTraceContext.BlockMode.COLLIDER, RayTraceContext.FluidMode.NONE, this));
-                if (rayTrace.getType() != RayTraceResult.Type.MISS && rayTrace.getPos().equals(pos)) {
-                    BlockPos.PooledMutable p = mutable.setPos(pos);
-                    boolean flag = world.getFluidState(p.move(Direction.DOWN)).getFluid() == Fluids.WATER;
-                    for (int i = 2; i < Direction.values().length; ++i) {
-                        flag |= world.getFluidState(p.move(Direction.values()[i])).getFluid() == Fluids.WATER;
-                        if (flag) {
-                            possible.add(pos.toImmutable());
-                            break;
-                        }
-                    }
-                }
+                possible.add(pos.toImmutable());
             }
         });
 
