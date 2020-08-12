@@ -1,0 +1,13 @@
+{
+  "entity.unnamedanimalmod.fire_salamander_entity": "Fire Salamander",
+  "entity.unnamedanimalmod.horned_viper_entity": "Horned Viper",
+  "entity.unnamedanimalmod..humphead_parrotfish_entity": "Humphead Parrotfish",
+
+  "item.unnamedanimalmod.fire_salamander_spawn_egg": "Fire Salamander Spawn Egg",
+  "item.unnamedanimalmod.horned_viper_spawn_egg": "Horned Viper Spawn Egg",
+  "item.unnamedanimalmod.humphead_parrotfish_spawn_egg": "Humphead Parrotfish Spawn Egg",
+
+  "unnamedanimalmod.horned_viper.hurt": "Horned Viper hurts",
+  "unnamedanimalmod.horned_viper.death":"Horned Viper dies",
+  "unnamedanimalmod.horned_viper.ambient": "Horned Viper hisses"
+}

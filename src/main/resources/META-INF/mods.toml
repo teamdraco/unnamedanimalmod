@@ -1,0 +1,10 @@
+modLoader="javafml" #mandatory
+loaderVersion="[31,)" #mandatory This is typically bumped every Minecraft version by Forge. See our download page for lists of versions.
+[[mods]] #mandatory
+modId="unnamedanimalmod" #mandatory
+version="${file.jarVersion}" #mandatory
+displayName="Unnamed Animal Mod" #mandatory
+logoFile="logo.png" #optional
+credits="Coda, Tazz" #optional
+description='''
+A mod adding more wildlife to Minecraft.'''

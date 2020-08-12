@@ -1,0 +1,29 @@
+{
+  "horned_viper.ambient": {
+    "subtitle": "unnamedanimalmod.horned_viper.ambient",
+    "sounds": [
+      {
+        "name": "unnamedanimalmod:horned_viper/ambient",
+        "streaming": true
+      }
+    ]
+  },
+  "horned_viper.death": {
+    "subtitle": "unnamedanimalmod.horned_viper.death",
+    "sounds": [
+      {
+        "name": "unnamedanimalmod:horned_viper/death",
+        "streaming": true
+      }
+    ]
+  },
+  "horned_viper.hurt": {
+    "subtitle": "unnamedanimalmod.horned_viper.hurt",
+    "sounds": [
+      {
+        "name": "unnamedanimalmod:horned_viper/hurt",
+        "streaming": true
+      }
+    ]
+  }
+}
