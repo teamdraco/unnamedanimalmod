@@ -1,35 +1,39 @@
 package mod.coda.unnamedanimalmod.entity;
 
 import mod.coda.unnamedanimalmod.init.ModEntityTypes;
-import net.minecraft.block.Blocks;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.controller.MovementController;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.entity.passive.fish.AbstractFishEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.SpawnEggItem;
-import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.pathfinding.PathNavigator;
 import net.minecraft.pathfinding.PathNodeType;
 import net.minecraft.pathfinding.SwimmerPathNavigator;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.*;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.*;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
+import net.minecraft.world.storage.loot.LootContext;
+import net.minecraft.world.storage.loot.LootParameters;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class HumpheadParrotfishEntity extends AnimalEntity {
+    private BlockPos target;
 
     public HumpheadParrotfishEntity(EntityType<? extends AnimalEntity> entity, World world) {
         super(entity, world);
@@ -89,34 +93,56 @@ public class HumpheadParrotfishEntity extends AnimalEntity {
         this.updateAir(lvt_1_1_);
     }
 
-    static class MoveHelperController extends MovementController {
-        private final HumpheadParrotfishEntity fish;
-
-        MoveHelperController(HumpheadParrotfishEntity p_i48857_1_) {
-            super(p_i48857_1_);
-            this.fish = p_i48857_1_;
+    @Override
+    public void tick() {
+        super.tick();
+        if (target == null && ticksExisted % 500 == 0) {
+            selectTarget();
         }
 
-        public void tick() {
-            if (this.fish.areEyesInFluid(FluidTags.WATER)) {
-                this.fish.setMotion(this.fish.getMotion().add(0.0D, 0.005D, 0.0D));
-            }
-            if (this.action == Action.MOVE_TO && !this.fish.getNavigator().noPath()) {
-                double lvt_1_1_ = this.posX - this.fish.getPosX();
-                double lvt_3_1_ = this.posY - this.fish.getPosY();
-                double lvt_5_1_ = this.posZ - this.fish.getPosZ();
-                double lvt_7_1_ = (double) MathHelper.sqrt(lvt_1_1_ * lvt_1_1_ + lvt_3_1_ * lvt_3_1_ + lvt_5_1_ * lvt_5_1_);
-                lvt_3_1_ /= lvt_7_1_;
-                float lvt_9_1_ = (float)(MathHelper.atan2(lvt_5_1_, lvt_1_1_) * 57.2957763671875D) - 90.0F;
-                this.fish.rotationYaw = this.limitAngle(this.fish.rotationYaw, lvt_9_1_, 90.0F);
-                this.fish.renderYawOffset = this.fish.rotationYaw;
-                float lvt_10_1_ = (float)(this.speed * this.fish.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getValue());
-                this.fish.setAIMoveSpeed(MathHelper.lerp(0.125F, this.fish.getAIMoveSpeed(), lvt_10_1_));
-                this.fish.setMotion(this.fish.getMotion().add(0.0D, (double)this.fish.getAIMoveSpeed() * lvt_3_1_ * 0.1D, 0.0D));
-            } else {
-                this.fish.setAIMoveSpeed(0.0F);
-            }
+        if (target != null) {
+            if (navigator.noPath()) navigator.tryMoveToXYZ(target.getX(), target.getY(), target.getZ(), 0.3);
+            else if (getDistanceSq(target.getX(), target.getY(), target.getZ()) <= 4) breakBlock();
         }
+    }
+
+    private void breakBlock() {
+        if (eyesInWater) {
+            BlockState state = world.getBlockState(target);
+            world.playEvent(2001, target, Block.getStateId(state));
+            if (state.isSolid()) {
+                for (ItemStack drop : state.getDrops(new LootContext.Builder((ServerWorld) world).withRandom(rand).withParameter(LootParameters.POSITION, target).withParameter(LootParameters.TOOL, ItemStack.EMPTY))) {
+                    entityDropItem(drop, (float) (target.getY() - getPosY()));
+                }
+            }
+            world.removeBlock(target, false);
+        }
+    }
+
+    private void selectTarget() {
+        List<BlockPos> possible = new ArrayList<>();
+        BlockPos start = getPosition();
+        Vec3d vec3d = getPositionVec();
+        BlockPos.PooledMutable mutable = BlockPos.PooledMutable.retain(start.getX(), start.getY(), start.getZ());
+        BlockPos.getAllInBox(start.add(-16, -16, -16), start.add(16, 16, 16)).forEach(pos -> {
+            if (world.getBlockState(pos).isIn(BlockTags.CORALS)) {
+                BlockRayTraceResult rayTrace = this.world.rayTraceBlocks(new RayTraceContext(vec3d, new Vec3d(pos), RayTraceContext.BlockMode.COLLIDER, RayTraceContext.FluidMode.NONE, this));
+                if (rayTrace.getType() != RayTraceResult.Type.MISS && rayTrace.getPos().equals(pos)) {
+                    BlockPos.PooledMutable p = mutable.setPos(pos);
+                    boolean flag = world.getFluidState(p.move(Direction.DOWN)).getFluid() == Fluids.WATER;
+                    for (int i = 2; i < Direction.values().length; ++i) {
+                        flag |= world.getFluidState(p.move(Direction.values()[i])).getFluid() == Fluids.WATER;
+                        if (flag) {
+                            possible.add(pos.toImmutable());
+                            break;
+                        }
+                    }
+                }
+            }
+        });
+
+        if (!possible.isEmpty())
+            target = possible.get(rand.nextInt(possible.size()));
     }
 
     protected SoundEvent getAmbientSound() {
@@ -221,4 +247,35 @@ public class HumpheadParrotfishEntity extends AnimalEntity {
     public boolean isPushedByWater() {
         return false;
     }
+
+    static class MoveHelperController extends MovementController {
+        private final HumpheadParrotfishEntity fish;
+
+        MoveHelperController(HumpheadParrotfishEntity p_i48857_1_) {
+            super(p_i48857_1_);
+            this.fish = p_i48857_1_;
+        }
+
+        public void tick() {
+            if (this.fish.areEyesInFluid(FluidTags.WATER)) {
+                this.fish.setMotion(this.fish.getMotion().add(0.0D, 0.005D, 0.0D));
+            }
+            if (this.action == Action.MOVE_TO && !this.fish.getNavigator().noPath()) {
+                double lvt_1_1_ = this.posX - this.fish.getPosX();
+                double lvt_3_1_ = this.posY - this.fish.getPosY();
+                double lvt_5_1_ = this.posZ - this.fish.getPosZ();
+                double lvt_7_1_ = (double) MathHelper.sqrt(lvt_1_1_ * lvt_1_1_ + lvt_3_1_ * lvt_3_1_ + lvt_5_1_ * lvt_5_1_);
+                lvt_3_1_ /= lvt_7_1_;
+                float lvt_9_1_ = (float)(MathHelper.atan2(lvt_5_1_, lvt_1_1_) * 57.2957763671875D) - 90.0F;
+                this.fish.rotationYaw = this.limitAngle(this.fish.rotationYaw, lvt_9_1_, 90.0F);
+                this.fish.renderYawOffset = this.fish.rotationYaw;
+                float lvt_10_1_ = (float)(this.speed * this.fish.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getValue());
+                this.fish.setAIMoveSpeed(MathHelper.lerp(0.125F, this.fish.getAIMoveSpeed(), lvt_10_1_));
+                this.fish.setMotion(this.fish.getMotion().add(0.0D, (double)this.fish.getAIMoveSpeed() * lvt_3_1_ * 0.1D, 0.0D));
+            } else {
+                this.fish.setAIMoveSpeed(0.0F);
+            }
+        }
+    }
+
 }
