@@ -112,13 +112,13 @@ public class HumpheadParrotfishEntity extends AnimalEntity {
     private void breakBlock() {
         if (eyesInWater) {
             BlockState state = world.getBlockState(target);
-            world.playEvent(2001, target, Block.getStateId(state));
             if (state.isSolid()) {
+                world.playEvent(2001, target, Block.getStateId(state));
                 for (ItemStack drop : state.getDrops(new LootContext.Builder((ServerWorld) world).withRandom(rand).withParameter(LootParameters.POSITION, target).withParameter(LootParameters.TOOL, ItemStack.EMPTY))) {
                     entityDropItem(drop, (float) (target.getY() - getPosY()));
                 }
+                world.removeBlock(target, false);
             }
-            world.removeBlock(target, false);
         }
     }
 
