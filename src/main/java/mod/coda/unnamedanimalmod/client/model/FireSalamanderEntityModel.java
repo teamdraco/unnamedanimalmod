@@ -12,7 +12,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import java.util.Collections;
 
 @OnlyIn(Dist.CLIENT)
-public class FireSalamanderEntityModel<T extends Entity> extends AgeableModel<FireSalamanderEntity> {
+public class  FireSalamanderEntityModel<T extends Entity> extends AgeableModel<FireSalamanderEntity> {
     public ModelRenderer body;
     public ModelRenderer head;
     public ModelRenderer tail;
@@ -69,7 +69,9 @@ public class FireSalamanderEntityModel<T extends Entity> extends AgeableModel<Fi
     public void setRotationAngles(FireSalamanderEntity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         float speed = 1.5f;
         float degree = 1.0f;
-        this.body.rotateAngleY = MathHelper.cos(limbSwing * speed * 0.4F) * degree * 0.2F * limbSwingAmount;
+        this.head.rotateAngleX = headPitch * ((float)Math.PI / 180F);
+        this.head.rotateAngleY = netHeadYaw * ((float)Math.PI / 180F);
+//        this.body.rotateAngleY = MathHelper.cos(limbSwing * speed * 0.4F) * degree * 0.2F * limbSwingAmount;
         this.tail.rotateAngleY = MathHelper.cos(limbSwing * speed * 0.4F) * degree * -0.5F * limbSwingAmount;
         this.legLeft.rotateAngleY = MathHelper.cos(limbSwing * speed * 0.4F) * degree * 0.8F * limbSwingAmount - 0.2F;
         this.legRight.rotateAngleY = MathHelper.cos(limbSwing * speed * 0.4F) * degree * 0.8F * limbSwingAmount + 0.2F;

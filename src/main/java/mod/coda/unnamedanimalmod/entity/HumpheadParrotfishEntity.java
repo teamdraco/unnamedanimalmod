@@ -3,6 +3,8 @@ package mod.coda.unnamedanimalmod.entity;
 import mod.coda.unnamedanimalmod.init.ModEntityTypes;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.CoralBlock;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.controller.MovementController;
 import net.minecraft.entity.ai.goal.*;
@@ -130,7 +132,6 @@ public class HumpheadParrotfishEntity extends AnimalEntity {
                 possible.add(pos.toImmutable());
             }
         });
-
         if (!possible.isEmpty())
             target = possible.get(rand.nextInt(possible.size()));
     }
@@ -165,7 +166,7 @@ public class HumpheadParrotfishEntity extends AnimalEntity {
     @Nullable
     @Override
     public AgeableEntity createChild(AgeableEntity ageableEntity) {
-        HumpheadParrotfishEntity entity = new HumpheadParrotfishEntity(ModEntityTypes.HUMPHEAD_PARROTFISH.get(), this.world);
+        HumpheadParrotfishEntity entity = new HumpheadParrotfishEntity(ModEntityTypes.HUMPHEAD_PARROTFISH, this.world);
         entity.onInitialSpawn(this.world, this.world.getDifficultyForLocation(new BlockPos(entity)), SpawnReason.BREEDING, (ILivingEntityData)null, (CompoundNBT)null);
         return entity;
     }
@@ -194,7 +195,7 @@ public class HumpheadParrotfishEntity extends AnimalEntity {
         Item item = heldItem.getItem();
 
         if (item instanceof SpawnEggItem && ((SpawnEggItem) item).hasType(heldItem.getTag(), this.getType())) {
-            HumpheadParrotfishEntity child = ModEntityTypes.HUMPHEAD_PARROTFISH.get().create(world);
+            HumpheadParrotfishEntity child = ModEntityTypes.HUMPHEAD_PARROTFISH.create(world);
             if (child != null) {
                 child.setGrowingAge(-24000);
                 child.setLocationAndAngles(this.getPosX(), this.getPosY(), this.getPosZ(), 0.0F, 0.0F);
@@ -222,6 +223,11 @@ public class HumpheadParrotfishEntity extends AnimalEntity {
             this.ageUp((int) (this.getGrowingAge() / -20.0 * 0.1), true);
             return true;
         }
+        if (Block.getBlockFromItem(heldItem.getItem()) instanceof CoralBlock) {
+            entityDropItem(Items.SAND);
+            heldItem.shrink(1);
+            return true;
+        }
         return false;
     }
 
@@ -231,7 +237,7 @@ public class HumpheadParrotfishEntity extends AnimalEntity {
 
     @Override
     public boolean isBreedingItem(ItemStack stack) {
-        return Block.getBlockFromItem(stack.getItem()).isIn(BlockTags.CORAL_BLOCKS);
+        return Block.getBlockFromItem(stack.getItem()).isIn(BlockTags.CORAL_PLANTS);
     }
 
     public boolean isPushedByWater() {

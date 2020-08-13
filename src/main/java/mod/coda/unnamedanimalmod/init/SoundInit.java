@@ -15,4 +15,7 @@ public class SoundInit {
     public static final RegistryObject<SoundEvent> HORNED_VIPER_HURT = SOUNDS.register("horned_viper.hurt", () -> new SoundEvent(new ResourceLocation(Main.MOD_ID, "horned_viper.hurt")));
     public static final RegistryObject<SoundEvent> HORNED_VIPER_AMBIENT = SOUNDS.register("horned_viper.ambient", () -> new SoundEvent(new ResourceLocation(Main.MOD_ID, "horned_viper.ambient")));
 
+    public static final RegistryObject<SoundEvent> MUSK_OX_DEATH = SOUNDS.register("musk_ox.death", () -> new SoundEvent(new ResourceLocation(Main.MOD_ID, "musk_ox.death")));
+    public static final RegistryObject<SoundEvent> MUSK_OX_HURT = SOUNDS.register("musk_ox.hurt", () -> new SoundEvent(new ResourceLocation(Main.MOD_ID, "musk_ox.hurt")));
+    public static final RegistryObject<SoundEvent> MUSK_OX_AMBIENT = SOUNDS.register("musk_ox.ambient", () -> new SoundEvent(new ResourceLocation(Main.MOD_ID, "musk_ox.ambient")));
 }

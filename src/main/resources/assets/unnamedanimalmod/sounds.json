@@ -25,5 +25,32 @@
         "streaming": true
       }
     ]
+  },
+  "musk_ox.ambient": {
+    "subtitle": "unnamedanimalmod.musk_ox.ambient",
+    "sounds": [
+      {
+        "name": "unnamedanimalmod:musk_ox/ambient",
+        "streaming": true
+      }
+    ]
+  },
+  "musk_ox.death": {
+    "subtitle": "unnamedanimalmod.musk_ox.death",
+    "sounds": [
+      {
+        "name": "unnamedanimalmod:musk_ox/death",
+        "streaming": true
+      }
+    ]
+  },
+  "musk_ox.hurt": {
+    "subtitle": "unnamedanimalmod.musk_ox.hurt",
+    "sounds": [
+      {
+        "name": "unnamedanimalmod:musk_ox/hurt",
+        "streaming": true
+      }
+    ]
   }
 }

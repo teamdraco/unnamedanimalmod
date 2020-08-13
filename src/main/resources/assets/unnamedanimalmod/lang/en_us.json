@@ -1,13 +1,28 @@
 {
-  "entity.unnamedanimalmod.fire_salamander_entity": "Fire Salamander",
-  "entity.unnamedanimalmod.horned_viper_entity": "Horned Viper",
-  "entity.unnamedanimalmod..humphead_parrotfish_entity": "Humphead Parrotfish",
+  "entity.unnamedanimalmod.fire_salamander": "Fire Salamander",
+  "entity.unnamedanimalmod.horned_viper": "Horned Viper",
+  "entity.unnamedanimalmod.humphead_parrotfish": "Humphead Parrotfish",
+  "entity.unnamedanimalmod.musk_ox": "Musk Ox",
 
   "item.unnamedanimalmod.fire_salamander_spawn_egg": "Fire Salamander Spawn Egg",
   "item.unnamedanimalmod.horned_viper_spawn_egg": "Horned Viper Spawn Egg",
   "item.unnamedanimalmod.humphead_parrotfish_spawn_egg": "Humphead Parrotfish Spawn Egg",
+  "item.unnamedanimalmod.pig_nosed_turtle_spawn_egg": "Pig Nosed Turtle Spawn Egg",
+  "item.unnamedanimalmod.musk_ox_spawn_egg": "Musk Ox Spawn Egg",
+
+  "item.unnamedanimalmod.fire_salamander_pot": "Fire Salamander Pot",
+  "item.unnamedanimalmod.pungi": "Snake Charmer's Pungi",
+  "item.unnamedanimalmod.horned_viper_item": "Horned Viper",
+  "item.unnamedanimalmod.pig_nosed_turtle_bucket": "Pig Nosed Turtle Bucket",
+  "item.unnamedanimalmod.musk_ox_meat": "Raw Ox Shank",
+  "item.unnamedanimalmod.cooked_musk_ox_meat": "Cooked Ox Shank",
 
   "unnamedanimalmod.horned_viper.hurt": "Horned Viper hurts",
   "unnamedanimalmod.horned_viper.death":"Horned Viper dies",
-  "unnamedanimalmod.horned_viper.ambient": "Horned Viper hisses"
+  "unnamedanimalmod.horned_viper.ambient": "Horned Viper hisses",
+  "unnamedanimalmod.musk_ox.hurt": "Horned Viper hurts",
+  "unnamedanimalmod.musk_ox.death": "Horned Viper dies",
+  "unnamedanimalmod.musk_ox.ambient": "Horned Viper grunts",
+
+  "itemGroup.uam_item_group": "Unnamed Animal Mod"
 }

@@ -23,30 +23,30 @@ public class HornedViperEntityModel<T extends Entity> extends AgeableModel<Horne
     public HornedViperEntityModel() {
         this.textureWidth = 20;
         this.textureHeight = 16;
+        this.tail1 = new ModelRenderer(this, 0, 0);
+        this.tail1.setRotationPoint(0.0F, 0.0F, 6.0F);
+        this.tail1.addBox(-1.5F, -1.0F, 0.0F, 3.0F, 2.0F, 6.0F, 0.0F, 0.0F, 0.0F);
         this.neck = new ModelRenderer(this, 0, 0);
-        this.neck.setRotationPoint(0.0F, 0.0F, -3.0F);
-        this.neck.addBox(-1.5F, -1.0F, -6.0F, 3.0F, 2.0F, 6.0F, 0.0F, 0.0F, 0.0F);
+        this.neck.setRotationPoint(0.0F, 0.0F, 0.0F);
+        this.neck.addBox(-1.5F, -1.0F, 0.0F, 3.0F, 2.0F, 6.0F, 0.0F, 0.0F, 0.0F);
         this.head = new ModelRenderer(this, 0, 8);
-        this.head.setRotationPoint(0.0F, 0.0F, -6.0F);
+        this.head.setRotationPoint(0.0F, 23.0F, -8.0F);
         this.head.addBox(-2.0F, -1.0F, -4.0F, 4.0F, 2.0F, 4.0F, 0.0F, 0.0F, 0.0F);
         this.horns = new ModelRenderer(this, 0, 0);
         this.horns.setRotationPoint(0.0F, -1.0F, -2.0F);
         this.horns.addBox(-1.0F, -1.0F, -1.0F, 2.0F, 1.0F, 1.0F, 0.0F, 0.0F, 0.0F);
         this.setRotateAngle(horns, 0.2617993877991494F, 0.0F, 0.0F);
-        this.body = new ModelRenderer(this, 0, 0);
-        this.body.setRotationPoint(0.0F, 23.0F, -2.0F);
-        this.body.addBox(-1.5F, -1.0F, -3.0F, 3.0F, 2.0F, 6.0F, 0.0F, 0.0F, 0.0F);
-        this.tail1 = new ModelRenderer(this, 0, 0);
-        this.tail1.setRotationPoint(0.0F, 0.0F, 3.0F);
-        this.tail1.addBox(-1.5F, -1.0F, 0.0F, 3.0F, 2.0F, 6.0F, 0.0F, 0.0F, 0.0F);
         this.tail2 = new ModelRenderer(this, 0, 0);
         this.tail2.setRotationPoint(0.0F, 0.0F, 6.0F);
         this.tail2.addBox(-1.5F, -1.0F, 0.0F, 3.0F, 2.0F, 6.0F, 0.0F, 0.0F, 0.0F);
-        this.body.addChild(this.neck);
-        this.neck.addChild(this.head);
-        this.head.addChild(this.horns);
+        this.body = new ModelRenderer(this, 0, 0);
+        this.body.setRotationPoint(0.0F, 0.0F, 6.0F);
+        this.body.addBox(-1.5F, -1.0F, 0.0F, 3.0F, 2.0F, 6.0F, 0.0F, 0.0F, 0.0F);
         this.body.addChild(this.tail1);
+        this.head.addChild(this.neck);
+        this.head.addChild(this.horns);
         this.tail1.addChild(this.tail2);
+        this.neck.addChild(this.body);
     }
 
     @Override
@@ -56,17 +56,17 @@ public class HornedViperEntityModel<T extends Entity> extends AgeableModel<Horne
 
     @Override
     protected Iterable<ModelRenderer> getBodyParts() {
-        return ImmutableList.of(body);
+        return ImmutableList.of(head);
     }
 
     @Override
     public void setRotationAngles(HornedViperEntity entityIn, float f, float f1, float ageInTicks, float netHeadYaw, float headPitch) {
         float speed = 1.5f;
-        float degree = 1.0f;
-        this.body.rotateAngleY = MathHelper.cos(f * speed * 0.4F) * degree * 0.4F * f1;
-        this.neck.rotateAngleY = MathHelper.cos(f * speed * 0.4F) * degree * -0.8F * f1;
-        this.head.rotateAngleY = MathHelper.cos(f * speed * 0.4F) * degree * 0.8F * f1;
-        this.tail1.rotateAngleY = MathHelper.cos(f * speed * 0.4F) * degree * -0.8F * f1;
+        float degree = 1.5f;
+        this.body.rotateAngleY = MathHelper.cos(f * speed * 0.3F) * degree * -0.8F * f1;
+        this.neck.rotateAngleY = MathHelper.cos(f * speed * 0.3F) * degree * 0.8F * f1;
+        this.head.rotateAngleY = MathHelper.cos(2.0F + f * speed * 0.3F) * degree * 0.3F * f1;
+        this.tail1.rotateAngleY = MathHelper.cos(f * speed * 0.4F) * degree * 0.8F * f1;
         this.tail2.rotateAngleY = MathHelper.cos(f * speed * 0.4F) * degree * -0.8F * f1;
     }
 
