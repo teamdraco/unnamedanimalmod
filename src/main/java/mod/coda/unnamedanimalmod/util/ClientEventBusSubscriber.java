@@ -22,5 +22,6 @@ public class ClientEventBusSubscriber {
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.HUMPHEAD_PARROTFISH, HumpheadParrotfishEntityRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.PIG_NOSED_TURTLE, PigNosedTurtleEntityRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.MUSK_OX, MuskOxEntityRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.PACMAN_FROG, PacmanFrogEntityRenderer::new);
     }
 }

@@ -39,7 +39,6 @@ public class MuskOxEntity extends AnimalEntity {
         this.goalSelector.addGoal(5, new WaterAvoidingRandomWalkingGoal(this, 1.0D));
         this.goalSelector.addGoal(6, new LookAtGoal(this, PlayerEntity.class, 6.0F));
         this.goalSelector.addGoal(7, new LookRandomlyGoal(this));
-
         this.targetSelector.addGoal(1, new MuskOxEntity.HurtByTargetGoal());
         this.targetSelector.addGoal(1, new MuskOxEntity.AttackWolfGoal());
     }
@@ -68,7 +67,6 @@ public class MuskOxEntity extends AnimalEntity {
                         }
                     }
                 }
-
                 return false;
             }
         }
@@ -82,23 +80,18 @@ public class MuskOxEntity extends AnimalEntity {
             super(MuskOxEntity.this);
         }
 
-        /**
-         * Execute a one shot task or start executing a continuous task
-         */
         public void startExecuting() {
             super.startExecuting();
             if (MuskOxEntity.this.isChild()) {
                 this.alertOthers();
                 this.resetTask();
             }
-
         }
 
         protected void setAttackTarget(MobEntity mobIn, LivingEntity targetIn) {
             if (mobIn instanceof MuskOxEntity && !mobIn.isChild()) {
                 super.setAttackTarget(mobIn, targetIn);
             }
-
         }
     }
 

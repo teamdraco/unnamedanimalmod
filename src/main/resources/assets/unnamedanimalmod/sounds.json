@@ -52,5 +52,32 @@
         "streaming": true
       }
     ]
+  },
+  "pacman_frog.ambient": {
+    "subtitle": "unnamedanimalmod.pacman_frog.ambient",
+    "sounds": [
+      {
+        "name": "unnamedanimalmod:pacman_frog/ambient",
+        "streaming": true
+      }
+    ]
+  },
+  "pacman_frog.death": {
+    "subtitle": "unnamedanimalmod.pacman_frog.death",
+    "sounds": [
+      {
+        "name": "unnamedanimalmod:pacman_frog/death",
+        "streaming": true
+      }
+    ]
+  },
+  "pacman_frog.hurt": {
+    "subtitle": "unnamedanimalmod.pacman_frog.hurt",
+    "sounds": [
+      {
+        "name": "unnamedanimalmod:pacman_frog/hurt",
+        "streaming": true
+      }
+    ]
   }
 }

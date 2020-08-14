@@ -55,6 +55,12 @@ public class Main {
 
             Biomes.SWAMP.getSpawns(EntityClassification.WATER_CREATURE).add(new Biome.SpawnListEntry(ModEntityTypes.PIG_NOSED_TURTLE, 2, 2, 2));
             EntitySpawnPlacementRegistry.register(ModEntityTypes.PIG_NOSED_TURTLE, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, PigNosedTurtleEntity::canAnimalSpawn);
+
+            Biomes.JUNGLE.getSpawns(EntityClassification.CREATURE).add(new Biome.SpawnListEntry(ModEntityTypes.PACMAN_FROG, 3, 2, 4));
+            EntitySpawnPlacementRegistry.register(ModEntityTypes.PACMAN_FROG, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AnimalEntity::canAnimalSpawn);
+
+            Biomes.SNOWY_TUNDRA.getSpawns(EntityClassification.CREATURE).add(new Biome.SpawnListEntry(ModEntityTypes.MUSK_OX, 14, 5, 8));
+            EntitySpawnPlacementRegistry.register(ModEntityTypes.MUSK_OX, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AnimalEntity::canAnimalSpawn);
     }
 
     private void doClientStuff(final FMLCommonSetupEvent event) {

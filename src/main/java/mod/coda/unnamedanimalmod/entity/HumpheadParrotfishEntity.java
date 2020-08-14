@@ -100,7 +100,7 @@ public class HumpheadParrotfishEntity extends AnimalEntity {
         super.tick();
 
         if (!world.isRemote) {
-            if (target == null && ticksExisted % 500 == 0) {
+            if (target == null && ticksExisted % 12000 == 0) {
                 selectTarget();
             }
 
@@ -273,5 +273,4 @@ public class HumpheadParrotfishEntity extends AnimalEntity {
             }
         }
     }
-
 }
