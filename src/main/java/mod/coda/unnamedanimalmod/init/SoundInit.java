@@ -22,4 +22,13 @@ public class SoundInit {
     public static final RegistryObject<SoundEvent> PACMAN_FROG_DEATH = SOUNDS.register("pacman_frog.death", () -> new SoundEvent(new ResourceLocation(Main.MOD_ID, "pacman_frog.death")));
     public static final RegistryObject<SoundEvent> PACMAN_FROG_HURT = SOUNDS.register("pacman_frog.hurt", () -> new SoundEvent(new ResourceLocation(Main.MOD_ID, "pacman_frog.hurt")));
     public static final RegistryObject<SoundEvent> PACMAN_FROG_AMBIENT = SOUNDS.register("pacman_frog.ambient", () -> new SoundEvent(new ResourceLocation(Main.MOD_ID, "pacman_frog.ambient")));
+
+    public static final RegistryObject<SoundEvent> SNOW_LEOPARD_DEATH = SOUNDS.register("snow_leopard.death", () -> new SoundEvent(new ResourceLocation(Main.MOD_ID, "snow_leopard.death")));
+    public static final RegistryObject<SoundEvent> SNOW_LEOPARD_HURT = SOUNDS.register("snow_leopard.hurt", () -> new SoundEvent(new ResourceLocation(Main.MOD_ID, "snow_leopard.hurt")));
+    public static final RegistryObject<SoundEvent> SNOW_LEOPARD_AMBIENT = SOUNDS.register("snow_leopard.ambient", () -> new SoundEvent(new ResourceLocation(Main.MOD_ID, "snow_leopard.ambient")));
+
+    public static final RegistryObject<SoundEvent> HUMPBACK_WHALE_DEATH = SOUNDS.register("humpback_whale.death", () -> new SoundEvent(new ResourceLocation(Main.MOD_ID, "humpback_whale.death")));
+    public static final RegistryObject<SoundEvent> HUMPBACK_WHALE_HURT = SOUNDS.register("humpback_whale.hurt", () -> new SoundEvent(new ResourceLocation(Main.MOD_ID, "humpback_whale.hurt")));
+    public static final RegistryObject<SoundEvent> HUMPBACK_WHALE_AMBIENT = SOUNDS.register("humpback_whale.ambient", () -> new SoundEvent(new ResourceLocation(Main.MOD_ID, "humpback_whale.ambient")));
+    public static final RegistryObject<SoundEvent> HUMPBACK_WHALE_SONG = SOUNDS.register("humpback_whale.song", () -> new SoundEvent(new ResourceLocation(Main.MOD_ID, "humpback_whale.song")));
 }

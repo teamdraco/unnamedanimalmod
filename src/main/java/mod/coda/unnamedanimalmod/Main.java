@@ -10,6 +10,7 @@ import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntitySpawnPlacementRegistry;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.passive.AnimalEntity;
+import net.minecraft.entity.passive.fish.AbstractFishEntity;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.biome.Biome;
@@ -47,20 +48,26 @@ public class Main {
             Biomes.DARK_FOREST.getSpawns(EntityClassification.CREATURE).add(new Biome.SpawnListEntry(ModEntityTypes.FIRE_SALAMANDER, 30, 1, 2));
             EntitySpawnPlacementRegistry.register(ModEntityTypes.FIRE_SALAMANDER, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING, AnimalEntity::canAnimalSpawn);
 
-            Biomes.DESERT.getSpawns(EntityClassification.CREATURE).add(new Biome.SpawnListEntry(ModEntityTypes.HORNED_VIPER, 30, 1, 1));
+            Biomes.DESERT.getSpawns(EntityClassification.CREATURE).add(new Biome.SpawnListEntry(ModEntityTypes.HORNED_VIPER, 14, 1, 1));
             EntitySpawnPlacementRegistry.register(ModEntityTypes.HORNED_VIPER, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING, HornedViperEntity::canViperSpawn);
 
             Biomes.WARM_OCEAN.getSpawns(EntityClassification.WATER_CREATURE).add(new Biome.SpawnListEntry(ModEntityTypes.HUMPHEAD_PARROTFISH, 30, 2, 5));
-            EntitySpawnPlacementRegistry.register(ModEntityTypes.HUMPHEAD_PARROTFISH, EntitySpawnPlacementRegistry.PlacementType.IN_WATER, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, HumpheadParrotfishEntity::canFishSpawn);
+//            EntitySpawnPlacementRegistry.register(ModEntityTypes.HUMPHEAD_PARROTFISH, EntitySpawnPlacementRegistry.PlacementType.IN_WATER, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, HumpheadParrotfishEntity::canFishSpawn);
 
             Biomes.SWAMP.getSpawns(EntityClassification.WATER_CREATURE).add(new Biome.SpawnListEntry(ModEntityTypes.PIG_NOSED_TURTLE, 2, 2, 2));
             EntitySpawnPlacementRegistry.register(ModEntityTypes.PIG_NOSED_TURTLE, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, PigNosedTurtleEntity::canAnimalSpawn);
 
-            Biomes.JUNGLE.getSpawns(EntityClassification.CREATURE).add(new Biome.SpawnListEntry(ModEntityTypes.PACMAN_FROG, 3, 2, 4));
-            EntitySpawnPlacementRegistry.register(ModEntityTypes.PACMAN_FROG, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AnimalEntity::canAnimalSpawn);
+            Biomes.JUNGLE.getSpawns(EntityClassification.CREATURE).add(new Biome.SpawnListEntry(ModEntityTypes.PACMAN_FROG, 700, 2, 4));
+//            EntitySpawnPlacementRegistry.register(ModEntityTypes.PACMAN_FROG, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AnimalEntity::canAnimalSpawn);
 
-            Biomes.SNOWY_TUNDRA.getSpawns(EntityClassification.CREATURE).add(new Biome.SpawnListEntry(ModEntityTypes.MUSK_OX, 14, 5, 8));
+            Biomes.SNOWY_TUNDRA.getSpawns(EntityClassification.CREATURE).add(new Biome.SpawnListEntry(ModEntityTypes.MUSK_OX, 5, 5, 8));
             EntitySpawnPlacementRegistry.register(ModEntityTypes.MUSK_OX, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AnimalEntity::canAnimalSpawn);
+
+            Biomes.RIVER.getSpawns(EntityClassification.WATER_CREATURE).add(new Biome.SpawnListEntry(ModEntityTypes.BLACK_DIAMOND_STINGRAY, 1, 1, 2));
+//            EntitySpawnPlacementRegistry.register(ModEntityTypes.BLACK_DIAMOND_STINGRAY, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AbstractFishEntity::func_223363_b);
+
+            Biomes.SNOWY_MOUNTAINS.getSpawns(EntityClassification.CREATURE).add(new Biome.SpawnListEntry(ModEntityTypes.SNOW_LEOPARD, 5, 1, 1));
+            EntitySpawnPlacementRegistry.register(ModEntityTypes.SNOW_LEOPARD, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AnimalEntity::canAnimalSpawn);
     }
 
     private void doClientStuff(final FMLCommonSetupEvent event) {

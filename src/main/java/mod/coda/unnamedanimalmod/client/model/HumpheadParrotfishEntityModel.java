@@ -90,7 +90,7 @@ public class HumpheadParrotfishEntityModel<T extends Entity> extends AgeableMode
         this.finTail.rotateAngleY = MathHelper.cos(f * speed * 0.4F) * degree * -0.4F * f1;
         this.finBottomLeft.rotateAngleZ = MathHelper.cos(f * speed * 0.4F) * degree * 0.4F * f1 - 0.5f;
         this.finBottomRight.rotateAngleZ = MathHelper.cos(f * speed * 0.4F) * degree * -0.4F * f1 + 0.5f;
-        this.finPectoralLeft.rotateAngleZ = MathHelper.cos(2.0F + 20 * speed * 0.4F) * degree * 0.4F * f1 + 0.4F;
+        this.finPectoralLeft.rotateAngleZ = MathHelper.cos(2.0F + 20 * speed * 0.4F) * 1.2F * 0.4F * f1 + 0.4F;
         this.finPectoralRight.rotateAngleZ = MathHelper.cos(2.0F + 20 * speed * 0.4F) * degree * -0.4F * f1 - 0.4F;
     }
 }

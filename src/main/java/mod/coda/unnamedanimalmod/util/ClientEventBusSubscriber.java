@@ -2,7 +2,6 @@ package mod.coda.unnamedanimalmod.util;
 
 import mod.coda.unnamedanimalmod.Main;
 import mod.coda.unnamedanimalmod.client.render.*;
-import mod.coda.unnamedanimalmod.entity.PigNosedTurtleEntity;
 import mod.coda.unnamedanimalmod.init.ModEntityTypes;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -23,5 +22,9 @@ public class ClientEventBusSubscriber {
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.PIG_NOSED_TURTLE, PigNosedTurtleEntityRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.MUSK_OX, MuskOxEntityRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.PACMAN_FROG, PacmanFrogEntityRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.BLACK_DIAMOND_STINGRAY, BlackDiamondStingrayRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.SNOW_LEOPARD, SnowLeopardRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.ELEPHANTNOSE_FISH, ElephantnoseFishEntityRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.HUMPBACK_WHALE, HumpbackWhaleEntityRenderer::new);
     }
 }

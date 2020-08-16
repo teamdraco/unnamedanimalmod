@@ -5,6 +5,6 @@ modId="unnamedanimalmod" #mandatory
 version="${file.jarVersion}" #mandatory
 displayName="Unnamed Animal Mod" #mandatory
 logoFile="logo.png" #optional
-credits="Coda, Tazz, Ash, HoboJoe, Proddyd" #optional
+credits="Coda, Tazz, Ash, HoboJoe, Proddy" #optional
 description='''
 A mod adding more wildlife to Minecraft.'''

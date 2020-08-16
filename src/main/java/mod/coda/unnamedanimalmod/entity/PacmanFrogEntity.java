@@ -9,20 +9,18 @@ import net.minecraft.entity.ai.controller.JumpController;
 import net.minecraft.entity.ai.controller.MovementController;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.entity.passive.RabbitEntity;
+import net.minecraft.entity.passive.fish.AbstractFishEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.SpawnEggItem;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.pathfinding.GroundPathNavigator;
 import net.minecraft.pathfinding.Path;
 import net.minecraft.pathfinding.PathNavigator;
 import net.minecraft.pathfinding.SwimmerPathNavigator;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.*;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
@@ -138,13 +136,9 @@ public class PacmanFrogEntity extends AnimalEntity {
 
     @OnlyIn(Dist.CLIENT)
     public float getJumpCompletion(float p_175521_1_) {
-        if (this.isChild()) {
-        return this.jumpDuration == 0 ? 0.0F : ((float)this.jumpTicks + p_175521_1_) / (float)this.jumpDuration;
-        }
-        else {
-            return 0.0f;
-        }
+        return this.jumpDuration == 0 ? 0.0F : ((float) this.jumpTicks + p_175521_1_) / (float) this.jumpDuration;
     }
+
 
     public void setMovementSpeed(double newSpeed) {
         this.getNavigator().setSpeed(newSpeed);
@@ -237,9 +231,9 @@ public class PacmanFrogEntity extends AnimalEntity {
         }
         if (this.isBreedingItem(heldItem)) {
             if (this.getGrowingAge() == 0 && this.canBreed()) {
-                this.consumeItemFromStack(player, heldItem);
                 this.setInLove(player);
                 player.swing(hand, true);
+                heldItem.shrink(1);
             }
             return true;
         }
@@ -303,15 +297,34 @@ public class PacmanFrogEntity extends AnimalEntity {
     }
 
     protected SoundEvent getAmbientSound() {
-        return SoundInit.PACMAN_FROG_AMBIENT.get();
+        if(!this.isChild()) {
+            return SoundInit.PACMAN_FROG_AMBIENT.get();
+        }
+        else {
+            return SoundEvents.ENTITY_COD_AMBIENT;
+        }
+    }
+
+    protected float getSoundVolume() {
+        return 0.3F;
     }
 
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        return SoundInit.PACMAN_FROG_HURT.get();
+        if(!this.isChild()) {
+            return SoundInit.PACMAN_FROG_HURT.get();
+        }
+        else {
+            return SoundEvents.ENTITY_COD_HURT;
+        }
     }
 
     protected SoundEvent getDeathSound() {
-        return SoundInit.PACMAN_FROG_DEATH.get();
+        if(!this.isChild()) {
+            return SoundInit.PACMAN_FROG_DEATH.get();
+        }
+        else {
+            return SoundEvents.ENTITY_COD_DEATH;
+        }
     }
 
     protected SoundEvent getFlopSound() {
@@ -446,30 +459,31 @@ public class PacmanFrogEntity extends AnimalEntity {
         }
 
         public void tick() {
-            if (this.frog.areEyesInFluid(FluidTags.WATER) && frog.isChild()) {
+            if (this.frog.areEyesInFluid(FluidTags.WATER)) {
                 this.frog.setMotion(this.frog.getMotion().add(0.0D, 0.005D, 0.0D));
-                if (this.action == Action.MOVE_TO && !this.frog.getNavigator().noPath()) {
-                    double lvt_1_1_ = this.posX - this.frog.getPosX();
-                    double lvt_3_1_ = this.posY - this.frog.getPosY();
-                    double lvt_5_1_ = this.posZ - this.frog.getPosZ();
-                    double lvt_7_1_ = (double) MathHelper.sqrt(lvt_1_1_ * lvt_1_1_ + lvt_3_1_ * lvt_3_1_ + lvt_5_1_ * lvt_5_1_);
-                    lvt_3_1_ /= lvt_7_1_;
-                    float lvt_9_1_ = (float) (MathHelper.atan2(lvt_5_1_, lvt_1_1_) * 57.2957763671875D) - 90.0F;
-                    this.frog.rotationYaw = this.limitAngle(this.frog.rotationYaw, lvt_9_1_, 90.0F);
-                    this.frog.renderYawOffset = this.frog.rotationYaw;
-                    float lvt_10_1_ = (float) (this.speed * this.frog.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getValue());
-                    this.frog.setAIMoveSpeed(MathHelper.lerp(0.125F, this.frog.getAIMoveSpeed(), lvt_10_1_));
-                    this.frog.setMotion(this.frog.getMotion().add(0.0D, (double) this.frog.getAIMoveSpeed() * lvt_3_1_ * 0.1D, 0.0D));
-                } else {
-                    this.frog.setAIMoveSpeed(0.0F);
-                }
+            }
+
+            if (this.action == MovementController.Action.MOVE_TO && !this.frog.getNavigator().noPath()) {
+                double d0 = this.posX - this.frog.getPosX();
+                double d1 = this.posY - this.frog.getPosY();
+                double d2 = this.posZ - this.frog.getPosZ();
+                double d3 = (double)MathHelper.sqrt(d0 * d0 + d1 * d1 + d2 * d2);
+                d1 = d1 / d3;
+                float f = (float)(MathHelper.atan2(d2, d0) * (double)(180F / (float)Math.PI)) - 90.0F;
+                this.frog.rotationYaw = this.limitAngle(this.frog.rotationYaw, f, 90.0F);
+                this.frog.renderYawOffset = this.frog.rotationYaw;
+                float f1 = (float)(this.speed * this.frog.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getValue());
+                this.frog.setAIMoveSpeed(MathHelper.lerp(0.125F, this.frog.getAIMoveSpeed(), f1));
+                this.frog.setMotion(this.frog.getMotion().add(0.0D, (double)this.frog.getAIMoveSpeed() * d1 * 0.1D, 0.0D));
+            } else {
+                this.frog.setAIMoveSpeed(0.0F);
             }
         }
     }
 
     @Override
     public void travel(Vec3d p_213352_1_) {
-        if (this.isServerWorld() && this.isChild() && this.isInWater()) {
+        if (this.isServerWorld() && this.isInWater()) {
             this.moveRelative(0.01F, p_213352_1_);
             this.move(MoverType.SELF, this.getMotion());
             this.setMotion(this.getMotion().scale(0.9D));

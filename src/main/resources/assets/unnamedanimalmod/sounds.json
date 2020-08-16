@@ -79,5 +79,68 @@
         "streaming": true
       }
     ]
+  },
+  "snow_leopard.ambient": {
+    "subtitle": "unnamedanimalmod.snow_leopard.ambient",
+    "sounds": [
+      {
+        "name": "unnamedanimalmod:snow_leopard/ambient",
+        "streaming": true
+      }
+    ]
+  },
+  "snow_leopard.death": {
+    "subtitle": "unnamedanimalmod.snow_leopard.death",
+    "sounds": [
+      {
+        "name": "unnamedanimalmod:snow_leopard/death",
+        "streaming": true
+      }
+    ]
+  },
+  "snow_leopard.hurt": {
+    "subtitle": "unnamedanimalmod.snow_leopard.hurt",
+    "sounds": [
+      {
+        "name": "unnamedanimalmod:snow_leopard/hurt",
+        "streaming": true
+      }
+    ]
+  },
+  "humpback_whale.ambient": {
+    "subtitle": "unnamedanimalmod.humpback_whale.ambient",
+    "sounds": [
+      {
+        "name": "unnamedanimalmod:humpback_whale/ambient",
+        "streaming": true
+      }
+    ]
+  },
+  "humpback_whale.death": {
+    "subtitle": "unnamedanimalmod.humpback_whale.death",
+    "sounds": [
+      {
+        "name": "unnamedanimalmod:humpback_whale/death",
+        "streaming": true
+      }
+    ]
+  },
+  "humpback_whale.hurt": {
+    "subtitle": "unnamedanimalmod.humpback_whale.hurt",
+    "sounds": [
+      {
+        "name": "unnamedanimalmod:humpback_whale/hurt",
+        "streaming": true
+      }
+    ]
+  },
+  "humpback_whale.song": {
+    "subtitle": "unnamedanimalmod.humpback_whale.song",
+    "sounds": [
+      {
+        "name": "unnamedanimalmod:humpback_whale/song",
+        "streaming": true
+      }
+    ]
   }
 }

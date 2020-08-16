@@ -73,18 +73,14 @@ public class PigNosedTurtleEntityModel<T extends Entity> extends AgeableModel<Pi
     public void setRotationAngles(PigNosedTurtleEntity entityIn, float f, float f1, float ageInTicks, float netHeadYaw, float headPitch) {
         float speed = 1.0f;
         float degree = 1.0f;
-//        f1 = 1.5f;
 
         this.head.rotateAngleX = headPitch * ((float) Math.PI / 180F);
         this.head.rotateAngleY = netHeadYaw * ((float) Math.PI / 180F);
-
-        if(entityIn.getMotion().getX() != 0 && entityIn.getMotion().getY() != 0 && entityIn.getMotion().getZ() != 0) {
-            this.body.rotateAngleY = MathHelper.cos(f * speed * 0.4F) * degree * 0.2F * f1;
-            this.armLeft.rotateAngleY = MathHelper.cos(f * speed * 0.4F) * degree * -0.4F * f1 + 0.2F;
-            this.armRight.rotateAngleY = MathHelper.cos(f * speed * 0.4F) * degree * 0.4F * f1 - 0.2F;
-            this.legLeft.rotateAngleY = MathHelper.cos(f * speed * 0.4F) * degree * 0.4F * f1 - 0.7F;
-            this.legRight.rotateAngleY = MathHelper.cos(f * speed * 0.4F) * degree * -0.4F * f1 + 0.7F;
-        }
+        this.body.rotateAngleY = MathHelper.cos(f * speed * 0.4F) * degree * 0.2F * f1;
+        this.armLeft.rotateAngleY = MathHelper.cos(f * speed * 0.4F) * degree * -0.4F * f1 + 0.2F;
+        this.armRight.rotateAngleY = MathHelper.cos(f * speed * 0.4F) * degree * 0.4F * f1 - 0.2F;
+        this.legLeft.rotateAngleY = MathHelper.cos(f * speed * 0.4F) * degree * 0.4F * f1 - 0.7F;
+        this.legRight.rotateAngleY = MathHelper.cos(f * speed * 0.4F) * degree * -0.4F * f1 + 0.7F;
     }
 
     public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z) {

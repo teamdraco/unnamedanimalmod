@@ -56,8 +56,9 @@ public class FireSalamanderEntity extends AnimalEntity {
         return this.isFromPot();
     }
 
+    @Override
     public boolean canDespawn(double distanceToClosestPlayer) {
-        return !this.isFromPot() && !this.hasCustomName();
+        return false;
     }
 
     protected void registerData() {

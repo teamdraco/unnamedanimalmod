@@ -40,12 +40,13 @@ public abstract class PacmanFrogEntityModel<T extends Entity> extends SegmentedM
         if(this.isChild) {
 
         } else {
+            this.jumpRotation = MathHelper.sin(entityIn.getJumpCompletion(f) * (float)Math.PI);
             this.head.rotateAngleX = headPitch * ((float) Math.PI / 180F);
             this.head.rotateAngleY = netHeadYaw * ((float) Math.PI / 180F);
             this.backlegleft.rotateAngleX = this.jumpRotation * 50.0F * ((float) Math.PI / 180F);
             this.backlegright.rotateAngleX = this.jumpRotation * 50.0F * ((float) Math.PI / 180F);
-            this.frontlegleft.rotateAngleX = (this.jumpRotation * -40.0F - 11.0F) * ((float) Math.PI / 180F);
-            this.frontlegright.rotateAngleX = (this.jumpRotation * -40.0F - 11.0F) * ((float) Math.PI / 180F);
+            this.frontlegleft.rotateAngleX = (this.jumpRotation * -40.0F - 11.0F) * ((float)Math.PI / 180F);
+            this.frontlegright.rotateAngleX = (this.jumpRotation * -40.0F - 11.0F) * ((float)Math.PI / 180F);
         }
     }
 

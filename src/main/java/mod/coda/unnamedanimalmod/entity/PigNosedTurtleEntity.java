@@ -34,6 +34,7 @@ public class PigNosedTurtleEntity extends AnimalEntity {
     public PigNosedTurtleEntity(EntityType<? extends AnimalEntity> type, World worldIn) {
         super(type, worldIn);
         this.moveController =  new PigNosedTurtleEntity.MoveHelperController(this);
+        this.stepHeight = 1.0f;
     }
 
     @Override
@@ -117,8 +118,8 @@ public class PigNosedTurtleEntity extends AnimalEntity {
             }
             return true;
         }
-        if (heldItem.getItem() == Items.WATER_BUCKET && this.isAlive()) {
-            playSound(SoundEvents.ITEM_BUCKET_FILL_FISH, 1.0F, 1.0F);
+        if (heldItem.getItem() == Items.BUCKET && this.isAlive()) {
+            playSound(SoundEvents.ENTITY_ITEM_FRAME_ADD_ITEM, 1.0F, 1.0F);
             heldItem.shrink(1);
             ItemStack itemstack1 = new ItemStack(ItemInit.PIG_NOSED_TURTLE_BUCKET.get());
             if (!this.world.isRemote) {
@@ -152,7 +153,7 @@ public class PigNosedTurtleEntity extends AnimalEntity {
     }
 
     public boolean canDespawn(double distanceToClosestPlayer) {
-        return !this.isFromBucket() && !this.hasCustomName();
+        return !this.isFromBucket() || !this.hasCustomName();
     }
 
     protected void registerData() {

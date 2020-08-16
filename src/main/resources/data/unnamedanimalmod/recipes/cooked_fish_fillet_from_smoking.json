@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smoking",
+  "ingredient": {
+    "item": "unnamedanimalmod:fish_fillet"
+  },
+  "result": "unnamedanimalmod:cooked_fish_fillet",
+  "experience": 0.35,
+  "cookingtime": 100
+}
