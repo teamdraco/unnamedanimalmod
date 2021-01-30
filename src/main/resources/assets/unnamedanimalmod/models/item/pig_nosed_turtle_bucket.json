@@ -1,6 +1,0 @@
-{
-  "parent": "item/generated",
-  "textures": {
-    "layer0": "unnamedanimalmod:item/pig_nosed_turtle_bucket"
-  }
-}
