@@ -4,6 +4,7 @@ import com.google.common.collect.Sets;
 import mod.coda.unnamedanimalmod.init.UAMItems;
 import mod.coda.unnamedanimalmod.pathfinding.GroundAndSwimmerNavigator;
 import net.minecraft.entity.*;
+import net.minecraft.entity.ai.RandomPositionGenerator;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.controller.JumpController;
@@ -14,10 +15,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.pathfinding.GroundPathNavigator;
 import net.minecraft.pathfinding.Path;
 import net.minecraft.pathfinding.PathNavigator;
-import net.minecraft.pathfinding.SwimmerPathNavigator;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.*;
 import net.minecraft.util.math.MathHelper;
@@ -34,8 +33,7 @@ import java.util.Set;
 
 public class TomatoFrogEntity extends AnimalEntity {
     private final Goal panicGoal = new PanicGoal(this, 1.25D);
-    private final Goal tadpoleSwimGoal = new TomatoFrogEntity.TadpoleSwimGoal(this);
-    private final Goal swimGoal = new SwimGoal(this);
+    private Goal swimGoal;
     private int jumpTicks;
     private int jumpDuration;
     private boolean wasOnGround;
@@ -43,27 +41,17 @@ public class TomatoFrogEntity extends AnimalEntity {
 
     public TomatoFrogEntity(EntityType<? extends TomatoFrogEntity> type, World world) {
         super(type, world);
-        if (!this.isChild()) {
-            this.moveController = new TomatoFrogEntity.AdultMoveHelperController(this);
-            this.jumpController = new TomatoFrogEntity.JumpHelperController(this);
-        } else {
-            this.moveController = new TomatoFrogEntity.ChildMoveHelperController(this);
-        }
-        if(this.isChild()) {
-            this.stepHeight = 1.0f;
-        }
-        else {
-            this.stepHeight = 0.0f;
-        }
+        this.jumpController = new JumpHelperController(this);
+        this.moveController = new FrogMoveController(this);
+        this.stepHeight = 0;
     }
 
     @Override
     protected void registerGoals() {
-        //this.goalSelector.addGoal(0, new SwimGoal(this));
-        this.goalSelector.addGoal(1, new PanicGoal(this, 2.2D));
+        this.goalSelector.addGoal(0, swimGoal = new SwimGoal(this));
+        this.goalSelector.addGoal(1, new FrogMovementGoal(this));
         this.goalSelector.addGoal(2, new BreedGoal(this, 0.8D));
         this.goalSelector.addGoal(3, new TomatoFrogEntity.PlayerTemptGoal(this, 1.0D, Items.FERMENTED_SPIDER_EYE));
-        this.goalSelector.addGoal(4, new RandomWalkingGoal(this, 0.8D));
         this.goalSelector.addGoal(5, new LookAtGoal(this, PlayerEntity.class, 10.0F));
     }
 
@@ -74,13 +62,12 @@ public class TomatoFrogEntity extends AnimalEntity {
         boolean isChild = isChild();
         if (!wasChild && isChild) {
             this.goalSelector.addGoal(0, panicGoal);
-            this.goalSelector.addGoal(1, tadpoleSwimGoal);
             this.goalSelector.removeGoal(swimGoal);
-        }
-        else if (wasChild && !isChild) {
+            this.stepHeight = 1.0f;
+        } else if (wasChild && !isChild) {
             this.goalSelector.removeGoal(panicGoal);
-            this.goalSelector.removeGoal(tadpoleSwimGoal);
             this.goalSelector.addGoal(0, swimGoal);
+            this.stepHeight = 0.0f;
         }
     }
 
@@ -90,16 +77,11 @@ public class TomatoFrogEntity extends AnimalEntity {
 
     @Override
     public boolean canBreatheUnderwater() {
-        if(this.isChild()) {
-            return true;
-        }
-        else {
-            return false;
-        }
+        return this.isChild();
     }
 
     protected void updateAir(int air) {
-        if(this.isChild()) {
+        if (this.isChild()) {
             if (this.isAlive() && !this.isInWaterOrBubbleColumn()) {
                 this.setAir(air - 1);
                 if (this.getAir() == -20) {
@@ -117,7 +99,6 @@ public class TomatoFrogEntity extends AnimalEntity {
         super.baseTick();
         this.updateAir(lvt_1_1_);
     }
-
 
     protected float getJumpUpwardsMotion() {
         if (!this.collidedHorizontally && (!this.moveController.isUpdating() || !(this.moveController.getY() > this.getPosY() + 0.5D))) {
@@ -146,19 +127,13 @@ public class TomatoFrogEntity extends AnimalEntity {
         }
 
         if (!this.world.isRemote) {
-            this.world.setEntityState(this, (byte)1);
+            this.world.setEntityState(this, (byte) 1);
         }
     }
 
     @OnlyIn(Dist.CLIENT)
     public float getJumpCompletion(float p_175521_1_) {
         return this.jumpDuration == 0 ? 0.0F : ((float) this.jumpTicks + p_175521_1_) / (float) this.jumpDuration;
-    }
-
-
-    public void setMovementSpeed(double newSpeed) {
-        this.getNavigator().setSpeed(newSpeed);
-        this.moveController.setMoveTo(this.moveController.getX(), this.moveController.getY(), this.moveController.getZ(), newSpeed);
     }
 
     public void setJumping(boolean jumping) {
@@ -195,7 +170,7 @@ public class TomatoFrogEntity extends AnimalEntity {
                 }
             }
 
-            TomatoFrogEntity.JumpHelperController helperController = (TomatoFrogEntity.JumpHelperController)this.jumpController;
+            TomatoFrogEntity.JumpHelperController helperController = (TomatoFrogEntity.JumpHelperController) this.jumpController;
             if (!helperController.getIsJumping()) {
                 if (this.moveController.isUpdating() && this.currentMoveTypeDuration == 0) {
                     Path path = this.navigator.getPath();
@@ -255,43 +230,8 @@ public class TomatoFrogEntity extends AnimalEntity {
         }
     }
 
-    public class JumpHelperController extends JumpController {
-        private final TomatoFrogEntity frog;
-        private boolean canJump;
-
-        public JumpHelperController(TomatoFrogEntity frog) {
-            super(frog);
-            this.frog = frog;
-        }
-
-        public boolean getIsJumping() {
-            return this.isJumping;
-        }
-
-        public boolean canJump() {
-            return this.canJump;
-        }
-
-        public void setCanJump(boolean canJumpIn) {
-            this.canJump = canJumpIn;
-        }
-
-        public void tick() {
-            if (this.isJumping) {
-                this.frog.startJumping();
-                this.isJumping = false;
-            }
-
-        }
-    }
-
     protected SoundEvent getAmbientSound() {
-        if(!this.isChild()) {
-            return SoundEvents.ENTITY_COD_AMBIENT; //UAMSounds.Tomato_FROG_AMBIENT.get();
-        }
-        else {
-            return SoundEvents.ENTITY_COD_AMBIENT;
-        }
+        return this.isChild() ? SoundEvents.ENTITY_COD_AMBIENT /*UAMSounds.FROG_AMBIENT.get(); */ : SoundEvents.ENTITY_COD_AMBIENT;
     }
 
     protected float getSoundVolume() {
@@ -299,21 +239,11 @@ public class TomatoFrogEntity extends AnimalEntity {
     }
 
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        if(!this.isChild()) {
-            return SoundEvents.ENTITY_COD_HURT; //UAMSounds.FROG_HURT.get();
-        }
-        else {
-            return SoundEvents.ENTITY_COD_HURT;
-        }
+        return this.isChild() ? SoundEvents.ENTITY_COD_HURT /*UAMSounds.FROG_HURT.get(); */ : SoundEvents.ENTITY_COD_HURT;
     }
 
     protected SoundEvent getDeathSound() {
-        if(!this.isChild()) {
-            return SoundEvents.ENTITY_COD_DEATH; //UAMSounds.FROG_DEATH.get();
-        }
-        else {
-            return SoundEvents.ENTITY_COD_DEATH;
-        }
+        return this.isChild() ? SoundEvents.ENTITY_COD_DEATH /*UAMSounds.FROG_DEATH.get(); */ : SoundEvents.ENTITY_COD_DEATH;
     }
 
     protected SoundEvent getFlopSound() {
@@ -338,24 +268,19 @@ public class TomatoFrogEntity extends AnimalEntity {
     }
 
     public CreatureAttribute getCreatureAttribute() {
-        if(this.isChild()) {
-            return CreatureAttribute.WATER;
-        }
-        else {
-            return CreatureAttribute.UNDEFINED;
-        }
+        return this.isChild() ? CreatureAttribute.WATER : CreatureAttribute.UNDEFINED;
     }
 
     private void calculateRotationYaw(double x, double z) {
-        this.rotationYaw = (float)(MathHelper.atan2(z - this.getPosZ(), x - this.getPosX()) * (double)(180F / (float)Math.PI)) - 90.0F;
+        this.rotationYaw = (float) (MathHelper.atan2(z - this.getPosZ(), x - this.getPosX()) * (double) (180F / (float) Math.PI)) - 90.0F;
     }
 
     private void enableJumpControl() {
-        ((TomatoFrogEntity.JumpHelperController)this.jumpController).setCanJump(true);
+        ((TomatoFrogEntity.JumpHelperController) this.jumpController).setCanJump(true);
     }
 
     private void disableJumpControl() {
-        ((TomatoFrogEntity.JumpHelperController)this.jumpController).setCanJump(false);
+        ((TomatoFrogEntity.JumpHelperController) this.jumpController).setCanJump(false);
     }
 
     private void updateMoveTypeDuration() {
@@ -374,7 +299,7 @@ public class TomatoFrogEntity extends AnimalEntity {
     public void livingTick() {
         super.livingTick();
         if (!this.isInWater() && this.onGround && this.collidedVertically && this.isChild()) {
-            this.setMotion(this.getMotion().add((this.rand.nextFloat() * 2.0F - 1.0F) * 0.05F, 0.4000000059604645D, (double)((this.rand.nextFloat() * 2.0F - 1.0F) * 0.05F)));
+            this.setMotion(this.getMotion().add((this.rand.nextFloat() * 2.0F - 1.0F) * 0.05F, 0.4000000059604645D, (double) ((this.rand.nextFloat() * 2.0F - 1.0F) * 0.05F)));
             this.onGround = false;
             this.isAirBorne = true;
             this.playSound(this.getFlopSound(), this.getSoundVolume(), this.getSoundPitch());
@@ -388,43 +313,60 @@ public class TomatoFrogEntity extends AnimalEntity {
         }
     }
 
-    static class AdultMoveHelperController extends MovementController {
-        private final TomatoFrogEntity frog;
-        private double nextJumpSpeed;
+    @Override
+    public void travel(Vector3d p_213352_1_) {
+        if (isChild() && this.isServerWorld() && this.isInWater()) {
+            this.moveRelative(0.01F, p_213352_1_);
+            this.move(MoverType.SELF, this.getMotion());
+            this.setMotion(this.getMotion().scale(0.9D));
+            if (this.getAttackTarget() == null) {
+                this.setMotion(this.getMotion().add(0.0D, -0.005D, 0.0D));
+            }
+        } else {
+            super.travel(p_213352_1_);
+        }
+    }
 
-        public AdultMoveHelperController(TomatoFrogEntity frog) {
+    @Override
+    public ItemStack getPickedResult(RayTraceResult target) {
+        return new ItemStack(UAMItems.TOMATO_FROG_SPAWN_EGG.get());
+    }
+
+    public static class JumpHelperController extends JumpController {
+        private final TomatoFrogEntity frog;
+        private boolean canJump;
+
+        public JumpHelperController(TomatoFrogEntity frog) {
             super(frog);
             this.frog = frog;
         }
 
-        public void tick() {
-            if (this.frog.onGround && !this.frog.isJumping && !((TomatoFrogEntity.JumpHelperController)this.frog.jumpController).getIsJumping()) {
-                this.frog.setMovementSpeed(0.0D);
-            } else if (this.isUpdating()) {
-                this.frog.setMovementSpeed(this.nextJumpSpeed);
-            }
-
-            super.tick();
+        public boolean getIsJumping() {
+            return this.isJumping;
         }
 
-        public void setMoveTo(double x, double y, double z, double speedIn) {
-            if (this.frog.isInWater()) {
-                speedIn = 1.5D;
-            }
+        public boolean canJump() {
+            return this.canJump;
+        }
 
-            super.setMoveTo(x, y, z, speedIn);
-            if (speedIn > 0.0D) {
-                this.nextJumpSpeed = speedIn;
-            }
+        public void setCanJump(boolean canJumpIn) {
+            this.canJump = canJumpIn;
+        }
 
+        public void tick() {
+            if (this.isJumping) {
+                if (!frog.isChild()) {
+                    this.frog.startJumping();
+                }
+                this.isJumping = false;
+            }
         }
     }
 
-
-    static class ChildMoveHelperController extends MovementController {
+    private static class FrogMoveController extends MovementController {
         private final TomatoFrogEntity frog;
 
-        ChildMoveHelperController(TomatoFrogEntity frog) {
+        private FrogMoveController(TomatoFrogEntity frog) {
             super(frog);
             this.frog = frog;
         }
@@ -438,35 +380,21 @@ public class TomatoFrogEntity extends AnimalEntity {
                 double d0 = this.posX - this.frog.getPosX();
                 double d1 = this.posY - this.frog.getPosY();
                 double d2 = this.posZ - this.frog.getPosZ();
-                double d3 = (double)MathHelper.sqrt(d0 * d0 + d1 * d1 + d2 * d2);
+                double d3 = MathHelper.sqrt(d0 * d0 + d1 * d1 + d2 * d2);
                 d1 = d1 / d3;
-                float f = (float)(MathHelper.atan2(d2, d0) * (double)(180F / (float)Math.PI)) - 90.0F;
+                float f = (float) (MathHelper.atan2(d2, d0) * (double) (180F / (float) Math.PI)) - 90.0F;
                 this.frog.rotationYaw = this.limitAngle(this.frog.rotationYaw, f, 90.0F);
                 this.frog.renderYawOffset = this.frog.rotationYaw;
-                float f1 = (float)(this.speed * this.frog.getAttribute(Attributes.MOVEMENT_SPEED).getValue());
+                float f1 = (float) (this.speed * this.frog.getAttribute(Attributes.MOVEMENT_SPEED).getValue());
                 this.frog.setAIMoveSpeed(MathHelper.lerp(0.125F, this.frog.getAIMoveSpeed(), f1));
-                this.frog.setMotion(this.frog.getMotion().add(0.0D, (double)this.frog.getAIMoveSpeed() * d1 * 0.1D, 0.0D));
+                this.frog.setMotion(this.frog.getMotion().add(0.0D, (double) this.frog.getAIMoveSpeed() * d1 * 0.1D, 0.0D));
             } else {
                 this.frog.setAIMoveSpeed(0.0F);
             }
         }
     }
 
-    @Override
-    public void travel(Vector3d p_213352_1_) {
-        if (this.isServerWorld() && this.isInWater()) {
-            this.moveRelative(0.01F, p_213352_1_);
-            this.move(MoverType.SELF, this.getMotion());
-            this.setMotion(this.getMotion().scale(0.9D));
-            if (this.getAttackTarget() == null) {
-                this.setMotion(this.getMotion().add(0.0D, -0.005D, 0.0D));
-            }
-        } else {
-            super.travel(p_213352_1_);
-        }
-    }
-
-    static class PlayerTemptGoal extends Goal {
+    private static class PlayerTemptGoal extends Goal {
         private static final EntityPredicate field_220834_a = (new EntityPredicate()).setDistance(10.0D).allowFriendlyFire().allowInvulnerable();
         private final TomatoFrogEntity frog;
         private final double speed;
@@ -474,7 +402,7 @@ public class TomatoFrogEntity extends AnimalEntity {
         private int cooldown;
         private final Set<Item> temptItems;
 
-        PlayerTemptGoal(TomatoFrogEntity frog, double speedIn, Item temptItem) {
+        private PlayerTemptGoal(TomatoFrogEntity frog, double speedIn, Item temptItem) {
             this.frog = frog;
             this.speed = speedIn;
             this.temptItems = Sets.newHashSet(temptItem);
@@ -510,7 +438,7 @@ public class TomatoFrogEntity extends AnimalEntity {
         }
 
         public void tick() {
-            this.frog.getLookController().setLookPositionWithEntity(this.tempter, (float)(this.frog.getHorizontalFaceSpeed() + 20), (float)this.frog.getVerticalFaceSpeed());
+            this.frog.getLookController().setLookPositionWithEntity(this.tempter, (float) (this.frog.getHorizontalFaceSpeed() + 20), (float) this.frog.getVerticalFaceSpeed());
             if (this.frog.getDistanceSq(this.tempter) < 6.25D) {
                 this.frog.getNavigator().clearPath();
             } else {
@@ -519,17 +447,15 @@ public class TomatoFrogEntity extends AnimalEntity {
         }
     }
 
-    static class TadpoleSwimGoal extends RandomSwimmingGoal {
-        private final TomatoFrogEntity frog;
-
-        public TadpoleSwimGoal(TomatoFrogEntity frog) {
-            super(frog, 1.0D, 500);
-            this.frog = frog;
+    private static class FrogMovementGoal extends RandomSwimmingGoal {
+        public FrogMovementGoal(CreatureEntity creature) {
+            super(creature, 1.0D, 40);
         }
-    }
 
-    @Override
-    public ItemStack getPickedResult(RayTraceResult target) {
-        return new ItemStack(UAMItems.TOMATO_FROG_SPAWN_EGG.get());
+        @Override
+        protected Vector3d getPosition() {
+            if (!creature.isChild()) return RandomPositionGenerator.findRandomTarget(this.creature, 10, 7);
+            return super.getPosition();
+        }
     }
 }
