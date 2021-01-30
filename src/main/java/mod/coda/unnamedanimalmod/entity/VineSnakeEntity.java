@@ -42,15 +42,7 @@ public class VineSnakeEntity extends AnimalEntity {
     public ActionResultType func_230254_b_(PlayerEntity player, Hand hand) {
         ItemStack heldItem = player.getHeldItem(hand);
         Item item = heldItem.getItem();
-
-        if (this.isBreedingItem(heldItem)) {
-            if (this.getGrowingAge() == 0 && this.canBreed()) {
-                this.consumeItemFromStack(player, heldItem);
-                this.setInLove(player);
-                player.swing(hand, true);
-            }
-            return ActionResultType.SUCCESS;
-        }
+        
         if (this.isChild() && isBreedingItem(heldItem)) {
             this.consumeItemFromStack(player, heldItem);
             this.ageUp((int) (this.getGrowingAge() / -20.0 * 0.1), true);
