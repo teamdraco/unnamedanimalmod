@@ -32,7 +32,6 @@ import java.util.EnumSet;
 import java.util.Set;
 
 public class TomatoFrogEntity extends AnimalEntity {
-    private final Goal panicGoal = new PanicGoal(this, 1.25D);
     private Goal swimGoal;
     private int jumpTicks;
     private int jumpDuration;
@@ -49,6 +48,7 @@ public class TomatoFrogEntity extends AnimalEntity {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, swimGoal = new SwimGoal(this));
+        this.goalSelector.addGoal(0, new PanicGoal(this, 1.25D));
         this.goalSelector.addGoal(1, new FrogMovementGoal(this));
         this.goalSelector.addGoal(2, new BreedGoal(this, 0.8D));
         this.goalSelector.addGoal(3, new TomatoFrogEntity.PlayerTemptGoal(this, 1.0D, Items.FERMENTED_SPIDER_EYE));
@@ -61,11 +61,9 @@ public class TomatoFrogEntity extends AnimalEntity {
         super.setGrowingAge(age);
         boolean isChild = isChild();
         if (!wasChild && isChild) {
-            this.goalSelector.addGoal(0, panicGoal);
             this.goalSelector.removeGoal(swimGoal);
             this.stepHeight = 1.0f;
         } else if (wasChild && !isChild) {
-            this.goalSelector.removeGoal(panicGoal);
             this.goalSelector.addGoal(0, swimGoal);
             this.stepHeight = 0.0f;
         }
@@ -101,6 +99,8 @@ public class TomatoFrogEntity extends AnimalEntity {
     }
 
     protected float getJumpUpwardsMotion() {
+        if (isChild()) return super.getJumpUpwardsMotion();
+
         if (!this.collidedHorizontally && (!this.moveController.isUpdating() || !(this.moveController.getY() > this.getPosY() + 0.5D))) {
             Path path = this.navigator.getPath();
             if (path != null && path.getCurrentPathIndex() < path.getCurrentPathLength()) {
@@ -150,44 +150,46 @@ public class TomatoFrogEntity extends AnimalEntity {
     }
 
     public void updateAITasks() {
-        if (this.currentMoveTypeDuration > 0) {
-            --this.currentMoveTypeDuration;
-        }
-
-        if (this.onGround) {
-            if (!this.wasOnGround) {
-                this.setJumping(false);
-                this.checkLandingDelay();
+        if (!isChild()) {
+            if (this.currentMoveTypeDuration > 0) {
+                --this.currentMoveTypeDuration;
             }
 
-            if (this.currentMoveTypeDuration == 0) {
-                LivingEntity livingentity = this.getAttackTarget();
-                if (livingentity != null && this.getDistanceSq(livingentity) < 16.0D) {
-                    this.calculateRotationYaw(livingentity.getPosX(), livingentity.getPosZ());
-                    this.moveController.setMoveTo(livingentity.getPosX(), livingentity.getPosY(), livingentity.getPosZ(), this.moveController.getSpeed());
-                    this.startJumping();
-                    this.wasOnGround = true;
+            if (this.onGround) {
+                if (!this.wasOnGround) {
+                    this.setJumping(false);
+                    this.checkLandingDelay();
                 }
-            }
 
-            TomatoFrogEntity.JumpHelperController helperController = (TomatoFrogEntity.JumpHelperController) this.jumpController;
-            if (!helperController.getIsJumping()) {
-                if (this.moveController.isUpdating() && this.currentMoveTypeDuration == 0) {
-                    Path path = this.navigator.getPath();
-                    Vector3d vec3d = new Vector3d(this.moveController.getX(), this.moveController.getY(), this.moveController.getZ());
-                    if (path != null && path.getCurrentPathIndex() < path.getCurrentPathLength()) {
-                        vec3d = path.getPosition(this);
+                if (this.currentMoveTypeDuration == 0) {
+                    LivingEntity livingentity = this.getAttackTarget();
+                    if (livingentity != null && this.getDistanceSq(livingentity) < 16.0D) {
+                        this.calculateRotationYaw(livingentity.getPosX(), livingentity.getPosZ());
+                        this.moveController.setMoveTo(livingentity.getPosX(), livingentity.getPosY(), livingentity.getPosZ(), this.moveController.getSpeed());
+                        this.startJumping();
+                        this.wasOnGround = true;
                     }
-
-                    this.calculateRotationYaw(vec3d.x, vec3d.z);
-                    this.startJumping();
                 }
-            } else if (!helperController.canJump()) {
-                this.enableJumpControl();
-            }
-        }
 
-        this.wasOnGround = this.onGround;
+                TomatoFrogEntity.JumpHelperController helperController = (TomatoFrogEntity.JumpHelperController) this.jumpController;
+                if (!helperController.getIsJumping()) {
+                    if (this.moveController.isUpdating() && this.currentMoveTypeDuration == 0) {
+                        Path path = this.navigator.getPath();
+                        Vector3d vec3d = new Vector3d(this.moveController.getX(), this.moveController.getY(), this.moveController.getZ());
+                        if (path != null && path.getCurrentPathIndex() < path.getCurrentPathLength()) {
+                            vec3d = path.getPosition(this);
+                        }
+
+                        this.calculateRotationYaw(vec3d.x, vec3d.z);
+                        this.startJumping();
+                    }
+                } else if (!helperController.canJump()) {
+                    this.enableJumpControl();
+                }
+            }
+
+            this.wasOnGround = this.onGround;
+        }
     }
 
     @Nullable
@@ -298,18 +300,21 @@ public class TomatoFrogEntity extends AnimalEntity {
 
     public void livingTick() {
         super.livingTick();
-        if (!this.isInWater() && this.onGround && this.collidedVertically && this.isChild()) {
-            this.setMotion(this.getMotion().add((this.rand.nextFloat() * 2.0F - 1.0F) * 0.05F, 0.4000000059604645D, (double) ((this.rand.nextFloat() * 2.0F - 1.0F) * 0.05F)));
+        if (this.isChild() && !this.isInWater() && this.onGround && this.collidedVertically) {
+            this.setMotion(this.getMotion().add((this.rand.nextFloat() * 2.0F - 1.0F) * 0.05F, 0.4000000059604645D, ((this.rand.nextFloat() * 2.0F - 1.0F) * 0.05F)));
             this.onGround = false;
             this.isAirBorne = true;
             this.playSound(this.getFlopSound(), this.getSoundVolume(), this.getSoundPitch());
         }
-        if (this.jumpTicks != this.jumpDuration) {
-            ++this.jumpTicks;
-        } else if (this.jumpDuration != 0) {
-            this.jumpTicks = 0;
-            this.jumpDuration = 0;
-            this.setJumping(false);
+
+        if (!isChild()) {
+            if (this.jumpTicks != this.jumpDuration) {
+                ++this.jumpTicks;
+            } else if (this.jumpDuration != 0) {
+                this.jumpTicks = 0;
+                this.jumpDuration = 0;
+                this.setJumping(false);
+            }
         }
     }
 
@@ -386,6 +391,9 @@ public class TomatoFrogEntity extends AnimalEntity {
                 this.frog.rotationYaw = this.limitAngle(this.frog.rotationYaw, f, 90.0F);
                 this.frog.renderYawOffset = this.frog.rotationYaw;
                 float f1 = (float) (this.speed * this.frog.getAttribute(Attributes.MOVEMENT_SPEED).getValue());
+                if (frog.isChild()) {
+                    f1 *= 2.8;
+                }
                 this.frog.setAIMoveSpeed(MathHelper.lerp(0.125F, this.frog.getAIMoveSpeed(), f1));
                 this.frog.setMotion(this.frog.getMotion().add(0.0D, (double) this.frog.getAIMoveSpeed() * d1 * 0.1D, 0.0D));
             } else {
@@ -447,14 +455,14 @@ public class TomatoFrogEntity extends AnimalEntity {
         }
     }
 
-    private static class FrogMovementGoal extends RandomSwimmingGoal {
+    private static class FrogMovementGoal extends WaterAvoidingRandomWalkingGoal {
         public FrogMovementGoal(CreatureEntity creature) {
-            super(creature, 1.0D, 40);
+            super(creature, 1.0D);
         }
 
         @Override
         protected Vector3d getPosition() {
-            if (!creature.isChild()) return RandomPositionGenerator.findRandomTarget(this.creature, 10, 7);
+            if (creature.isChild()) return RandomPositionGenerator.findRandomTarget(this.creature, 10, 7);
             return super.getPosition();
         }
     }
