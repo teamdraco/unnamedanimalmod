@@ -3,23 +3,26 @@
 
   "item.unnamedanimalmod.black_diamond_stingray_bucket": "Bucket of Black Diamond Stingray",
   "item.unnamedanimalmod.tomato_frog_egg": "Tomato Frog Egg",
+  "item.unnamedanimalmod.blubber": "Blubber",
+  "item.unnamedanimalmod.greater_prairie_chicken_egg": "Greater Prairie Chicken Egg",
 
   "item.unnamedanimalmod.honduran_white_bat_spawn_egg": "Honduran White Bat Spawn Egg",
   "item.unnamedanimalmod.vine_snake_spawn_egg": "Vine Snake Spawn Egg",
   "item.unnamedanimalmod.black_diamond_stingray_spawn_egg": "Black Diamond Stingray Spawn Egg",
   "item.unnamedanimalmod.tomato_frog_spawn_egg": "Tomato Frog Spawn Egg",
   "item.unnamedanimalmod.southern_right_whale_spawn_egg": "Southern Right Whale Spawn Egg",
+  "item.unnamedanimalmod.greater_prairie_chicken_spawn_egg": "Greater Prairie Chicken Spawn Egg",
 
   "entity.unnamedanimalmod.honduran_white_bat": "Honduran White Bat",
   "entity.unnamedanimalmod.vine_snake": "Vine Snake",
   "entity.unnamedanimalmod.black_diamond_stingray": "Black Diamond Stingray",
   "entity.unnamedanimalmod.tomato_frog": "Tomato Frog",
   "entity.unnamedanimalmod.southern_right_whale": "Southern Right Whale",
+  "entity.unnamedanimalmod.greater_prairie_chicken": "Greater Prairie Chicken",
 
   "subtitle.unnamedanimalmod.frog.ambient": "Frog ribbits",
   "subtitle.unnamedanimalmod.frog.hurt": "Frog hurts",
   "subtitle.unnamedanimalmod.frog.death": "Frog dies",
-
   "subtitle.unnamedanimalmod.whale.ambient": "Whale vocalizes",
   "subtitle.unnamedanimalmod.whale.hurt": "Whale hurts",
   "subtitle.unnamedanimalmod.whale.death": "Whale dies",

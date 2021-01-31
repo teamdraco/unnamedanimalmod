@@ -1,6 +1,8 @@
 package mod.coda.unnamedanimalmod.init;
 
 import mod.coda.unnamedanimalmod.UnnamedAnimalMod;
+import mod.coda.unnamedanimalmod.item.BlubberItem;
+import mod.coda.unnamedanimalmod.item.GreaterPrairieChickenEggItem;
 import mod.coda.unnamedanimalmod.item.TomatoFrogEggItem;
 import mod.coda.unnamedanimalmod.item.UAMSpawnEggItem;
 import net.minecraft.fluid.Fluids;
@@ -18,7 +20,10 @@ public class UAMItems {
     public static final RegistryObject<Item> BLACK_DIAMOND_STINGRAY_SPAWN_EGG = REGISTRY.register("black_diamond_stingray_spawn_egg", () -> new UAMSpawnEggItem(UAMEntities.BLACK_DIAMOND_STINGRAY, 0x35374e, 0xf2f3fe, new Item.Properties().group(UnnamedAnimalMod.GROUP)));
     public static final RegistryObject<Item> TOMATO_FROG_SPAWN_EGG = REGISTRY.register("tomato_frog_spawn_egg", () -> new UAMSpawnEggItem(UAMEntities.TOMATO_FROG, 0x961900, 0xf1800a, new Item.Properties().group(UnnamedAnimalMod.GROUP)));
     public static final RegistryObject<Item> SOUTHERN_RIGHT_WHALE_SPAWN_EGG = REGISTRY.register("southern_right_whale_spawn_egg", () -> new UAMSpawnEggItem(UAMEntities.SOUTHERN_RIGHT_WHALE, 0x263334, 0xcdcabc, new Item.Properties().group(UnnamedAnimalMod.GROUP)));
+    public static final RegistryObject<Item> GREATER_PRAIRIE_CHICKEN_SPAWN_EGG = REGISTRY.register("greater_prairie_chicken_spawn_egg", () -> new UAMSpawnEggItem(UAMEntities.GREATER_PRAIRIE_CHICKEN, 0x4e4340, 0xeda825, new Item.Properties().group(UnnamedAnimalMod.GROUP)));
 
     public static final RegistryObject<Item> BLACK_DIAMOND_STINGRAY_BUCKET = REGISTRY.register("black_diamond_stingray_bucket", () -> new FishBucketItem(() -> UAMEntities.BLACK_DIAMOND_STINGRAY.get(), () -> Fluids.WATER, new Item.Properties().group(UnnamedAnimalMod.GROUP).maxStackSize(1)));
     public static final RegistryObject<Item> TOMATO_FROG_EGG = REGISTRY.register("tomato_frog_egg", () -> new TomatoFrogEggItem(new Item.Properties().group(UnnamedAnimalMod.GROUP).maxStackSize(16)));
+    public static final RegistryObject<Item> BLUBBER = REGISTRY.register("blubber", () -> new BlubberItem(new Item.Properties().group(UnnamedAnimalMod.GROUP)));
+    public static final RegistryObject<Item> GREATER_PRAIRIE_CHICKEN_EGG = REGISTRY.register("greater_prairie_chicken_egg", () -> new GreaterPrairieChickenEggItem(new Item.Properties().group(UnnamedAnimalMod.GROUP).maxStackSize(16)));
 }

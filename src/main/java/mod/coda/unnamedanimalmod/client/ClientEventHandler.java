@@ -2,6 +2,8 @@ package mod.coda.unnamedanimalmod.client;
 
 import mod.coda.unnamedanimalmod.UnnamedAnimalMod;
 import mod.coda.unnamedanimalmod.client.renderer.*;
+import mod.coda.unnamedanimalmod.client.renderer.item.GreaterPrairieChickenEggRenderer;
+import mod.coda.unnamedanimalmod.entity.item.GreaterPrairieChickenEggEntity;
 import mod.coda.unnamedanimalmod.init.UAMEntities;
 import mod.coda.unnamedanimalmod.item.UAMSpawnEggItem;
 import net.minecraft.client.renderer.color.IItemColor;
@@ -23,6 +25,9 @@ public class ClientEventHandler {
         RenderingRegistry.registerEntityRenderingHandler(UAMEntities.BLACK_DIAMOND_STINGRAY.get(), BlackDiamondStingrayRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(UAMEntities.TOMATO_FROG.get(), TomatoFrogRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(UAMEntities.SOUTHERN_RIGHT_WHALE.get(), SouthernRightWhaleRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(UAMEntities.GREATER_PRAIRIE_CHICKEN.get(), GreaterPrairieChickenRenderer::new);
+
+        RenderingRegistry.registerEntityRenderingHandler(UAMEntities.GREATER_PRAIRIE_CHICKEN_EGG.get(), GreaterPrairieChickenEggRenderer::new);
     }
 
     @SubscribeEvent
