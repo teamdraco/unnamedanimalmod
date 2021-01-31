@@ -1,0 +1,58 @@
+{
+  "frog.ambient": {
+    "subtitle": "subtitle.unnamedanimalmod.frog.ambient",
+    "sounds": [
+      {
+        "name": "unnamedanimalmod:frog/ambient"
+      }
+    ]
+  },
+  "frog.death": {
+    "subtitle": "subtitle.unnamedanimalmod.frog.death",
+    "sounds": [
+      {
+        "name": "unnamedanimalmod:frog/death"
+      }
+    ]
+  },
+  "frog.hurt": {
+    "subtitle": "subtitle.unnamedanimalmod.frog.hurt",
+    "sounds": [
+      {
+        "name": "unnamedanimalmod:frog/hurt"
+      }
+    ]
+  },
+  "whale.ambient": {
+    "subtitle": "subtitle.unnamedanimalmod.whale.ambient",
+    "sounds": [
+      {
+        "name": "unnamedanimalmod:whale/ambient"
+      }
+    ]
+  },
+  "whale.death": {
+    "subtitle": "subtitle.unnamedanimalmod.whale.death",
+    "sounds": [
+      {
+        "name": "unnamedanimalmod:whale/death"
+      }
+    ]
+  },
+  "whale.hurt": {
+    "subtitle": "subtitle.unnamedanimalmod.whale.hurt",
+    "sounds": [
+      {
+        "name": "unnamedanimalmod:whale/hurt"
+      }
+    ]
+  },
+  "whale.song": {
+    "subtitle": "subtitle.unnamedanimalmod.whale.song",
+    "sounds": [
+      {
+        "name": "unnamedanimalmod:whale/song"
+      }
+    ]
+  }
+}

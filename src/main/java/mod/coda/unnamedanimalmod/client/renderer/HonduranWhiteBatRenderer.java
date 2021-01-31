@@ -24,10 +24,10 @@ public class HonduranWhiteBatRenderer extends MobRenderer<HonduranWhiteBatEntity
 
     protected void applyRotations(HonduranWhiteBatEntity entityLiving, MatrixStack matrixStackIn, float ageInTicks, float rotationYaw, float partialTicks) {
         if (entityLiving.getIsBatHanging() && !entityLiving.isChild()) {
-            matrixStackIn.translate(0.0D, (double)0.25F, 0.0D);
+            matrixStackIn.translate(0.0D, (double)0.05F, 0.0D);
         }
         else if (entityLiving.getIsBatHanging() && entityLiving.isChild()) {
-            matrixStackIn.translate(0.0D, (double)0.11F, 0.0D);
+            matrixStackIn.translate(0.0D, (double)-1.0F, 0.0D);
         }
 
         super.applyRotations(entityLiving, matrixStackIn, ageInTicks, rotationYaw, partialTicks);

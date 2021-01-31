@@ -1,6 +1,7 @@
 package mod.coda.unnamedanimalmod.entity;
 
 import mod.coda.unnamedanimalmod.init.UAMEntities;
+import mod.coda.unnamedanimalmod.init.UAMItems;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
@@ -18,6 +19,7 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
@@ -196,5 +198,10 @@ public class HonduranWhiteBatEntity extends AnimalEntity {
 
     protected float getStandingEyeHeight(Pose poseIn, EntitySize sizeIn) {
         return sizeIn.height / 2.0F;
+    }
+
+    @Override
+    public ItemStack getPickedResult(RayTraceResult target) {
+        return new ItemStack(UAMItems.HONDURAN_WHITE_BAT_SPAWN_EGG.get());
     }
 }

@@ -1,10 +1,7 @@
 package mod.coda.unnamedanimalmod.client;
 
 import mod.coda.unnamedanimalmod.UnnamedAnimalMod;
-import mod.coda.unnamedanimalmod.client.renderer.BlackDiamondStingrayRenderer;
-import mod.coda.unnamedanimalmod.client.renderer.HonduranWhiteBatRenderer;
-import mod.coda.unnamedanimalmod.client.renderer.TomatoFrogRenderer;
-import mod.coda.unnamedanimalmod.client.renderer.VineSnakeRenderer;
+import mod.coda.unnamedanimalmod.client.renderer.*;
 import mod.coda.unnamedanimalmod.init.UAMEntities;
 import mod.coda.unnamedanimalmod.item.UAMSpawnEggItem;
 import net.minecraft.client.renderer.color.IItemColor;
@@ -25,6 +22,7 @@ public class ClientEventHandler {
         RenderingRegistry.registerEntityRenderingHandler(UAMEntities.VINE_SNAKE.get(), VineSnakeRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(UAMEntities.BLACK_DIAMOND_STINGRAY.get(), BlackDiamondStingrayRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(UAMEntities.TOMATO_FROG.get(), TomatoFrogRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(UAMEntities.SOUTHERN_RIGHT_WHALE.get(), SouthernRightWhaleRenderer::new);
     }
 
     @SubscribeEvent

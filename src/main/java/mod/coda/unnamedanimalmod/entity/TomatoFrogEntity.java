@@ -2,6 +2,7 @@ package mod.coda.unnamedanimalmod.entity;
 
 import com.google.common.collect.Sets;
 import mod.coda.unnamedanimalmod.init.UAMItems;
+import mod.coda.unnamedanimalmod.init.UAMSounds;
 import mod.coda.unnamedanimalmod.pathfinding.GroundAndSwimmerNavigator;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.RandomPositionGenerator;
@@ -196,25 +197,9 @@ public class TomatoFrogEntity extends AnimalEntity {
     @Override
     public AgeableEntity func_241840_a(ServerWorld p_241840_1_, AgeableEntity p_241840_2_) {
         this.resetInLove();
-//        this.entityDropItem(ItemInit.Tomato_FROG_EGG.get());
+        this.entityDropItem(UAMItems.TOMATO_FROG_EGG.get());
         this.playSound(SoundEvents.ENTITY_CHICKEN_EGG, 1.0F, (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
         return null;
-    }
-
-    @Override
-    public ActionResultType func_230254_b_(PlayerEntity player, Hand hand) {
-        ItemStack heldItem = player.getHeldItem(hand);
-        Item item = heldItem.getItem();
-
-        if (this.isBreedingItem(heldItem)) {
-            if (this.getGrowingAge() >= 0 && this.canBreed()) {
-                this.setInLove(player);
-                player.swing(hand, true);
-                heldItem.shrink(1);
-            }
-            return ActionResultType.SUCCESS;
-        }
-        return super.func_230254_b_(player, hand);
     }
 
     public static AttributeModifierMap.MutableAttribute createAttributes() {
@@ -233,19 +218,15 @@ public class TomatoFrogEntity extends AnimalEntity {
     }
 
     protected SoundEvent getAmbientSound() {
-        return this.isChild() ? SoundEvents.ENTITY_COD_AMBIENT /*UAMSounds.FROG_AMBIENT.get(); */ : SoundEvents.ENTITY_COD_AMBIENT;
-    }
-
-    protected float getSoundVolume() {
-        return 0.3F;
+        return !this.isChild() ? UAMSounds.FROG_AMBIENT.get() : SoundEvents.ENTITY_COD_AMBIENT;
     }
 
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        return this.isChild() ? SoundEvents.ENTITY_COD_HURT /*UAMSounds.FROG_HURT.get(); */ : SoundEvents.ENTITY_COD_HURT;
+        return !this.isChild() ? UAMSounds.FROG_HURT.get() : SoundEvents.ENTITY_COD_HURT;
     }
 
     protected SoundEvent getDeathSound() {
-        return this.isChild() ? SoundEvents.ENTITY_COD_DEATH /*UAMSounds.FROG_DEATH.get(); */ : SoundEvents.ENTITY_COD_DEATH;
+        return !this.isChild() ? UAMSounds.FROG_DEATH.get() : SoundEvents.ENTITY_COD_DEATH;
     }
 
     protected SoundEvent getFlopSound() {
@@ -254,6 +235,10 @@ public class TomatoFrogEntity extends AnimalEntity {
 
     protected SoundEvent getJumpSound() {
         return SoundEvents.ENTITY_RABBIT_JUMP;
+    }
+
+    protected float getSoundVolume() {
+        return 0.3F;
     }
 
     public boolean attackEntityFrom(DamageSource source, float amount) {

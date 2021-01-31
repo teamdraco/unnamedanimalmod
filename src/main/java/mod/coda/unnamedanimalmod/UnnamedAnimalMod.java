@@ -1,12 +1,10 @@
 package mod.coda.unnamedanimalmod;
 
 import mod.coda.unnamedanimalmod.client.ClientEventHandler;
-import mod.coda.unnamedanimalmod.entity.BlackDiamondStingrayEntity;
-import mod.coda.unnamedanimalmod.entity.HonduranWhiteBatEntity;
-import mod.coda.unnamedanimalmod.entity.TomatoFrogEntity;
-import mod.coda.unnamedanimalmod.entity.VineSnakeEntity;
+import mod.coda.unnamedanimalmod.entity.*;
 import mod.coda.unnamedanimalmod.init.UAMEntities;
 import mod.coda.unnamedanimalmod.init.UAMItems;
+import mod.coda.unnamedanimalmod.init.UAMSounds;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntitySpawnPlacementRegistry;
 import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
@@ -36,6 +34,7 @@ public class UnnamedAnimalMod {
         bus.addListener(this::registerClient);
         bus.addListener(this::registerCommon);
 
+        UAMSounds.REGISTRY.register(bus);
         UAMItems.REGISTRY.register(bus);
         UAMEntities.REGISTRY.register(bus);
     }
@@ -52,6 +51,7 @@ public class UnnamedAnimalMod {
         GlobalEntityTypeAttributes.put(UAMEntities.VINE_SNAKE.get(), VineSnakeEntity.createAttributes().create());
         GlobalEntityTypeAttributes.put(UAMEntities.BLACK_DIAMOND_STINGRAY.get(), BlackDiamondStingrayEntity.createAttributes().create());
         GlobalEntityTypeAttributes.put(UAMEntities.TOMATO_FROG.get(), TomatoFrogEntity.createAttributes().create());
+        GlobalEntityTypeAttributes.put(UAMEntities.SOUTHERN_RIGHT_WHALE.get(), SouthernRightWhaleEntity.createAttributes().create());
     }
 
     private void registerClient(FMLClientSetupEvent event) {
@@ -72,6 +72,6 @@ public class UnnamedAnimalMod {
     public final static ItemGroup GROUP = new ItemGroup(MOD_ID) {
         @Override
         public ItemStack createIcon() {
-            return new ItemStack(UAMItems.HONDURAN_WHITE_BAT_SPAWN_EGG.get());}
+            return new ItemStack(UAMItems.TOMATO_FROG_EGG.get());}
     };
 }
