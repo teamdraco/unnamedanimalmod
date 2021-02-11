@@ -15,6 +15,7 @@ import net.minecraft.entity.monster.GuardianEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.fish.AbstractFishEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.AbstractArrowEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
@@ -30,10 +31,12 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IServerWorld;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
 import javax.annotation.Nullable;
+import java.util.Random;
 
 public class SouthernRightWhaleEntity extends AnimalEntity {
     protected boolean noBlow = false;
@@ -47,18 +50,41 @@ public class SouthernRightWhaleEntity extends AnimalEntity {
 
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new BreatheAirGoal(this));
-        this.goalSelector.addGoal(0, new BreedGoal(this, 1.0D));
-        this.goalSelector.addGoal(0, new FindWaterGoal(this));
-        this.goalSelector.addGoal(4, new SwimGoal(this));
-        this.goalSelector.addGoal(4, new LookRandomlyGoal(this));
-        this.goalSelector.addGoal(5, new LookAtGoal(this, PlayerEntity.class, 10.0F));
+        this.goalSelector.addGoal(1, new BreedGoal(this, 1.0D));
+        this.goalSelector.addGoal(1, new MeleeAttackGoal(this, (double)1.2F, true));
+        this.goalSelector.addGoal(2, new SwimGoal(this));
+        this.goalSelector.addGoal(3, new LookRandomlyGoal(this));
+        this.goalSelector.addGoal(4, new LookAtGoal(this, PlayerEntity.class, 10.0F));
         this.goalSelector.addGoal(5, new WhaleBreachGoal(this, 10));
-        this.goalSelector.addGoal(8, new FollowBoatGoal(this));
-        this.goalSelector.addGoal(9, new AvoidEntityGoal<>(this, GuardianEntity.class, 8.0F, 1.0D, 1.0D));
+        this.goalSelector.addGoal(6, new FollowBoatGoal(this));
+        this.goalSelector.addGoal(7, new AvoidEntityGoal<>(this, GuardianEntity.class, 8.0F, 1.0D, 1.0D));
+        this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
     }
 
     public static AttributeModifierMap.MutableAttribute createAttributes() {
-        return MobEntity.func_233666_p_().createMutableAttribute(Attributes.MAX_HEALTH, 120.0D).createMutableAttribute(Attributes.MOVEMENT_SPEED, 1.2F);
+        return MobEntity.func_233666_p_().createMutableAttribute(Attributes.MAX_HEALTH, 120.0D).createMutableAttribute(Attributes.MOVEMENT_SPEED, 1.2F).createMutableAttribute(Attributes.ATTACK_DAMAGE, 4.0F);
+    }
+
+    public boolean attackEntityFrom(DamageSource source, float amount) {
+        if (this.isInvulnerableTo(source)) {
+            return false;
+        } else {
+            Entity entity = source.getTrueSource();
+            if (entity != null && !(entity instanceof PlayerEntity) && !(entity instanceof AbstractArrowEntity)) {
+                amount = (amount + 1.0F) / 2.0F;
+            }
+
+            return super.attackEntityFrom(source, amount);
+        }
+    }
+
+    public boolean attackEntityAsMob(Entity entityIn) {
+        boolean flag = entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), (float)((int)this.getAttributeValue(Attributes.ATTACK_DAMAGE)));
+        if (flag) {
+            this.applyEnchantments(this, entityIn);
+        }
+
+        return flag;
     }
 
     protected PathNavigator createNavigator(World worldIn) {
@@ -80,6 +106,10 @@ public class SouthernRightWhaleEntity extends AnimalEntity {
 
     public boolean canBreatheUnderwater() {
         return true;
+    }
+
+    public static boolean canWhaleSpawn(EntityType<? extends SouthernRightWhaleEntity> type, IWorld worldIn, SpawnReason reason, BlockPos pos, Random randomIn) {
+        return worldIn.getBlockState(pos).isIn(Blocks.WATER) && worldIn.getWorldInfo().getDayTime() < 12000 && worldIn.getWorldInfo().getDayTime() > 24000;
     }
 
     @Override
@@ -132,7 +162,7 @@ public class SouthernRightWhaleEntity extends AnimalEntity {
                         d0, d1, d2);
             }
         }*/
-        playSound(UAMSounds.WHALE_SONG.get(), 5.0f, 1.0f);
+        playSound(UAMSounds.SOUTHERN_RIGHT_WHALE_SONG.get(), 5.0f, 1.0f);
     }
 
     public void travel(Vector3d travelVector) {
@@ -197,15 +227,15 @@ public class SouthernRightWhaleEntity extends AnimalEntity {
     }
 
     protected SoundEvent getAmbientSound() {
-        return UAMSounds.WHALE_AMBIENT.get();
+        return UAMSounds.SOUTHERN_RIGHT_WHALE_AMBIENT.get();
     }
 
     protected SoundEvent getDeathSound() {
-        return UAMSounds.WHALE_DEATH.get();
+        return UAMSounds.SOUTHERN_RIGHT_WHALE_DEATH.get();
     }
 
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        return UAMSounds.WHALE_HURT.get();
+        return UAMSounds.SOUTHERN_RIGHT_WHALE_HURT.get();
     }
 
     @Override

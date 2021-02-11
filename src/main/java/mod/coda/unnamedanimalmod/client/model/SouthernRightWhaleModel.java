@@ -93,16 +93,15 @@ public class SouthernRightWhaleModel<T extends Entity> extends AgeableModel<Sout
     public void setLivingAnimations(SouthernRightWhaleEntity entityIn, float limbSwing, float limbSwingAmount, float partialTick) {
         float speed = 1.0f;
         float degree = 0.7f;
-
         float motionY = (float) entityIn.getMotion().y;
 
         if (Entity.horizontalMag(entityIn.getMotion()) > 1.0E-7D) {
-            this.body.rotateAngleX += -0.05F + -0.05F * MathHelper.cos(motionY * 0.3F);
+            //this.body.rotateAngleX += -0.05F + -0.05F * MathHelper.cos(motionY * 0.3F);
             if(!entityIn.isInWater()) {
                 this.body.rotateAngleZ = (float) Math.toRadians(-motionY * 180) * 0.8f;
             }
             else {
-                body.rotateAngleZ = 0;
+                this.body.rotateAngleZ = 0;
                 this.pectoralFinLeft.rotateAngleY = MathHelper.cos(limbSwing * speed * 0.2F) * degree * 1.0F * limbSwingAmount - 0.05F;
                 this.pectoralFinLeft.rotateAngleZ = MathHelper.cos(1.0F + limbSwing * speed * 0.2F) * degree * -1.0F * limbSwingAmount + 0.5F;
                 this.pectoralFinRight.rotateAngleY = MathHelper.cos(limbSwing * speed * 0.2F) * degree * -1.0F * limbSwingAmount + 0.05F;
@@ -116,6 +115,15 @@ public class SouthernRightWhaleModel<T extends Entity> extends AgeableModel<Sout
         }
         else {
             this.body.rotateAngleZ = 0;
+            this.pectoralFinLeft.rotateAngleY = 0;
+            this.pectoralFinLeft.rotateAngleZ = 0;
+            this.pectoralFinRight.rotateAngleY = 0;
+            this.pectoralFinRight.rotateAngleZ = 0;
+            this.tail.rotateAngleX = 0;
+            this.flukes.rotateAngleX = 0;
+            this.body.rotateAngleX = 0;
+            this.jaw.rotateAngleX = 0;
+            this.headJoint.rotateAngleX = 0;
         }
     }
 

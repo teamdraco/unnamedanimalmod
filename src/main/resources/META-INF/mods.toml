@@ -5,5 +5,5 @@ license="All Rights Reserved"
 modId="unnamedanimalmod" #mandatory
 version="${file.jarVersion}" #mandatory
 displayName="Unnamed Animal Mod" #mandatory
-authors="Coda, Tazz, Ash, Esuoh" #optional
+authors="Coda, Tazz, Ninni, Esuoh" #optional
 description='''Placeholder description.'''

@@ -2,6 +2,7 @@ package mod.coda.unnamedanimalmod.entity;
 
 import mod.coda.unnamedanimalmod.init.UAMEntities;
 import mod.coda.unnamedanimalmod.init.UAMItems;
+import mod.coda.unnamedanimalmod.init.UAMSounds;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
@@ -57,6 +58,10 @@ public class GreaterPrairieChickenEntity extends AnimalEntity {
         return MobEntity.func_233666_p_().createMutableAttribute(Attributes.MAX_HEALTH, 6.0D).createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.25D);
     }
 
+    public int getTalkInterval() {
+        return 360;
+    }
+
     public void livingTick() {
         super.livingTick();
         this.oFlap = this.wingRotation;
@@ -87,15 +92,15 @@ public class GreaterPrairieChickenEntity extends AnimalEntity {
     }
 
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.ENTITY_CHICKEN_AMBIENT;
+        return UAMSounds.GREATER_PRAIRIE_CHICKEN_AMBIENT.get();
     }
 
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        return SoundEvents.ENTITY_CHICKEN_HURT;
+        return UAMSounds.GREATER_PRAIRIE_CHICKEN_HURT.get();
     }
 
     protected SoundEvent getDeathSound() {
-        return SoundEvents.ENTITY_CHICKEN_DEATH;
+        return UAMSounds.GREATER_PRAIRIE_CHICKEN_DEATH.get();
     }
 
     protected void playStepSound(BlockPos pos, BlockState blockIn) {
@@ -103,6 +108,7 @@ public class GreaterPrairieChickenEntity extends AnimalEntity {
     }
 
     public GreaterPrairieChickenEntity func_241840_a(ServerWorld p_241840_1_, AgeableEntity p_241840_2_) {
+        playSound(UAMSounds.GREATER_PRAIRIE_CHICKEN_BOOMING.get(), 0.4f, 1.0f);
         return UAMEntities.GREATER_PRAIRIE_CHICKEN.get().create(p_241840_1_);
     }
 

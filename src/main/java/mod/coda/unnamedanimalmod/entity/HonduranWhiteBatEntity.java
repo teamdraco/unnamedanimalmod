@@ -200,8 +200,8 @@ public class HonduranWhiteBatEntity extends AnimalEntity {
         return sizeIn.height / 2.0F;
     }
 
-    @Override
+/*    @Override
     public ItemStack getPickedResult(RayTraceResult target) {
         return new ItemStack(UAMItems.HONDURAN_WHITE_BAT_SPAWN_EGG.get());
-    }
+    }*/
 }

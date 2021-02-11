@@ -12,14 +12,15 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class GreaterPrairieChickenRenderer extends MobRenderer<GreaterPrairieChickenEntity, GreaterPrairieChickenModel<GreaterPrairieChickenEntity>> {
-    private static final ResourceLocation TEXTURE = new ResourceLocation(UnnamedAnimalMod.MOD_ID, "textures/entity/greater_prairie_chicken.png");
+    private static final ResourceLocation ADULT = new ResourceLocation(UnnamedAnimalMod.MOD_ID, "textures/entity/greater_prairie_chicken/adult.png");
+    private static final ResourceLocation CHILD = new ResourceLocation(UnnamedAnimalMod.MOD_ID, "textures/entity/greater_prairie_chicken/child.png");
 
     public GreaterPrairieChickenRenderer(EntityRendererManager renderManagerIn) {
         super(renderManagerIn, new GreaterPrairieChickenModel<>(), 0.45F);
     }
 
     public ResourceLocation getEntityTexture(GreaterPrairieChickenEntity entity) {
-        return TEXTURE;
+        return entity.isChild() ? CHILD : ADULT;
     }
 
     protected float handleRotationFloat(GreaterPrairieChickenEntity livingBase, float partialTicks) {

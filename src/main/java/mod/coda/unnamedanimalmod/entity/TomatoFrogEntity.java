@@ -4,19 +4,19 @@ import com.google.common.collect.Sets;
 import mod.coda.unnamedanimalmod.init.UAMItems;
 import mod.coda.unnamedanimalmod.init.UAMSounds;
 import mod.coda.unnamedanimalmod.pathfinding.GroundAndSwimmerNavigator;
+import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.RandomPositionGenerator;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.ai.controller.JumpController;
 import net.minecraft.entity.ai.controller.MovementController;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.pathfinding.Path;
 import net.minecraft.pathfinding.PathNavigator;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.*;
@@ -25,8 +25,6 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
@@ -34,25 +32,22 @@ import java.util.Set;
 
 public class TomatoFrogEntity extends AnimalEntity {
     private Goal swimGoal;
-    private int jumpTicks;
-    private int jumpDuration;
     private boolean wasOnGround;
     private int currentMoveTypeDuration;
 
     public TomatoFrogEntity(EntityType<? extends TomatoFrogEntity> type, World world) {
         super(type, world);
-        this.jumpController = new JumpHelperController(this);
         this.moveController = new FrogMoveController(this);
-        this.stepHeight = 0;
+        this.stepHeight = 1;
     }
 
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, swimGoal = new SwimGoal(this));
         this.goalSelector.addGoal(0, new PanicGoal(this, 1.25D));
-        this.goalSelector.addGoal(1, new FrogMovementGoal(this));
-        this.goalSelector.addGoal(2, new BreedGoal(this, 0.8D));
-        this.goalSelector.addGoal(3, new TomatoFrogEntity.PlayerTemptGoal(this, 1.0D, Items.FERMENTED_SPIDER_EYE));
+        this.goalSelector.addGoal(1, new BreedGoal(this, 0.8D));
+        this.goalSelector.addGoal(2, new FrogMovementGoal(this));
+        this.goalSelector.addGoal(3, new TomatoFrogEntity.PlayerTemptGoal(this, 1.0D, Items.SPIDER_EYE));
         this.goalSelector.addGoal(5, new LookAtGoal(this, PlayerEntity.class, 10.0F));
     }
 
@@ -99,57 +94,6 @@ public class TomatoFrogEntity extends AnimalEntity {
         this.updateAir(lvt_1_1_);
     }
 
-    protected float getJumpUpwardsMotion() {
-        if (isChild()) return super.getJumpUpwardsMotion();
-
-        if (!this.collidedHorizontally && (!this.moveController.isUpdating() || !(this.moveController.getY() > this.getPosY() + 0.5D))) {
-            Path path = this.navigator.getPath();
-            if (path != null && path.getCurrentPathIndex() < path.getCurrentPathLength()) {
-                Vector3d vec3d = path.getPosition(this);
-                if (vec3d.y > this.getPosY() + 0.5D) {
-                    return 0.5F;
-                }
-            }
-
-            return this.moveController.getSpeed() <= 0.6D ? 0.2F : 0.3F;
-        } else {
-            return 0.5F;
-        }
-    }
-
-    protected void jump() {
-        super.jump();
-        double d0 = this.moveController.getSpeed();
-        if (d0 > 0.0D && this.isChild()) {
-            double d1 = horizontalMag(this.getMotion());
-            if (d1 < 0.01D) {
-                this.moveRelative(0.1F, new Vector3d(0.0D, 0.0D, 1.0D));
-            }
-        }
-
-        if (!this.world.isRemote) {
-            this.world.setEntityState(this, (byte) 1);
-        }
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    public float getJumpCompletion(float p_175521_1_) {
-        return this.jumpDuration == 0 ? 0.0F : ((float) this.jumpTicks + p_175521_1_) / (float) this.jumpDuration;
-    }
-
-    public void setJumping(boolean jumping) {
-        super.setJumping(jumping);
-        if (jumping) {
-            this.playSound(this.getJumpSound(), this.getSoundVolume(), ((this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F) * 0.8F);
-        }
-    }
-
-    public void startJumping() {
-        this.setJumping(true);
-        this.jumpDuration = 10;
-        this.jumpTicks = 0;
-    }
-
     public void updateAITasks() {
         if (!isChild()) {
             if (this.currentMoveTypeDuration > 0) {
@@ -158,7 +102,6 @@ public class TomatoFrogEntity extends AnimalEntity {
 
             if (this.onGround) {
                 if (!this.wasOnGround) {
-                    this.setJumping(false);
                     this.checkLandingDelay();
                 }
 
@@ -167,25 +110,8 @@ public class TomatoFrogEntity extends AnimalEntity {
                     if (livingentity != null && this.getDistanceSq(livingentity) < 16.0D) {
                         this.calculateRotationYaw(livingentity.getPosX(), livingentity.getPosZ());
                         this.moveController.setMoveTo(livingentity.getPosX(), livingentity.getPosY(), livingentity.getPosZ(), this.moveController.getSpeed());
-                        this.startJumping();
                         this.wasOnGround = true;
                     }
-                }
-
-                TomatoFrogEntity.JumpHelperController helperController = (TomatoFrogEntity.JumpHelperController) this.jumpController;
-                if (!helperController.getIsJumping()) {
-                    if (this.moveController.isUpdating() && this.currentMoveTypeDuration == 0) {
-                        Path path = this.navigator.getPath();
-                        Vector3d vec3d = new Vector3d(this.moveController.getX(), this.moveController.getY(), this.moveController.getZ());
-                        if (path != null && path.getCurrentPathIndex() < path.getCurrentPathLength()) {
-                            vec3d = path.getPosition(this);
-                        }
-
-                        this.calculateRotationYaw(vec3d.x, vec3d.z);
-                        this.startJumping();
-                    }
-                } else if (!helperController.canJump()) {
-                    this.enableJumpControl();
                 }
             }
 
@@ -196,8 +122,7 @@ public class TomatoFrogEntity extends AnimalEntity {
     @Nullable
     @Override
     public AgeableEntity func_241840_a(ServerWorld p_241840_1_, AgeableEntity p_241840_2_) {
-        this.resetInLove();
-        this.entityDropItem(UAMItems.TOMATO_FROG_EGG.get());
+        this.entityDropItem(new ItemStack(UAMItems.TOMATO_FROG_EGG.get(), getRNG().nextInt(4) + 1));
         this.playSound(SoundEvents.ENTITY_CHICKEN_EGG, 1.0F, (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
         return null;
     }
@@ -206,14 +131,32 @@ public class TomatoFrogEntity extends AnimalEntity {
         return MobEntity.func_233666_p_().createMutableAttribute(Attributes.MAX_HEALTH, 8.0D).createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.25D);
     }
 
-    @OnlyIn(Dist.CLIENT)
-    public void handleStatusUpdate(byte id) {
-        if (id == 1) {
-            this.handleRunningEffect();
-            this.jumpDuration = 10;
-            this.jumpTicks = 0;
-        } else {
-            super.handleStatusUpdate(id);
+    @Override
+    public ActionResultType func_230254_b_(PlayerEntity player, Hand hand) {
+        ItemStack heldItem = player.getHeldItem(hand);
+
+        if (heldItem.getItem() == Items.BOWL && this.isAlive() && !this.isChild()) {
+            playSound(SoundEvents.ENTITY_ITEM_FRAME_ADD_ITEM, 1.0F, 1.0F);
+            heldItem.shrink(1);
+            ItemStack itemstack1 = new ItemStack(UAMItems.TOMATO_FROG_BOWL.get());
+            this.setBucketData(itemstack1);
+            if (!this.world.isRemote) {
+                CriteriaTriggers.FILLED_BUCKET.trigger((ServerPlayerEntity) player, itemstack1);
+            }
+            if (heldItem.isEmpty()) {
+                player.setHeldItem(hand, itemstack1);
+            } else if (!player.inventory.addItemStackToInventory(itemstack1)) {
+                player.dropItem(itemstack1, false);
+            }
+            this.remove();
+            return ActionResultType.SUCCESS;
+        }
+        return super.func_230254_b_(player, hand);
+    }
+
+    private void setBucketData(ItemStack bucket) {
+        if (this.hasCustomName()) {
+            bucket.setDisplayName(this.getCustomName());
         }
     }
 
@@ -233,10 +176,6 @@ public class TomatoFrogEntity extends AnimalEntity {
         return SoundEvents.ENTITY_COD_FLOP;
     }
 
-    protected SoundEvent getJumpSound() {
-        return SoundEvents.ENTITY_RABBIT_JUMP;
-    }
-
     protected float getSoundVolume() {
         return 0.3F;
     }
@@ -247,7 +186,7 @@ public class TomatoFrogEntity extends AnimalEntity {
 
     @Override
     public boolean isBreedingItem(ItemStack stack) {
-        return stack.getItem() == Items.FERMENTED_SPIDER_EYE;
+        return stack.getItem() == Items.SPIDER_EYE;
     }
 
     public boolean isPushedByWater() {
@@ -262,14 +201,6 @@ public class TomatoFrogEntity extends AnimalEntity {
         this.rotationYaw = (float) (MathHelper.atan2(z - this.getPosZ(), x - this.getPosX()) * (double) (180F / (float) Math.PI)) - 90.0F;
     }
 
-    private void enableJumpControl() {
-        ((TomatoFrogEntity.JumpHelperController) this.jumpController).setCanJump(true);
-    }
-
-    private void disableJumpControl() {
-        ((TomatoFrogEntity.JumpHelperController) this.jumpController).setCanJump(false);
-    }
-
     private void updateMoveTypeDuration() {
         if (this.moveController.getSpeed() < 2.2D) {
             this.currentMoveTypeDuration = 10;
@@ -280,7 +211,6 @@ public class TomatoFrogEntity extends AnimalEntity {
 
     private void checkLandingDelay() {
         this.updateMoveTypeDuration();
-        this.disableJumpControl();
     }
 
     public void livingTick() {
@@ -290,16 +220,6 @@ public class TomatoFrogEntity extends AnimalEntity {
             this.onGround = false;
             this.isAirBorne = true;
             this.playSound(this.getFlopSound(), this.getSoundVolume(), this.getSoundPitch());
-        }
-
-        if (!isChild()) {
-            if (this.jumpTicks != this.jumpDuration) {
-                ++this.jumpTicks;
-            } else if (this.jumpDuration != 0) {
-                this.jumpTicks = 0;
-                this.jumpDuration = 0;
-                this.setJumping(false);
-            }
         }
     }
 
@@ -320,37 +240,6 @@ public class TomatoFrogEntity extends AnimalEntity {
     @Override
     public ItemStack getPickedResult(RayTraceResult target) {
         return new ItemStack(UAMItems.TOMATO_FROG_SPAWN_EGG.get());
-    }
-
-    public static class JumpHelperController extends JumpController {
-        private final TomatoFrogEntity frog;
-        private boolean canJump;
-
-        public JumpHelperController(TomatoFrogEntity frog) {
-            super(frog);
-            this.frog = frog;
-        }
-
-        public boolean getIsJumping() {
-            return this.isJumping;
-        }
-
-        public boolean canJump() {
-            return this.canJump;
-        }
-
-        public void setCanJump(boolean canJumpIn) {
-            this.canJump = canJumpIn;
-        }
-
-        public void tick() {
-            if (this.isJumping) {
-                if (!frog.isChild()) {
-                    this.frog.startJumping();
-                }
-                this.isJumping = false;
-            }
-        }
     }
 
     private static class FrogMoveController extends MovementController {

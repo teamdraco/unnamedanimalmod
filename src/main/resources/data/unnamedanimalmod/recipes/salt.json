@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "unnamedanimalmod:salt_block"
+    }
+  ],
+  "result": {
+    "item": "unnamedanimalmod:salt",
+    "count": 4
+  }
+}

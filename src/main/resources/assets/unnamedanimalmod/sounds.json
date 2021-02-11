@@ -23,35 +23,123 @@
       }
     ]
   },
-  "whale.ambient": {
-    "subtitle": "subtitle.unnamedanimalmod.whale.ambient",
+  "southern_right_whale.ambient": {
+    "subtitle": "subtitle.unnamedanimalmod.southern_right_whale.ambient",
     "sounds": [
       {
-        "name": "unnamedanimalmod:whale/ambient"
+        "name": "unnamedanimalmod:southern_right_whale/ambient"
       }
     ]
   },
-  "whale.death": {
-    "subtitle": "subtitle.unnamedanimalmod.whale.death",
+  "southern_right_whale.death": {
+    "subtitle": "subtitle.unnamedanimalmod.southern_right_whale.death",
     "sounds": [
       {
-        "name": "unnamedanimalmod:whale/death"
+        "name": "unnamedanimalmod:southern_right_whale/death"
       }
     ]
   },
-  "whale.hurt": {
-    "subtitle": "subtitle.unnamedanimalmod.whale.hurt",
+  "southern_right_whale.hurt": {
+    "subtitle": "subtitle.unnamedanimalmod.southern_right_whale.hurt",
     "sounds": [
       {
-        "name": "unnamedanimalmod:whale/hurt"
+        "name": "unnamedanimalmod:southern_right_whale/hurt"
       }
     ]
   },
-  "whale.song": {
-    "subtitle": "subtitle.unnamedanimalmod.whale.song",
+  "southern_right_whale.song": {
+    "subtitle": "subtitle.unnamedanimalmod.southern_right_whale.song",
     "sounds": [
       {
-        "name": "unnamedanimalmod:whale/song"
+        "name": "unnamedanimalmod:southern_right_whale/song"
+      }
+    ]
+  },
+  "greater_prairie_chicken.ambient": {
+    "subtitle": "subtitle.unnamedanimalmod.greater_prairie_chicken.ambient",
+    "sounds": [
+      {
+        "name": "unnamedanimalmod:greater_prairie_chicken/ambient"
+      }
+    ]
+  },
+  "greater_prairie_chicken.death": {
+    "subtitle": "subtitle.unnamedanimalmod.greater_prairie_chicken.death",
+    "sounds": [
+      {
+        "name": "unnamedanimalmod:greater_prairie_chicken/death"
+      }
+    ]
+  },
+  "greater_prairie_chicken.hurt": {
+    "subtitle": "subtitle.unnamedanimalmod.greater_prairie_chicken.hurt",
+    "sounds": [
+      {
+        "name": "unnamedanimalmod:greater_prairie_chicken/hurt"
+      }
+    ]
+  },
+  "greater_prairie_chicken.booming": {
+    "subtitle": "subtitle.unnamedanimalmod.greater_prairie_chicken.booming",
+    "sounds": [
+      {
+        "name": "unnamedanimalmod:greater_prairie_chicken/booming"
+      }
+    ]
+  },
+  "musk_ox.ambient": {
+    "subtitle": "subtitle.unnamedanimalmod.musk_ox.ambient",
+    "sounds": [
+      {
+        "name": "unnamedanimalmod:musk_ox/ambient"
+      }
+    ]
+  },
+  "musk_ox.death": {
+    "subtitle": "subtitle.unnamedanimalmod.musk_ox.death",
+    "sounds": [
+      {
+        "name": "unnamedanimalmod:musk_ox/death"
+      }
+    ]
+  },
+  "musk_ox.hurt": {
+    "subtitle": "subtitle.unnamedanimalmod.musk_ox.hurt",
+    "sounds": [
+      {
+        "name": "unnamedanimalmod:musk_ox/hurt"
+      }
+    ]
+  },
+  "marine_iguana.ambient": {
+    "subtitle": "subtitle.unnamedanimalmod.marine_iguana.ambient",
+    "sounds": [
+      {
+        "name": "unnamedanimalmod:marine_iguana/ambient"
+      }
+    ]
+  },
+  "marine_iguana.death": {
+    "subtitle": "subtitle.unnamedanimalmod.marine_iguana.death",
+    "sounds": [
+      {
+        "name": "unnamedanimalmod:marine_iguana/death"
+      }
+    ]
+  },
+  "marine_iguana.hurt": {
+    "subtitle": "subtitle.unnamedanimalmod.marine_iguana.hurt",
+    "sounds": [
+      {
+        "name": "unnamedanimalmod:marine_iguana/hurt"
+      }
+    ]
+  },
+  "marine_iguana.transforms": {
+    "subtitle": "subtitle.unnamedanimalmod.marine_iguana.transforms",
+    "sounds": [
+      {
+        "name": "unnamedanimalmod:marine_iguana/transforms"
       }
     ]
   }

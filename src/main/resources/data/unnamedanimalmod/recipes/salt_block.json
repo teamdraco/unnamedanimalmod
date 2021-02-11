@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "unnamedanimalmod:salt"
+    }
+  },
+  "result": {
+    "item": "unnamedanimalmod:salt_block"
+  }
+}

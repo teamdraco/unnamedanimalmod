@@ -8,6 +8,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.ProjectileItemEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.IPacket;
 import net.minecraft.particles.ItemParticleData;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.DamageSource;
@@ -16,6 +17,9 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.fml.network.NetworkHooks;
+
+import javax.annotation.Nonnull;
 
 public class GreaterPrairieChickenEggEntity extends ProjectileItemEntity {
     public GreaterPrairieChickenEggEntity(EntityType<? extends GreaterPrairieChickenEggEntity> p_i50154_1_, World p_i50154_2_) {
@@ -77,5 +81,11 @@ public class GreaterPrairieChickenEggEntity extends ProjectileItemEntity {
     @Override
     public ItemStack getItem() {
         return new ItemStack(UAMItems.GREATER_PRAIRIE_CHICKEN_EGG.get());
+    }
+
+    @Nonnull
+    @Override
+    public IPacket<?> createSpawnPacket() {
+        return NetworkHooks.getEntitySpawningPacket(this);
     }
 }

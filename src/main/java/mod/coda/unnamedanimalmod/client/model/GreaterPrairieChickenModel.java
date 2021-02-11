@@ -99,8 +99,8 @@ public class GreaterPrairieChickenModel<T extends Entity> extends AgeableModel<G
         float degree = 1.0f;
         this.body.rotateAngleX = MathHelper.cos(f * speed * 0.4F) * degree * 0.2F * f1;
         this.head.rotateAngleX = MathHelper.cos(1.0F + f * speed * 0.4F) * degree * 0.2F * f1 + 0.5F;
-        this.legRight.rotateAngleX = MathHelper.cos(f * speed * 0.4F) * degree * 1.0F * f1;
-        this.legLeft.rotateAngleX = MathHelper.cos(f * speed * 0.4F) * degree * -1.0F * f1;
+        this.legRight.rotateAngleX = MathHelper.cos(1.0F + f * speed * 0.4F) * degree * 1.0F * f1;
+        this.legLeft.rotateAngleX = MathHelper.cos(1.0F + f * speed * 0.4F) * degree * -1.0F * f1;
         this.tail.rotateAngleX = MathHelper.cos(1.0F + f * speed * 0.4F) * degree * 0.4F * f1 + 1.1F;
         this.wingRight.rotateAngleZ = ageInTicks;
         this.wingLeft.rotateAngleZ = -ageInTicks;

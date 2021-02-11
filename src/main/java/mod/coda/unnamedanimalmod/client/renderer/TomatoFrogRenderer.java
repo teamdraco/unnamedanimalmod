@@ -17,8 +17,8 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class TomatoFrogRenderer extends MobRenderer<TomatoFrogEntity, TomatoFrogModel<TomatoFrogEntity>> {
-    protected static final ResourceLocation ADULT = new ResourceLocation(UnnamedAnimalMod.MOD_ID, "textures/entity/tomato_frog.png");
-    protected static final ResourceLocation CHILD = new ResourceLocation(UnnamedAnimalMod.MOD_ID, "textures/entity/tomato_frog_tadpole.png");
+    protected static final ResourceLocation ADULT = new ResourceLocation(UnnamedAnimalMod.MOD_ID, "textures/entity/tomato_frog/adult.png");
+    protected static final ResourceLocation CHILD = new ResourceLocation(UnnamedAnimalMod.MOD_ID, "textures/entity/tomato_frog/child.png");
     private final TomatoFrogModel adult;
     private final TomatoFrogModel child;
 

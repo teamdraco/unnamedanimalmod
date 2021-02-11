@@ -3,7 +3,8 @@ package mod.coda.unnamedanimalmod.client;
 import mod.coda.unnamedanimalmod.UnnamedAnimalMod;
 import mod.coda.unnamedanimalmod.client.renderer.*;
 import mod.coda.unnamedanimalmod.client.renderer.item.GreaterPrairieChickenEggRenderer;
-import mod.coda.unnamedanimalmod.entity.item.GreaterPrairieChickenEggEntity;
+import mod.coda.unnamedanimalmod.client.renderer.item.MarineIguanaEggRenderer;
+import mod.coda.unnamedanimalmod.client.renderer.item.PlatypusEggRenderer;
 import mod.coda.unnamedanimalmod.init.UAMEntities;
 import mod.coda.unnamedanimalmod.item.UAMSpawnEggItem;
 import net.minecraft.client.renderer.color.IItemColor;
@@ -26,8 +27,17 @@ public class ClientEventHandler {
         RenderingRegistry.registerEntityRenderingHandler(UAMEntities.TOMATO_FROG.get(), TomatoFrogRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(UAMEntities.SOUTHERN_RIGHT_WHALE.get(), SouthernRightWhaleRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(UAMEntities.GREATER_PRAIRIE_CHICKEN.get(), GreaterPrairieChickenRenderer::new);
-
         RenderingRegistry.registerEntityRenderingHandler(UAMEntities.GREATER_PRAIRIE_CHICKEN_EGG.get(), GreaterPrairieChickenEggRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(UAMEntities.FLASHLIGHT_FISH.get(), FlashlightFishRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(UAMEntities.HUMPHEAD_PARROTFISH.get(), HumpheadParrotfishRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(UAMEntities.MUSK_OX.get(), MuskOxRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(UAMEntities.BANANA_SLUG.get(), BananaSlugRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(UAMEntities.MARINE_IGUANA.get(), MarineIguanaRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(UAMEntities.PLATYPUS.get(), PlatypusRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(UAMEntities.PLATYPUS_EGG.get(), PlatypusEggRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(UAMEntities.MARINE_IGUANA_EGG.get(), MarineIguanaEggRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(UAMEntities.ELEPHANTNOSE_FISH.get(), ElephantnoseFishRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(UAMEntities.PACMAN_FROG.get(), PacmanFrogRenderer::new);
     }
 
     @SubscribeEvent

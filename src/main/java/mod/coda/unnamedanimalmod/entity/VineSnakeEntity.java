@@ -74,8 +74,8 @@ public class VineSnakeEntity extends AnimalEntity {
         return UAMEntities.VINE_SNAKE.get().create(this.world);
     }
 
-    @Override
+/*    @Override
     public ItemStack getPickedResult(RayTraceResult target) {
         return new ItemStack(UAMItems.VINE_SNAKE_SPAWN_EGG.get());
-    }
+    }*/
 }
