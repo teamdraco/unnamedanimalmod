@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "minecraft:cooked_prairie_chicken_egg_from_smoking"
+    ]
+  },
+  "criteria": {
+    "has_greater_prairie_chicken_egg": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "unnamedanimalmod:greater_prairie_chicken_egg"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "minecraft:cooked_prairie_chicken_egg_from_smoking"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_greater_prairie_chicken_egg",
+      "has_the_recipe"
+    ]
+  ]
+}

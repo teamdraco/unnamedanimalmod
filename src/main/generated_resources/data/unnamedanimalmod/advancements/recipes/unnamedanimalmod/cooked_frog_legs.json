@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "unnamedanimalmod:cooked_frog_legs"
+    ]
+  },
+  "criteria": {
+    "has_frog_legs": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "unnamedanimalmod:frog_legs"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "unnamedanimalmod:cooked_frog_legs"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_frog_legs",
+      "has_the_recipe"
+    ]
+  ]
+}

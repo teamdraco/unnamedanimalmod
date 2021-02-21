@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "stage=0,waterlogged=false": {
+      "model": "unnamedanimalmod:block/mangrove_sapling"
+    },
+    "stage=1,waterlogged=false": {
+      "model": "unnamedanimalmod:block/mangrove_sapling"
+    },
+    "stage=0,waterlogged=true": {
+      "model": "unnamedanimalmod:block/mangrove_sapling"
+    },
+    "stage=1,waterlogged=true": {
+      "model": "unnamedanimalmod:block/mangrove_sapling"
+    }
+  }
+}

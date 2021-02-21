@@ -50,6 +50,7 @@ public class UAMItems {
     public static final RegistryObject<Item> MARINE_IGUANA_SPAWN_EGG = REGISTRY.register("marine_iguana_spawn_egg", () -> new UAMSpawnEggItem(UAMEntities.MARINE_IGUANA, 0x27272d, 0x78f7d4, new Item.Properties().group(UnnamedAnimalMod.GROUP)));
     public static final RegistryObject<Item> PLATYPUS_SPAWN_EGG = REGISTRY.register("platypus_spawn_egg", () -> new UAMSpawnEggItem(UAMEntities.PLATYPUS, 0x71492a, 0x544b38, new Item.Properties().group(UnnamedAnimalMod.GROUP)));
     public static final RegistryObject<Item> PACMAN_FROG_SPAWN_EGG = REGISTRY.register("pacman_frog_spawn_egg", () -> new UAMSpawnEggItem(UAMEntities.PACMAN_FROG, 0x9a9c26, 0x3d1a0c, new Item.Properties().group(UnnamedAnimalMod.GROUP)));
-
-    public static final RegistryObject<BlockItem> SALT_BLOCK = REGISTRY.register("salt_block", () -> new BlockItem(UAMBlocks.SALT_BLOCK.get(), new Item.Properties().group(UnnamedAnimalMod.GROUP)));
+    
+    public static final RegistryObject<Item> SALT_BLOCK = REGISTRY.register("salt_block", () -> new BlockItem(UAMBlocks.SALT_BLOCK.get(), new Item.Properties().group(UnnamedAnimalMod.GROUP)));
+    public static final RegistryObject<Item> MANGROVE_SAPLING = REGISTRY.register("mangrove_sapling", () -> new BlockItem(UAMBlocks.MANGROVE_SAPLING.get(), new Item.Properties().group(UnnamedAnimalMod.GROUP)));
 }

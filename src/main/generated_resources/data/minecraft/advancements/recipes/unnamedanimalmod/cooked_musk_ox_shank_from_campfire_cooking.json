@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "minecraft:cooked_musk_ox_shank_from_campfire_cooking"
+    ]
+  },
+  "criteria": {
+    "has_musk_ox_shank": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "unnamedanimalmod:musk_ox_shank"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "minecraft:cooked_musk_ox_shank_from_campfire_cooking"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_musk_ox_shank",
+      "has_the_recipe"
+    ]
+  ]
+}

@@ -1,11 +1,13 @@
 package mod.coda.unnamedanimalmod;
 
 import mod.coda.unnamedanimalmod.client.ClientEventHandler;
+import mod.coda.unnamedanimalmod.data.*;
 import mod.coda.unnamedanimalmod.entity.*;
 import mod.coda.unnamedanimalmod.init.UAMBlocks;
 import mod.coda.unnamedanimalmod.init.UAMEntities;
 import mod.coda.unnamedanimalmod.init.UAMItems;
 import mod.coda.unnamedanimalmod.init.UAMSounds;
+import net.minecraft.data.BlockTagsProvider;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntitySpawnPlacementRegistry;
@@ -29,6 +31,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 @Mod(UnnamedAnimalMod.MOD_ID)
@@ -45,6 +48,18 @@ public class UnnamedAnimalMod {
         UAMBlocks.REGISTRY.register(bus);
         UAMItems.REGISTRY.register(bus);
         UAMEntities.REGISTRY.register(bus);
+        bus.addListener(this::gatherData);
+    }
+    public void gatherData(GatherDataEvent evt)
+    {
+        BlockTagsProvider provider = new ModBlockTagProvider(evt.getGenerator());
+        evt.getGenerator().addProvider(new ModBlockStateProvider(evt.getGenerator(), evt.getExistingFileHelper()));
+        evt.getGenerator().addProvider(new ModItemModelProvider(evt.getGenerator(), evt.getExistingFileHelper()));
+        evt.getGenerator().addProvider(new ModLangProvider(evt.getGenerator()));
+        evt.getGenerator().addProvider(provider);
+        evt.getGenerator().addProvider(new ModLootTableProvider(evt.getGenerator()));
+        evt.getGenerator().addProvider(new ModItemTagProvider(evt.getGenerator(),provider));
+        evt.getGenerator().addProvider(new ModRecipeProvider(evt.getGenerator()));
     }
 
     private void registerCommon(FMLCommonSetupEvent event) {
