@@ -3,10 +3,7 @@ package mod.coda.unnamedanimalmod;
 import mod.coda.unnamedanimalmod.client.ClientEventHandler;
 import mod.coda.unnamedanimalmod.data.*;
 import mod.coda.unnamedanimalmod.entity.*;
-import mod.coda.unnamedanimalmod.init.UAMBlocks;
-import mod.coda.unnamedanimalmod.init.UAMEntities;
-import mod.coda.unnamedanimalmod.init.UAMItems;
-import mod.coda.unnamedanimalmod.init.UAMSounds;
+import mod.coda.unnamedanimalmod.init.*;
 import net.minecraft.data.BlockTagsProvider;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
@@ -48,6 +45,7 @@ public class UnnamedAnimalMod {
         UAMBlocks.REGISTRY.register(bus);
         UAMItems.REGISTRY.register(bus);
         UAMEntities.REGISTRY.register(bus);
+        UAMFeatures.REGISTRY.register(bus);
         bus.addListener(this::gatherData);
     }
     public void gatherData(GatherDataEvent evt)

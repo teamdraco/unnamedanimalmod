@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/door_top",
+  "textures": {
+    "bottom": "unnamedanimalmod:block/mangrove_door_bottom",
+    "top": "unnamedanimalmod:block/mangrove_door_top"
+  }
+}

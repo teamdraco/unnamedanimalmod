@@ -208,13 +208,18 @@ public class ModBlockStateProvider extends net.minecraftforge.client.model.gener
     
     public void logBlock(RegistryObject<Block> blockRegistryObject)
     {
+        if (blockRegistryObject.equals(UAMBlocks.MANGROVE_WOOD) || blockRegistryObject.equals(UAMBlocks.STRIPPED_MANGROVE_WOOD))
+        {
+            woodBlock(blockRegistryObject);
+            return;
+        }
         logBlock((RotatedPillarBlock) blockRegistryObject.get());
     }
     
     public void woodBlock(RegistryObject<Block> blockRegistryObject)
     {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
-        String baseName = name + "_log";
+        String baseName = name.substring(0,name.length() - 5) + "_log";
         axisBlock((RotatedPillarBlock) blockRegistryObject.get(), prefix("block/" + baseName), prefix("block/" + baseName));
     }
 }
