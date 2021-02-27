@@ -112,6 +112,7 @@ bb514d8ecb9e287bd8bcd58c383f1c4207149587 data/minecraft/tags/blocks/buttons.json
 caade9cd1ec701040d3e7c4f17a2cf4a04e0067e data/minecraft/tags/blocks/fence_gates.json
 7884695a6c5388acd3d3444eb315928314cc7a56 data/minecraft/tags/blocks/fences.json
 74700d556ca80c7a1db5fd4efb09c3ddb26cad66 data/minecraft/tags/blocks/leaves.json
+b940a1b11f09b75442219d2d8029d69d695fa84d data/minecraft/tags/blocks/logs.json
 642d26bc13c1a0465ce292af10cac80f082b7d55 data/minecraft/tags/blocks/pressure_plates.json
 d16301b56b358b215672f186149a20f002ef9dc7 data/minecraft/tags/blocks/saplings.json
 6c3459e2cbcd6fd746dd12dac9984fc4fab1dcad data/minecraft/tags/blocks/slabs.json
@@ -133,7 +134,7 @@ bb514d8ecb9e287bd8bcd58c383f1c4207149587 data/minecraft/tags/items/buttons.json
 74700d556ca80c7a1db5fd4efb09c3ddb26cad66 data/minecraft/tags/items/gold_ores.json
 74700d556ca80c7a1db5fd4efb09c3ddb26cad66 data/minecraft/tags/items/jungle_logs.json
 74700d556ca80c7a1db5fd4efb09c3ddb26cad66 data/minecraft/tags/items/leaves.json
-74700d556ca80c7a1db5fd4efb09c3ddb26cad66 data/minecraft/tags/items/logs.json
+b940a1b11f09b75442219d2d8029d69d695fa84d data/minecraft/tags/items/logs.json
 74700d556ca80c7a1db5fd4efb09c3ddb26cad66 data/minecraft/tags/items/logs_that_burn.json
 74700d556ca80c7a1db5fd4efb09c3ddb26cad66 data/minecraft/tags/items/oak_logs.json
 74700d556ca80c7a1db5fd4efb09c3ddb26cad66 data/minecraft/tags/items/planks.json
