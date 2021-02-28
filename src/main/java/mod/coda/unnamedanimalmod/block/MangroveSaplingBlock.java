@@ -84,7 +84,7 @@ public class MangroveSaplingBlock extends SaplingBlock implements IWaterLoggable
             }
             else
             {
-                landTree.attemptGrowTree(world, world.getChunkProvider().getChunkGenerator(), pos, state, rand);
+                UAMFeatures.LAND_TREE_FEATURE.get().generate(world,world.getChunkProvider().generator, rand,pos, null);
             }
         }
     }

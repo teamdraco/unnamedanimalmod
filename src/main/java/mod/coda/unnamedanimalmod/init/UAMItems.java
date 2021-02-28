@@ -56,8 +56,8 @@ public class UAMItems {
     public static final RegistryObject<Item> PACMAN_FROG_SPAWN_EGG = REGISTRY.register("pacman_frog_spawn_egg", () -> new UAMSpawnEggItem(UAMEntities.PACMAN_FROG, 0x9a9c26, 0x3d1a0c, DEFAULT_PROPERTIES()));
     
     public static final RegistryObject<Item> SALT_BLOCK = REGISTRY.register("salt_block", () -> new BlockItem(UAMBlocks.SALT_BLOCK.get(), DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> MANGROVE_SAPLING = REGISTRY.register("mangrove_sapling", () -> new BlockItem(UAMBlocks.MANGROVE_SAPLING.get(), DEFAULT_PROPERTIES()));
     
+    public static final RegistryObject<Item> MANGROVE_SAPLING = REGISTRY.register("mangrove_sapling", () -> new BlockItem(UAMBlocks.MANGROVE_SAPLING.get(), DEFAULT_PROPERTIES()));
     
     public static final RegistryObject<Item> MANGROVE_LOG = REGISTRY.register("mangrove_log", () -> new BlockItem(UAMBlocks.MANGROVE_LOG.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> MANGROVE_WOOD = REGISTRY.register("mangrove_wood", () -> new BlockItem(UAMBlocks.MANGROVE_WOOD.get(), DEFAULT_PROPERTIES()));
@@ -76,5 +76,12 @@ public class UAMItems {
     
     public static final RegistryObject<Item> MANGROVE_PLANKS_FENCE = REGISTRY.register("mangrove_planks_fence", () -> new BlockItem(UAMBlocks.MANGROVE_PLANKS_FENCE.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> MANGROVE_PLANKS_FENCE_GATE = REGISTRY.register("mangrove_planks_fence_gate", () -> new BlockItem(UAMBlocks.MANGROVE_PLANKS_FENCE_GATE.get(), DEFAULT_PROPERTIES()));
+    
+    public static final RegistryObject<Item> MUD_BALL = REGISTRY.register("mud_ball", () -> new Item(DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> MUD_BRICK = REGISTRY.register("mud_brick", () -> new Item(DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> MUD_BLOCK = REGISTRY.register("mud_block", () -> new BlockItem(UAMBlocks.MUD_BLOCK.get(), DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> MUD_BRICKS = REGISTRY.register("mud_bricks", () -> new BlockItem(UAMBlocks.MUD_BRICKS.get(), DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> MUD_BRICKS_SLAB = REGISTRY.register("mud_bricks_slab", () -> new BlockItem(UAMBlocks.MUD_BRICKS_SLAB.get(), DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> MUD_BRICKS_STAIRS = REGISTRY.register("mud_bricks_stairs", () -> new BlockItem(UAMBlocks.MUD_BRICKS_STAIRS.get(), DEFAULT_PROPERTIES()));
     
 }

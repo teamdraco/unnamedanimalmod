@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "unnamedanimalmod:mangrove_planks_slab"
+    "unnamedanimalmod:mangrove_planks_slab",
+    "unnamedanimalmod:mud_bricks_slab"
   ]
 }

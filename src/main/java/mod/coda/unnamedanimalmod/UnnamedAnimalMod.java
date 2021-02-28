@@ -46,6 +46,7 @@ public class UnnamedAnimalMod {
         UAMItems.REGISTRY.register(bus);
         UAMEntities.REGISTRY.register(bus);
         UAMFeatures.REGISTRY.register(bus);
+        UAMItemTags.init();
         bus.addListener(this::gatherData);
     }
     public void gatherData(GatherDataEvent evt)

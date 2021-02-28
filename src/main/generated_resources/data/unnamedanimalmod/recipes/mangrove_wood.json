@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "bark",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "unnamedanimalmod:mangrove_log"
+    }
+  },
+  "result": {
+    "item": "unnamedanimalmod:mangrove_wood",
+    "count": 3
+  }
+}

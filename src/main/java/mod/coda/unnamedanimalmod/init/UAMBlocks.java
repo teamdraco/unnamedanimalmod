@@ -19,6 +19,10 @@ public class UAMBlocks {
     {
         return AbstractBlock.Properties.create(Material.WOOD, MaterialColor.YELLOW).sound(SoundType.WOOD).harvestTool(ToolType.AXE).hardnessAndResistance(1.75F, 4.0F);
     }
+    public static AbstractBlock.Properties MUD_PROPERTIES() //adjust these to your likings
+    {
+        return AbstractBlock.Properties.create(Material.CLAY, MaterialColor.YELLOW).sound(SoundType.GROUND).harvestTool(ToolType.SHOVEL).hardnessAndResistance(0.6F);
+    }
     public static final DeferredRegister<Block> REGISTRY = DeferredRegister.create(ForgeRegistries.BLOCKS, UnnamedAnimalMod.MOD_ID);
     
     public static final RegistryObject<Block> SALT_BLOCK = REGISTRY.register("salt_block", () -> new Block(Block.Properties.create(Material.ROCK, MaterialColor.PINK).sound(SoundType.STONE).hardnessAndResistance(1.5f)));
@@ -39,5 +43,10 @@ public class UAMBlocks {
     public static final RegistryObject<Block> MANGROVE_PLANKS_PRESSURE_PLATE = REGISTRY.register("mangrove_planks_pressure_plate", () -> new PressurePlateBlock(EVERYTHING, MANGROVE_PROPERTIES()));
     public static final RegistryObject<Block> MANGROVE_PLANKS_FENCE = REGISTRY.register("mangrove_planks_fence", () -> new FenceBlock(MANGROVE_PROPERTIES()));
     public static final RegistryObject<Block> MANGROVE_PLANKS_FENCE_GATE = REGISTRY.register("mangrove_planks_fence_gate", () -> new FenceGateBlock(MANGROVE_PROPERTIES()));
+    
+    public static final RegistryObject<Block> MUD_BLOCK = REGISTRY.register("mud_block", () -> new Block(MUD_PROPERTIES()));
+    public static final RegistryObject<Block> MUD_BRICKS = REGISTRY.register("mud_bricks", () -> new Block(MUD_PROPERTIES()));
+    public static final RegistryObject<Block> MUD_BRICKS_SLAB = REGISTRY.register("mud_bricks_slab", () -> new SlabBlock(MUD_PROPERTIES()));
+    public static final RegistryObject<Block> MUD_BRICKS_STAIRS = REGISTRY.register("mud_bricks_stairs", () -> new StairsBlock(MUD_BRICKS.get().getDefaultState(), MUD_PROPERTIES()));
     
 }

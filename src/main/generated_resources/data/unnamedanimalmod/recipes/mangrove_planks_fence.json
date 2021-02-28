@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "W#W",
+    "W#W"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:stick"
+    },
+    "W": {
+      "item": "unnamedanimalmod:mangrove_planks"
+    }
+  },
+  "result": {
+    "item": "unnamedanimalmod:mangrove_planks_fence",
+    "count": 3
+  }
+}

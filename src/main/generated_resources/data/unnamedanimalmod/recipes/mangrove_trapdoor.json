@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "unnamedanimalmod:mangrove_planks"
+    }
+  },
+  "result": {
+    "item": "unnamedanimalmod:mangrove_trapdoor",
+    "count": 2
+  }
+}
