@@ -36,6 +36,7 @@ public class UAMItems {
     public static final RegistryObject<Item> COOKED_FROG_LEGS = REGISTRY.register("cooked_frog_legs", () -> new Item(new Item.Properties().group(UnnamedAnimalMod.GROUP).food(new Food.Builder().hunger(5).saturation(0.3f).meat().build())));
     public static final RegistryObject<Item> PACMAN_FROG_EGG = REGISTRY.register("pacman_frog_egg", () -> new PacmanFrogEggItem(new Item.Properties().group(UnnamedAnimalMod.GROUP).maxStackSize(16)));
     public static final RegistryObject<Item> PACMAN_FROG_BOWL = REGISTRY.register("pacman_frog_bowl", () -> new UAMBowltem(() -> UAMEntities.PACMAN_FROG.get(), new Item.Properties().maxStackSize(1).group(UnnamedAnimalMod.GROUP)));
+    public static final RegistryObject<Item> FLASHLIGHT_FISH_BUCKET = REGISTRY.register("flashlight_fish_bucket", () -> new FishBucketItem(UAMEntities.FLASHLIGHT_FISH, () -> Fluids.WATER, new Item.Properties().group(UnnamedAnimalMod.GROUP).maxStackSize(1)));
 
     //public static final RegistryObject<Item> HONDURAN_WHITE_BAT_SPAWN_EGG = REGISTRY.register("honduran_white_bat_spawn_egg", () -> new UAMSpawnEggItem(UAMEntities.HONDURAN_WHITE_BAT, 0xf6f4e8, 0xf7ce62, new Item.Properties().group(UnnamedAnimalMod.GROUP)));
     //public static final RegistryObject<Item> VINE_SNAKE_SPAWN_EGG = REGISTRY.register("vine_snake_spawn_egg", () -> new UAMSpawnEggItem(UAMEntities.VINE_SNAKE, 0x2e5129, 0x71bc53, new Item.Properties().group(UnnamedAnimalMod.GROUP)));

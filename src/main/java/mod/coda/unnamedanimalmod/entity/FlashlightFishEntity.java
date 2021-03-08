@@ -40,7 +40,7 @@ public class FlashlightFishEntity extends AbstractGroupFishEntity {
     }
 
     protected ItemStack getFishBucket() {
-        return null;
+        return new ItemStack(UAMItems.FLASHLIGHT_FISH_BUCKET.get());
     }
 
     protected SoundEvent getAmbientSound() {
