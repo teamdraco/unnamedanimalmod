@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "unnamedanimalmod:greater_prairie_chicken_egg"
+  },
+  "result": "unnamedanimalmod:fried_prairie_chicken_egg",
+  "experience": 0.1,
+  "cookingtime": 200
+}

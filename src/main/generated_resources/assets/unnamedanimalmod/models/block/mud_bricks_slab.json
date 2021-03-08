@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "side": "unnamedanimalmod:block/mud_bricks",
+    "bottom": "unnamedanimalmod:block/mud_bricks",
+    "top": "unnamedanimalmod:block/mud_bricks"
+  }
+}

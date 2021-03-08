@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "side": "unnamedanimalmod:block/mangrove_planks",
+    "bottom": "unnamedanimalmod:block/mangrove_planks",
+    "top": "unnamedanimalmod:block/mangrove_planks"
+  }
+}

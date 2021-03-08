@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "unnamedanimalmod:item/cooked_musk_ox_shank"
+  }
+}
