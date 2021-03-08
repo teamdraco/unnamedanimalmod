@@ -46,7 +46,14 @@ public class ModRecipeProvider extends RecipeProvider
     
         ShapedRecipeBuilder.shapedRecipe(UAMItems.SALT_BLOCK.get()).key('#', UAMItems.SALT.get()).patternLine("##").patternLine("##").addCriterion("has_salt", hasItem(UAMItems.SALT.get())).build(consumer);
         ShapelessRecipeBuilder.shapelessRecipe(UAMItems.SALT.get(), 4).addIngredient(UAMItems.SALT_BLOCK.get()).addCriterion("has_salt", hasItem(UAMItems.SALT.get())).build(consumer);
-        
+    
+        ShapedRecipeBuilder.shapedRecipe(UAMItems.MUD_BLOCK.get()).key('#', UAMItems.MUD_BALL.get()).patternLine("##").patternLine("##").addCriterion("has_mud", hasItem(UAMItems.MUD_BALL.get())).build(consumer);
+        ShapelessRecipeBuilder.shapelessRecipe(UAMItems.MUD_BALL.get(), 4).addIngredient(UAMItems.MUD_BLOCK.get()).addCriterion("has_mud", hasItem(UAMItems.MUD_BALL.get())).build(consumer);
+        smeltingRecipe(Ingredient.fromItems(UAMItems.MUD_BALL.get()), UAMItems.MUD_BRICK.get(),0.1f,200).addCriterion("has_mud", hasItem(UAMItems.MUD_BALL.get())).build(consumer);
+        ShapedRecipeBuilder.shapedRecipe(UAMItems.MUD_BRICKS.get()).key('#', UAMItems.MUD_BRICK.get()).patternLine("##").patternLine("##").addCriterion("has_mud", hasItem(UAMItems.MUD_BALL.get())).build(consumer);
+        shapedRecipe(UAMItems.MUD_BRICKS_SLAB.get(), 6).key('#', UAMItems.MUD_BRICKS.get()).patternLine("###").addCriterion("has_mud", hasItem(UAMItems.MUD_BALL.get())).build(consumer);
+        shapedRecipe(UAMItems.MUD_BRICKS_STAIRS.get(), 4).key('#', UAMItems.MUD_BRICKS.get()).patternLine("#  ").patternLine("## ").patternLine("###").addCriterion("has_mud", hasItem(UAMItems.MUD_BALL.get())).build(consumer);
+    
         shapelessPlanks(consumer, UAMItems.MANGROVE_PLANKS.get(), UAMItemTags.MANGROVE_LOGS);
         shapelessWood(consumer, UAMItems.MANGROVE_WOOD.get(), UAMItems.MANGROVE_LOG.get());
         shapelessWood(consumer, UAMItems.STRIPPED_MANGROVE_WOOD.get(), UAMItems.STRIPPED_MANGROVE_LOG.get());
