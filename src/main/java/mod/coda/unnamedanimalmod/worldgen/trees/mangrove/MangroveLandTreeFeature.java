@@ -27,7 +27,11 @@ public class MangroveLandTreeFeature extends Feature<NoFeatureConfig>
     @Override
     public boolean generate(ISeedReader reader, ChunkGenerator generator, Random rand, BlockPos pos, NoFeatureConfig config)
     {
-        if (reader.hasWater(pos))
+        if (reader.isAirBlock(pos.down()) || reader.getBlockState(pos.down()).getBlock().equals(Blocks.JUNGLE_LEAVES))
+        {
+            return false;
+        }
+        if (reader.hasWater(pos) || reader.hasWater(pos.down()))
         {
             return false;
         }
@@ -67,6 +71,25 @@ public class MangroveLandTreeFeature extends Feature<NoFeatureConfig>
                     return false;
                 }
             }
+            int i = 0;
+            do
+            {
+                i++;
+                BlockPos trunkPos = pos.offset(direction).down(i);
+                if (MangroveTreeHelper.canPlace(reader, trunkPos))
+                {
+                    filler.add(Pair.of(trunkPos, defaultLog));
+                }
+                else
+                {
+                    break;
+                }
+                if (i > reader.getHeight())
+                {
+                    break;
+                }
+            }
+            while (true);
         }
         Direction highestDirection = directions[rand.nextInt(directions.length)];
         boolean failed = false;

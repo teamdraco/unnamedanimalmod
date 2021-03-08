@@ -2,6 +2,7 @@ package mod.coda.unnamedanimalmod.init;
 
 import mod.coda.unnamedanimalmod.UnnamedAnimalMod;
 import mod.coda.unnamedanimalmod.block.MangroveSaplingBlock;
+import mod.coda.unnamedanimalmod.block.RichFarmlandBlock;
 import mod.coda.unnamedanimalmod.block.StripableLogBlock;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
@@ -44,9 +45,12 @@ public class UAMBlocks {
     public static final RegistryObject<Block> MANGROVE_PLANKS_FENCE = REGISTRY.register("mangrove_planks_fence", () -> new FenceBlock(MANGROVE_PROPERTIES()));
     public static final RegistryObject<Block> MANGROVE_PLANKS_FENCE_GATE = REGISTRY.register("mangrove_planks_fence_gate", () -> new FenceGateBlock(MANGROVE_PROPERTIES()));
     
-    public static final RegistryObject<Block> MUD_BLOCK = REGISTRY.register("mud_block", () -> new Block(MUD_PROPERTIES()));
+    public static final Block MUD = new Block(MUD_PROPERTIES());
+    public static final RegistryObject<Block> MUD_BLOCK = REGISTRY.register("mud_block", () -> MUD);
     public static final RegistryObject<Block> MUD_BRICKS = REGISTRY.register("mud_bricks", () -> new Block(MUD_PROPERTIES()));
     public static final RegistryObject<Block> MUD_BRICKS_SLAB = REGISTRY.register("mud_bricks_slab", () -> new SlabBlock(MUD_PROPERTIES()));
     public static final RegistryObject<Block> MUD_BRICKS_STAIRS = REGISTRY.register("mud_bricks_stairs", () -> new StairsBlock(MUD_BRICKS.get().getDefaultState(), MUD_PROPERTIES()));
+    
+    public static final RegistryObject<Block> RICH_FARMLAND = REGISTRY.register("rich_farmland", () -> new RichFarmlandBlock(AbstractBlock.Properties.from(Blocks.FARMLAND)));
     
 }

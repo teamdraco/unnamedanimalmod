@@ -7,14 +7,11 @@ import mod.coda.unnamedanimalmod.init.UAMItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.WallTorchBlock;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.enchantment.Enchantment;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
-import net.minecraft.potion.Effect;
 import net.minecraftforge.common.data.LanguageProvider;
 import net.minecraftforge.fml.RegistryObject;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -37,7 +34,7 @@ public class ModLangProvider extends LanguageProvider
         Helper.takeAll(blocks, i -> i.get() instanceof WallTorchBlock);
         blocks.forEach(b -> {
             String name = b.get().getTranslationKey().replaceFirst("block." + UnnamedAnimalMod.MOD_ID + ".", "");
-            name = Helper.toTitleCase(specialBlockNameChanges(name), "_");
+            name = Helper.toTitleCase(specialNameChanges(name), "_");
             add(b.get().getTranslationKey(), name);
         });
         
@@ -45,7 +42,7 @@ public class ModLangProvider extends LanguageProvider
             if (!(i.get() instanceof BlockItem))
             {
                 String name = i.get().getTranslationKey().replaceFirst("item." + UnnamedAnimalMod.MOD_ID + ".", "");
-                name = Helper.toTitleCase(specialBlockNameChanges(name), "_");
+                name = Helper.toTitleCase(specialNameChanges(name), "_");
                 add(i.get().getTranslationKey(), name);
             }
         });
@@ -73,7 +70,7 @@ public class ModLangProvider extends LanguageProvider
     {
         add("modname.tooltip." + identifier, tooltip);
     }
-    public String specialBlockNameChanges(String name)
+    public String specialNameChanges(String name)
     {
         if ((!name.endsWith("_bricks")))
         {

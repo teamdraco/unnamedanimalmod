@@ -37,7 +37,7 @@ public class ModBlockTagProvider extends BlockTagsProvider
         getOrCreateBuilder(WOODEN_BUTTONS).add(getModBlocks(b -> b instanceof WoodButtonBlock));
         getOrCreateBuilder(PRESSURE_PLATES).add(getModBlocks(b -> b instanceof AbstractPressurePlateBlock));
         getOrCreateBuilder(LOGS).add(UAMBlocks.MANGROVE_LOG.get());
-        getOrCreateBuilder(DIRT).add(getModBlocks(b -> b instanceof GrassBlock));
+        getOrCreateBuilder(DIRT).add(getModBlocks(b -> b instanceof GrassBlock || b instanceof FarmlandBlock));
         getOrCreateBuilder(SAPLINGS).add(getModBlocks(b -> b instanceof SaplingBlock));
         getOrCreateBuilder(PLANKS).add(UAMBlocks.MANGROVE_PLANKS.get());
         getOrCreateBuilder(WOODEN_FENCES).add(UAMBlocks.MANGROVE_PLANKS_FENCE.get(), UAMBlocks.MANGROVE_PLANKS_FENCE_GATE.get());

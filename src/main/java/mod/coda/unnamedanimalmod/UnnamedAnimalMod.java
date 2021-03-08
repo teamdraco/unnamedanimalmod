@@ -46,6 +46,8 @@ public class UnnamedAnimalMod {
         UAMItems.REGISTRY.register(bus);
         UAMEntities.REGISTRY.register(bus);
         UAMFeatures.REGISTRY.register(bus);
+        UAMBiomes.BIOMES.register(bus);
+        UAMBiomes.BUILDERS.register(bus);
         UAMItemTags.init();
         bus.addListener(this::gatherData);
     }

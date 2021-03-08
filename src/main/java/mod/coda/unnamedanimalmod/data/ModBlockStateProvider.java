@@ -44,7 +44,8 @@ public class ModBlockStateProvider extends net.minecraftforge.client.model.gener
     protected void registerStatesAndModels()
     {
         Set<RegistryObject<Block>> blocks = new HashSet<>(UAMBlocks.REGISTRY.getEntries());
-    
+        
+        blocks.remove(UAMBlocks.RICH_FARMLAND);
         Helper.takeAll(blocks, b -> b.get() instanceof GrassBlock).forEach(this::grassBlock);
         Helper.takeAll(blocks, b -> b.get() instanceof StairsBlock).forEach(this::stairsBlock);
         Helper.takeAll(blocks, b -> b.get() instanceof RotatedPillarBlock).forEach(this::logBlock);
@@ -61,6 +62,7 @@ public class ModBlockStateProvider extends net.minecraftforge.client.model.gener
         Helper.takeAll(blocks, b -> b.get() instanceof WallTorchBlock).forEach(this::wallTorchBlock);
         Helper.takeAll(blocks, b -> b.get() instanceof TorchBlock).forEach(this::torchBlock);
         
+        richFarmlandBlock(UAMBlocks.RICH_FARMLAND);
         Collection<RegistryObject<Block>> slabs = Helper.takeAll(blocks, b -> b.get() instanceof SlabBlock);
         blocks.forEach(this::basicBlock);
         slabs.forEach(this::slabBlock);
@@ -104,6 +106,13 @@ public class ModBlockStateProvider extends net.minecraftforge.client.model.gener
                 .modelForState().modelFile(torch).addModel();
     }
     
+    public void richFarmlandBlock(RegistryObject<Block> blockRegistryObject)
+    {
+        String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
+        ModelFile farmland = models().withExistingParent(name, prefix("block/template_farmland")).texture("side", prefix("block/rich_farmland_side")).texture("top", prefix("block/rich_farmland_top")).texture("dirt", new ResourceLocation("block/dirt"));
+        
+        getVariantBuilder(blockRegistryObject.get()).forAllStates(s -> ConfiguredModel.builder().modelFile(farmland).build());
+    }
     public void grassBlock(RegistryObject<Block> blockRegistryObject)
     {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();

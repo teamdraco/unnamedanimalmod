@@ -84,7 +84,7 @@ public class MangroveTreeHelper
                 for (int i =0; i < vinesLength; i++)
                 {
                     BlockPos vinePos = pair.first.down(i);
-                    if (canPlace(reader, vinePos))
+                    if (canPlace(reader, vinePos) && !reader.hasWater(vinePos))
                     {
                         reader.setBlockState(vinePos, pair.second, 3);
                     }
