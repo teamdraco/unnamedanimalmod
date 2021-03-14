@@ -15,10 +15,10 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public class UAMItems {
     
-    public static Item.Properties DEFAULT_PROPERTIES()
-    {
+    public static Item.Properties DEFAULT_PROPERTIES() {
         return new Item.Properties().group(UnnamedAnimalMod.GROUP);
     }
+
     public static final DeferredRegister<Item> REGISTRY = DeferredRegister.create(ForgeRegistries.ITEMS, UnnamedAnimalMod.MOD_ID);
     
     public static final RegistryObject<Item> BLACK_DIAMOND_STINGRAY_BUCKET = REGISTRY.register("black_diamond_stingray_bucket", () -> new FishBucketItem(UAMEntities.BLACK_DIAMOND_STINGRAY, () -> Fluids.WATER, new Item.Properties().group(UnnamedAnimalMod.GROUP).maxStackSize(1)));
@@ -55,7 +55,8 @@ public class UAMItems {
     public static final RegistryObject<Item> MARINE_IGUANA_SPAWN_EGG = REGISTRY.register("marine_iguana_spawn_egg", () -> new UAMSpawnEggItem(UAMEntities.MARINE_IGUANA, 0x27272d, 0x78f7d4, DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> PLATYPUS_SPAWN_EGG = REGISTRY.register("platypus_spawn_egg", () -> new UAMSpawnEggItem(UAMEntities.PLATYPUS, 0x71492a, 0x544b38, DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> PACMAN_FROG_SPAWN_EGG = REGISTRY.register("pacman_frog_spawn_egg", () -> new UAMSpawnEggItem(UAMEntities.PACMAN_FROG, 0x9a9c26, 0x3d1a0c, DEFAULT_PROPERTIES()));
-    
+    public static final RegistryObject<Item> ELEPHANTNOSE_FISH_SPAWN_EGG = REGISTRY.register("elephantnose_fish_spawn_egg", () -> new UAMSpawnEggItem(UAMEntities.ELEPHANTNOSE_FISH, 0x4c3b36, 0xc9c1b9, DEFAULT_PROPERTIES()));
+
     public static final RegistryObject<Item> SALT_BLOCK = REGISTRY.register("salt_block", () -> new BlockItem(UAMBlocks.SALT_BLOCK.get(), DEFAULT_PROPERTIES()));
     
     public static final RegistryObject<Item> MANGROVE_SAPLING = REGISTRY.register("mangrove_sapling", () -> new BlockItem(UAMBlocks.MANGROVE_SAPLING.get(), DEFAULT_PROPERTIES()));
@@ -66,17 +67,17 @@ public class UAMItems {
     public static final RegistryObject<Item> STRIPPED_MANGROVE_WOOD = REGISTRY.register("stripped_mangrove_wood", () -> new BlockItem(UAMBlocks.STRIPPED_MANGROVE_WOOD.get(), DEFAULT_PROPERTIES()));
     
     public static final RegistryObject<Item> MANGROVE_PLANKS = REGISTRY.register("mangrove_planks", () -> new BlockItem(UAMBlocks.MANGROVE_PLANKS.get(), DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> MANGROVE_PLANKS_SLAB = REGISTRY.register("mangrove_planks_slab", () -> new BlockItem(UAMBlocks.MANGROVE_PLANKS_SLAB.get(), DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> MANGROVE_PLANKS_STAIRS = REGISTRY.register("mangrove_planks_stairs", () -> new BlockItem(UAMBlocks.MANGROVE_PLANKS_STAIRS.get(), DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> MANGROVE_SLAB = REGISTRY.register("mangrove_slab", () -> new BlockItem(UAMBlocks.MANGROVE_SLAB.get(), DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> MANGROVE_STAIRS = REGISTRY.register("mangrove_stairs", () -> new BlockItem(UAMBlocks.MANGROVE_STAIRS.get(), DEFAULT_PROPERTIES()));
     
     public static final RegistryObject<Item> MANGROVE_DOOR = REGISTRY.register("mangrove_door", () -> new BlockItem(UAMBlocks.MANGROVE_DOOR.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> MANGROVE_TRAPDOOR = REGISTRY.register("mangrove_trapdoor", () -> new BlockItem(UAMBlocks.MANGROVE_TRAPDOOR.get(), DEFAULT_PROPERTIES()));
     
-    public static final RegistryObject<Item> MANGROVE_PLANKS_BUTTON = REGISTRY.register("mangrove_planks_button", () -> new BlockItem(UAMBlocks.MANGROVE_PLANKS_BUTTON.get(), DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> MANGROVE_PLANKS_PRESSURE_PLATE = REGISTRY.register("mangrove_planks_pressure_plate", () -> new BlockItem(UAMBlocks.MANGROVE_PLANKS_PRESSURE_PLATE.get(), DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> MANGROVE_BUTTON = REGISTRY.register("mangrove_button", () -> new BlockItem(UAMBlocks.MANGROVE_BUTTON.get(), DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> MANGROVE_PRESSURE_PLATE = REGISTRY.register("mangrove_pressure_plate", () -> new BlockItem(UAMBlocks.MANGROVE_PRESSURE_PLATE.get(), DEFAULT_PROPERTIES()));
     
-    public static final RegistryObject<Item> MANGROVE_PLANKS_FENCE = REGISTRY.register("mangrove_planks_fence", () -> new BlockItem(UAMBlocks.MANGROVE_PLANKS_FENCE.get(), DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> MANGROVE_PLANKS_FENCE_GATE = REGISTRY.register("mangrove_planks_fence_gate", () -> new BlockItem(UAMBlocks.MANGROVE_PLANKS_FENCE_GATE.get(), DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> MANGROVE_FENCE = REGISTRY.register("mangrove_fence", () -> new BlockItem(UAMBlocks.MANGROVE_FENCE.get(), DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> MANGROVE_FENCE_GATE = REGISTRY.register("mangrove_fence_gate", () -> new BlockItem(UAMBlocks.MANGROVE_FENCE_GATE.get(), DEFAULT_PROPERTIES()));
     
     public static final RegistryObject<Item> MUD_BALL = REGISTRY.register("mud_ball", () -> new MudBallItem(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> MUD_BRICK = REGISTRY.register("mud_brick", () -> new Item(DEFAULT_PROPERTIES()));

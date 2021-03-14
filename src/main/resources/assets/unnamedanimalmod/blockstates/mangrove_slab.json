@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=top": {
+      "model": "unnamedanimalmod:block/mangrove_slab_top"
+    },
+    "type=bottom": {
+      "model": "unnamedanimalmod:block/mangrove_slab"
+    },
+    "type=double": {
+      "model": "unnamedanimalmod:block/mangrove_planks"
+    }
+  }
+}

@@ -1,8 +1,0 @@
-{
-  "parent": "unnamedanimalmod:block/template_farmland",
-  "textures": {
-    "side": "unnamedanimalmod:block/rich_farmland_side",
-    "top": "unnamedanimalmod:block/rich_farmland_top",
-    "dirt": "minecraft:block/dirt"
-  }
-}

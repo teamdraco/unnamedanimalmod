@@ -14,7 +14,6 @@ import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.WolfEntity;
 import net.minecraft.entity.passive.fish.AbstractFishEntity;
-import net.minecraft.entity.passive.fish.CodEntity;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.biome.Biome;
@@ -49,18 +48,6 @@ public class UnnamedAnimalMod {
         UAMBiomes.BIOMES.register(bus);
         UAMBiomes.BUILDERS.register(bus);
         UAMItemTags.init();
-        bus.addListener(this::gatherData);
-    }
-    public void gatherData(GatherDataEvent evt)
-    {
-        BlockTagsProvider provider = new ModBlockTagProvider(evt.getGenerator());
-        evt.getGenerator().addProvider(new ModBlockStateProvider(evt.getGenerator(), evt.getExistingFileHelper()));
-        evt.getGenerator().addProvider(new ModItemModelProvider(evt.getGenerator(), evt.getExistingFileHelper()));
-        evt.getGenerator().addProvider(new ModLangProvider(evt.getGenerator()));
-        evt.getGenerator().addProvider(provider);
-        evt.getGenerator().addProvider(new ModLootTableProvider(evt.getGenerator()));
-        evt.getGenerator().addProvider(new ModItemTagProvider(evt.getGenerator(),provider));
-        evt.getGenerator().addProvider(new ModRecipeProvider(evt.getGenerator()));
     }
 
     private void registerCommon(FMLCommonSetupEvent event) {

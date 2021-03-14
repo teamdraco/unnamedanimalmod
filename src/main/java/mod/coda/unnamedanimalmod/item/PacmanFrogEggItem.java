@@ -17,6 +17,7 @@ public class PacmanFrogEggItem extends Item {
         super(builder);
     }
 
+
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
         ItemStack itemstack = playerIn.getHeldItem(handIn);
         PacmanFrogEntity child = UAMEntities.PACMAN_FROG.get().create(worldIn);

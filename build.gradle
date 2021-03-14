@@ -17,10 +17,8 @@ version = '0.4.0'
 group = 'mod.coda.unnamedanimalmod' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'unnamedanimalmod'
 
-sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
-sourceSets {
-    main.resources.srcDirs += 'src/main/generated_resources'
-}
+sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
+
 minecraft {
     // The mappings can be changed at any time, and must be in the following format.
     // snapshot_YYYYMMDD   Snapshot are built nightly.
@@ -38,12 +36,14 @@ minecraft {
         client {
             workingDirectory project.file('run')
 
+            // Recommended logging data for a userdev environment
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
 
+            // Recommended logging level for the console
             property 'forge.logging.console.level', 'debug'
 
             mods {
-                unnamedanimalmod {
+                examplemod {
                     source sourceSets.main
                 }
             }
@@ -59,7 +59,7 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
 
             mods {
-                unnamedanimalmod {
+                examplemod {
                     source sourceSets.main
                 }
             }
@@ -74,16 +74,17 @@ minecraft {
             // Recommended logging level for the console
             property 'forge.logging.console.level', 'debug'
 
-            args '--mod', 'unnamedanimalmod', '--all', '--output', file('src/main/generated_resources/'), '--existing', file('src/main/resources/')
+            args '--mod', 'examplemod', '--all', '--output', file('src/generated/resources/')
 
             mods {
-                unnamedanimalmod {
+                examplemod {
                     source sourceSets.main
                 }
             }
         }
     }
 }
+
 dependencies {
     // Specify the version of Minecraft to use, If this is any group other then 'net.minecraft' it is assumed
     // that the dep is a ForgeGradle 'patcher' dependency. And it's patches will be applied.

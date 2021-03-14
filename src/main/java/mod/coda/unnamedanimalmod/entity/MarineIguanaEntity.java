@@ -190,8 +190,9 @@ public class MarineIguanaEntity extends AnimalEntity {
     @Nullable
     @Override
     public AgeableEntity func_241840_a(ServerWorld p_241840_1_, AgeableEntity p_241840_2_) {
-        this.entityDropItem(new ItemStack(UAMItems.MARINE_IGUANA_EGG.get(), getRNG().nextInt(2) + 1));
+        this.entityDropItem(new ItemStack(UAMItems.MARINE_IGUANA_EGG.get(), getRNG().nextInt(1) + 1));
         this.playSound(SoundEvents.ENTITY_CHICKEN_EGG, 1.0F, (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
+        ((AnimalEntity) p_241840_2_).resetInLove();
         return null;
     }
 

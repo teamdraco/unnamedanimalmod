@@ -40,12 +40,12 @@ public class ModBlockTagProvider extends BlockTagsProvider
         getOrCreateBuilder(DIRT).add(getModBlocks(b -> b instanceof GrassBlock || b instanceof FarmlandBlock));
         getOrCreateBuilder(SAPLINGS).add(getModBlocks(b -> b instanceof SaplingBlock));
         getOrCreateBuilder(PLANKS).add(UAMBlocks.MANGROVE_PLANKS.get());
-        getOrCreateBuilder(WOODEN_FENCES).add(UAMBlocks.MANGROVE_PLANKS_FENCE.get(), UAMBlocks.MANGROVE_PLANKS_FENCE_GATE.get());
+        getOrCreateBuilder(WOODEN_FENCES).add(UAMBlocks.MANGROVE_FENCE.get(), UAMBlocks.MANGROVE_FENCE_GATE.get());
         getOrCreateBuilder(WOODEN_DOORS).add(UAMBlocks.MANGROVE_DOOR.get());
-        getOrCreateBuilder(WOODEN_STAIRS).add(UAMBlocks.MANGROVE_PLANKS_STAIRS.get());
-        getOrCreateBuilder(WOODEN_SLABS).add(UAMBlocks.MANGROVE_PLANKS_SLAB.get());
+        getOrCreateBuilder(WOODEN_STAIRS).add(UAMBlocks.MANGROVE_STAIRS.get());
+        getOrCreateBuilder(WOODEN_SLABS).add(UAMBlocks.MANGROVE_SLAB.get());
         getOrCreateBuilder(WOODEN_TRAPDOORS).add(UAMBlocks.MANGROVE_TRAPDOOR.get());
-        getOrCreateBuilder(WOODEN_PRESSURE_PLATES).add(UAMBlocks.MANGROVE_PLANKS_PRESSURE_PLATE.get());
+        getOrCreateBuilder(WOODEN_PRESSURE_PLATES).add(UAMBlocks.MANGROVE_PRESSURE_PLATE.get());
     }
     
     @Override

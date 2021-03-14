@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=false": {
+      "model": "unnamedanimalmod:block/mangrove_pressure_plate_up"
+    },
+    "powered=true": {
+      "model": "unnamedanimalmod:block/mangrove_pressure_plate_down"
+    }
+  }
+}

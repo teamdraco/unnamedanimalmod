@@ -25,14 +25,12 @@ import java.util.ArrayList;
 
 public class MudBallItem extends Item
 {
-    public MudBallItem(Properties properties)
-    {
+    public MudBallItem(Properties properties) {
         super(properties);
     }
     
     @Override
-    public ActionResultType onItemUse(ItemUseContext context)
-    {
+    public ActionResultType onItemUse(ItemUseContext context) {
         World world = context.getWorld();
         BlockPos pos = context.getPos();
         if (world.getBlockState(pos).getBlock().equals(Blocks.FARMLAND))
@@ -57,16 +55,13 @@ public class MudBallItem extends Item
         return super.onItemUse(context);
     }
     
-    public void addItemParticles(PlayerEntity playerEntity, BlockPos pos)
-    {
+    public void addItemParticles(PlayerEntity playerEntity, BlockPos pos) {
         World world = playerEntity.world;
-        for (int i = 0; i < 5; i++)
-        {
+        for (int i = 0; i < 5; i++) {
             ArrayList<Vector3d> particlePositions = Helper.blockOutlinePositions(world, pos);
             particlePositions.forEach(p -> world.addParticle(new BlockParticleData(ParticleTypes.BLOCK, Blocks.DIRT.getDefaultState()), p.x, p.y, p.z, 0, world.rand.nextFloat() * 0.1f, 0));
         }
-        for (int i = 0; i < 10; ++i)
-        {
+        for (int i = 0; i < 10; ++i) {
             double d0 = (double) (-playerEntity.world.rand.nextFloat()) * 0.6D - 0.3D;
             Vector3d position = new Vector3d(((double) playerEntity.world.rand.nextFloat() - 0.5D) * 0.3D, d0, 0.6D);
             position = position.rotatePitch(-playerEntity.rotationPitch * ((float) Math.PI / 180F));

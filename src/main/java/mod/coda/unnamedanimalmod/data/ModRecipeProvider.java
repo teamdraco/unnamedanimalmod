@@ -57,13 +57,13 @@ public class ModRecipeProvider extends RecipeProvider
         shapelessPlanks(consumer, UAMItems.MANGROVE_PLANKS.get(), UAMItemTags.MANGROVE_LOGS);
         shapelessWood(consumer, UAMItems.MANGROVE_WOOD.get(), UAMItems.MANGROVE_LOG.get());
         shapelessWood(consumer, UAMItems.STRIPPED_MANGROVE_WOOD.get(), UAMItems.STRIPPED_MANGROVE_LOG.get());
-        shapelessButton(consumer, UAMItems.MANGROVE_PLANKS_BUTTON.get(), UAMItems.MANGROVE_PLANKS.get());
+        shapelessButton(consumer, UAMItems.MANGROVE_BUTTON.get(), UAMItems.MANGROVE_PLANKS.get());
         shapedDoor(consumer, UAMItems.MANGROVE_DOOR.get(), UAMItems.MANGROVE_PLANKS.get());
-        shapedFence(consumer, UAMItems.MANGROVE_PLANKS_FENCE.get(), UAMItems.MANGROVE_PLANKS.get());
-        shapedFenceGate(consumer, UAMItems.MANGROVE_PLANKS_FENCE_GATE.get(), UAMItems.MANGROVE_PLANKS.get());
-        shapedPressurePlate(consumer, UAMItems.MANGROVE_PLANKS_PRESSURE_PLATE.get(), UAMItems.MANGROVE_PLANKS.get());
-        shapedSlab(consumer, UAMItems.MANGROVE_PLANKS_SLAB.get(), UAMItems.MANGROVE_PLANKS.get());
-        shapedStairs(consumer, UAMItems.MANGROVE_PLANKS_STAIRS.get(), UAMItems.MANGROVE_PLANKS.get());
+        shapedFence(consumer, UAMItems.MANGROVE_FENCE.get(), UAMItems.MANGROVE_PLANKS.get());
+        shapedFenceGate(consumer, UAMItems.MANGROVE_FENCE_GATE.get(), UAMItems.MANGROVE_PLANKS.get());
+        shapedPressurePlate(consumer, UAMItems.MANGROVE_PRESSURE_PLATE.get(), UAMItems.MANGROVE_PLANKS.get());
+        shapedSlab(consumer, UAMItems.MANGROVE_SLAB.get(), UAMItems.MANGROVE_PLANKS.get());
+        shapedStairs(consumer, UAMItems.MANGROVE_STAIRS.get(), UAMItems.MANGROVE_PLANKS.get());
         shapedTrapdoor(consumer, UAMItems.MANGROVE_TRAPDOOR.get(), UAMItems.MANGROVE_PLANKS.get());
     }
     private static void cookingRecipesForMethod(Consumer<IFinishedRecipe> recipeConsumer, String recipeConsumerIn, CookingRecipeSerializer<?> cookingMethod, int serializerIn)
