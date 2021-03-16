@@ -24,7 +24,6 @@
   "item.unnamedanimalmod.tomato_frog_bowl": "Bowl of Tomato Frog",
   "item.unnamedanimalmod.tomato_frog_egg": "Tomato Frog Egg",
 
-
   "item.unnamedanimalmod.black_diamond_stingray_spawn_egg": "Black Diamond Stingray Spawn Egg",
   "item.unnamedanimalmod.tomato_frog_spawn_egg": "Tomato Frog Spawn Egg",
   "item.unnamedanimalmod.southern_right_whale_spawn_egg": "Southern Right Whale Spawn Egg",
@@ -37,6 +36,21 @@
   "item.unnamedanimalmod.platypus_spawn_egg": "Platypus Spawn Egg",
   "item.unnamedanimalmod.elephantnose_fish_spawn_egg": "Elephantnose Fish Spawn Egg",
   "item.unnamedanimalmod.pacman_frog_spawn_egg": "Pacman Frog Spawn Egg",
+
+  "entity.unnamedanimalmod.black_diamond_stingray": "Black Diamond Stingray",
+  "entity.unnamedanimalmod.tomato_frog": "Tomato Frog",
+  "entity.unnamedanimalmod.southern_right_whale": "Southern Right Whale",
+  "entity.unnamedanimalmod.greater_prairie_chicken": "Greater Prairie Chicken",
+  "entity.unnamedanimalmod.greater_prairie_chicken_egg": "Greater Prairie Chicken Egg",
+  "entity.unnamedanimalmod.humphead_parrotfish": "Humphead Parrotfish",
+  "entity.unnamedanimalmod.musk_ox": "Musk Ox",
+  "entity.unnamedanimalmod.banana_slug": "Banana Slug",
+  "entity.unnamedanimalmod.marine_iguana": "Marine Iguana",
+  "entity.unnamedanimalmod.platypus": "Platypus",
+  "entity.unnamedanimalmod.platypus_egg": "Platypus Egg",
+  "entity.unnamedanimalmod.marine_iguana_egg": "Marine Iguana Egg",
+  "entity.unnamedanimalmod.elephantnose_fish": "Elephantnose Fish",
+  "entity.unnamedanimalmod.pacman_frog": "Pacman Frog",
 
   "block.unnamedanimalmod.mangrove_door": "Mangrove Door",
   "block.unnamedanimalmod.mangrove_log": "Mangrove Log",
