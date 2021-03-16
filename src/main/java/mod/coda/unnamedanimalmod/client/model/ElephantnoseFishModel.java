@@ -21,7 +21,7 @@ public class ElephantnoseFishModel<T extends Entity> extends EntityModel<T> {
     public ModelRenderer pectoralfinleft;
 
     public ElephantnoseFishModel() {
-        this.textureWidth = 25;
+        this.textureWidth = 24;
         this.textureHeight = 22;
         this.dorsalfin = new ModelRenderer(this, 0, 7);
         this.dorsalfin.setRotationPoint(0.0F, -1.5F, 2.0F);
