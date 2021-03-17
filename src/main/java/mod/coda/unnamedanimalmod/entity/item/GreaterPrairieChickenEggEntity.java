@@ -37,9 +37,7 @@ public class GreaterPrairieChickenEggEntity extends ProjectileItemEntity {
     @OnlyIn(Dist.CLIENT)
     public void handleStatusUpdate(byte id) {
         if (id == 3) {
-            double d0 = 0.08D;
-
-            for(int i = 0; i < 8; ++i) {
+            for(int i = 0; i < 6; ++i) {
                 this.world.addParticle(new ItemParticleData(ParticleTypes.ITEM, this.getItem()), this.getPosX(), this.getPosY(), this.getPosZ(), ((double)this.rand.nextFloat() - 0.5D) * 0.08D, ((double)this.rand.nextFloat() - 0.5D) * 0.08D, ((double)this.rand.nextFloat() - 0.5D) * 0.08D);
             }
         }
