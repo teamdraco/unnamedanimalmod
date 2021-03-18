@@ -1,18 +1,14 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "#W#",
-    "#W#"
+    "##"
   ],
   "key": {
     "#": {
-      "item": "minecraft:stick"
-    },
-    "W": {
       "item": "unnamedanimalmod:mangrove_planks"
     }
   },
   "result": {
-    "item": "unnamedanimalmod:mangrove_planks_fence_gate"
+    "item": "unnamedanimalmod:mangrove_pressure_plate"
   }
 }

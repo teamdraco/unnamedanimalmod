@@ -2,13 +2,10 @@ package mod.coda.unnamedanimalmod.item;
 
 import mod.coda.unnamedanimalmod.Helper;
 import mod.coda.unnamedanimalmod.init.UAMBlocks;
-import mod.coda.unnamedanimalmod.init.UAMItemTags;
 import mod.coda.unnamedanimalmod.init.UAMItems;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.FarmlandBlock;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.particles.BlockParticleData;
 import net.minecraft.particles.ItemParticleData;
@@ -19,7 +16,6 @@ import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
 
 import java.util.ArrayList;
 

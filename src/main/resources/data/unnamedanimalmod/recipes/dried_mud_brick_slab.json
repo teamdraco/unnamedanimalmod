@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "unnamedanimalmod:dried_mud_bricks"
+    }
+  },
+  "result": {
+    "item": "unnamedanimalmod:dried_mud_brick_slab",
+    "count": 6
+  }
+}

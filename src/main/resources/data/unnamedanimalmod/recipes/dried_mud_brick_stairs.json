@@ -7,11 +7,11 @@
   ],
   "key": {
     "#": {
-      "item": "unnamedanimalmod:mud_bricks"
+      "item": "unnamedanimalmod:dried_mud_bricks"
     }
   },
   "result": {
-    "item": "unnamedanimalmod:mud_bricks_stairs",
+    "item": "unnamedanimalmod:dried_mud_brick_stairs",
     "count": 4
   }
 }

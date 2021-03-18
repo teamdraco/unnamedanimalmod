@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "unnamedanimalmod:mud_bricks_stairs"
+          "name": "unnamedanimalmod:dried_mud_brick_stairs"
         }
       ],
       "conditions": [

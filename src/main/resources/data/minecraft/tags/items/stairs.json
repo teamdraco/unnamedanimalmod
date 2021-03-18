@@ -2,6 +2,7 @@
   "replace": false,
   "values": [
     "unnamedanimalmod:mangrove_stairs",
-    "unnamedanimalmod:mud_bricks_stairs"
+    "unnamedanimalmod:mud_brick_stairs",
+    "unnamedanimalmod:dried_mud_brick_stairs"
   ]
 }

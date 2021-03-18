@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "side": "unnamedanimalmod:block/dried_mud_bricks",
+    "bottom": "unnamedanimalmod:block/dried_mud_bricks",
+    "top": "unnamedanimalmod:block/dried_mud_bricks"
+  }
+}

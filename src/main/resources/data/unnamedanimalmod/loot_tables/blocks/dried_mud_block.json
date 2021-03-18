@@ -24,7 +24,7 @@
                   }
                 }
               ],
-              "name": "unnamedanimalmod:mud_block"
+              "name": "unnamedanimalmod:dried_mud_block"
             },
             {
               "type": "minecraft:item",
@@ -37,7 +37,7 @@
                   "function": "minecraft:explosion_decay"
                 }
               ],
-              "name": "unnamedanimalmod:mud_ball"
+              "name": "unnamedanimalmod:dried_mud_fragment"
             }
           ]
         }

@@ -1,11 +1,8 @@
 package mod.coda.unnamedanimalmod.client.model;
 
 import com.google.common.collect.ImmutableList;
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.vertex.IVertexBuilder;
 import mod.coda.unnamedanimalmod.entity.SouthernRightWhaleEntity;
 import net.minecraft.client.renderer.entity.model.AgeableModel;
-import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.MathHelper;
@@ -30,46 +27,46 @@ public class SouthernRightWhaleModel<T extends Entity> extends AgeableModel<Sout
     public SouthernRightWhaleModel() {
         this.textureWidth = 310;
         this.textureHeight = 320;
-        this.head = new ModelRenderer(this, 156, 119);
-        this.head.setRotationPoint(0.0F, 10.5F, 0.0F);
-        this.head.addBox(-18.5F, -24.0F, -40.0F, 37.0F, 24.0F, 40.0F, 0.0F, 0.0F, 0.0F);
-        this.tail = new ModelRenderer(this, 0, 119);
-        this.tail.setRotationPoint(0.0F, 6.5F, 40.0F);
-        this.tail.addBox(-12.5F, -11.0F, 0.0F, 25.0F, 22.0F, 53.0F, 0.0F, 0.0F, 0.0F);
         this.pectoralFinLeft = new ModelRenderer(this, 0, 0);
         this.pectoralFinLeft.mirror = true;
         this.pectoralFinLeft.setRotationPoint(22.5F, 18.5F, -22.0F);
-        this.pectoralFinLeft.addBox(0.0F, -1.0F, -6.0F, 20.0F, 2.0F, 12.0F, 0.0F, 0.0F, 0.0F);
-        this.flukes = new ModelRenderer(this, 170, 0);
-        this.flukes.setRotationPoint(0.0F, 0.0F, 51.0F);
-        this.flukes.addBox(-21.0F, -1.0F, -2.0F, 42.0F, 2.0F, 20.0F, 0.0F, 0.0F, 0.0F);
-        this.pectoralFinRight = new ModelRenderer(this, 0, 0);
-        this.pectoralFinRight.setRotationPoint(-22.5F, 18.5F, -22.0F);
-        this.pectoralFinRight.addBox(-20.0F, -1.0F, -6.0F, 20.0F, 2.0F, 12.0F, 0.0F, 0.0F, 0.0F);
-        this.jaw = new ModelRenderer(this, 0, 194);
-        this.jaw.setRotationPoint(0.0F, 8.5F, 0.0F);
-        this.jaw.addBox(-19.5F, -12.0F, -41.0F, 39.0F, 23.0F, 41.0F, 0.0F, 0.0F, 0.0F);
+        this.pectoralFinLeft.addBox(0.0F, -2.0F, -8.0F, 23.0F, 4.0F, 16.0F, 0.0F, 0.0F, 0.0F);
         this.jawInside = new ModelRenderer(this, 127, 254);
         this.jawInside.setRotationPoint(0.0F, -1.0F, 0.0F);
         this.jawInside.addBox(-19.0F, -11.0F, -40.0F, 38.0F, 22.0F, 40.0F, 0.0F, 0.0F, 0.0F);
+        this.jaw = new ModelRenderer(this, 0, 198);
+        this.jaw.setRotationPoint(0.0F, 8.5F, 0.0F);
+        this.jaw.addBox(-19.5F, -12.0F, -41.0F, 39.0F, 23.0F, 41.0F, 0.0F, 0.0F, 0.0F);
+        this.tail = new ModelRenderer(this, 0, 119);
+        this.tail.setRotationPoint(0.0F, 1.5F, 40.0F);
+        this.tail.addBox(-12.5F, -9.0F, 0.0F, 25.0F, 26.0F, 53.0F, 0.0F, 0.0F, 0.0F);
+        this.head = new ModelRenderer(this, 156, 119);
+        this.head.setRotationPoint(0.0F, 10.5F, 0.0F);
+        this.head.addBox(-18.5F, -24.0F, -40.0F, 37.0F, 24.0F, 40.0F, 0.0F, 0.0F, 0.0F);
+        this.headInside = new ModelRenderer(this, 161, 186);
+        this.headInside.setRotationPoint(0.0F, 0.0F, 0.0F);
+        this.headInside.addBox(-17.5F, -23.0F, -39.0F, 35.0F, 23.0F, 39.0F, 0.0F, 0.0F, 0.0F);
+        this.pectoralFinRight = new ModelRenderer(this, 0, 0);
+        this.pectoralFinRight.setRotationPoint(-22.5F, 17.5F, -22.0F);
+        this.pectoralFinRight.addBox(-23.0F, -2.0F, -8.0F, 23.0F, 4.0F, 16.0F, 0.0F, 0.0F, 0.0F);
         this.headJoint = new ModelRenderer(this, 0, 0);
         this.headJoint.setRotationPoint(0.0F, 0.0F, -40.0F);
         this.headJoint.addBox(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F);
         this.body = new ModelRenderer(this, 0, 0);
         this.body.setRotationPoint(0.0F, 4.5F, 10.0F);
         this.body.addBox(-22.5F, -19.5F, -40.0F, 45.0F, 39.0F, 80.0F, 0.0F, 0.0F, 0.0F);
-        this.headInside = new ModelRenderer(this, 161, 186);
-        this.headInside.setRotationPoint(0.0F, 0.0F, 0.0F);
-        this.headInside.addBox(-17.5F, -23.0F, -39.0F, 35.0F, 23.0F, 39.0F, 0.0F, 0.0F, 0.0F);
-        this.headJoint.addChild(this.head);
-        this.body.addChild(this.tail);
+        this.flukes = new ModelRenderer(this, 170, 0);
+        this.flukes.setRotationPoint(0.0F, 5.0F, 51.0F);
+        this.flukes.addBox(-21.0F, -2.0F, -2.0F, 42.0F, 4.0F, 20.0F, 0.0F, 0.0F, 0.0F);
         this.body.addChild(this.pectoralFinLeft);
-        this.tail.addChild(this.flukes);
-        this.body.addChild(this.pectoralFinRight);
-        this.headJoint.addChild(this.jaw);
         this.jaw.addChild(this.jawInside);
-        this.body.addChild(this.headJoint);
+        this.headJoint.addChild(this.jaw);
+        this.body.addChild(this.tail);
+        this.headJoint.addChild(this.head);
         this.head.addChild(this.headInside);
+        this.body.addChild(this.pectoralFinRight);
+        this.body.addChild(this.headJoint);
+        this.tail.addChild(this.flukes);
     }
 
     @Override
@@ -83,11 +80,7 @@ public class SouthernRightWhaleModel<T extends Entity> extends AgeableModel<Sout
     }
 
     @Override
-    public void setRotationAngles(SouthernRightWhaleEntity entityIn, float f, float f1, float ageInTicks, float netHeadYaw, float headPitch) {
-        float speed = 1.0f;
-        float degree = 0.85f;
-
-    }
+    public void setRotationAngles(SouthernRightWhaleEntity entityIn, float f, float f1, float ageInTicks, float netHeadYaw, float headPitch) {}
 
     @Override
     public void setLivingAnimations(SouthernRightWhaleEntity entityIn, float limbSwing, float limbSwingAmount, float partialTick) {

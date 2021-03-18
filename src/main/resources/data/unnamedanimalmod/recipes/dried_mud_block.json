@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "unnamedanimalmod:dried_mud_fragment"
+    }
+  },
+  "result": {
+    "item": "unnamedanimalmod:dried_mud_block"
+  }
+}
