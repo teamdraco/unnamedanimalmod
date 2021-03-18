@@ -56,8 +56,8 @@ public class PacmanFrogRenderer extends MobRenderer<PacmanFrogEntity, PacmanFrog
             matrix.translate(-0.03,0, 0);
         }
         if (entity.isHidden()) {
-            matrix.translate(0, -0.35, 0);
-            matrix.rotate(Vector3f.XP.rotationDegrees(35));
+            matrix.translate(0, -0.3, 0);
+            matrix.rotate(Vector3f.XP.rotationDegrees(25));
         }
     }
 }
