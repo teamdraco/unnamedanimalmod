@@ -87,4 +87,7 @@ public class UAMItems {
     public static final RegistryObject<Item> MUD_BRICKS_STAIRS = REGISTRY.register("mud_bricks_stairs", () -> new BlockItem(UAMBlocks.MUD_BRICKS_STAIRS.get(), DEFAULT_PROPERTIES()));
     
     public static final RegistryObject<Item> RICH_FARMLAND = REGISTRY.register("rich_farmland", () -> new BlockItem(UAMBlocks.RICH_FARMLAND.get(), DEFAULT_PROPERTIES()));
+
+    public static final RegistryObject<Item> MANGROVE_LEAVES = REGISTRY.register("mangrove_leaves", () -> new BlockItem(UAMBlocks.MANGROVE_LEAVES.get(), DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> FLOWERING_MANGROVE_LEAVES = REGISTRY.register("flowering_mangrove_leaves", () -> new BlockItem(UAMBlocks.FLOWERING_MANGROVE_LEAVES.get(), DEFAULT_PROPERTIES()));
 }

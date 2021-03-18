@@ -10,7 +10,7 @@
       "Name": "minecraft:dirt"
     },
     "underwater_material": {
-      "Name": "minecraft:gravel"
+      "Name": "minecraft:sand"
     }
   },
   "type": "unnamedanimalmod:mangrove"

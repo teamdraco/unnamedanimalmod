@@ -3,7 +3,6 @@ package mod.coda.unnamedanimalmod.worldgen.trees.mangrove;
 import com.ibm.icu.impl.Pair;
 import mod.coda.unnamedanimalmod.init.UAMBlocks;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.block.RotatedPillarBlock;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
@@ -19,20 +18,16 @@ import static net.minecraft.world.gen.feature.NoFeatureConfig.field_236558_a_;
 
 public class MangroveLandTreeFeature extends Feature<NoFeatureConfig>
 {
-    public MangroveLandTreeFeature()
-    {
+    public MangroveLandTreeFeature() {
         super(field_236558_a_);
     }
     
     @Override
-    public boolean generate(ISeedReader reader, ChunkGenerator generator, Random rand, BlockPos pos, NoFeatureConfig config)
-    {
-        if (reader.isAirBlock(pos.down()) || reader.getBlockState(pos.down()).getBlock().equals(Blocks.JUNGLE_LEAVES))
-        {
+    public boolean generate(ISeedReader reader, ChunkGenerator generator, Random rand, BlockPos pos, NoFeatureConfig config) {
+        if (reader.isAirBlock(pos.down()) || reader.getBlockState(pos.down()).getBlock().equals(UAMBlocks.FLOWERING_MANGROVE_LEAVES.get()) || reader.getBlockState(pos.down()).getBlock().equals(UAMBlocks.MANGROVE_LEAVES.get())) {
             return false;
         }
-        if (reader.hasWater(pos) || reader.hasWater(pos.down()))
-        {
+        if (reader.hasWater(pos) || reader.hasWater(pos.down())) {
             return false;
         }
         BlockState defaultLog = UAMBlocks.MANGROVE_LOG.get().getDefaultState();

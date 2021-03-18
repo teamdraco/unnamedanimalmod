@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/leaves",
+  "textures": {
+    "all": "unnamedanimalmod:block/flowering_mangrove_leaves"
+  }
+}

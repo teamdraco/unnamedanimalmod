@@ -2,6 +2,7 @@ package mod.coda.unnamedanimalmod.worldgen.trees.mangrove;
 
 import com.ibm.icu.impl.Pair;
 import mod.coda.unnamedanimalmod.block.MangroveSaplingBlock;
+import mod.coda.unnamedanimalmod.init.UAMBlocks;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.LeavesBlock;
@@ -131,16 +132,17 @@ public class MangroveTreeHelper
                     continue;
                 }
                 BlockPos leavesPos = new BlockPos(pos).add(x, 0, z);
-                filler.add(Pair.of(leavesPos, Blocks.JUNGLE_LEAVES.getDefaultState()));
-                if (vines)
-                {
-                    if (Math.abs(x) == leavesSize || Math.abs(z) == leavesSize)
-                    {
-                        if (rand.nextFloat() < 0.2f)
-                        {
+                if (rand.nextFloat() > 0.15f) {
+                    filler.add(Pair.of(leavesPos, UAMBlocks.MANGROVE_LEAVES.get().getDefaultState().with(LeavesBlock.DISTANCE, 1)));
+                }
+                else {
+                    filler.add(Pair.of(leavesPos, UAMBlocks.FLOWERING_MANGROVE_LEAVES.get().getDefaultState().with(LeavesBlock.DISTANCE, 1)));
+                }
+                if (vines) {
+                    if (Math.abs(x) == leavesSize || Math.abs(z) == leavesSize) {
+                        if (rand.nextFloat() < 0.2f) {
                             Direction[] directions = new Direction[]{Direction.NORTH, Direction.SOUTH, Direction.WEST, Direction.EAST};
-                            for (Direction direction : directions)
-                            {
+                            for (Direction direction : directions) {
                                 filler.add(Pair.of(leavesPos.offset(direction), Blocks.VINE.getDefaultState().with(VineBlock.FACING_TO_PROPERTY_MAP.get(direction.getOpposite()), true)));
                             }
                         }
@@ -150,11 +152,9 @@ public class MangroveTreeHelper
         }
     }
     
-    public static boolean canPlace(ISeedReader reader, BlockPos pos)
-    {
+    public static boolean canPlace(ISeedReader reader, BlockPos pos) {
         //todo implement some more proper 'is outside of world' check, mekanism has one
-        if (pos.getY() > reader.getHeight() || pos.getY() < 0)
-        {
+        if (pos.getY() > reader.getHeight() || pos.getY() < 0) {
             return false;
         }
         return (reader.getBlockState(pos).getBlock() instanceof MangroveSaplingBlock || reader.hasWater(pos) || reader.isAirBlock(pos) || reader.getBlockState(pos).getMaterial().isReplaceable());

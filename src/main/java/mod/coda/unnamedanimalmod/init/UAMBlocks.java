@@ -1,6 +1,7 @@
 package mod.coda.unnamedanimalmod.init;
 
 import mod.coda.unnamedanimalmod.UnnamedAnimalMod;
+import mod.coda.unnamedanimalmod.block.FloweringMangroveLeavesBlock;
 import mod.coda.unnamedanimalmod.block.MangroveSaplingBlock;
 import mod.coda.unnamedanimalmod.block.RichFarmlandBlock;
 import mod.coda.unnamedanimalmod.block.StripableLogBlock;
@@ -44,5 +45,7 @@ public class UAMBlocks {
     public static final RegistryObject<Block> MUD_BRICKS_STAIRS = REGISTRY.register("mud_bricks_stairs", () -> new StairsBlock(MUD_BRICKS.get().getDefaultState(), AbstractBlock.Properties.create(Material.ROCK, MaterialColor.BROWN).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE).hardnessAndResistance(2.5F)));
 
     public static final RegistryObject<Block> RICH_FARMLAND = REGISTRY.register("rich_farmland", () -> new RichFarmlandBlock(AbstractBlock.Properties.from(Blocks.FARMLAND)));
-    
+
+    public static final RegistryObject<Block> MANGROVE_LEAVES = REGISTRY.register("mangrove_leaves", () -> new LeavesBlock(AbstractBlock.Properties.from(Blocks.JUNGLE_LEAVES)));
+    public static final RegistryObject<Block> FLOWERING_MANGROVE_LEAVES = REGISTRY.register("flowering_mangrove_leaves", () -> new FloweringMangroveLeavesBlock(AbstractBlock.Properties.from(Blocks.JUNGLE_LEAVES)));
 }
