@@ -29,19 +29,15 @@ public class MudBallItem extends Item
     public ActionResultType onItemUse(ItemUseContext context) {
         World world = context.getWorld();
         BlockPos pos = context.getPos();
-        if (world.getBlockState(pos).getBlock().equals(Blocks.FARMLAND))
-        {
+        if (world.getBlockState(pos).getBlock().equals(Blocks.FARMLAND)) {
             world.setBlockState(pos, UAMBlocks.RICH_FARMLAND.get().getDefaultState());
-            if (!context.getPlayer().isCreative())
-            {
+            if (!context.getPlayer().isCreative()) {
                 context.getItem().shrink(1);
             }
-            if (Helper.areWeOnClient(world))
-            {
+            if (world.isRemote) {
                 addItemParticles(context.getPlayer(), pos);
             }
-            else
-            {
+            else {
                 world.playSound(null, pos, SoundEvents.BLOCK_GRASS_BREAK, SoundCategory.BLOCKS, 1, 1f);
                 world.playSound(null, pos, SoundEvents.BLOCK_GRASS_BREAK, SoundCategory.BLOCKS, 1, 0.75f);
                 world.playSound(null, pos, SoundEvents.BLOCK_GRASS_BREAK, SoundCategory.BLOCKS, 1, 0.5f);
@@ -69,6 +65,5 @@ public class MudBallItem extends Item
             velocity = velocity.rotateYaw(-playerEntity.rotationYaw * ((float) Math.PI / 180F));
             playerEntity.world.addParticle(new ItemParticleData(ParticleTypes.ITEM, UAMItems.MUD_BALL.get().getDefaultInstance()), position.x, position.y, position.z, velocity.x, velocity.y + 0.05D, velocity.z);
         }
-        
     }
 }

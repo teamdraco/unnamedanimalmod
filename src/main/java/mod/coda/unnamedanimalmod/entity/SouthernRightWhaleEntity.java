@@ -13,6 +13,7 @@ import net.minecraft.entity.ai.controller.MovementController;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.monster.GuardianEntity;
 import net.minecraft.entity.passive.AnimalEntity;
+import net.minecraft.entity.passive.DolphinEntity;
 import net.minecraft.entity.passive.fish.AbstractFishEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.AbstractArrowEntity;
@@ -23,7 +24,9 @@ import net.minecraft.particles.ParticleTypes;
 import net.minecraft.pathfinding.PathNavigator;
 import net.minecraft.pathfinding.PathNodeType;
 import net.minecraft.pathfinding.SwimmerPathNavigator;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.RegistryKey;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -33,9 +36,13 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IServerWorld;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.server.ServerWorld;
 
 import javax.annotation.Nullable;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.Random;
 
 public class SouthernRightWhaleEntity extends AnimalEntity {
@@ -46,6 +53,10 @@ public class SouthernRightWhaleEntity extends AnimalEntity {
         this.moveController = new SouthernRightWhaleEntity.MoveHelperController(this);
         this.lookController = new DolphinLookController(this, 10);
         this.setPathPriority(PathNodeType.WATER, 0.0F);
+    }
+
+    public CreatureAttribute getCreatureAttribute() {
+        return CreatureAttribute.WATER;
     }
 
     protected void registerGoals() {
@@ -108,8 +119,13 @@ public class SouthernRightWhaleEntity extends AnimalEntity {
         return true;
     }
 
-    public static boolean canWhaleSpawn(EntityType<? extends SouthernRightWhaleEntity> type, IWorld worldIn, SpawnReason reason, BlockPos pos, Random randomIn) {
-        return worldIn.getBlockState(pos).isIn(Blocks.WATER) && worldIn.getWorldInfo().getDayTime() < 12000 && worldIn.getWorldInfo().getDayTime() > 24000;
+    public static boolean func_223364_b(EntityType<SouthernRightWhaleEntity> p_223364_0_, IWorld p_223364_1_, SpawnReason reason, BlockPos p_223364_3_, Random p_223364_4_) {
+        if (p_223364_3_.getY() > 45 && p_223364_3_.getY() < p_223364_1_.getSeaLevel()) {
+            Optional<RegistryKey<Biome>> optional = p_223364_1_.func_242406_i(p_223364_3_);
+            return (!Objects.equals(optional, Optional.of(Biomes.OCEAN)) || !Objects.equals(optional, Optional.of(Biomes.DEEP_OCEAN))) && p_223364_1_.getFluidState(p_223364_3_).isTagged(FluidTags.WATER);
+        } else {
+            return false;
+        }
     }
 
     @Override

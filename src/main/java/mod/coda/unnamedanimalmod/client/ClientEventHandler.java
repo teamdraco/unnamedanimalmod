@@ -31,8 +31,6 @@ public class ClientEventHandler {
 
     @OnlyIn(Dist.CLIENT)
     public static void init() {
-        RenderingRegistry.registerEntityRenderingHandler(UAMEntities.HONDURAN_WHITE_BAT.get(), HonduranWhiteBatRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(UAMEntities.VINE_SNAKE.get(), VineSnakeRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(UAMEntities.BLACK_DIAMOND_STINGRAY.get(), BlackDiamondStingrayRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(UAMEntities.TOMATO_FROG.get(), TomatoFrogRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(UAMEntities.SOUTHERN_RIGHT_WHALE.get(), SouthernRightWhaleRenderer::new);

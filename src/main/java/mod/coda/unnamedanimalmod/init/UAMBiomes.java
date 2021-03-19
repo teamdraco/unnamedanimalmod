@@ -3,6 +3,7 @@ package mod.coda.unnamedanimalmod.init;
 import mod.coda.unnamedanimalmod.Helper;
 import mod.coda.unnamedanimalmod.UnnamedAnimalMod;
 import net.minecraft.util.RegistryKey;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeMaker;
@@ -16,6 +17,8 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.function.Supplier;
 
+import static mod.coda.unnamedanimalmod.UnnamedAnimalMod.MOD_ID;
+
 public class UAMBiomes
 {
     
@@ -28,7 +31,7 @@ public class UAMBiomes
     }
     
     public static RegistryObject<Biome> mangroveForest(String name, Supplier<Biome> biome) {
-        BiomeManager.addBiome(BiomeManager.BiomeType.WARM, new BiomeManager.BiomeEntry(RegistryKey.getOrCreateKey(Registry.BIOME_KEY, Helper.prefix(name)), 10));
+        BiomeManager.addBiome(BiomeManager.BiomeType.WARM, new BiomeManager.BiomeEntry(RegistryKey.getOrCreateKey(Registry.BIOME_KEY, new ResourceLocation(MOD_ID, name)), 5));
         return BIOMES.register(name, biome);
     }
     

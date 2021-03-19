@@ -3,7 +3,7 @@
   "group": "planks",
   "ingredients": [
     {
-      "tag": "unnamedanimalmod:mangrove_logs"
+      "item": "unnamedanimalmod:mangrove_log"
     }
   ],
   "result": {

@@ -1,10 +1,8 @@
 package mod.coda.unnamedanimalmod;
 
 import mod.coda.unnamedanimalmod.client.ClientEventHandler;
-import mod.coda.unnamedanimalmod.data.*;
 import mod.coda.unnamedanimalmod.entity.*;
 import mod.coda.unnamedanimalmod.init.*;
-import net.minecraft.data.BlockTagsProvider;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntitySpawnPlacementRegistry;
@@ -27,7 +25,6 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 @Mod(UnnamedAnimalMod.MOD_ID)
@@ -47,17 +44,14 @@ public class UnnamedAnimalMod {
         UAMFeatures.REGISTRY.register(bus);
         UAMBiomes.BIOMES.register(bus);
         UAMBiomes.BUILDERS.register(bus);
-        UAMItemTags.init();
     }
 
     private void registerCommon(FMLCommonSetupEvent event) {
         registerEntityAttributes();
-        //EntitySpawnPlacementRegistry.register(UAMEntities.HONDURAN_WHITE_BAT.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AnimalEntity::canAnimalSpawn);
-        //EntitySpawnPlacementRegistry.register(UAMEntities.VINE_SNAKE.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AnimalEntity::canAnimalSpawn);
         EntitySpawnPlacementRegistry.register(UAMEntities.BLACK_DIAMOND_STINGRAY.get(), EntitySpawnPlacementRegistry.PlacementType.IN_WATER, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AbstractFishEntity::func_223363_b);
         EntitySpawnPlacementRegistry.register(UAMEntities.GREATER_PRAIRIE_CHICKEN.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AnimalEntity::canAnimalSpawn);
         EntitySpawnPlacementRegistry.register(UAMEntities.TOMATO_FROG.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AnimalEntity::canAnimalSpawn);
-        EntitySpawnPlacementRegistry.register(UAMEntities.SOUTHERN_RIGHT_WHALE.get(), EntitySpawnPlacementRegistry.PlacementType.IN_WATER, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, SouthernRightWhaleEntity::canWhaleSpawn);
+        EntitySpawnPlacementRegistry.register(UAMEntities.SOUTHERN_RIGHT_WHALE.get(), EntitySpawnPlacementRegistry.PlacementType.IN_WATER, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, SouthernRightWhaleEntity::func_223364_b);
         EntitySpawnPlacementRegistry.register(UAMEntities.FLASHLIGHT_FISH.get(), EntitySpawnPlacementRegistry.PlacementType.IN_WATER, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, FlashlightFishEntity::func_223363_b);
         EntitySpawnPlacementRegistry.register(UAMEntities.HUMPHEAD_PARROTFISH.get(), EntitySpawnPlacementRegistry.PlacementType.IN_WATER, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, HumpheadParrotfishEntity::func_223363_b);
         EntitySpawnPlacementRegistry.register(UAMEntities.MUSK_OX.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AnimalEntity::canAnimalSpawn);
@@ -69,8 +63,6 @@ public class UnnamedAnimalMod {
     }
 
     private void registerEntityAttributes() {
-        GlobalEntityTypeAttributes.put(UAMEntities.HONDURAN_WHITE_BAT.get(), HonduranWhiteBatEntity.createAttributes().create());
-        GlobalEntityTypeAttributes.put(UAMEntities.VINE_SNAKE.get(), VineSnakeEntity.createAttributes().create());
         GlobalEntityTypeAttributes.put(UAMEntities.BLACK_DIAMOND_STINGRAY.get(), BlackDiamondStingrayEntity.createAttributes().create());
         GlobalEntityTypeAttributes.put(UAMEntities.TOMATO_FROG.get(), TomatoFrogEntity.createAttributes().create());
         GlobalEntityTypeAttributes.put(UAMEntities.SOUTHERN_RIGHT_WHALE.get(), SouthernRightWhaleEntity.createAttributes().create());
@@ -90,6 +82,7 @@ public class UnnamedAnimalMod {
     }
 
     /*
+    -- Spawning --
     Does work:
     - Black Diamond Stingray
     - Tomato Frog
@@ -101,17 +94,17 @@ public class UnnamedAnimalMod {
     - Platypus
     - Elephantnose Fish
 
+    Not Tested:
+    - Pacman Frog
+
     Doesn't work:
     - Southern Right Whale
     - Humphead Parrotfish
-
     */
 
     @SubscribeEvent
     public static void registerBiomes(BiomeLoadingEvent event) {
         if (event.getCategory() == Biome.Category.JUNGLE) {
-            //event.getSpawns().getSpawner(EntityClassification.CREATURE).add(new MobSpawnInfo.Spawners(UAMEntities.HONDURAN_WHITE_BAT.get(), 1, 2, 3));
-            //event.getSpawns().getSpawner(EntityClassification.CREATURE).add(new MobSpawnInfo.Spawners(UAMEntities.VINE_SNAKE.get(), 2, 1, 1));
             event.getSpawns().getSpawner(EntityClassification.WATER_CREATURE).add(new MobSpawnInfo.Spawners(UAMEntities.BLACK_DIAMOND_STINGRAY.get(), 2, 1, 1));
             event.getSpawns().getSpawner(EntityClassification.CREATURE).add(new MobSpawnInfo.Spawners(UAMEntities.TOMATO_FROG.get(), 3, 1, 2));
             event.getSpawns().getSpawner(EntityClassification.WATER_AMBIENT).add(new MobSpawnInfo.Spawners(UAMEntities.ELEPHANTNOSE_FISH.get(), 1, 1, 5));
@@ -126,11 +119,11 @@ public class UnnamedAnimalMod {
         }
 
         if (Biomes.COLD_OCEAN.getLocation().equals(event.getName())) {
-            event.getSpawns().getSpawner(EntityClassification.WATER_CREATURE).add(new MobSpawnInfo.Spawners(UAMEntities.SOUTHERN_RIGHT_WHALE.get(), 15, 2, 4));
+            event.getSpawns().getSpawner(EntityClassification.WATER_CREATURE).add(new MobSpawnInfo.Spawners(UAMEntities.SOUTHERN_RIGHT_WHALE.get(), 50, 2, 4));
         }
 
         if (Biomes.WARM_OCEAN.getLocation().equals(event.getName())) {
-            event.getSpawns().getSpawner(EntityClassification.WATER_CREATURE).add(new MobSpawnInfo.Spawners(UAMEntities.HUMPHEAD_PARROTFISH.get(), 150, 1, 3));
+            event.getSpawns().getSpawner(EntityClassification.WATER_CREATURE).add(new MobSpawnInfo.Spawners(UAMEntities.HUMPHEAD_PARROTFISH.get(), 50, 1, 3));
             event.getSpawns().getSpawner(EntityClassification.WATER_AMBIENT).add(new MobSpawnInfo.Spawners(UAMEntities.FLASHLIGHT_FISH.get(), 10, 4, 8));
         }
 
@@ -139,7 +132,7 @@ public class UnnamedAnimalMod {
         }
 
         if (Biomes.GIANT_TREE_TAIGA.getLocation().equals(event.getName()) || Biomes.GIANT_TREE_TAIGA_HILLS.getLocation().equals(event.getName()) || Biomes.GIANT_SPRUCE_TAIGA_HILLS.getLocation().equals(event.getName()) || Biomes.GIANT_SPRUCE_TAIGA.getLocation().equals(event.getName())) {
-            event.getSpawns().getSpawner(EntityClassification.CREATURE).add(new MobSpawnInfo.Spawners(UAMEntities.BANANA_SLUG.get(), 35, 1, 1));
+            event.getSpawns().getSpawner(EntityClassification.CREATURE).add(new MobSpawnInfo.Spawners(UAMEntities.BANANA_SLUG.get(), 45, 1, 1));
         }
 
         if (Biomes.SWAMP.getLocation().equals(event.getName()) || Biomes.SWAMP_HILLS.getLocation().equals(event.getName())) {

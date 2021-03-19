@@ -2,9 +2,7 @@ package mod.coda.unnamedanimalmod.client.renderer;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import mod.coda.unnamedanimalmod.UnnamedAnimalMod;
-import mod.coda.unnamedanimalmod.client.model.HonduranWhiteBatModel;
 import mod.coda.unnamedanimalmod.client.model.TomatoFrogModel;
-import mod.coda.unnamedanimalmod.entity.HonduranWhiteBatEntity;
 import mod.coda.unnamedanimalmod.entity.TomatoFrogEntity;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
