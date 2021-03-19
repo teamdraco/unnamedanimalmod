@@ -15,7 +15,8 @@ import static mod.coda.unnamedanimalmod.UnnamedAnimalMod.MOD_ID;
 
 public class Helper {
 
-    public static <T> Collection<T> takeAll(Collection<T> src, Predicate<T> pred) {
+    public static <T> Collection<T> takeAll(Collection<T> src, Predicate<T> pred)
+    {
         List<T> ret = new ArrayList<>();
         
         Iterator<T> iter = src.iterator();

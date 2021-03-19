@@ -80,10 +80,12 @@ public class UAMItems {
     public static final RegistryObject<Item> FLOWERING_MANGROVE_LEAVES = REGISTRY.register("flowering_mangrove_leaves", () -> new BlockItem(UAMBlocks.FLOWERING_MANGROVE_LEAVES.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> MUD_BLOCK = REGISTRY.register("mud_block", () -> new BlockItem(UAMBlocks.MUD_BLOCK.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> MUD_BRICKS = REGISTRY.register("mud_bricks", () -> new BlockItem(UAMBlocks.MUD_BRICKS.get(), DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> CHISELED_MUD_BRICKS = REGISTRY.register("chiseled_mud_bricks", () -> new BlockItem(UAMBlocks.CHISELED_MUD_BRICKS.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> MUD_BRICKS_SLAB = REGISTRY.register("mud_brick_slab", () -> new BlockItem(UAMBlocks.MUD_BRICK_SLAB.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> MUD_BRICKS_STAIRS = REGISTRY.register("mud_brick_stairs", () -> new BlockItem(UAMBlocks.MUD_BRICK_STAIRS.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> DRIED_MUD_BLOCK = REGISTRY.register("dried_mud_block", () -> new BlockItem(UAMBlocks.DRIED_MUD_BLOCK.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> DRIED_MUD_BRICKS = REGISTRY.register("dried_mud_bricks", () -> new BlockItem(UAMBlocks.DRIED_MUD_BRICKS.get(), DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> CHISELED_DRIED_MUD_BRICKS = REGISTRY.register("chiseled_dried_mud_bricks", () -> new BlockItem(UAMBlocks.CHISELED_DRIED_MUD_BRICKS.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> DRIED_MUD_BRICKS_SLAB = REGISTRY.register("dried_mud_brick_slab", () -> new BlockItem(UAMBlocks.DRIED_MUD_BRICK_SLAB.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> DRIED_MUD_BRICKS_STAIRS = REGISTRY.register("dried_mud_brick_stairs", () -> new BlockItem(UAMBlocks.DRIED_MUD_BRICK_STAIRS.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> RICH_FARMLAND = REGISTRY.register("rich_farmland", () -> new BlockItem(UAMBlocks.RICH_FARMLAND.get(), DEFAULT_PROPERTIES()));
