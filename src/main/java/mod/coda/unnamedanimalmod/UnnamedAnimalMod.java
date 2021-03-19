@@ -93,8 +93,6 @@ public class UnnamedAnimalMod {
     - Banana Slug
     - Platypus
     - Elephantnose Fish
-
-    Not Tested:
     - Pacman Frog
 
     Doesn't work:

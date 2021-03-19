@@ -31,7 +31,7 @@ public class UAMBiomes
     }
     
     public static RegistryObject<Biome> mangroveForest(String name, Supplier<Biome> biome) {
-        BiomeManager.addBiome(BiomeManager.BiomeType.WARM, new BiomeManager.BiomeEntry(RegistryKey.getOrCreateKey(Registry.BIOME_KEY, new ResourceLocation(MOD_ID, name)), 5));
+        BiomeManager.addBiome(BiomeManager.BiomeType.WARM, new BiomeManager.BiomeEntry(RegistryKey.getOrCreateKey(Registry.BIOME_KEY, new ResourceLocation(MOD_ID, name)), 1));
         return BIOMES.register(name, biome);
     }
     

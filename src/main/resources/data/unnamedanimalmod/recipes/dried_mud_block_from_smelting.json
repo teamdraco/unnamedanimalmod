@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:smelting",
-  "ingredient": {
-    "item": "unnamedanimalmod:mud_block"
-  },
-  "result": "unnamedanimalmod:dried_mud_block",
-  "experience": 0.35,
-  "cookingtime": 200
-}
