@@ -34,7 +34,7 @@ public class CapybaraEntity extends AnimalEntity {
     }
 
     protected void registerGoals() {
-//        this.goalSelector.addGoal(0, new SwimGoal(this));
+        // this.goalSelector.addGoal(0, new SwimGoal(this));
         this.goalSelector.addGoal(1, new PanicGoal(this, 2.0D));
         this.goalSelector.addGoal(2, new BreedGoal(this, 1.0D));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.25D, Ingredient.fromItems(Blocks.MELON, Items.APPLE, Items.SUGAR_CANE, Items.MELON_SLICE), false));
@@ -55,10 +55,7 @@ public class CapybaraEntity extends AnimalEntity {
 
     @Override
     public void travel(Vector3d travelVector) {
-        if (this.isServerWorld() && this.isInWater()) {
-            if (this.getAttackTarget() == null) {
-            }
-        }
+        super.travel(travelVector);
     }
 
     @Override
@@ -91,7 +88,7 @@ public class CapybaraEntity extends AnimalEntity {
     }
 
     protected float getStandingEyeHeight(Pose poseIn, EntitySize sizeIn) {
-        return this.isChild() ? sizeIn.height * 0.95F : 1.3F;
+        return this.isChild() ? sizeIn.height * 0.55F : 1.3F;
     }
 
     @Override

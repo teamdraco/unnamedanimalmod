@@ -56,9 +56,9 @@ public class ClientEventHandler {
         IItemColor eggColor = (stack, tintIndex) -> ((UAMSpawnEggItem) stack.getItem()).getColor(tintIndex);
         for (UAMSpawnEggItem e : UAMSpawnEggItem.UNADDED_EGGS) handler.register(eggColor, e);
     }
+
     @SubscribeEvent
-    public static void setRenderLayers(FMLClientSetupEvent event)
-    {
+    public static void setRenderLayers(FMLClientSetupEvent event) {
         Set<RegistryObject<Block>> blocks = new HashSet<>(UAMBlocks.REGISTRY.getEntries());
     
         Helper.takeAll(blocks, b -> b.get() instanceof SaplingBlock).forEach(ClientEventHandler::setCutout);
@@ -67,8 +67,8 @@ public class ClientEventHandler {
         Helper.takeAll(blocks, b -> b.get() instanceof TrapDoorBlock).forEach(ClientEventHandler::setCutout);
         Helper.takeAll(blocks, b -> b.get() instanceof DoorBlock).forEach(ClientEventHandler::setCutout);
     }
-    public static void setCutout(RegistryObject<Block> b)
-    {
+
+    public static void setCutout(RegistryObject<Block> b) {
         RenderTypeLookup.setRenderLayer(b.get(), RenderType.getCutout());
     }
 }
