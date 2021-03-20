@@ -41,6 +41,7 @@
   "item.unnamedanimalmod.platypus_spawn_egg": "Platypus Spawn Egg",
   "item.unnamedanimalmod.elephantnose_fish_spawn_egg": "Elephantnose Fish Spawn Egg",
   "item.unnamedanimalmod.pacman_frog_spawn_egg": "Pacman Frog Spawn Egg",
+  "item.unnamedanimalmod.capybara_spawn_egg": "Capybara Spawn Egg",
 
   "entity.unnamedanimalmod.black_diamond_stingray": "Black Diamond Stingray",
   "entity.unnamedanimalmod.tomato_frog": "Tomato Frog",
@@ -56,6 +57,7 @@
   "entity.unnamedanimalmod.marine_iguana_egg": "Marine Iguana Egg",
   "entity.unnamedanimalmod.elephantnose_fish": "Elephantnose Fish",
   "entity.unnamedanimalmod.pacman_frog": "Pacman Frog",
+  "entity.unnamedanimalmod.capybara": "Capybara",
 
   "block.unnamedanimalmod.mangrove_door": "Mangrove Door",
   "block.unnamedanimalmod.mangrove_log": "Mangrove Log",

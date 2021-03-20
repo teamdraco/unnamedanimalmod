@@ -27,6 +27,7 @@ public class UAMEntities {
     public static final RegistryObject<EntityType<PlatypusEntity>> PLATYPUS = create("platypus", EntityType.Builder.create(PlatypusEntity::new, EntityClassification.CREATURE).size(0.6f, 0.4f));
     public static final RegistryObject<EntityType<ElephantnoseFishEntity>> ELEPHANTNOSE_FISH = create("elephantnose_fish", EntityType.Builder.create(ElephantnoseFishEntity::new, EntityClassification.WATER_AMBIENT).size(0.3f, 0.3f));
     public static final RegistryObject<EntityType<PacmanFrogEntity>> PACMAN_FROG = create("pacman_frog", EntityType.Builder.create(PacmanFrogEntity::new, EntityClassification.CREATURE).size(0.5f, 0.4f));
+    public static final RegistryObject<EntityType<CapybaraEntity>> CAPYBARA = create("capybara", EntityType.Builder.create(CapybaraEntity::new, EntityClassification.CREATURE).size(1.6f, 1.4f));
 
     public static final RegistryObject<EntityType<GreaterPrairieChickenEggEntity>> GREATER_PRAIRIE_CHICKEN_EGG = create("greater_prairie_chicken_egg", EntityType.Builder.<GreaterPrairieChickenEggEntity>create(GreaterPrairieChickenEggEntity::new, EntityClassification.MISC).size(0.25f, 0.25f));
     public static final RegistryObject<EntityType<PlatypusEggEntity>> PLATYPUS_EGG = create("platypus_egg",EntityType.Builder.<PlatypusEggEntity>create(PlatypusEggEntity::new, EntityClassification.MISC).size(0.25f, 0.25f));
