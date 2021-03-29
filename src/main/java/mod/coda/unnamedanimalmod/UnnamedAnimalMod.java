@@ -104,7 +104,7 @@ public class UnnamedAnimalMod {
     @SubscribeEvent
     public static void registerBiomes(BiomeLoadingEvent event) {
         if (event.getCategory() == Biome.Category.JUNGLE) {
-            event.getSpawns().getSpawner(EntityClassification.WATER_CREATURE).add(new MobSpawnInfo.Spawners(UAMEntities.BLACK_DIAMOND_STINGRAY.get(), 2, 1, 1));
+            event.getSpawns().getSpawner(EntityClassification.WATER_CREATURE).add(new MobSpawnInfo.Spawners(UAMEntities.BLACK_DIAMOND_STINGRAY.get(), 1, 1, 1));
             event.getSpawns().getSpawner(EntityClassification.CREATURE).add(new MobSpawnInfo.Spawners(UAMEntities.TOMATO_FROG.get(), 3, 1, 2));
             event.getSpawns().getSpawner(EntityClassification.WATER_AMBIENT).add(new MobSpawnInfo.Spawners(UAMEntities.ELEPHANTNOSE_FISH.get(), 1, 1, 5));
         }
@@ -151,6 +151,7 @@ public class UnnamedAnimalMod {
     public final static ItemGroup GROUP = new ItemGroup(MOD_ID) {
         @Override
         public ItemStack createIcon() {
-            return new ItemStack(UAMItems.MARINE_IGUANA_EGG.get());}
+            return new ItemStack(UAMItems.MARINE_IGUANA_EGG.get());
+        }
     };
 }

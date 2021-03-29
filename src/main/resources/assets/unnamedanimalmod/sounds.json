@@ -142,5 +142,32 @@
         "name": "unnamedanimalmod:marine_iguana/transforms"
       }
     ]
+  },
+  "capybara.ambient": {
+    "subtitle": "subtitle.unnamedanimalmod.capybara.ambient",
+    "sounds": [
+      {
+        "name": "unnamedanimalmod:capybara/ambient_1"
+      },
+      {
+        "name": "unnamedanimalmod:capybara/ambient_2"
+      }
+    ]
+  },
+  "capybara.death": {
+    "subtitle": "subtitle.unnamedanimalmod.capybara.death",
+    "sounds": [
+      {
+        "name": "unnamedanimalmod:capybara/death"
+      }
+    ]
+  },
+  "capybara.hurt": {
+    "subtitle": "subtitle.unnamedanimalmod.capybara.hurt",
+    "sounds": [
+      {
+        "name": "unnamedanimalmod:capybara/hurt"
+      }
+    ]
   }
 }

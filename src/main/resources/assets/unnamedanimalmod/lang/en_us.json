@@ -108,5 +108,8 @@
   "subtitle.unnamedanimalmod.marine_iguana.hurt": "Marine Iguana hurts",
   "subtitle.unnamedanimalmod.marine_iguana.death": "Marine Iguana dies",
   "subtitle.unnamedanimalmod.marine_iguana.ambient": "Marine Iguana hisses",
-  "subtitle.unnamedanimalmod.marine_iguana.transforms": "Marine Iguana transforms"
+  "subtitle.unnamedanimalmod.marine_iguana.transforms": "Marine Iguana transforms",
+  "subtitle.unnamedanimalmod.capybara.ambient": "Capybara whines",
+  "subtitle.unnamedanimalmod.capybara.hurt": "Capybara hurts",
+  "subtitle.unnamedanimalmod.capybara.death": "Capybara dies"
 }

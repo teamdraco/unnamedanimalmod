@@ -32,4 +32,8 @@ public class UAMSounds {
     public static final RegistryObject<SoundEvent> MARINE_IGUANA_DEATH = REGISTRY.register("marine_iguana.death", () -> new SoundEvent(new ResourceLocation(UnnamedAnimalMod.MOD_ID, "marine_iguana.death")));
     public static final RegistryObject<SoundEvent> MARINE_IGUANA_HURT = REGISTRY.register("marine_iguana.hurt", () -> new SoundEvent(new ResourceLocation(UnnamedAnimalMod.MOD_ID, "marine_iguana.hurt")));
     public static final RegistryObject<SoundEvent> MARINE_IGUANA_TRANSFORMS = REGISTRY.register("marine_iguana.transforms", () -> new SoundEvent(new ResourceLocation(UnnamedAnimalMod.MOD_ID, "marine_iguana.transforms")));
+
+    public static final RegistryObject<SoundEvent> CAPYBARA_AMBIENT = REGISTRY.register("capybara.ambient", () -> new SoundEvent(new ResourceLocation(UnnamedAnimalMod.MOD_ID, "capybara.ambient")));
+    public static final RegistryObject<SoundEvent> CAPYBARA_DEATH = REGISTRY.register("capybara.death", () -> new SoundEvent(new ResourceLocation(UnnamedAnimalMod.MOD_ID, "capybara.death")));
+    public static final RegistryObject<SoundEvent> CAPYBARA_HURT = REGISTRY.register("capybara.hurt", () -> new SoundEvent(new ResourceLocation(UnnamedAnimalMod.MOD_ID, "capybara.hurt")));
 }

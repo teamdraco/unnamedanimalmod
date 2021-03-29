@@ -153,6 +153,12 @@
         "weight": 4,
         "minCount": 4,
         "maxCount": 4
+      },
+      {
+        "type": "unnamedanimalmod:capybara",
+        "weight": 3,
+        "minCount": 3,
+        "maxCount": 5
       }
     ],
     "ambient": [
@@ -163,7 +169,14 @@
         "maxCount": 8
       }
     ],
-    "water_creature": [],
+    "water_creature": [
+      {
+        "type": "unnamedanimalmod:black_diamond_stingray",
+        "weight": 4,
+        "minCount": 1,
+        "maxCount": 2
+      }
+    ],
     "water_ambient": [],
     "misc": []
   },
