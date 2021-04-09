@@ -60,6 +60,8 @@ public class UnnamedAnimalMod {
         EntitySpawnPlacementRegistry.register(UAMEntities.BANANA_SLUG.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, BananaSlugEntity::canAnimalSpawn);
         EntitySpawnPlacementRegistry.register(UAMEntities.ELEPHANTNOSE_FISH.get(), EntitySpawnPlacementRegistry.PlacementType.IN_WATER, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AbstractFishEntity::func_223363_b);
         EntitySpawnPlacementRegistry.register(UAMEntities.PACMAN_FROG.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AnimalEntity::canAnimalSpawn);
+        EntitySpawnPlacementRegistry.register(UAMEntities.ROCKET_KILLIFISH.get(), EntitySpawnPlacementRegistry.PlacementType.IN_WATER, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AbstractFishEntity::func_223363_b);
+        EntitySpawnPlacementRegistry.register(UAMEntities.MANGROVE_SNAKE.get(), EntitySpawnPlacementRegistry.PlacementType.IN_WATER, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MangroveSnakeEntity::canAnimalSpawn);
     }
 
     private void registerEntityAttributes() {
@@ -77,6 +79,7 @@ public class UnnamedAnimalMod {
         GlobalEntityTypeAttributes.put(UAMEntities.PACMAN_FROG.get(), PacmanFrogEntity.createAttributes().create());
         GlobalEntityTypeAttributes.put(UAMEntities.CAPYBARA.get(), CapybaraEntity.createAttributes().create());
         GlobalEntityTypeAttributes.put(UAMEntities.ROCKET_KILLIFISH.get(), AbstractFishEntity.func_234176_m_().create());
+        GlobalEntityTypeAttributes.put(UAMEntities.MANGROVE_SNAKE.get(), MangroveSnakeEntity.createAttributes().create());
     }
 
     private void registerClient(FMLClientSetupEvent event) {
@@ -135,7 +138,7 @@ public class UnnamedAnimalMod {
             event.getSpawns().getSpawner(EntityClassification.CREATURE).add(new MobSpawnInfo.Spawners(UAMEntities.BANANA_SLUG.get(), 45, 1, 1));
         }
 
-        if (Biomes.SWAMP.getLocation().equals(event.getName()) || Biomes.SWAMP_HILLS.getLocation().equals(event.getName())) {
+        if (event.getCategory() == Biome.Category.SWAMP) {
             event.getSpawns().getSpawner(EntityClassification.CREATURE).add(new MobSpawnInfo.Spawners(UAMEntities.PLATYPUS.get(), 5, 1, 1));
             event.getSpawns().getSpawner(EntityClassification.CREATURE).add(new MobSpawnInfo.Spawners(UAMEntities.PACMAN_FROG.get(), 2, 1, 2));
         }

@@ -46,6 +46,7 @@
   "item.unnamedanimalmod.pacman_frog_spawn_egg": "Pacman Frog Spawn Egg",
   "item.unnamedanimalmod.capybara_spawn_egg": "Capybara Spawn Egg",
   "item.unnamedanimalmod.rocket_killifish_spawn_egg": "Rocket Killifish Spawn Egg",
+  "item.unnamedanimalmod.mangrove_snake_spawn_egg": "Mangrove Snake Spawn Egg",
 
   "entity.unnamedanimalmod.black_diamond_stingray": "Black Diamond Stingray",
   "entity.unnamedanimalmod.tomato_frog": "Tomato Frog",
@@ -63,6 +64,7 @@
   "entity.unnamedanimalmod.pacman_frog": "Pacman Frog",
   "entity.unnamedanimalmod.capybara": "Capybara",
   "entity.unnamedanimalmod.rocket_killifish": "Rocket Killifish",
+  "entity.unnamedanimalmod.mangrove_snake": "Mangrove Snake",
 
   "block.unnamedanimalmod.mangrove_door": "Mangrove Door",
   "block.unnamedanimalmod.mangrove_log": "Mangrove Log",

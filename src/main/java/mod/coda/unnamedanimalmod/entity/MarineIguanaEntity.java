@@ -60,10 +60,6 @@ public class MarineIguanaEntity extends AnimalEntity {
         return false;
     }
 
-    public static boolean canSpawn(EntityType<? extends AnimalEntity> animal, IWorld worldIn, SpawnReason reason, BlockPos pos, Random random) {
-        return worldIn.getBlockState(pos.down()).getBlock() == Blocks.STONE && worldIn.getLightSubtracted(pos, 0) > 8;
-    }
-
     @Override
     public int getTalkInterval() {
         return 360;

@@ -177,7 +177,14 @@
         "maxCount": 2
       }
     ],
-    "water_ambient": [],
+    "water_ambient": [
+      {
+        "type": "unnamedanimalmod:rocket_killifish",
+        "weight": 2,
+        "minCount": 5,
+        "maxCount": 10
+      }
+    ],
     "misc": []
   },
   "spawn_costs": {},
