@@ -157,8 +157,8 @@
       {
         "type": "unnamedanimalmod:capybara",
         "weight": 3,
-        "minCount": 3,
-        "maxCount": 5
+        "minCount": 1,
+        "maxCount": 4
       }
     ],
     "ambient": [

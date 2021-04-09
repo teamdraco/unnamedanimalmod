@@ -35,6 +35,7 @@ public class UAMItems {
     public static final RegistryObject<Item> COOKED_MUSK_OX_SHANK = REGISTRY.register("cooked_musk_ox_shank", () -> new Item(new Item.Properties().group(UnnamedAnimalMod.GROUP).food(new Food.Builder().hunger(10).saturation(0.6f).effect(() -> new EffectInstance(Effects.SLOWNESS, 100, 0), 0.25f).meat().build())));
     public static final RegistryObject<Item> FROG_LEGS = REGISTRY.register("frog_legs", () -> new Item(new Item.Properties().group(UnnamedAnimalMod.GROUP).food(new Food.Builder().hunger(2).saturation(0.2f).meat().build())));
     public static final RegistryObject<Item> COOKED_FROG_LEGS = REGISTRY.register("cooked_frog_legs", () -> new Item(new Item.Properties().group(UnnamedAnimalMod.GROUP).food(new Food.Builder().hunger(5).saturation(0.3f).meat().build())));
+    public static final RegistryObject<Item> MANGROVE_FRUIT = REGISTRY.register("mangrove_fruit", () -> new Item(new Item.Properties().group(UnnamedAnimalMod.GROUP).food(new Food.Builder().hunger(1).saturation(0.1f).effect(() -> new EffectInstance(Effects.HUNGER, 100, 0), 1f).build())));
 
     public static final RegistryObject<Item> TOMATO_FROG_EGG = REGISTRY.register("tomato_frog_egg", () -> new TomatoFrogEggItem(new Item.Properties().group(UnnamedAnimalMod.GROUP).maxStackSize(16)));
     public static final RegistryObject<Item> PACMAN_FROG_EGG = REGISTRY.register("pacman_frog_egg", () -> new PacmanFrogEggItem(new Item.Properties().group(UnnamedAnimalMod.GROUP).maxStackSize(16)));

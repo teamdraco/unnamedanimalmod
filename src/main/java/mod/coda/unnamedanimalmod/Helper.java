@@ -14,25 +14,6 @@ import java.util.stream.Stream;
 import static mod.coda.unnamedanimalmod.UnnamedAnimalMod.MOD_ID;
 
 public class Helper {
-
-    public static <T> Collection<T> takeAll(Collection<T> src, Predicate<T> pred) {
-        List<T> ret = new ArrayList<>();
-        
-        Iterator<T> iter = src.iterator();
-        while (iter.hasNext()) {
-            T item = iter.next();
-            if (pred.test(item)) {
-                iter.remove();
-                ret.add(item);
-            }
-        }
-        
-        if (ret.isEmpty()) {
-            return Collections.emptyList();
-        }
-        return ret;
-    }
-
     public static ArrayList<Vector3d> blockOutlinePositions(World world, BlockPos pos) {
         ArrayList<Vector3d> arrayList = new ArrayList<>();
         double d0 = 0.5625D;
