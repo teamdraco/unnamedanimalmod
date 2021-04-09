@@ -47,6 +47,7 @@ public class ClientEventHandler {
         RenderingRegistry.registerEntityRenderingHandler(UAMEntities.ELEPHANTNOSE_FISH.get(), ElephantnoseFishRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(UAMEntities.PACMAN_FROG.get(), PacmanFrogRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(UAMEntities.CAPYBARA.get(), CapybaraRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(UAMEntities.ROCKET_KILLIFISH.get(), RocketKillifishRenderer::new);
     }
 
     @SubscribeEvent

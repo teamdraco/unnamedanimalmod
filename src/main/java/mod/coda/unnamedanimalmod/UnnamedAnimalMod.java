@@ -76,6 +76,7 @@ public class UnnamedAnimalMod {
         GlobalEntityTypeAttributes.put(UAMEntities.ELEPHANTNOSE_FISH.get(), AbstractFishEntity.func_234176_m_().create());
         GlobalEntityTypeAttributes.put(UAMEntities.PACMAN_FROG.get(), PacmanFrogEntity.createAttributes().create());
         GlobalEntityTypeAttributes.put(UAMEntities.CAPYBARA.get(), CapybaraEntity.createAttributes().create());
+        GlobalEntityTypeAttributes.put(UAMEntities.ROCKET_KILLIFISH.get(), AbstractFishEntity.func_234176_m_().create());
     }
 
     private void registerClient(FMLClientSetupEvent event) {

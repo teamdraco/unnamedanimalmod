@@ -87,13 +87,13 @@ public class CapybaraModel<T extends Entity> extends AgeableModel<CapybaraEntity
         float degree = 1.0f;
 
         if (entityIn.isInWater()) {
-            this.body.rotateAngleY = MathHelper.cos(ageInTicks * speed * 0.4F) * degree * 0.05F * limbSwingAmount;
+            this.body.rotateAngleY = MathHelper.cos(ageInTicks * speed * 0.4F) * degree * 0.05F * 1;
             this.body.rotateAngleZ = 0;
-            this.leftBackLeg.rotateAngleX = MathHelper.cos(1.0F + ageInTicks * speed * 0.4F) * degree * 1.2F * limbSwingAmount + 0.45F;
-            this.rightBackLeg.rotateAngleX = MathHelper.cos(1.0F + ageInTicks * speed * 0.4F) * degree * -1.2F * limbSwingAmount + 0.45F;
-            this.rightFrontLeg.rotateAngleX = MathHelper.cos(1.0F + ageInTicks * speed * 0.4F) * degree * 0.8F * limbSwingAmount + 0.45F;
-            this.leftFrontLeg.rotateAngleX = MathHelper.cos(1.0F + ageInTicks * speed * 0.4F) * degree * -0.8F * limbSwingAmount + 0.45F;
-            // this.head.rotateAngleX = MathHelper.cos(ageInTicks * speed * 0.4F) * degree * 0.2F * limbSwingAmount - 0.25F;
+            this.leftBackLeg.rotateAngleX = MathHelper.cos(1.0F + ageInTicks * speed * 0.4F) * degree * 1.2F * 0.2F + 0.45F;
+            this.rightBackLeg.rotateAngleX = MathHelper.cos(1.0F + ageInTicks * speed * 0.4F) * degree * -1.2F * 0.2F + 0.45F;
+            this.rightFrontLeg.rotateAngleX = MathHelper.cos(1.0F + ageInTicks * speed * 0.4F) * degree * 0.8F * 0.2F + 0.45F;
+            this.leftFrontLeg.rotateAngleX = MathHelper.cos(1.0F + ageInTicks * speed * 0.4F) * degree * -0.8F * 0.2F + 0.45F;
+             this.head.rotateAngleX += MathHelper.cos(ageInTicks * speed * 0.4F) * degree * 0.2F * 0.2F - 0.25F;
         }
         this.body.rotateAngleY = 0;
         this.body.rotateAngleZ = MathHelper.cos(limbSwing * speed * 0.4F) * degree * 0.15F * limbSwingAmount;

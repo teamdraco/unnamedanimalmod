@@ -24,6 +24,8 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
+import javax.annotation.Nullable;
+
 public class CapybaraEntity extends AnimalEntity {
 
     public CapybaraEntity(EntityType<? extends CapybaraEntity> type, World worldIn) {
@@ -70,6 +72,18 @@ public class CapybaraEntity extends AnimalEntity {
         this.playSound(SoundEvents.ENTITY_COW_STEP, 0.15F, 1.0F);
     }
 
+    public ActionResultType func_230254_b_(PlayerEntity player, Hand hand) {
+        boolean flag = this.isBreedingItem(player.getHeldItem(hand));
+        if (!flag && !this.isBeingRidden() && !player.isSecondaryUseActive()) {
+            if (!this.world.isRemote) {
+                player.startRiding(this);
+            }
+
+            return ActionResultType.func_233537_a_(this.world.isRemote);
+        }
+        return super.func_230254_b_(player, hand);
+    }
+
     protected float getSoundVolume() {
         return 0.4F;
     }
@@ -97,6 +111,15 @@ public class CapybaraEntity extends AnimalEntity {
     @Override
     protected PathNavigator createNavigator(World worldIn) {
         return new CapybaraEntity.WaterPathNavigator(this, worldIn);
+    }
+
+    @Nullable
+    public Entity getControllingPassenger() {
+        return this.getPassengers().isEmpty() ? null : this.getPassengers().get(0);
+    }
+
+    public boolean canBeSteered() {
+        return false;
     }
 
     private void func_234318_eL_() {

@@ -48,6 +48,7 @@ public class UAMItems {
     public static final RegistryObject<Item> BANANA_SLUG_POT = REGISTRY.register("banana_slug_pot", () -> new UAMPotItem(UAMEntities.BANANA_SLUG::get, new Item.Properties().maxStackSize(1).group(UnnamedAnimalMod.GROUP)));
     public static final RegistryObject<Item> TOMATO_FROG_BOWL = REGISTRY.register("tomato_frog_bowl", () -> new UAMBowltem(UAMEntities.TOMATO_FROG::get, new Item.Properties().maxStackSize(1).group(UnnamedAnimalMod.GROUP)));
     public static final RegistryObject<Item> PACMAN_FROG_BOWL = REGISTRY.register("pacman_frog_bowl", () -> new UAMBowltem(UAMEntities.PACMAN_FROG::get, new Item.Properties().maxStackSize(1).group(UnnamedAnimalMod.GROUP)));
+    public static final RegistryObject<Item> ROCKET_KILLIFISH_BUCKET = REGISTRY.register("rocket_killifish_bucket", () -> new FishBucketItem(UAMEntities.ROCKET_KILLIFISH, () -> Fluids.WATER, new Item.Properties().group(UnnamedAnimalMod.GROUP).maxStackSize(1)));
 
     public static final RegistryObject<Item> BLACK_DIAMOND_STINGRAY_SPAWN_EGG = REGISTRY.register("black_diamond_stingray_spawn_egg", () -> new UAMSpawnEggItem(UAMEntities.BLACK_DIAMOND_STINGRAY, 0x35374e, 0xf2f3fe, DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> TOMATO_FROG_SPAWN_EGG = REGISTRY.register("tomato_frog_spawn_egg", () -> new UAMSpawnEggItem(UAMEntities.TOMATO_FROG, 0x961900, 0xf1800a, DEFAULT_PROPERTIES()));
