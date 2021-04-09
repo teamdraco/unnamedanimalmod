@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "unnamedanimalmod:item/rocket_killifish_bucket"
+  }
+}
