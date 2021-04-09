@@ -15,6 +15,7 @@
   "item.unnamedanimalmod.frog_legs": "Frog Legs",
   "item.unnamedanimalmod.cooked_frog_legs": "Cooked Frog Legs",
   "item.unnamedanimalmod.fried_prairie_chicken_egg": "Fried Prairie Chicken Egg",
+  "item.unnamedanimalmod.rocket_killifish": "Rocket Killifish",
 
   "item.unnamedanimalmod.pacman_frog_bowl": "Bowl of Pacman Frog",
   "item.unnamedanimalmod.tomato_frog_bowl": "Bowl of Tomato Frog",
@@ -23,6 +24,7 @@
   "item.unnamedanimalmod.black_diamond_stingray_bucket": "Bucket of Black Diamond Stingray",
   "item.unnamedanimalmod.banana_slug_pot": "Pot of Banana Slug",
   "item.unnamedanimalmod.flashlight_fish_bucket": "Bucket of Flashlight Fish",
+  "item.unnamedanimalmod.rocket_killifish_bucket": "Bucket of Rocket Killifish",
 
   "item.unnamedanimalmod.platypus_egg": "Platypus Egg",
   "item.unnamedanimalmod.tomato_frog_egg": "Tomato Frog Egg",
@@ -43,6 +45,7 @@
   "item.unnamedanimalmod.elephantnose_fish_spawn_egg": "Elephantnose Fish Spawn Egg",
   "item.unnamedanimalmod.pacman_frog_spawn_egg": "Pacman Frog Spawn Egg",
   "item.unnamedanimalmod.capybara_spawn_egg": "Capybara Spawn Egg",
+  "item.unnamedanimalmod.rocket_killifish_spawn_egg": "Rocket Killifish Spawn Egg",
 
   "entity.unnamedanimalmod.black_diamond_stingray": "Black Diamond Stingray",
   "entity.unnamedanimalmod.tomato_frog": "Tomato Frog",
@@ -59,6 +62,7 @@
   "entity.unnamedanimalmod.elephantnose_fish": "Elephantnose Fish",
   "entity.unnamedanimalmod.pacman_frog": "Pacman Frog",
   "entity.unnamedanimalmod.capybara": "Capybara",
+  "entity.unnamedanimalmod.rocket_killifish": "Rocket Killifish",
 
   "block.unnamedanimalmod.mangrove_door": "Mangrove Door",
   "block.unnamedanimalmod.mangrove_log": "Mangrove Log",
