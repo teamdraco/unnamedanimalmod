@@ -1,6 +1,7 @@
 package mod.coda.unnamedanimalmod.worldgen.trees.mangrove;
 
 import com.ibm.icu.impl.Pair;
+import mod.coda.unnamedanimalmod.Helper;
 import mod.coda.unnamedanimalmod.block.MangroveSaplingBlock;
 import mod.coda.unnamedanimalmod.init.UAMBlocks;
 import net.minecraft.block.BlockState;
@@ -12,6 +13,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ISeedReader;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Random;
 import java.util.stream.Collectors;
 
@@ -66,22 +68,30 @@ public class MangroveTreeHelper
         }
     }
     
-    public static void fillLeaves(ISeedReader reader, Random rand, ArrayList<Pair<BlockPos, BlockState>> filler) {
-        ArrayList<Pair<BlockPos, BlockState>> vineFiller = (ArrayList<Pair<BlockPos, BlockState>>) filler.stream().filter(p -> p.second.getBlock() instanceof VineBlock).collect(Collectors.toList());
-        ArrayList<Pair<BlockPos, BlockState>> leavesFilter = (ArrayList<Pair<BlockPos, BlockState>>) filler.stream().filter(p -> p.second.getBlock() instanceof LeavesBlock).collect(Collectors.toList());
-        for (Pair<BlockPos, BlockState> pair : leavesFilter) {
-            if (canPlace(reader, pair.first)) {
+    public static void fillLeaves(ISeedReader reader, Random rand, ArrayList<Pair<BlockPos, BlockState>> filler)
+    {
+        Collection<Pair<BlockPos, BlockState>> vineFiller = Helper.takeAll(filler, p -> p.second.getBlock() instanceof VineBlock);
+        for (Pair<BlockPos, BlockState> pair : filler)
+        {
+            if (canPlace(reader, pair.first))
+            {
                 reader.setBlockState(pair.first, pair.second, 3);
             }
         }
-        for (Pair<BlockPos, BlockState> pair : vineFiller) {
-            if (canPlace(reader, pair.first)) {
-                int vinesLength = minimumVineHeight + rand.nextInt(vineHeightExtra+1);for (int i =0; i < vinesLength; i++) {
+        for (Pair<BlockPos, BlockState> pair : vineFiller)
+        {
+            if (canPlace(reader, pair.first))
+            {
+                int vinesLength = minimumVineHeight + rand.nextInt(vineHeightExtra + 1);
+                for (int i = 0; i < vinesLength; i++)
+                {
                     BlockPos vinePos = pair.first.down(i);
-                    if (canPlace(reader, vinePos) && !reader.hasWater(vinePos)) {
+                    if (canPlace(reader, vinePos) && !reader.hasWater(vinePos))
+                    {
                         reader.setBlockState(vinePos, pair.second, 3);
                     }
-                    else {
+                    else
+                    {
                         break;
                     }
                 }
@@ -108,34 +118,42 @@ public class MangroveTreeHelper
         }
     }
 
-    public static void makeLeafSlice(ArrayList<Pair<BlockPos, BlockState>> filler, Random rand, BlockPos pos, int leavesSize, boolean vines) {
-        for (int x = -leavesSize; x <= leavesSize; x++) {
-            for (int z = -leavesSize; z <= leavesSize; z++) {
-                if (Math.abs(x) == leavesSize && Math.abs(z) == leavesSize) {
+    public static void makeLeafSlice(ArrayList<Pair<BlockPos, BlockState>> filler, Random rand, BlockPos pos, int leavesSize, boolean vines)
+    {
+        for (int x = -leavesSize; x <= leavesSize; x++)
+        {
+            for (int z = -leavesSize; z <= leavesSize; z++)
+            {
+                if (Math.abs(x) == leavesSize && Math.abs(z) == leavesSize)
+                {
                     continue;
                 }
                 BlockPos leavesPos = new BlockPos(pos).add(x, 0, z);
-                if (rand.nextFloat() > 0.15f) {
+                if (rand.nextFloat() > 0.15f)
+                {
                     filler.add(Pair.of(leavesPos, UAMBlocks.MANGROVE_LEAVES.get().getDefaultState().with(LeavesBlock.DISTANCE, 1)));
                 }
-                else {
+                else
+                {
                     filler.add(Pair.of(leavesPos, UAMBlocks.FLOWERING_MANGROVE_LEAVES.get().getDefaultState().with(LeavesBlock.DISTANCE, 1)));
                 }
 
-                if (vines) {
-                    if (Math.abs(x) == leavesSize || Math.abs(z) == leavesSize) {
-                        if (rand.nextFloat() < 0.2f) {
+                if (vines)
+                {
+                    if (Math.abs(x) == leavesSize || Math.abs(z) == leavesSize)
+                    {
+                        if (rand.nextFloat() < 0.2f)
+                        {
                             Direction[] directions = new Direction[]{Direction.NORTH, Direction.SOUTH, Direction.WEST, Direction.EAST};
-                            for (Direction direction : directions) {
+                            for (Direction direction : directions)
+                            {
                                 filler.add(Pair.of(leavesPos.offset(direction), Blocks.VINE.getDefaultState().with(VineBlock.FACING_TO_PROPERTY_MAP.get(direction.getOpposite()), true)));
                             }
                         }
                     }
-                }
-
-                if (vines) {
-                    if (rand.nextFloat() < 0.5F) {
-                        filler.add(Pair.of(pos.down(), Blocks.WHITE_WOOL.getDefaultState()));
+                    if (rand.nextFloat() < 0.5F)
+                    {
+                        filler.add(Pair.of(leavesPos.down(), Blocks.WHITE_WOOL.getDefaultState()));
                     }
                 }
             }
