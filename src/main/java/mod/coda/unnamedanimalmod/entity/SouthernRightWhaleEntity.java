@@ -20,6 +20,9 @@ import net.minecraft.entity.projectile.AbstractArrowEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.pathfinding.PathNavigator;
 import net.minecraft.pathfinding.PathNodeType;
@@ -46,6 +49,7 @@ import java.util.Optional;
 import java.util.Random;
 
 public class SouthernRightWhaleEntity extends AnimalEntity {
+    private static final DataParameter<Integer> VARIANT = EntityDataManager.createKey(SouthernRightWhaleEntity.class, DataSerializers.VARINT);
     protected boolean noBlow = false;
 
     public SouthernRightWhaleEntity(EntityType<? extends SouthernRightWhaleEntity> type, World world) {
@@ -106,7 +110,29 @@ public class SouthernRightWhaleEntity extends AnimalEntity {
     public ILivingEntityData onInitialSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason, @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
         this.setAir(this.getMaxAir());
         this.rotationPitch = 0.0F;
+        if (dataTag == null) {
+            if (rand.nextFloat() > 0.1D) {
+                setVariant(rand.nextInt(3));
+            }
+            else {
+                setVariant(3);
+            }
+        }
         return super.onInitialSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
+    }
+
+    @Override
+    protected void registerData() {
+        super.registerData();
+        this.dataManager.register(VARIANT, 0);
+    }
+
+    public int getVariant() {
+        return this.dataManager.get(VARIANT);
+    }
+
+    public void setVariant(int variant) {
+        this.dataManager.set(VARIANT, variant);
     }
 
     @Nullable

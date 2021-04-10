@@ -62,12 +62,11 @@ public class ClientEventHandler {
     @SubscribeEvent
     public static void setRenderLayers(FMLClientSetupEvent event) {
         Set<RegistryObject<Block>> blocks = new HashSet<>(UAMBlocks.REGISTRY.getEntries());
-    
-        Helper.takeAll(blocks, b -> b.get() instanceof SaplingBlock).forEach(ClientEventHandler::setCutout);
-        Helper.takeAll(blocks, b -> b.get() instanceof LeavesBlock).forEach(ClientEventHandler::setCutout);
-        Helper.takeAll(blocks, b -> b.get() instanceof BushBlock).forEach(ClientEventHandler::setCutout);
-        Helper.takeAll(blocks, b -> b.get() instanceof TrapDoorBlock).forEach(ClientEventHandler::setCutout);
-        Helper.takeAll(blocks, b -> b.get() instanceof DoorBlock).forEach(ClientEventHandler::setCutout);
+
+        blocks.stream().filter(b -> {
+            final Block block = b.get();
+            return block instanceof BushBlock || block instanceof LeavesBlock || block instanceof TrapDoorBlock || block instanceof DoorBlock;
+        }).forEach(ClientEventHandler::setCutout);
     }
 
     public static void setCutout(RegistryObject<Block> b) {

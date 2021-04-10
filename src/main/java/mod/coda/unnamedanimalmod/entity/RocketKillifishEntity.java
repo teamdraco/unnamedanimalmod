@@ -3,6 +3,7 @@ package mod.coda.unnamedanimalmod.entity;
 import mod.coda.unnamedanimalmod.init.UAMItems;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.passive.fish.AbstractFishEntity;
+import net.minecraft.entity.passive.fish.AbstractGroupFishEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
@@ -12,8 +13,8 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
-public class RocketKillifishEntity extends AbstractFishEntity {
-    public RocketKillifishEntity(EntityType<? extends AbstractFishEntity> type, World worldIn) {
+public class RocketKillifishEntity extends AbstractGroupFishEntity {
+    public RocketKillifishEntity(EntityType<? extends AbstractGroupFishEntity> type, World worldIn) {
         super(type, worldIn);
     }
 
@@ -37,6 +38,11 @@ public class RocketKillifishEntity extends AbstractFishEntity {
     @Override
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
         return SoundEvents.ENTITY_COD_HURT;
+    }
+
+    @Override
+    public int getMaxGroupSize() {
+        return 15;
     }
 
     @Override

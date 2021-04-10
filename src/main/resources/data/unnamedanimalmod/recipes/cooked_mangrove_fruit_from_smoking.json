@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smoking",
+  "ingredient": {
+    "item": "unnamedanimalmod:mangrove_fruit"
+  },
+  "result": "unnamedanimalmod:cooked_mangrove_fruit",
+  "experience": 0.35,
+  "cookingtime": 100
+}

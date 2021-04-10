@@ -36,4 +36,8 @@ public class UAMSounds {
     public static final RegistryObject<SoundEvent> CAPYBARA_AMBIENT = REGISTRY.register("capybara.ambient", () -> new SoundEvent(new ResourceLocation(UnnamedAnimalMod.MOD_ID, "capybara.ambient")));
     public static final RegistryObject<SoundEvent> CAPYBARA_DEATH = REGISTRY.register("capybara.death", () -> new SoundEvent(new ResourceLocation(UnnamedAnimalMod.MOD_ID, "capybara.death")));
     public static final RegistryObject<SoundEvent> CAPYBARA_HURT = REGISTRY.register("capybara.hurt", () -> new SoundEvent(new ResourceLocation(UnnamedAnimalMod.MOD_ID, "capybara.hurt")));
+
+    public static final RegistryObject<SoundEvent> MANGROVE_SNAKE_AMBIENT = REGISTRY.register("mangrove_snake.ambient", () -> new SoundEvent(new ResourceLocation(UnnamedAnimalMod.MOD_ID, "mangrove_snake.ambient")));
+    public static final RegistryObject<SoundEvent> MANGROVE_SNAKE_DEATH = REGISTRY.register("mangrove_snake.death", () -> new SoundEvent(new ResourceLocation(UnnamedAnimalMod.MOD_ID, "mangrove_snake.death")));
+    public static final RegistryObject<SoundEvent> MANGROVE_SNAKE_HURT = REGISTRY.register("mangrove_snake.hurt", () -> new SoundEvent(new ResourceLocation(UnnamedAnimalMod.MOD_ID, "mangrove_snake.hurt")));
 }

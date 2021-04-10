@@ -12,13 +12,21 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class CapybaraRenderer extends MobRenderer<CapybaraEntity, CapybaraModel<CapybaraEntity>> {
-    private static final ResourceLocation TEXTURE = new ResourceLocation(UnnamedAnimalMod.MOD_ID, "textures/entity/capybara.png");
+    private static final ResourceLocation TEXTURE = new ResourceLocation(UnnamedAnimalMod.MOD_ID, "textures/entity/capybara/capybara.png");
+    private static final ResourceLocation SINGLE_CHEST = new ResourceLocation(UnnamedAnimalMod.MOD_ID, "textures/entity/capybara/single_chest.png");
+    private static final ResourceLocation DOUBLE_CHEST = new ResourceLocation(UnnamedAnimalMod.MOD_ID, "textures/entity/capybara/double_chest.png");
 
     public CapybaraRenderer(EntityRendererManager renderManagerIn) {
         super(renderManagerIn, new CapybaraModel<>(), 0.5F);
     }
 
     public ResourceLocation getEntityTexture(CapybaraEntity entity) {
+        if (entity.inventory != null && entity.inventory.getSizeInventory() / 27 == 1) {
+            return SINGLE_CHEST;
+        }
+        else if (entity.inventory != null && entity.inventory.getSizeInventory() / 27 == 2) {
+            return DOUBLE_CHEST;
+        }
         return TEXTURE;
     }
 

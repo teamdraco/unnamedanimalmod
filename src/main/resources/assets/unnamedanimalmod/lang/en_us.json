@@ -16,6 +16,8 @@
   "item.unnamedanimalmod.cooked_frog_legs": "Cooked Frog Legs",
   "item.unnamedanimalmod.fried_prairie_chicken_egg": "Fried Prairie Chicken Egg",
   "item.unnamedanimalmod.rocket_killifish": "Rocket Killifish",
+  "item.unnamedanimalmod.mangrove_fruit": "Mangrove Fruit",
+  "item.unnamedanimalmod.cooked_mangrove_fruit": "Cooked Mangrove Fruit",
 
   "item.unnamedanimalmod.pacman_frog_bowl": "Bowl of Pacman Frog",
   "item.unnamedanimalmod.tomato_frog_bowl": "Bowl of Tomato Frog",
@@ -117,5 +119,8 @@
   "subtitle.unnamedanimalmod.marine_iguana.transforms": "Marine Iguana transforms",
   "subtitle.unnamedanimalmod.capybara.ambient": "Capybara whines",
   "subtitle.unnamedanimalmod.capybara.hurt": "Capybara hurts",
-  "subtitle.unnamedanimalmod.capybara.death": "Capybara dies"
+  "subtitle.unnamedanimalmod.capybara.death": "Capybara dies",
+  "subtitle.unnamedanimalmod.mangrove_snake.ambient": "Mangrove Snake hisses",
+  "subtitle.unnamedanimalmod.mangrove_snake.hurt": "Mangrove Snake hurts",
+  "subtitle.unnamedanimalmod.mangrove_snake.death": "Mangrove Snake dies"
 }

@@ -26,7 +26,6 @@ import net.minecraft.world.*;
 
 import javax.annotation.Nullable;
 import java.util.Random;
-import java.util.UUID;
 
 public class MangroveSnakeEntity extends CreatureEntity {
     private static final DataParameter<Integer> VARIANT = EntityDataManager.createKey(MangroveSnakeEntity.class, DataSerializers.VARINT);
@@ -68,15 +67,15 @@ public class MangroveSnakeEntity extends CreatureEntity {
     }
 
     protected SoundEvent getAmbientSound() {
-        return UAMSounds.MARINE_IGUANA_AMBIENT.get();
+        return UAMSounds.MANGROVE_SNAKE_AMBIENT.get();
     }
 
     protected SoundEvent getDeathSound() {
-        return UAMSounds.MARINE_IGUANA_DEATH.get();
+        return UAMSounds.MANGROVE_SNAKE_DEATH.get();
     }
 
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        return UAMSounds.MARINE_IGUANA_HURT.get();
+        return UAMSounds.MANGROVE_SNAKE_HURT.get();
     }
 
     public static boolean canAnimalSpawn(EntityType<? extends MangroveSnakeEntity> animal, IWorld worldIn, SpawnReason reason, BlockPos pos, Random random) {
@@ -87,10 +86,10 @@ public class MangroveSnakeEntity extends CreatureEntity {
     @Override
     public ILivingEntityData onInitialSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason, @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
         if (rand.nextFloat() > 0.2D) {
-            setVariant(1);
+            setVariant(0);
         }
         else {
-            setVariant(0);
+            setVariant(1);
         }
         return spawnDataIn;
     }

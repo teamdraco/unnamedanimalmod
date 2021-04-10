@@ -159,6 +159,12 @@
         "weight": 3,
         "minCount": 1,
         "maxCount": 4
+      },
+      {
+        "type": "unnamedanimalmod:mangrove_snake",
+        "weight": 3,
+        "minCount": 1,
+        "maxCount": 1
       }
     ],
     "ambient": [

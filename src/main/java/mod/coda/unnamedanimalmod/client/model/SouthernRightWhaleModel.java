@@ -15,7 +15,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import java.util.Collections;
 
 @OnlyIn(Dist.CLIENT)
-public class SouthernRightWhaleModel<T extends Entity> extends EntityModel<T> {
+public class SouthernRightWhaleModel<T extends Entity> extends AgeableModel<SouthernRightWhaleEntity> {
     public ModelRenderer body;
     public ModelRenderer head;
     public ModelRenderer tail_stock1;
@@ -63,14 +63,17 @@ public class SouthernRightWhaleModel<T extends Entity> extends EntityModel<T> {
     }
 
     @Override
-    public void render(MatrixStack matrixStackIn, IVertexBuilder bufferIn, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
-        ImmutableList.of(this.body).forEach((modelRenderer) -> {
-            modelRenderer.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
-        });
+    protected Iterable<ModelRenderer> getHeadParts() {
+        return Collections.EMPTY_LIST;
     }
 
     @Override
-    public void setRotationAngles(T entityIn, float f, float f1, float ageInTicks, float netHeadYaw, float headPitch) {
+    protected Iterable<ModelRenderer> getBodyParts() {
+        return ImmutableList.of(body);
+    }
+
+    @Override
+    public void setRotationAngles(SouthernRightWhaleEntity entityIn, float f, float f1, float ageInTicks, float netHeadYaw, float headPitch) {
         float motionY = (float) entityIn.getMotion().y;
 
         if (Entity.horizontalMag(entityIn.getMotion()) > 1.0E-7D) {
@@ -99,6 +102,7 @@ public class SouthernRightWhaleModel<T extends Entity> extends EntityModel<T> {
             this.right_fin.rotateAngleY = 0;
             this.right_fin.rotateAngleZ = 0;
             this.tail_stock1.rotateAngleX = 0;
+            this.tail_stock2.rotateAngleX = 0;
             this.flukes.rotateAngleX = 0;
             this.body.rotateAngleX = 0;
             this.jaw.rotateAngleX = 0;

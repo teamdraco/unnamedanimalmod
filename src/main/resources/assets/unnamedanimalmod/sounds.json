@@ -169,5 +169,29 @@
         "name": "unnamedanimalmod:capybara/hurt"
       }
     ]
+  },
+  "mangrove_snake.ambient": {
+    "subtitle": "subtitle.unnamedanimalmod.mangrove_snake.ambient",
+    "sounds": [
+      {
+        "name": "unnamedanimalmod:mangrove_snake/ambient"
+      }
+    ]
+  },
+  "mangrove_snake.death": {
+    "subtitle": "subtitle.unnamedanimalmod.mangrove_snake.death",
+    "sounds": [
+      {
+        "name": "unnamedanimalmod:mangrove_snake/death"
+      }
+    ]
+  },
+  "mangrove_snake.hurt": {
+    "subtitle": "subtitle.unnamedanimalmod.mangrove_snake.hurt",
+    "sounds": [
+      {
+        "name": "unnamedanimalmod:mangrove_snake/hurt"
+      }
+    ]
   }
 }
