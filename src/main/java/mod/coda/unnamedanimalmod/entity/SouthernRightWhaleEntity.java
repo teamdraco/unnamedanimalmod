@@ -141,17 +141,24 @@ public class SouthernRightWhaleEntity extends AnimalEntity {
         return UAMEntities.SOUTHERN_RIGHT_WHALE.get().create(this.world);
     }
 
+    @Override
+    public void writeAdditional(CompoundNBT compound) {
+        super.writeAdditional(compound);
+        compound.putInt("Variant", getVariant());
+    }
+
+    @Override
+    public void readAdditional(CompoundNBT compound) {
+        super.readAdditional(compound);
+        setVariant(compound.getInt("Variant"));
+    }
+    
     public boolean canBreatheUnderwater() {
         return true;
     }
 
     public static boolean func_223364_b(EntityType<SouthernRightWhaleEntity> p_223364_0_, IWorld p_223364_1_, SpawnReason reason, BlockPos p_223364_3_, Random p_223364_4_) {
-        if (p_223364_3_.getY() > 45 && p_223364_3_.getY() < p_223364_1_.getSeaLevel()) {
-            Optional<RegistryKey<Biome>> optional = p_223364_1_.func_242406_i(p_223364_3_);
-            return (!Objects.equals(optional, Optional.of(Biomes.OCEAN)) || !Objects.equals(optional, Optional.of(Biomes.DEEP_OCEAN))) && p_223364_1_.getFluidState(p_223364_3_).isTagged(FluidTags.WATER);
-        } else {
-            return false;
-        }
+        return (p_223364_1_.getFluidState(p_223364_3_).isTagged(FluidTags.WATER));
     }
 
     @Override
@@ -289,7 +296,7 @@ public class SouthernRightWhaleEntity extends AnimalEntity {
         private final SouthernRightWhaleEntity whale;
 
         public SwimGoal(SouthernRightWhaleEntity whale) {
-            super(whale, 1.0D, 40);
+            super(whale, 1.0D, 5);
             this.whale = whale;
         }
 

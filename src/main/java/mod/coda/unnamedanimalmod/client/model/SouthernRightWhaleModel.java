@@ -102,7 +102,7 @@ public class SouthernRightWhaleModel<T extends Entity> extends AgeableModel<Sout
             this.right_fin.rotateAngleY = 0;
             this.right_fin.rotateAngleZ = 0;
             this.tail_stock1.rotateAngleX = 0;
-            this.tail_stock2.rotateAngleX = 0;
+            this.tail_stock2 .rotateAngleX = 0;
             this.flukes.rotateAngleX = 0;
             this.body.rotateAngleX = 0;
             this.jaw.rotateAngleX = 0;

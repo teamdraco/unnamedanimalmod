@@ -4,7 +4,7 @@
   "item.unnamedanimalmod.blubber": "Blubber",
   "item.unnamedanimalmod.mud_ball": "Mud Ball",
   "item.unnamedanimalmod.mud_brick": "Mud Brick",
-  "item.unnamedanimalmod.dried_mud_fragment": "Mud Fragment",
+  "item.unnamedanimalmod.dried_mud_fragment": "Dried Mud Fragment",
   "item.unnamedanimalmod.dried_mud_brick": "Dried Mud Brick",
   "item.unnamedanimalmod.salt": "Salt",
 
@@ -16,7 +16,6 @@
   "item.unnamedanimalmod.cooked_frog_legs": "Cooked Frog Legs",
   "item.unnamedanimalmod.fried_prairie_chicken_egg": "Fried Prairie Chicken Egg",
   "item.unnamedanimalmod.rocket_killifish": "Rocket Killifish",
-  "item.unnamedanimalmod.mangrove_fruit": "Mangrove Fruit",
   "item.unnamedanimalmod.cooked_mangrove_fruit": "Cooked Mangrove Fruit",
 
   "item.unnamedanimalmod.pacman_frog_bowl": "Bowl of Pacman Frog",
@@ -85,6 +84,7 @@
   "block.unnamedanimalmod.salt_block": "Block of Salt",
   "block.unnamedanimalmod.mangrove_leaves": "Mangrove Leaves",
   "block.unnamedanimalmod.flowering_mangrove_leaves": "Flowering Mangrove Leaves",
+  "block.unnamedanimalmod.mangrove_fruit": "Mangrove Fruit",
 
   "block.unnamedanimalmod.rich_farmland": "Rich Farmland",
 

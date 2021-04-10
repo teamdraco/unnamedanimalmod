@@ -132,7 +132,7 @@ public class CapybaraEntity extends TameableEntity implements INamedContainerPro
             }
             return ActionResultType.func_233537_a_(this.world.isRemote);
         }
-        else if (!this.isBeingRidden() && !player.isSecondaryUseActive()) {
+        else if (!this.isBeingRidden() && !player.isSecondaryUseActive() && !this.isChild()) {
             boolean flag = this.isBreedingItem(player.getHeldItem(hand));
             if (!flag && !this.isBeingRidden() && !player.isSecondaryUseActive()) {
                 if (!this.world.isRemote) {
@@ -172,7 +172,7 @@ public class CapybaraEntity extends TameableEntity implements INamedContainerPro
         this.doBlockCollisions();
         if (getPassengers().isEmpty()) {
             for (Entity e : world.getEntitiesWithinAABBExcludingEntity(this, getBoundingBox().grow(0.5))) {
-                if (e instanceof MobEntity && e.getWidth() <= 0.75f && e.getHeight() <= 0.75f) {
+                if (e instanceof MobEntity && e.getWidth() <= 0.75f && e.getHeight() <= 0.75f && !this.isChild()) {
                     e.startRiding(this);
                 }
             }

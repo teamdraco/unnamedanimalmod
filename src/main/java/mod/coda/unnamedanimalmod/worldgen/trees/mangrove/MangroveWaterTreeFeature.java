@@ -77,12 +77,10 @@ public class MangroveWaterTreeFeature extends Feature<NoFeatureConfig>
             for (int i = 0; i < rootOffset; i++) //root connection placement
             {
                 BlockPos rootConnectionPos = rootStartPos.offset(direction.getOpposite(), i);
-                if (MangroveTreeHelper.canPlace(reader, rootConnectionPos))
-                {
+                if (MangroveTreeHelper.canPlace(reader, rootConnectionPos)) {
                     filler.add(Pair.of(rootConnectionPos, defaultLog.with(RotatedPillarBlock.AXIS, direction.getAxis())));
                 }
-                else
-                {
+                else {
                     return false;
                 }
             }
@@ -90,12 +88,10 @@ public class MangroveWaterTreeFeature extends Feature<NoFeatureConfig>
             do //root placement
             {
                 BlockPos rootPos = rootStartPos.down(i);
-                if (MangroveTreeHelper.canPlace(reader, rootPos))
-                {
+                if (MangroveTreeHelper.canPlace(reader, rootPos)) {
                     filler.add(Pair.of(rootPos, defaultLog));
                 }
-                else
-                {
+                else {
                     break;
                 }
                 i++;
@@ -106,12 +102,10 @@ public class MangroveWaterTreeFeature extends Feature<NoFeatureConfig>
         for (Direction direction : directions) //tree top placement
         {
             int branchCoreOffset = rand.nextInt(MangroveTreeHelper.maximumDownwardsBranchOffset + 1);
-            if (direction.equals(highestDirection))
-            {
+            if (direction.equals(highestDirection)) {
                 branchCoreOffset = 0;
             }
-            else if (!failed && rand.nextFloat() < 0.25)
-            {
+            else if (!failed && rand.nextFloat() < 0.25) {
                 failed = true;
                 continue;
             }

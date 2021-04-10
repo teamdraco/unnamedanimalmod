@@ -1,16 +1,14 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "##",
     "##"
   ],
   "key": {
     "#": {
-      "item": "unnamedanimalmod:mud_brick"
+      "item": "unnamedanimalmod:mud_ball"
     }
   },
   "result": {
-    "item": "unnamedanimalmod:mud_bricks",
-    "count": 2
+    "item": "unnamedanimalmod:dried_mud_fragment"
   }
 }

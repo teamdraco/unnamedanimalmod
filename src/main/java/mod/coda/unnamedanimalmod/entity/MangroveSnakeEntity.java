@@ -78,10 +78,6 @@ public class MangroveSnakeEntity extends CreatureEntity {
         return UAMSounds.MANGROVE_SNAKE_HURT.get();
     }
 
-    public static boolean canAnimalSpawn(EntityType<? extends MangroveSnakeEntity> animal, IWorld worldIn, SpawnReason reason, BlockPos pos, Random random) {
-        return worldIn.getBlockState(pos.down()).isIn(Blocks.WATER);
-    }
-
     @Nullable
     @Override
     public ILivingEntityData onInitialSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason, @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
@@ -92,6 +88,10 @@ public class MangroveSnakeEntity extends CreatureEntity {
             setVariant(1);
         }
         return spawnDataIn;
+    }
+
+    public static boolean canAnimalSpawn(EntityType<? extends MangroveSnakeEntity> animal, IWorld worldIn, SpawnReason reason, BlockPos pos, Random random) {
+        return worldIn.getBlockState(pos.down()).isIn(Blocks.GRASS_BLOCK) && worldIn.getLightSubtracted(pos, 0) > 8;
     }
 
     @Override

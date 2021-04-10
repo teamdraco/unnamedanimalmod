@@ -49,5 +49,6 @@ public class UAMBlocks {
     public static final RegistryObject<Block> RICH_FARMLAND = REGISTRY.register("rich_farmland", () -> new RichFarmlandBlock(AbstractBlock.Properties.from(Blocks.FARMLAND)));
 
     public static final RegistryObject<Block> MANGROVE_LEAVES = REGISTRY.register("mangrove_leaves", () -> new LeavesBlock(AbstractBlock.Properties.from(Blocks.JUNGLE_LEAVES)));
-    public static final RegistryObject<Block> FLOWERING_MANGROVE_LEAVES = REGISTRY.register("flowering_mangrove_leaves", () -> new FloweringMangroveLeavesBlock(AbstractBlock.Properties.from(Blocks.JUNGLE_LEAVES)));
+    public static final RegistryObject<Block> FLOWERING_MANGROVE_LEAVES = REGISTRY.register("flowering_mangrove_leaves", () -> new LeavesBlock(AbstractBlock.Properties.from(Blocks.JUNGLE_LEAVES)));
+    public static final RegistryObject<Block> MANGROVE_FRUIT = REGISTRY.register("mangrove_fruit", () -> new MangroveFruitBlock(AbstractBlock.Properties.from(Blocks.WHEAT)));
 }

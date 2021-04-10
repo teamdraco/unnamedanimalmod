@@ -19,15 +19,7 @@ public class RichFarmlandBlock extends FarmlandBlock
     }
     
     @Override
-    public void onFallenUpon(World worldIn, BlockPos pos, Entity entityIn, float fallDistance)
-    {
-    
-    }
-    
-    @Override
-    public void tick(BlockState state, ServerWorld worldIn, BlockPos pos, Random rand)
-    {
-    
+    public void onFallenUpon(World worldIn, BlockPos pos, Entity entityIn, float fallDistance) {
     }
     
     @Override
