@@ -22,7 +22,9 @@ import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -47,6 +49,8 @@ public class UnnamedAnimalMod {
         UAMFeatures.REGISTRY.register(bus);
         UAMBiomes.BIOMES.register(bus);
         UAMBiomes.BUILDERS.register(bus);
+
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, UAMConfig.Common.SPEC);
     }
 
     private void registerCommon(FMLCommonSetupEvent event) {
@@ -95,33 +99,33 @@ public class UnnamedAnimalMod {
         }
 
         if (Biomes.SUNFLOWER_PLAINS.getLocation().equals(event.getName())) {
-            event.getSpawns().getSpawner(EntityClassification.CREATURE).add(new MobSpawnInfo.Spawners(UAMEntities.GREATER_PRAIRIE_CHICKEN.get(), 15, 4, 4));
+            event.getSpawns().getSpawner(EntityClassification.CREATURE).add(new MobSpawnInfo.Spawners(UAMEntities.GREATER_PRAIRIE_CHICKEN.get(), UAMConfig.Common.INSTANCE.greaterPrairieChickenSpawnWeight.get(), 4, 4));
         }
 
         if (event.getCategory() == Biome.Category.ICY) {
-            event.getSpawns().getSpawner(EntityClassification.CREATURE).add(new MobSpawnInfo.Spawners(UAMEntities.MUSK_OX.get(), 1, 2, 4));
+            event.getSpawns().getSpawner(EntityClassification.CREATURE).add(new MobSpawnInfo.Spawners(UAMEntities.MUSK_OX.get(), UAMConfig.Common.INSTANCE.muskOxSpawnWeight.get(), 2, 4));
         }
 
         if (Biomes.COLD_OCEAN.getLocation().equals(event.getName())) {
-            event.getSpawns().getSpawner(EntityClassification.CREATURE).add(new MobSpawnInfo.Spawners(UAMEntities.SOUTHERN_RIGHT_WHALE.get(), 50, 2, 4));
+            event.getSpawns().getSpawner(EntityClassification.CREATURE).add(new MobSpawnInfo.Spawners(UAMEntities.SOUTHERN_RIGHT_WHALE.get(), UAMConfig.Common.INSTANCE.southernRightWhaleSpawnWeight.get(), 2, 4));
         }
 
         if (Biomes.WARM_OCEAN.getLocation().equals(event.getName())) {
-            event.getSpawns().getSpawner(EntityClassification.CREATURE).add(new MobSpawnInfo.Spawners(UAMEntities.HUMPHEAD_PARROTFISH.get(), 50, 1, 3));
-            event.getSpawns().getSpawner(EntityClassification.WATER_AMBIENT).add(new MobSpawnInfo.Spawners(UAMEntities.FLASHLIGHT_FISH.get(), 10, 4, 8));
+            event.getSpawns().getSpawner(EntityClassification.CREATURE).add(new MobSpawnInfo.Spawners(UAMEntities.HUMPHEAD_PARROTFISH.get(), UAMConfig.Common.INSTANCE.humpheadParrotfishSpawnWeight.get(), 1, 3));
+            event.getSpawns().getSpawner(EntityClassification.WATER_AMBIENT).add(new MobSpawnInfo.Spawners(UAMEntities.FLASHLIGHT_FISH.get(), UAMConfig.Common.INSTANCE.flashlightFishSpawnWeight.get(), 4, 8));
         }
 
         if (Biomes.STONE_SHORE.getLocation().equals(event.getName())) {
-            event.getSpawns().getSpawner(EntityClassification.CREATURE).add(new MobSpawnInfo.Spawners(UAMEntities.MARINE_IGUANA.get(), 15, 4, 6));
+            event.getSpawns().getSpawner(EntityClassification.CREATURE).add(new MobSpawnInfo.Spawners(UAMEntities.MARINE_IGUANA.get(), UAMConfig.Common.INSTANCE.marineIguanaSpawnWeight.get(), 4, 6));
         }
 
         if (Biomes.GIANT_TREE_TAIGA.getLocation().equals(event.getName()) || Biomes.GIANT_TREE_TAIGA_HILLS.getLocation().equals(event.getName()) || Biomes.GIANT_SPRUCE_TAIGA_HILLS.getLocation().equals(event.getName()) || Biomes.GIANT_SPRUCE_TAIGA.getLocation().equals(event.getName())) {
-            event.getSpawns().getSpawner(EntityClassification.CREATURE).add(new MobSpawnInfo.Spawners(UAMEntities.BANANA_SLUG.get(), 45, 1, 1));
+            event.getSpawns().getSpawner(EntityClassification.CREATURE).add(new MobSpawnInfo.Spawners(UAMEntities.BANANA_SLUG.get(), UAMConfig.Common.INSTANCE.bananaSlugSpawnWeight.get(), 1, 1));
         }
 
         if (event.getCategory() == Biome.Category.SWAMP) {
-            event.getSpawns().getSpawner(EntityClassification.CREATURE).add(new MobSpawnInfo.Spawners(UAMEntities.PLATYPUS.get(), 5, 1, 1));
-            event.getSpawns().getSpawner(EntityClassification.CREATURE).add(new MobSpawnInfo.Spawners(UAMEntities.PACMAN_FROG.get(), 2, 1, 2));
+            event.getSpawns().getSpawner(EntityClassification.CREATURE).add(new MobSpawnInfo.Spawners(UAMEntities.PLATYPUS.get(), UAMConfig.Common.INSTANCE.platypusSpawnWeight.get(), 1, 1));
+            event.getSpawns().getSpawner(EntityClassification.CREATURE).add(new MobSpawnInfo.Spawners(UAMEntities.PACMAN_FROG.get(), UAMConfig.Common.INSTANCE.pacmanFrogSpawnWeight.get(), 1, 2));
         }
     }
 
