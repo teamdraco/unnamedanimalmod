@@ -32,14 +32,14 @@ public class MangroveBoatEntity extends BoatEntity {
 
     @Override
     protected void updateFallState(double y, boolean onGroundIn, BlockState state, BlockPos pos) {
-        this.lastYd = this.getMotion().y;
+        //this.lastYd = this.getMotion().y;
         if (!this.isPassenger()) {
             if (onGroundIn) {
                 if (this.fallDistance > 3.0F) {
-                    if (this.status != BoatEntity.Status.ON_LAND) {
-                        this.fallDistance = 0.0F;
-                        return;
-                    }
+//                    if (this.status != BoatEntity.Status.ON_LAND) {
+//                        this.fallDistance = 0.0F;
+//                        return;
+//                    }
 
                     this.onLivingFall(this.fallDistance, 1.0F);
                     if (!this.world.isRemote && isAlive()) {

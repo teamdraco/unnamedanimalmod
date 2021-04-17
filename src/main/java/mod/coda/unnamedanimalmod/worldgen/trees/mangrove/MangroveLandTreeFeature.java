@@ -49,8 +49,8 @@ public class MangroveLandTreeFeature extends Feature<NoFeatureConfig>
             }
         }
         MangroveTreeHelper.makeLeafBlob(leavesFiller, rand, pos, trunkHeight);
-
         Direction[] directions = new Direction[]{Direction.NORTH, Direction.SOUTH, Direction.WEST, Direction.EAST};
+
         for (Direction direction : directions) //side trunk placement
         {
             int sideTrunkHeight = MangroveTreeHelper.minimumSideLandTrunkHeight + rand.nextInt(MangroveTreeHelper.sideLandTrunkHeightExtra + 1);

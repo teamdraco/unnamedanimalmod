@@ -2,6 +2,7 @@ package mod.coda.unnamedanimalmod.worldgen.trees.mangrove;
 
 import com.ibm.icu.impl.Pair;
 import mod.coda.unnamedanimalmod.UAMHelper;
+import mod.coda.unnamedanimalmod.block.MangroveSaplingBlock;
 import mod.coda.unnamedanimalmod.init.UAMBlocks;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -166,10 +167,10 @@ public class MangroveTreeHelper
 
     public static boolean canPlace(ISeedReader reader, BlockPos pos)
     {
-        if (World.isInvalidPosition(pos))
+        if (!World.isValid(pos))
         {
             return false;
         }
-        return (reader.getBlockState(pos).getBlock().equals(UAMBlocks.MANGROVE_SAPLING.get()) || reader.hasWater(pos) || reader.isAirBlock(pos) || reader.getBlockState(pos).getMaterial().isReplaceable());
+        return (reader.getBlockState(pos).getBlock() instanceof MangroveSaplingBlock || reader.hasWater(pos) || reader.isAirBlock(pos) || reader.getBlockState(pos).getMaterial().isReplaceable());
     }
 }
