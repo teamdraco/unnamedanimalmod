@@ -12,6 +12,8 @@ import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
+import java.util.List;
+
 public class UAMEntities {
     public static final DeferredRegister<EntityType<?>> REGISTRY = DeferredRegister.create(ForgeRegistries.ENTITIES, UnnamedAnimalMod.MOD_ID);
 
@@ -32,8 +34,9 @@ public class UAMEntities {
     public static final RegistryObject<EntityType<MangroveSnakeEntity>> MANGROVE_SNAKE = create("mangrove_snake", EntityType.Builder.create(MangroveSnakeEntity::new, EntityClassification.WATER_AMBIENT).size(1.0f, 0.3f));
 
     public static final RegistryObject<EntityType<GreaterPrairieChickenEggEntity>> GREATER_PRAIRIE_CHICKEN_EGG = create("greater_prairie_chicken_egg", EntityType.Builder.<GreaterPrairieChickenEggEntity>create(GreaterPrairieChickenEggEntity::new, EntityClassification.MISC).size(0.25f, 0.25f));
-    public static final RegistryObject<EntityType<PlatypusEggEntity>> PLATYPUS_EGG = create("platypus_egg",EntityType.Builder.<PlatypusEggEntity>create(PlatypusEggEntity::new, EntityClassification.MISC).size(0.25f, 0.25f));
-    public static final RegistryObject<EntityType<MarineIguanaEggEntity>> MARINE_IGUANA_EGG = create("marine_iguana_egg",EntityType.Builder.<MarineIguanaEggEntity>create(MarineIguanaEggEntity::new, EntityClassification.MISC).size(0.25f, 0.25f));
+    public static final RegistryObject<EntityType<PlatypusEggEntity>> PLATYPUS_EGG = create("platypus_egg", EntityType.Builder.<PlatypusEggEntity>create(PlatypusEggEntity::new, EntityClassification.MISC).size(0.25f, 0.25f));
+    public static final RegistryObject<EntityType<MarineIguanaEggEntity>> MARINE_IGUANA_EGG = create("marine_iguana_egg", EntityType.Builder.<MarineIguanaEggEntity>create(MarineIguanaEggEntity::new, EntityClassification.MISC).size(0.25f, 0.25f));
+    public static final RegistryObject<EntityType<MangroveBoatEntity>> MANGROVE_BOAT = create("mangrove_boat", EntityType.Builder.<MangroveBoatEntity>create(MangroveBoatEntity::new, EntityClassification.MISC).size(1.375F, 0.5625F).trackingRange(10));
 
     private static <T extends Entity> RegistryObject<EntityType<T>> create(String name, EntityType.Builder<T> builder) {
         return REGISTRY.register(name, () -> builder.build(UnnamedAnimalMod.MOD_ID + "." + name));

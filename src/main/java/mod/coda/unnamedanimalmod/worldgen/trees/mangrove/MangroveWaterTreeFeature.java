@@ -17,14 +17,13 @@ import java.util.Random;
 
 import static net.minecraft.world.gen.feature.NoFeatureConfig.field_236558_a_;
 
-public class MangroveWaterTreeFeature extends Feature<NoFeatureConfig>
-{
-    
+public class MangroveWaterTreeFeature extends Feature<NoFeatureConfig> {
+
     public MangroveWaterTreeFeature()
     {
         super(field_236558_a_);
     }
-    
+
     @Override
     public boolean generate(ISeedReader reader, ChunkGenerator generator, Random rand, BlockPos pos, NoFeatureConfig config)
     {
@@ -33,10 +32,10 @@ public class MangroveWaterTreeFeature extends Feature<NoFeatureConfig>
             return false;
         }
         BlockState defaultLog = UAMBlocks.MANGROVE_LOG.get().getDefaultState();
-        ArrayList<Pair<BlockPos, BlockState>> filler = new ArrayList<>();
-        ArrayList<Pair<BlockPos, BlockState>> leavesFiller = new ArrayList<>();
+        ArrayList<Entry> filler = new ArrayList<>();
+        ArrayList<Entry> leavesFiller = new ArrayList<>();
         int waterSurface = 0;
-    
+
         int worldOffset = reader.getHeight() - pos.getY();
         for (int i = 0; i <= worldOffset; i++) //figuring out where water surface position is
         {
@@ -54,7 +53,7 @@ public class MangroveWaterTreeFeature extends Feature<NoFeatureConfig>
             BlockPos trunkPos = trunkStart.up(i);
             if (MangroveTreeHelper.canPlace(reader, trunkPos))
             {
-                filler.add(Pair.of(trunkPos, defaultLog));
+                filler.add(new Entry(trunkPos, defaultLog));
             }
             else
             {
@@ -62,7 +61,7 @@ public class MangroveWaterTreeFeature extends Feature<NoFeatureConfig>
             }
         }
         MangroveTreeHelper.makeLeafBlob(leavesFiller, rand, trunkStart, trunkHeight);
-    
+
         Direction[] directions = new Direction[]{Direction.NORTH, Direction.SOUTH, Direction.WEST, Direction.EAST};
         Direction lowestDirection = directions[rand.nextInt(directions.length)];
         for (Direction direction : directions) //root placement
@@ -77,10 +76,12 @@ public class MangroveWaterTreeFeature extends Feature<NoFeatureConfig>
             for (int i = 0; i < rootOffset; i++) //root connection placement
             {
                 BlockPos rootConnectionPos = rootStartPos.offset(direction.getOpposite(), i);
-                if (MangroveTreeHelper.canPlace(reader, rootConnectionPos)) {
-                    filler.add(Pair.of(rootConnectionPos, defaultLog.with(RotatedPillarBlock.AXIS, direction.getAxis())));
+                if (MangroveTreeHelper.canPlace(reader, rootConnectionPos))
+                {
+                    filler.add(new Entry(rootConnectionPos, defaultLog.with(RotatedPillarBlock.AXIS, direction.getAxis())));
                 }
-                else {
+                else
+                {
                     return false;
                 }
             }
@@ -88,24 +89,29 @@ public class MangroveWaterTreeFeature extends Feature<NoFeatureConfig>
             do //root placement
             {
                 BlockPos rootPos = rootStartPos.down(i);
-                if (MangroveTreeHelper.canPlace(reader, rootPos)) {
-                    filler.add(Pair.of(rootPos, defaultLog));
+                if (MangroveTreeHelper.canPlace(reader, rootPos))
+                {
+                    filler.add(new Entry(rootPos, defaultLog));
                 }
-                else {
+                else
+                {
                     break;
                 }
                 i++;
-            } while (true);
+            }
+            while (true);
         }
         Direction highestDirection = directions[rand.nextInt(directions.length)];
         boolean failed = false;
         for (Direction direction : directions) //tree top placement
         {
             int branchCoreOffset = rand.nextInt(MangroveTreeHelper.maximumDownwardsBranchOffset + 1);
-            if (direction.equals(highestDirection)) {
+            if (direction.equals(highestDirection))
+            {
                 branchCoreOffset = 0;
             }
-            else if (!failed && rand.nextFloat() < 0.25) {
+            else if (!failed && rand.nextFloat() < 0.25)
+            {
                 failed = true;
                 continue;
             }
@@ -116,7 +122,7 @@ public class MangroveWaterTreeFeature extends Feature<NoFeatureConfig>
                 BlockPos branchConnectionPos = branchStartPos.offset(direction.getOpposite(), i);
                 if (MangroveTreeHelper.canPlace(reader, branchConnectionPos))
                 {
-                    filler.add(Pair.of(branchConnectionPos, defaultLog.with(RotatedPillarBlock.AXIS, direction.getAxis())));
+                    filler.add(new Entry(branchConnectionPos, defaultLog.with(RotatedPillarBlock.AXIS, direction.getAxis())));
                 }
                 else
                 {
@@ -129,7 +135,7 @@ public class MangroveWaterTreeFeature extends Feature<NoFeatureConfig>
                 BlockPos branchPos = branchStartPos.up(i);
                 if (MangroveTreeHelper.canPlace(reader, branchPos))
                 {
-                    filler.add(Pair.of(branchPos, defaultLog));
+                    filler.add(new Entry(branchPos, defaultLog));
                 }
                 else
                 {
@@ -137,12 +143,11 @@ public class MangroveWaterTreeFeature extends Feature<NoFeatureConfig>
                 }
             }
             // LEAAAAVEESSSSSSSSSSS
-           MangroveTreeHelper.makeLeafBlob(leavesFiller, rand, branchStartPos, branchHeight); // yeah it's just one line
+            MangroveTreeHelper.makeLeafBlob(leavesFiller, rand, branchStartPos, branchHeight); // yeah it's just one line
         }
-        filler.add(Pair.of(pos, Blocks.WATER.getDefaultState()));
+        filler.add(new Entry(pos, Blocks.WATER.getDefaultState()));
         MangroveTreeHelper.fill(reader, filler);
         MangroveTreeHelper.fillLeaves(reader, rand, leavesFiller);
         return true;
     }
-    
 }

@@ -2,6 +2,7 @@ package mod.coda.unnamedanimalmod.entity;
 
 import mod.coda.unnamedanimalmod.init.UAMEntities;
 import mod.coda.unnamedanimalmod.init.UAMItems;
+import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -13,6 +14,7 @@ import net.minecraft.entity.ai.controller.MovementController;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.loot.LootContext;
@@ -26,6 +28,8 @@ import net.minecraft.tags.FluidTags;
 import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.IServerWorld;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
@@ -170,6 +174,14 @@ public class HumpheadParrotfishEntity extends AnimalEntity {
     }
 
     @Override
+    public ILivingEntityData onInitialSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason, @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
+        if (dataTag != null) {
+            setGrowingAge(dataTag.getInt("Age"));
+        }
+        return super.onInitialSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
+    }
+
+    @Override
     public boolean canBreatheUnderwater() {
         return true;
     }
@@ -194,6 +206,26 @@ public class HumpheadParrotfishEntity extends AnimalEntity {
             entityDropItem(new ItemStack(Items.SAND, getRNG().nextInt(10)));
             heldItem.shrink(1);
             return ActionResultType.SUCCESS;
+        } else if (isChild() && heldItem.getItem() == Items.WATER_BUCKET && this.isAlive()) {
+            this.playSound(SoundEvents.ITEM_BUCKET_FILL_FISH, 1.0F, 1.0F);
+            heldItem.shrink(1);
+            ItemStack bucket = new ItemStack(UAMItems.BABY_HUMPHEAD_PARROTFISH_BUCKET.get());
+            if (this.hasCustomName()) {
+                bucket.setDisplayName(this.getCustomName());
+            }
+            if (!this.world.isRemote) {
+                bucket.getOrCreateTag().putInt("Age", getGrowingAge());
+                CriteriaTriggers.FILLED_BUCKET.trigger((ServerPlayerEntity) player, bucket);
+            }
+
+            if (heldItem.isEmpty()) {
+                player.setHeldItem(hand, bucket);
+            } else if (!player.inventory.addItemStackToInventory(bucket)) {
+                player.dropItem(bucket, false);
+            }
+
+            this.remove();
+            return ActionResultType.func_233537_a_(this.world.isRemote);
         }
         return super.func_230254_b_(player, hand);
     }

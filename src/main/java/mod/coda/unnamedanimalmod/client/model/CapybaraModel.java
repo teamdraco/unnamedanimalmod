@@ -97,6 +97,10 @@ public class CapybaraModel<T extends Entity> extends AgeableModel<CapybaraEntity
         float speed = 1.0f;
         float degree = 1.0f;
 
+        this.head.rotateAngleX = headPitch * ((float) Math.PI / 180F);
+        this.head.rotateAngleY = netHeadYaw * ((float) Math.PI / 180F);
+        this.body.rotateAngleY = 0;
+        this.body.rotateAngleZ = MathHelper.cos(limbSwing * speed * 0.4F) * degree * 0.15F * limbSwingAmount;
         if (entityIn.isInWater()) {
             this.body.rotateAngleY = MathHelper.cos(ageInTicks * speed * 0.4F) * degree * 0.05F * 1;
             this.body.rotateAngleZ = 0;
@@ -104,17 +108,14 @@ public class CapybaraModel<T extends Entity> extends AgeableModel<CapybaraEntity
             this.rightBackLeg.rotateAngleX = MathHelper.cos(1.0F + ageInTicks * speed * 0.4F) * degree * -1.2F * 0.2F + 0.45F;
             this.rightFrontLeg.rotateAngleX = MathHelper.cos(1.0F + ageInTicks * speed * 0.4F) * degree * 0.8F * 0.2F + 0.45F;
             this.leftFrontLeg.rotateAngleX = MathHelper.cos(1.0F + ageInTicks * speed * 0.4F) * degree * -0.8F * 0.2F + 0.45F;
-             this.head.rotateAngleX += MathHelper.cos(ageInTicks * speed * 0.4F) * degree * 0.2F * 0.2F - 0.25F;
+            this.head.rotateAngleX += MathHelper.cos(ageInTicks * speed * 0.4F) * degree * 0.2F * 0.2F - 0.25F;
+        } else {
+            this.leftBackLeg.rotateAngleX = MathHelper.cos(1.0F + limbSwing * speed * 0.4F) * degree * 0.8F * limbSwingAmount;
+            this.rightBackLeg.rotateAngleX = MathHelper.cos(1.0F + limbSwing * speed * 0.4F) * degree * -0.8F * limbSwingAmount;
+            this.rightFrontLeg.rotateAngleX = MathHelper.cos(1.0F + limbSwing * speed * 0.4F) * degree * 0.8F * limbSwingAmount;
+            this.leftFrontLeg.rotateAngleX = MathHelper.cos(1.0F + limbSwing * speed * 0.4F) * degree * -0.8F * limbSwingAmount;
+            // this.head.rotateAngleX = MathHelper.cos(1.0F + limbSwing * speed * 0.4F) * degree * 0.2F * limbSwingAmount + 0.2F;
         }
-        this.body.rotateAngleY = 0;
-        this.body.rotateAngleZ = MathHelper.cos(limbSwing * speed * 0.4F) * degree * 0.15F * limbSwingAmount;
-        this.leftBackLeg.rotateAngleX = MathHelper.cos(1.0F + limbSwing * speed * 0.4F) * degree * 0.8F * limbSwingAmount;
-        this.rightBackLeg.rotateAngleX = MathHelper.cos(1.0F + limbSwing * speed * 0.4F) * degree * -0.8F * limbSwingAmount;
-        this.rightFrontLeg.rotateAngleX = MathHelper.cos(1.0F + limbSwing * speed * 0.4F) * degree * 0.8F * limbSwingAmount;
-        this.leftFrontLeg.rotateAngleX = MathHelper.cos(1.0F + limbSwing * speed * 0.4F) * degree * -0.8F * limbSwingAmount;
-        // this.head.rotateAngleX = MathHelper.cos(1.0F + limbSwing * speed * 0.4F) * degree * 0.2F * limbSwingAmount + 0.2F;
-        this.head.rotateAngleX = headPitch * ((float)Math.PI / 180F);
-        this.head.rotateAngleY = netHeadYaw * ((float)Math.PI / 180F);
     }
 
     public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z) {

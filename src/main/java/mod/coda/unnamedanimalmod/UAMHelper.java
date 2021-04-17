@@ -13,7 +13,7 @@ import java.util.stream.Stream;
 
 import static mod.coda.unnamedanimalmod.UnnamedAnimalMod.MOD_ID;
 
-public class Helper {
+public class UAMHelper {
 
     public static <T> Collection<T> takeAll(Collection<T> src, Predicate<T> pred)
     {
@@ -36,6 +36,7 @@ public class Helper {
         }
         return ret;
     }
+
     public static ArrayList<Vector3d> blockOutlinePositions(World world, BlockPos pos) {
         ArrayList<Vector3d> arrayList = new ArrayList<>();
         double d0 = 0.5625D;

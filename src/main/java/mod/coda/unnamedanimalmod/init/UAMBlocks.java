@@ -12,7 +12,8 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 import static net.minecraft.block.PressurePlateBlock.Sensitivity.EVERYTHING;
 
-public class UAMBlocks {
+public class UAMBlocks
+{
     
     public static final DeferredRegister<Block> REGISTRY = DeferredRegister.create(ForgeRegistries.BLOCKS, UnnamedAnimalMod.MOD_ID);
     

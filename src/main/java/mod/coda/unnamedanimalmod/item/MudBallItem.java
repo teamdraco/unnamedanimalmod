@@ -1,6 +1,6 @@
 package mod.coda.unnamedanimalmod.item;
 
-import mod.coda.unnamedanimalmod.Helper;
+import mod.coda.unnamedanimalmod.UAMHelper;
 import mod.coda.unnamedanimalmod.init.UAMBlocks;
 import mod.coda.unnamedanimalmod.init.UAMItems;
 import net.minecraft.block.Blocks;
@@ -50,7 +50,7 @@ public class MudBallItem extends Item
     public void addItemParticles(PlayerEntity playerEntity, BlockPos pos) {
         World world = playerEntity.world;
         for (int i = 0; i < 5; i++) {
-            ArrayList<Vector3d> particlePositions = Helper.blockOutlinePositions(world, pos);
+            ArrayList<Vector3d> particlePositions = UAMHelper.blockOutlinePositions(world, pos);
             particlePositions.forEach(p -> world.addParticle(new BlockParticleData(ParticleTypes.BLOCK, Blocks.DIRT.getDefaultState()), p.x, p.y, p.z, 0, world.rand.nextFloat() * 0.1f, 0));
         }
         for (int i = 0; i < 10; ++i) {

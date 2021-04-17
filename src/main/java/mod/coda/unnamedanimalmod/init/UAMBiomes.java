@@ -1,6 +1,6 @@
 package mod.coda.unnamedanimalmod.init;
 
-import mod.coda.unnamedanimalmod.Helper;
+import mod.coda.unnamedanimalmod.UAMHelper;
 import mod.coda.unnamedanimalmod.UnnamedAnimalMod;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;

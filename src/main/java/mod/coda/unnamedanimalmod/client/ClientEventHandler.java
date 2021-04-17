@@ -1,6 +1,5 @@
 package mod.coda.unnamedanimalmod.client;
 
-import mod.coda.unnamedanimalmod.Helper;
 import mod.coda.unnamedanimalmod.UnnamedAnimalMod;
 import mod.coda.unnamedanimalmod.client.renderer.*;
 import mod.coda.unnamedanimalmod.client.renderer.item.GreaterPrairieChickenEggRenderer;
@@ -14,8 +13,6 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.client.renderer.color.ItemColors;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.RegistryObject;
@@ -29,7 +26,6 @@ import java.util.Set;
 @Mod.EventBusSubscriber(modid = UnnamedAnimalMod.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ClientEventHandler {
 
-    @OnlyIn(Dist.CLIENT)
     public static void init() {
         RenderingRegistry.registerEntityRenderingHandler(UAMEntities.BLACK_DIAMOND_STINGRAY.get(), BlackDiamondStingrayRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(UAMEntities.TOMATO_FROG.get(), TomatoFrogRenderer::new);
@@ -49,10 +45,10 @@ public class ClientEventHandler {
         RenderingRegistry.registerEntityRenderingHandler(UAMEntities.CAPYBARA.get(), CapybaraRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(UAMEntities.ROCKET_KILLIFISH.get(), RocketKillifishRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(UAMEntities.MANGROVE_SNAKE.get(), MangroveSnakeRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(UAMEntities.MANGROVE_BOAT.get(), MangroveBoatRenderer::new);
     }
 
     @SubscribeEvent
-    @OnlyIn(Dist.CLIENT)
     public static void itemColors(ColorHandlerEvent.Item event) {
         ItemColors handler = event.getItemColors();
         IItemColor eggColor = (stack, tintIndex) -> ((UAMSpawnEggItem) stack.getItem()).getColor(tintIndex);

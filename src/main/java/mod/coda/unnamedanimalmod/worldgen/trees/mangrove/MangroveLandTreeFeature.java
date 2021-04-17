@@ -1,6 +1,5 @@
 package mod.coda.unnamedanimalmod.worldgen.trees.mangrove;
 
-import com.ibm.icu.impl.Pair;
 import mod.coda.unnamedanimalmod.init.UAMBlocks;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.LeavesBlock;
@@ -22,7 +21,7 @@ public class MangroveLandTreeFeature extends Feature<NoFeatureConfig>
     public MangroveLandTreeFeature() {
         super(field_236558_a_);
     }
-    
+
     @Override
     public boolean generate(ISeedReader reader, ChunkGenerator generator, Random rand, BlockPos pos, NoFeatureConfig config) {
         if (reader.isAirBlock(pos.down()) || reader.getBlockState(pos.down()).getBlock() instanceof LeavesBlock) {
@@ -32,9 +31,9 @@ public class MangroveLandTreeFeature extends Feature<NoFeatureConfig>
             return false;
         }
         BlockState defaultLog = UAMBlocks.MANGROVE_LOG.get().getDefaultState();
-        ArrayList<Pair<BlockPos, BlockState>> filler = new ArrayList<>();
-        ArrayList<Pair<BlockPos, BlockState>> leavesFiller = new ArrayList<>();
-    
+        ArrayList<Entry> filler = new ArrayList<>();
+        ArrayList<Entry> leavesFiller = new ArrayList<>();
+
         int trunkHeight = MangroveTreeHelper.minimumLandTrunkHeight + rand.nextInt(MangroveTreeHelper.landTrunkHeightExtra + 1);
         BlockPos trunkTop = pos.up(trunkHeight);
         for (int i = 0; i <= trunkHeight; i++) //trunk placement
@@ -42,7 +41,7 @@ public class MangroveLandTreeFeature extends Feature<NoFeatureConfig>
             BlockPos trunkPos = pos.up(i);
             if (MangroveTreeHelper.canPlace(reader, trunkPos))
             {
-                filler.add(Pair.of(trunkPos, defaultLog));
+                filler.add(new Entry(trunkPos, defaultLog));
             }
             else
             {
@@ -50,7 +49,7 @@ public class MangroveLandTreeFeature extends Feature<NoFeatureConfig>
             }
         }
         MangroveTreeHelper.makeLeafBlob(leavesFiller, rand, pos, trunkHeight);
-    
+
         Direction[] directions = new Direction[]{Direction.NORTH, Direction.SOUTH, Direction.WEST, Direction.EAST};
         for (Direction direction : directions) //side trunk placement
         {
@@ -60,7 +59,7 @@ public class MangroveLandTreeFeature extends Feature<NoFeatureConfig>
                 BlockPos trunkPos = pos.offset(direction).up(i);
                 if (MangroveTreeHelper.canPlace(reader, trunkPos))
                 {
-                    filler.add(Pair.of(trunkPos, defaultLog));
+                    filler.add(new Entry(trunkPos, defaultLog));
                 }
                 else
                 {
@@ -74,7 +73,7 @@ public class MangroveLandTreeFeature extends Feature<NoFeatureConfig>
                 BlockPos trunkPos = pos.offset(direction).down(i);
                 if (MangroveTreeHelper.canPlace(reader, trunkPos))
                 {
-                    filler.add(Pair.of(trunkPos, defaultLog));
+                    filler.add(new Entry(trunkPos, defaultLog));
                 }
                 else
                 {
@@ -108,7 +107,7 @@ public class MangroveLandTreeFeature extends Feature<NoFeatureConfig>
                 BlockPos branchConnectionPos = branchStartPos.offset(direction.getOpposite(), i);
                 if (MangroveTreeHelper.canPlace(reader, branchConnectionPos))
                 {
-                    filler.add(Pair.of(branchConnectionPos, defaultLog.with(RotatedPillarBlock.AXIS, direction.getAxis())));
+                    filler.add(new Entry(branchConnectionPos, defaultLog.with(RotatedPillarBlock.AXIS, direction.getAxis())));
                 }
                 else
                 {
@@ -121,7 +120,7 @@ public class MangroveLandTreeFeature extends Feature<NoFeatureConfig>
                 BlockPos branchPos = branchStartPos.up(i);
                 if (MangroveTreeHelper.canPlace(reader, branchPos))
                 {
-                    filler.add(Pair.of(branchPos, defaultLog));
+                    filler.add(new Entry(branchPos, defaultLog));
                 }
                 else
                 {
