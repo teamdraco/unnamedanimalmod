@@ -32,6 +32,7 @@ public class UAMEntities {
     public static final RegistryObject<EntityType<CapybaraEntity>> CAPYBARA = create("capybara", EntityType.Builder.create(CapybaraEntity::new, EntityClassification.CREATURE).size(0.8f, 1.1f));
     public static final RegistryObject<EntityType<RocketKillifishEntity>> ROCKET_KILLIFISH = create("rocket_killifish", EntityType.Builder.create(RocketKillifishEntity::new, EntityClassification.WATER_AMBIENT).size(0.3f, 0.15f));
     public static final RegistryObject<EntityType<MangroveSnakeEntity>> MANGROVE_SNAKE = create("mangrove_snake", EntityType.Builder.create(MangroveSnakeEntity::new, EntityClassification.WATER_AMBIENT).size(1.0f, 0.3f));
+    public static final RegistryObject<EntityType<BlubberJellyEntity>> BLUBBER_JELLY = create("blubber_jelly", EntityType.Builder.create(BlubberJellyEntity::new, EntityClassification.WATER_AMBIENT).size(0.4f, 0.25f));
 
     public static final RegistryObject<EntityType<GreaterPrairieChickenEggEntity>> GREATER_PRAIRIE_CHICKEN_EGG = create("greater_prairie_chicken_egg", EntityType.Builder.<GreaterPrairieChickenEggEntity>create(GreaterPrairieChickenEggEntity::new, EntityClassification.MISC).size(0.25f, 0.25f));
     public static final RegistryObject<EntityType<PlatypusEggEntity>> PLATYPUS_EGG = create("platypus_egg", EntityType.Builder.<PlatypusEggEntity>create(PlatypusEggEntity::new, EntityClassification.MISC).size(0.25f, 0.25f));

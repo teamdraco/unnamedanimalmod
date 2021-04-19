@@ -7,6 +7,7 @@
   "item.unnamedanimalmod.dried_mud_fragment": "Dried Mud Fragment",
   "item.unnamedanimalmod.dried_mud_brick": "Dried Mud Brick",
   "item.unnamedanimalmod.salt": "Salt",
+  "item.unnamedanimalmod.mangrove_boat": "Mangrove Boat",
 
   "item.unnamedanimalmod.musk_ox_shank": "Musk Ox Shank",
   "item.unnamedanimalmod.cooked_musk_ox_shank": "Cooked Musk Ox Shank",
@@ -27,6 +28,7 @@
   "item.unnamedanimalmod.flashlight_fish_bucket": "Bucket of Flashlight Fish",
   "item.unnamedanimalmod.rocket_killifish_bucket": "Bucket of Rocket Killifish",
   "item.unnamedanimalmod.baby_humphead_parrotfish_bucket": "Bucket of Baby Humphead Parrotfish",
+  "item.unnamedanimalmod.blubber_jelly_bucket": "Bucket of Blubber Jelly",
 
   "item.unnamedanimalmod.platypus_egg": "Platypus Egg",
   "item.unnamedanimalmod.tomato_frog_egg": "Tomato Frog Egg",
@@ -49,6 +51,7 @@
   "item.unnamedanimalmod.capybara_spawn_egg": "Capybara Spawn Egg",
   "item.unnamedanimalmod.rocket_killifish_spawn_egg": "Rocket Killifish Spawn Egg",
   "item.unnamedanimalmod.mangrove_snake_spawn_egg": "Mangrove Snake Spawn Egg",
+  "item.unnamedanimalmod.blubber_jelly_spawn_egg": "Blubber Jelly Spawn Egg",
 
   "entity.unnamedanimalmod.black_diamond_stingray": "Black Diamond Stingray",
   "entity.unnamedanimalmod.tomato_frog": "Tomato Frog",
@@ -68,6 +71,8 @@
   "entity.unnamedanimalmod.capybara": "Capybara",
   "entity.unnamedanimalmod.rocket_killifish": "Rocket Killifish",
   "entity.unnamedanimalmod.mangrove_snake": "Mangrove Snake",
+  "entity.unnamedanimalmod.mangrove_boat": "Mangrove Boat",
+  "entity.unnamedanimalmod.blubber_jelly": "Blubber Jelly",
 
   "block.unnamedanimalmod.mangrove_door": "Mangrove Door",
   "block.unnamedanimalmod.mangrove_log": "Mangrove Log",

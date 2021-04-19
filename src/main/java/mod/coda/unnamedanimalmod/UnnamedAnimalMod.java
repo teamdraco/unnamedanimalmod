@@ -31,11 +31,15 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Mod(UnnamedAnimalMod.MOD_ID)
 @Mod.EventBusSubscriber(modid = UnnamedAnimalMod.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class UnnamedAnimalMod {
     public static final String MOD_ID = "unnamedanimalmod";
     public static final Logger LOGGER = LogManager.getLogger();
+    public static final List<Runnable> CALLBACKS = new ArrayList<>();
 
     public UnnamedAnimalMod() {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -84,10 +88,13 @@ public class UnnamedAnimalMod {
         GlobalEntityTypeAttributes.put(UAMEntities.CAPYBARA.get(), CapybaraEntity.createAttributes().create());
         GlobalEntityTypeAttributes.put(UAMEntities.ROCKET_KILLIFISH.get(), AbstractFishEntity.func_234176_m_().create());
         GlobalEntityTypeAttributes.put(UAMEntities.MANGROVE_SNAKE.get(), MangroveSnakeEntity.createAttributes().create());
+        GlobalEntityTypeAttributes.put(UAMEntities.BLUBBER_JELLY.get(), BlubberJellyEntity.createAttributes().create());
     }
 
     private void registerClient(FMLClientSetupEvent event) {
         ClientEventHandler.init();
+        CALLBACKS.forEach(Runnable::run);
+        CALLBACKS.clear();
     }
 
     @SubscribeEvent

@@ -90,10 +90,6 @@ public class MangroveSnakeEntity extends CreatureEntity {
         return spawnDataIn;
     }
 
-    public static boolean canAnimalSpawn(EntityType<? extends MangroveSnakeEntity> animal, IWorld worldIn, SpawnReason reason, BlockPos pos, Random random) {
-        return worldIn.getBlockState(pos.down()).isIn(Blocks.GRASS_BLOCK) && worldIn.getLightSubtracted(pos, 0) > 8;
-    }
-
     @Override
     public ItemStack getPickedResult(RayTraceResult target) {
         return new ItemStack(UAMItems.MANGROVE_SNAKE_SPAWN_EGG.get());
@@ -111,6 +107,18 @@ public class MangroveSnakeEntity extends CreatureEntity {
 
     public void setVariant(int variant) {
         this.dataManager.set(VARIANT, variant);
+    }
+
+    @Override
+    public void writeAdditional(CompoundNBT compound) {
+        super.writeAdditional(compound);
+        compound.putInt("Variant", getVariant());
+    }
+
+    @Override
+    public void readAdditional(CompoundNBT compound) {
+        super.readAdditional(compound);
+        setVariant(compound.getInt("Variant"));
     }
 
     @Override

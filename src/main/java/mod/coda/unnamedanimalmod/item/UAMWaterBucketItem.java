@@ -20,12 +20,13 @@ import javax.annotation.Nullable;
 import java.util.Objects;
 import java.util.function.Supplier;
 
-public class UAMBucketItem extends BucketItem {
+public class UAMWaterBucketItem extends BucketItem {
     private final Supplier<EntityType<?>> entityType;
 
-    public UAMBucketItem(Supplier<EntityType<?>> entityType, Properties properties) {
-        super(Fluids.EMPTY, properties);
+    public UAMWaterBucketItem(Supplier<EntityType<?>> entityType, Properties properties) {
+        super(Fluids.WATER, properties);
         this.entityType = entityType;
+        DistExecutor.unsafeCallWhenOn(Dist.CLIENT, () -> () -> UnnamedAnimalMod.CALLBACKS.add(() -> ItemModelsProperties.registerProperty(this, new ResourceLocation(UnnamedAnimalMod.MOD_ID, "variant"), (stack, world, player) -> stack.hasTag() ? stack.getTag().getInt("Variant") : 0)));
     }
 
     public ActionResultType onItemUse(ItemUseContext context) {
@@ -61,6 +62,6 @@ public class UAMBucketItem extends BucketItem {
     }
 
     protected void playEmptySound(@Nullable PlayerEntity player, IWorld worldIn, BlockPos pos) {
-        worldIn.playSound(player, pos, SoundEvents.ENTITY_ITEM_FRAME_REMOVE_ITEM, SoundCategory.NEUTRAL, 1.0F, 1.0F);
+        worldIn.playSound(player, pos, SoundEvents.ITEM_BUCKET_EMPTY_FISH, SoundCategory.NEUTRAL, 1.0F, 1.0F);
     }
 }

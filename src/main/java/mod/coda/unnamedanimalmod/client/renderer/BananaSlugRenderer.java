@@ -11,7 +11,6 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class BananaSlugRenderer extends MobRenderer<BananaSlugEntity, BananaSlugModel<BananaSlugEntity>> {
-
     protected static final ResourceLocation TEXTURE = new ResourceLocation(UnnamedAnimalMod.MOD_ID, "textures/entity/banana_slug.png");
 
     public BananaSlugRenderer(EntityRendererManager manager) {

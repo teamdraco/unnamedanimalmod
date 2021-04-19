@@ -1,0 +1,74 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "unnamedanimalmod:item/blubber_jelly_bucket_1"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "unnamedanimalmod:variant": 0
+      },
+      "model": "unnamedanimalmod:item/blubber_jelly_bucket"
+    },
+    {
+      "predicate": {
+        "unnamedanimalmod:variant": 1
+      },
+      "model": "unnamedanimalmod:item/blubber_jelly_bucket_2"
+    },
+    {
+      "predicate": {
+        "unnamedanimalmod:variant": 2
+      },
+      "model": "unnamedanimalmod:item/blubber_jelly_bucket_3"
+    },
+    {
+      "predicate": {
+        "unnamedanimalmod:variant": 3
+      },
+      "model": "unnamedanimalmod:item/blubber_jelly_bucket_4"
+    },
+    {
+      "predicate": {
+        "unnamedanimalmod:variant": 4
+      },
+      "model": "unnamedanimalmod:item/blubber_jelly_bucket_5"
+    },
+    {
+      "predicate": {
+        "unnamedanimalmod:variant": 5
+      },
+      "model": "unnamedanimalmod:item/blubber_jelly_bucket_6"
+    },
+    {
+      "predicate": {
+        "unnamedanimalmod:variant": 6
+      },
+      "model": "unnamedanimalmod:item/blubber_jelly_bucket_7"
+    },
+    {
+      "predicate": {
+        "unnamedanimalmod:variant": 7
+      },
+      "model": "unnamedanimalmod:item/blubber_jelly_bucket_8"
+    },
+    {
+      "predicate": {
+        "unnamedanimalmod:variant": 8
+      },
+      "model": "unnamedanimalmod:item/blubber_jelly_bucket_9"
+    },
+    {
+      "predicate": {
+        "unnamedanimalmod:variant": 9
+      },
+      "model": "unnamedanimalmod:item/blubber_jelly_bucket_10"
+    },
+    {
+      "predicate": {
+        "unnamedanimalmod:variant": 10
+      },
+      "model": "unnamedanimalmod:item/blubber_jelly_bucket_11"
+    }
+  ]
+}

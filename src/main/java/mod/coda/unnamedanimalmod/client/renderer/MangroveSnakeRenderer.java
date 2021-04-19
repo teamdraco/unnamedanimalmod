@@ -19,6 +19,7 @@ public class MangroveSnakeRenderer extends MobRenderer<MangroveSnakeEntity, Mang
         hashMap.put(0, new ResourceLocation(UnnamedAnimalMod.MOD_ID, "textures/entity/mangrove_snake/mangrove_snake.png"));
         hashMap.put(1, new ResourceLocation(UnnamedAnimalMod.MOD_ID, "textures/entity/mangrove_snake/mangrove_snake_sulawesi.png"));
     });
+
     public MangroveSnakeRenderer(EntityRendererManager renderManagerIn) {
         super(renderManagerIn, new MangroveSnakeModel<>(), 0.5F);
     }
