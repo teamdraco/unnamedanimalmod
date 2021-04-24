@@ -17,7 +17,7 @@ public class UAMItems {
     public static final DeferredRegister<Item> REGISTRY = DeferredRegister.create(ForgeRegistries.ITEMS, UnnamedAnimalMod.MOD_ID);
 
     public static final RegistryObject<Item> BLUBBER = REGISTRY.register("blubber", () -> new BlubberItem(defaultProperties()));
-    public static final RegistryObject<Item> SALT = REGISTRY.register("salt", () -> new Item(defaultProperties()));
+    public static final RegistryObject<Item> SALT = REGISTRY.register("salt", () -> new BlockItem(UAMBlocks.SALT_LINE_BLOCK.get(), defaultProperties()));
     public static final RegistryObject<Item> MUD_BALL = REGISTRY.register("mud_ball", () -> new MudBallItem(defaultProperties()));
     public static final RegistryObject<Item> MUD_BRICK = REGISTRY.register("mud_brick", () -> new Item(defaultProperties()));
     public static final RegistryObject<Item> DRIED_MUD_FRAGMENT = REGISTRY.register("dried_mud_fragment", () -> new Item(defaultProperties()));

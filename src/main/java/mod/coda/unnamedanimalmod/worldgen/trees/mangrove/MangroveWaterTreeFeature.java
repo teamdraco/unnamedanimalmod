@@ -142,8 +142,7 @@ public class MangroveWaterTreeFeature extends Feature<NoFeatureConfig> {
                     return false;
                 }
             }
-            // LEAAAAVEESSSSSSSSSSS
-            MangroveTreeHelper.makeLeafBlob(leavesFiller, rand, branchStartPos, branchHeight); // yeah it's just one line
+            MangroveTreeHelper.makeLeafBlob(leavesFiller, rand, branchStartPos, branchHeight);
         }
         filler.add(new Entry(pos, Blocks.WATER.getDefaultState()));
         MangroveTreeHelper.fill(reader, filler);

@@ -16,8 +16,9 @@ public class UAMBlocks
 {
     
     public static final DeferredRegister<Block> REGISTRY = DeferredRegister.create(ForgeRegistries.BLOCKS, UnnamedAnimalMod.MOD_ID);
-    
+
     public static final RegistryObject<Block> SALT_BLOCK = REGISTRY.register("salt_block", () -> new Block(Block.Properties.create(Material.ROCK, MaterialColor.PINK).sound(SoundType.STONE).hardnessAndResistance(1.5f)));
+    public static final RegistryObject<Block> SALT_LINE_BLOCK = REGISTRY.register("salt_line_block", () -> new SaltPowderBlock(Block.Properties.create(Material.ROCK, MaterialColor.PINK).sound(SoundType.STONE).notSolid().doesNotBlockMovement().zeroHardnessAndResistance()));
     public static final RegistryObject<Block> MANGROVE_SAPLING = REGISTRY.register("mangrove_sapling", () -> new MangroveSaplingBlock(AbstractBlock.Properties.create(Material.PLANTS).doesNotBlockMovement().tickRandomly().zeroHardnessAndResistance().sound(SoundType.PLANT)));
     
     public static final RegistryObject<Block> STRIPPED_MANGROVE_LOG = REGISTRY.register("stripped_mangrove_log", () -> new RotatedPillarBlock(AbstractBlock.Properties.create(Material.WOOD, MaterialColor.RED).sound(SoundType.WOOD).harvestTool(ToolType.AXE).hardnessAndResistance(1.75F, 4.0F)));

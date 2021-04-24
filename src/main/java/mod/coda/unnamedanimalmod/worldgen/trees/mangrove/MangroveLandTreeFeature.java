@@ -127,8 +127,7 @@ public class MangroveLandTreeFeature extends Feature<NoFeatureConfig>
                     return false;
                 }
             }
-            // LEAAAAVEESSSSSSSSSSS
-            MangroveTreeHelper.makeLeafBlob(leavesFiller, rand, branchStartPos, branchHeight); // yeah it's just one line
+            MangroveTreeHelper.makeLeafBlob(leavesFiller, rand, branchStartPos, branchHeight);
         }
         MangroveTreeHelper.fill(reader, filler);
         MangroveTreeHelper.fillLeaves(reader, rand, leavesFiller);
