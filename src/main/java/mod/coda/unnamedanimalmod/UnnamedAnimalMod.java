@@ -50,6 +50,7 @@ public class UnnamedAnimalMod {
         UAMBlocks.REGISTRY.register(bus);
         UAMItems.REGISTRY.register(bus);
         UAMEntities.REGISTRY.register(bus);
+        UAMEffects.REGISTRY.register(bus);
         UAMFeatures.REGISTRY.register(bus);
         UAMBiomes.BIOMES.register(bus);
         UAMBiomes.BUILDERS.register(bus);

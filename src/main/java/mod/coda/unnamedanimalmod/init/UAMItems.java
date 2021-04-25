@@ -33,7 +33,7 @@ public class UAMItems {
     public static final RegistryObject<Item> FROG_LEGS = REGISTRY.register("frog_legs", () -> new Item(defaultProperties().food(new Food.Builder().hunger(2).saturation(0.2f).meat().build())));
     public static final RegistryObject<Item> COOKED_FROG_LEGS = REGISTRY.register("cooked_frog_legs", () -> new Item(defaultProperties().food(new Food.Builder().hunger(5).saturation(0.3f).meat().build())));
     public static final RegistryObject<Item> MANGROVE_FRUIT = REGISTRY.register("mangrove_fruit", () -> new BlockItem(UAMBlocks.MANGROVE_FRUIT.get(), defaultProperties().food(new Food.Builder().hunger(2).saturation(0.1f).effect(() -> new EffectInstance(Effects.HUNGER, 100, 0), 1f).build())));
-    public static final RegistryObject<Item> COOKED_MANGROVE_FRUIT = REGISTRY.register("cooked_mangrove_fruit", () -> new Item(defaultProperties().food(new Food.Builder().hunger(7).saturation(0.5f).build())));
+    public static final RegistryObject<Item> COOKED_MANGROVE_FRUIT = REGISTRY.register("cooked_mangrove_fruit", () -> new CookedMangroveFruitItem(defaultProperties().food(new Food.Builder().hunger(7).saturation(0.5f).build())));
 
     public static final RegistryObject<Item> TOMATO_FROG_EGG = REGISTRY.register("tomato_frog_egg", () -> new TomatoFrogEggItem(defaultProperties().maxStackSize(16)));
     public static final RegistryObject<Item> PACMAN_FROG_EGG = REGISTRY.register("pacman_frog_egg", () -> new PacmanFrogEggItem(defaultProperties().maxStackSize(16)));
