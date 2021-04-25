@@ -46,7 +46,7 @@ public class RuntimeEvents
                             goalOwner.world.getEntitiesWithinAABB(
                                     LivingEntity.class,
                                     getTargetableArea(getTargetDistance()),
-                                    e -> !e.getType().equals(goalOwner.getType())),
+                                    e -> e.getActivePotionEffect(UAMEffects.FRUIT_RAGE.get()) != null && !e.getType().equals(goalOwner.getType())),
                             EntityPredicate.DEFAULT,goalOwner,
                             goalOwner.getPosX(),goalOwner.getPosY(),goalOwner.getPosZ());
                 }
