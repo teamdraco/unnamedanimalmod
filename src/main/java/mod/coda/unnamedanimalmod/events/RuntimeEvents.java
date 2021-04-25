@@ -33,12 +33,12 @@ import java.util.function.Predicate;
 public class RuntimeEvents
 {
     @SubscribeEvent
-    public void fruitRageAIGoal(EntityJoinWorldEvent event)
+    public static void fruitRageAIGoal(EntityJoinWorldEvent event)
     {
         if (event.getEntity() instanceof MobEntity)
         {
             MobEntity entity = (MobEntity) event.getEntity();
-            entity.goalSelector.addGoal(3, new NearestAttackableTargetGoal<LivingEntity>(entity, LivingEntity.class,true){
+            entity.targetSelector.addGoal(3, new NearestAttackableTargetGoal<LivingEntity>(entity, LivingEntity.class,true){
                 @Override
                 protected void findNearestTarget()
                 {
@@ -46,7 +46,7 @@ public class RuntimeEvents
                             goalOwner.world.getEntitiesWithinAABB(
                                     LivingEntity.class,
                                     getTargetableArea(getTargetDistance()),
-                                    e -> e.getType().equals(goalOwner.getType())),
+                                    e -> !e.getType().equals(goalOwner.getType())),
                             EntityPredicate.DEFAULT,goalOwner,
                             goalOwner.getPosX(),goalOwner.getPosY(),goalOwner.getPosZ());
                 }
