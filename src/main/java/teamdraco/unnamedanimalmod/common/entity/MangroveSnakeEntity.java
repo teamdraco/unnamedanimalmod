@@ -134,7 +134,7 @@ public class MangroveSnakeEntity extends CreatureEntity {
     }
 
     public static AttributeModifierMap.MutableAttribute createAttributes() {
-        return MobEntity.createMobAttributes().createMutableAttribute(Attributes.MAX_HEALTH, 10).createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.15).createMutableAttribute(Attributes.ATTACK_DAMAGE, 1.0);
+        return MobEntity.createMobAttributes().add(Attributes.MAX_HEALTH, 10).add(Attributes.MOVEMENT_SPEED, 0.15).add(Attributes.ATTACK_DAMAGE, 1.0);
     }
 
     public float getWalkTargetValue(BlockPos pos, IWorldReader worldIn) {

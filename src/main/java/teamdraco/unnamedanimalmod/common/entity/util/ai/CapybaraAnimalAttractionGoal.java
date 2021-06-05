@@ -3,7 +3,7 @@ package teamdraco.unnamedanimalmod.common.entity.util.ai;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.ai.goal.Goal;
 
-public class ZCapybaraAnimalAttractionGoal extends Goal {
+public class CapybaraAnimalAttractionGoal extends Goal {
     private final MobEntity entity;
 
     public CapybaraAnimalAttractionGoal(MobEntity entity) {

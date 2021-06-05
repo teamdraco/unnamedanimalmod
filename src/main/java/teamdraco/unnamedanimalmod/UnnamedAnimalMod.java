@@ -65,16 +65,16 @@ public class UnnamedAnimalMod {
         GlobalEntityTypeAttributes.put(UAMEntities.TOMATO_FROG.get(), TomatoFrogEntity.createAttributes().build());
         GlobalEntityTypeAttributes.put(UAMEntities.SOUTHERN_RIGHT_WHALE.get(), SouthernRightWhaleEntity.createAttributes().build());
         GlobalEntityTypeAttributes.put(UAMEntities.GREATER_PRAIRIE_CHICKEN.get(), GreaterPrairieChickenEntity.createAttributes().build());
-        GlobalEntityTypeAttributes.put(UAMEntities.FLASHLIGHT_FISH.get(), AbstractFishEntity.createAttributes().create());
+        GlobalEntityTypeAttributes.put(UAMEntities.FLASHLIGHT_FISH.get(), AbstractFishEntity.createAttributes().build());
         GlobalEntityTypeAttributes.put(UAMEntities.HUMPHEAD_PARROTFISH.get(), HumpheadParrotfishEntity.createAttributes().build());
         GlobalEntityTypeAttributes.put(UAMEntities.MUSK_OX.get(), MuskOxEntity.createAttributes().build());
         GlobalEntityTypeAttributes.put(UAMEntities.BANANA_SLUG.get(), BananaSlugEntity.createAttributes().build());
         GlobalEntityTypeAttributes.put(UAMEntities.MARINE_IGUANA.get(), MarineIguanaEntity.createAttributes().build());
         GlobalEntityTypeAttributes.put(UAMEntities.PLATYPUS.get(), PlatypusEntity.createAttributes().build());
-        GlobalEntityTypeAttributes.put(UAMEntities.ELEPHANTNOSE_FISH.get(), AbstractFishEntity.createAttributes().create());
+        GlobalEntityTypeAttributes.put(UAMEntities.ELEPHANTNOSE_FISH.get(), AbstractFishEntity.createAttributes().build());
         GlobalEntityTypeAttributes.put(UAMEntities.PACMAN_FROG.get(), PacmanFrogEntity.createAttributes().build());
         GlobalEntityTypeAttributes.put(UAMEntities.CAPYBARA.get(), CapybaraEntity.createAttributes().build());
-        GlobalEntityTypeAttributes.put(UAMEntities.ROCKET_KILLIFISH.get(), AbstractFishEntity.createAttributes().create());
+        GlobalEntityTypeAttributes.put(UAMEntities.ROCKET_KILLIFISH.get(), AbstractFishEntity.createAttributes().build());
         GlobalEntityTypeAttributes.put(UAMEntities.MANGROVE_SNAKE.get(), MangroveSnakeEntity.createAttributes().build());
         // GlobalEntityTypeAttributes.put(UAMEntities.BLUBBER_JELLY.get(), BlubberJellyEntity.createAttributes().create());
     }

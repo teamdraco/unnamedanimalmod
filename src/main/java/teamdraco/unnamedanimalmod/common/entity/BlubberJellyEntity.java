@@ -70,7 +70,7 @@ public class BlubberJellyEntity extends AbstractFishEntity {
     }
 
     public static AttributeModifierMap.MutableAttribute createAttributes() {
-        return MobEntity.createMobAttributes().createMutableAttribute(Attributes.MAX_HEALTH, 10.0D);
+        return MobEntity.createMobAttributes().add(Attributes.MAX_HEALTH, 10.0D);
     }
 
     /*    @Override

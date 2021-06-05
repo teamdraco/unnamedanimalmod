@@ -26,8 +26,8 @@ public class UAMFeatures {
     public static final RegistryObject<Feature<NoFeatureConfig>> LAND_TREE_FEATURE = REGISTRY.register("mangrove_tree", ()-> LAND_TREE);
 
     static {
-        Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, UnnamedAnimalMod.MOD_ID + ":" + "mangrove_tree_feature", LAND_TREE.configured(INSTANCE).withPlacement(Features.Placements.HEIGHTMAP_SQUARE).withPlacement(Placement.COUNT_EXTRA.configured(new AtSurfaceWithExtraConfig(2, 0.5F, 1))));
+        Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, UnnamedAnimalMod.MOD_ID + ":" + "mangrove_tree_feature", LAND_TREE.configured(INSTANCE).decorated(Features.Placements.HEIGHTMAP_SQUARE).decorated(Placement.COUNT_EXTRA.configured(new AtSurfaceWithExtraConfig(2, 0.5F, 1))));
         Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, UnnamedAnimalMod.MOD_ID + ":" + "disk_mud", DISK.configured(new SphereReplaceConfig(UAMBlocks.MUD.defaultBlockState(), FeatureSpread.of(3, 1), 2, ImmutableList.of(Blocks.DIRT.defaultBlockState(), UAMBlocks.MUD.defaultBlockState()))).decorated(Features.Placements.TOP_SOLID_HEIGHTMAP_SQUARE));
-        Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, UnnamedAnimalMod.MOD_ID + ":" + "submerged_mangrove_tree_feature", WATER_TREE.configured(INSTANCE).withPlacement(Features.Placements.TOP_SOLID_HEIGHTMAP_SQUARE).withPlacement(Placement.COUNT_EXTRA.configured(new AtSurfaceWithExtraConfig(2, 0.5F, 1))));
+        Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, UnnamedAnimalMod.MOD_ID + ":" + "submerged_mangrove_tree_feature", WATER_TREE.configured(INSTANCE).decorated(Features.Placements.TOP_SOLID_HEIGHTMAP_SQUARE).decorated(Placement.COUNT_EXTRA.configured(new AtSurfaceWithExtraConfig(2, 0.5F, 1))));
     }
 }

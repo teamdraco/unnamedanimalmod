@@ -81,7 +81,7 @@ public class BlackDiamondStingrayEntity extends AbstractFishEntity {
     }
 
     public static AttributeModifierMap.MutableAttribute createAttributes() {
-        return MobEntity.createMobAttributes().createMutableAttribute(Attributes.MAX_HEALTH, 8.0D);
+        return MobEntity.createMobAttributes().add(Attributes.MAX_HEALTH, 8.0D);
     }
 
     public void playerTouch(PlayerEntity entityIn) {
