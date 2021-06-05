@@ -165,6 +165,12 @@
         "weight": 30,
         "minCount": 1,
         "maxCount": 1
+      },
+      {
+        "type": "unnamedanimalmod:fiddler_crab",
+        "weight": 20,
+        "minCount": 1,
+        "maxCount": 2
       }
     ],
     "ambient": [
