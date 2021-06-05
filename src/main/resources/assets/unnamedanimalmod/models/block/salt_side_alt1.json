@@ -1,0 +1,6 @@
+{
+    "parent": "unnamedanimalmod:block/salt_side_alt",
+    "textures": {
+        "line": "unnamedanimalmod:block/salt_line1"
+    }
+}

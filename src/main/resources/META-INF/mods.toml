@@ -1,5 +1,5 @@
 modLoader="javafml" #mandatory
-loaderVersion="[35,)" #mandatory This is typically bumped every Minecraft version by Forge. See our download page for lists of versions.
+loaderVersion="[36,)" #mandatory This is typically bumped every Minecraft version by Forge. See our download page for lists of versions.
 license="All Rights Reserved"
 [[mods]] #mandatory
 modId="unnamedanimalmod" #mandatory
@@ -7,4 +7,4 @@ version="${file.jarVersion}" #mandatory
 displayName="Unnamed Animal Mod" #mandatory
 credits="Sammy;, Ms. Ash, HoboJoe" #optional
 authors="Coda, Tazz, Ninni, Esuoh" #optional
-description='''Unnamed Animal Mod is a mod dedicated to adding more real world wildlife, both big and small.'''
+description='''Unnamed Animal Mod is a mod that adds more real world wildlife, both big and small.'''
