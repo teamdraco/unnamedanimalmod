@@ -12,6 +12,6 @@ public class BlubberItem extends Item {
 
     @Override
     public int getBurnTime(ItemStack itemStack) {
-        return 1200;
+        return 3200;
     }
 }

@@ -1,19 +1,14 @@
 {
-  "rolls": 1,
-  "entries": [
+  "type": "minecraft:entity",
+  "pools": [
     {
-      "type": "minecraft:item",
-      "name": "unnamedanimalmod:frog_legs"
-    }
-  ],
-  "conditions": [
-    {
-      "condition": "minecraft:killed_by_player"
-    },
-    {
-      "condition": "minecraft:random_chance_with_looting",
-      "chance": 0.25,
-      "looting_multiplier": 0.015
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "unnamedanimalmod:frog_legs"
+        }
+      ]
     }
   ]
 }

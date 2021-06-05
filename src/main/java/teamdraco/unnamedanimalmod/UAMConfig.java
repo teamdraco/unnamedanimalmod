@@ -60,7 +60,7 @@ public class UAMConfig {
             blackDiamondStingraySpawnWeight = builder.comment("Spawn weight of Black Diamond Stingrays").defineInRange("black_diamond_stingray_spawn_weight", 1, 1, 1000);
             tomatoFrogSpawnWeight = builder.comment("Spawn weight of Tomato Frogs").defineInRange("tomato_frog_spawn_weight", 3, 1, 1000);
             elephantnoseFishSpawnWeight = builder.comment("Spawn weight of Elephantnose Fish").defineInRange("elephantnose_fish_spawn_weight", 1, 1, 1000);
-            southernRightWhaleSpawnWeight = builder.comment("Spawn weight of Southern Right Whales").defineInRange("southern_right_whale_spawn_weight", 5, 1, 1000);
+            southernRightWhaleSpawnWeight = builder.comment("Spawn weight of Southern Right Whales").defineInRange("southern_right_whale_spawn_weight", 1, 1, 1000);
             greaterPrairieChickenSpawnWeight = builder.comment("Spawn weight of Greater Prairie Chickens").defineInRange("greater_prairie_chicken_spawn_weight", 15, 1, 1000);
             muskOxSpawnWeight = builder.comment("Spawn weight of Musk Ox").defineInRange("musk_ox_spawn_weight", 1, 1, 1000);
             humpheadParrotfishSpawnWeight = builder.comment("Spawn weight of Humphead Parrotfish").defineInRange("humphead_parrotfish_spawn_weight", 5, 1, 1000);

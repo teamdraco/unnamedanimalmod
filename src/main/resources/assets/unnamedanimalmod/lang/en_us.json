@@ -28,6 +28,7 @@
   "item.unnamedanimalmod.rocket_killifish_bucket": "Bucket of Rocket Killifish",
   "item.unnamedanimalmod.baby_humphead_parrotfish_bucket": "Bucket of Baby Humphead Parrotfish",
   "item.unnamedanimalmod.blubber_jelly_bucket": "Bucket of Blubber Jelly",
+  "item.unnamedanimalmod.fiddler_crab_bucket": "Bucket of Fiddler Crab",
 
   "item.unnamedanimalmod.platypus_egg": "Platypus Egg",
   "item.unnamedanimalmod.tomato_frog_egg": "Tomato Frog Egg",
@@ -51,6 +52,7 @@
   "item.unnamedanimalmod.rocket_killifish_spawn_egg": "Rocket Killifish Spawn Egg",
   "item.unnamedanimalmod.mangrove_snake_spawn_egg": "Mangrove Snake Spawn Egg",
   "item.unnamedanimalmod.blubber_jelly_spawn_egg": "Blubber Jelly Spawn Egg",
+  "item.unnamedanimalmod.fiddler_crab_spawn_egg": "Fiddler Crab Spawn Egg",
 
   "entity.unnamedanimalmod.black_diamond_stingray": "Black Diamond Stingray",
   "entity.unnamedanimalmod.tomato_frog": "Tomato Frog",
@@ -72,6 +74,7 @@
   "entity.unnamedanimalmod.mangrove_snake": "Mangrove Snake",
   "entity.unnamedanimalmod.mangrove_boat": "Mangrove Boat",
   "entity.unnamedanimalmod.blubber_jelly": "Blubber Jelly",
+  "entity.unnamedanimalmod.fiddler_crab": "Fiddler Crab",
 
   "block.unnamedanimalmod.mangrove_door": "Mangrove Door",
   "block.unnamedanimalmod.mangrove_log": "Mangrove Log",
@@ -129,5 +132,6 @@
   "subtitle.unnamedanimalmod.capybara.death": "Capybara dies",
   "subtitle.unnamedanimalmod.mangrove_snake.ambient": "Mangrove Snake hisses",
   "subtitle.unnamedanimalmod.mangrove_snake.hurt": "Mangrove Snake hurts",
-  "subtitle.unnamedanimalmod.mangrove_snake.death": "Mangrove Snake dies"
+  "subtitle.unnamedanimalmod.mangrove_snake.death": "Mangrove Snake dies",
+  "subtitle.unnamedanimalmod.fiddler_crab.death": "Fiddler Crab dies"
 }

@@ -38,8 +38,8 @@ public class UAMItems {
     public static final RegistryObject<Item> COOKED_MANGROVE_FRUIT = REGISTRY.register("cooked_mangrove_fruit", () -> new Item(defaultProperties().food(new Food.Builder().nutrition(6).saturationMod(0.5f).build())));
 
     // Eggs & Buckets
-    public static final RegistryObject<Item> TOMATO_FROG_EGG = REGISTRY.register("tomato_frog_egg", () -> new TomatoFrogEggItem(defaultProperties().stacksTo(16)));
-    public static final RegistryObject<Item> PACMAN_FROG_EGG = REGISTRY.register("pacman_frog_egg", () -> new PacmanFrogEggItem(defaultProperties().stacksTo(16)));
+    public static final RegistryObject<Item> TOMATO_FROG_EGG = REGISTRY.register("tomato_frog_egg", () -> new FrogEggItem(UAMEntities.TOMATO_FROG::get, defaultProperties().stacksTo(16)));
+    public static final RegistryObject<Item> PACMAN_FROG_EGG = REGISTRY.register("pacman_frog_egg", () -> new FrogEggItem(UAMEntities.PACMAN_FROG::get, defaultProperties().stacksTo(16)));
     public static final RegistryObject<Item> GREATER_PRAIRIE_CHICKEN_EGG = REGISTRY.register("greater_prairie_chicken_egg", () -> new GreaterPrairieChickenEggItem(defaultProperties().stacksTo(16)));
     public static final RegistryObject<Item> PLATYPUS_EGG = REGISTRY.register("platypus_egg", () -> new PlatypusEggItem(defaultProperties().stacksTo(16)));
     public static final RegistryObject<Item> MARINE_IGUANA_EGG = REGISTRY.register("marine_iguana_egg", () -> new MarineIguanaEggItem(defaultProperties().stacksTo(16)));
@@ -53,6 +53,7 @@ public class UAMItems {
     public static final RegistryObject<Item> ROCKET_KILLIFISH_BUCKET = REGISTRY.register("rocket_killifish_bucket", () -> new FishBucketItem(UAMEntities.ROCKET_KILLIFISH, () -> Fluids.WATER, defaultProperties().stacksTo(1)));
     public static final RegistryObject<Item> BABY_HUMPHEAD_PARROTFISH_BUCKET = REGISTRY.register("baby_humphead_parrotfish_bucket", () -> new BabyHumpheadParrotfishBucketItem(() -> UAMEntities.HUMPHEAD_PARROTFISH.get(), () -> Fluids.WATER, defaultProperties().stacksTo(1)));
     // public static final RegistryObject<Item> BLUBBER_JELLY_BUCKET = REGISTRY.register("blubber_jelly_bucket", () -> new UAMWaterBucketItem(() -> UAMEntities.BLUBBER_JELLY.get(), defaultProperties().maxStackSize(1)));
+     public static final RegistryObject<Item> FIDDLER_CRAB_BUCKET = REGISTRY.register("fiddler_crab_bucket", () -> new UAMWaterBucketItem(() -> UAMEntities.FIDDLER_CRAB.get(), defaultProperties().stacksTo(1)));
 
     // Spawn Eggs
     public static final RegistryObject<Item> BLACK_DIAMOND_STINGRAY_SPAWN_EGG = REGISTRY.register("black_diamond_stingray_spawn_egg", () -> new UAMSpawnEggItem(UAMEntities.BLACK_DIAMOND_STINGRAY, 0x35374e, 0xf2f3fe, defaultProperties()));
@@ -71,6 +72,7 @@ public class UAMItems {
     public static final RegistryObject<Item> ROCKET_KILLIFISH_SPAWN_EGG = REGISTRY.register("rocket_killifish_spawn_egg", () -> new UAMSpawnEggItem(UAMEntities.ROCKET_KILLIFISH, 0x172639, 0x49fff2, defaultProperties()));
     public static final RegistryObject<Item> MANGROVE_SNAKE_SPAWN_EGG = REGISTRY.register("mangrove_snake_spawn_egg", () -> new UAMSpawnEggItem(UAMEntities.MANGROVE_SNAKE, 0x202023, 0xda9409, defaultProperties()));
     // public static final RegistryObject<Item> BLUBBER_JELLY_SPAWN_EGG = REGISTRY.register("blubber_jelly_spawn_egg", () -> new UAMSpawnEggItem(UAMEntities.BLUBBER_JELLY, 0x50ccb7, 0x50ccb7, defaultProperties()));
+    public static final RegistryObject<Item> FIDDLER_CRAB_SPAWN_EGG = REGISTRY.register("fiddler_crab_spawn_egg", () -> new UAMSpawnEggItem(UAMEntities.FIDDLER_CRAB, 0xb7510e, 0xf7bb4b, defaultProperties()));
 
     // Blocks
     public static final RegistryObject<Item> SALT_BLOCK = REGISTRY.register("salt_block", () -> new BlockItem(UAMBlocks.SALT_BLOCK.get(), defaultProperties()));

@@ -193,5 +193,13 @@
         "name": "unnamedanimalmod:mangrove_snake/hurt"
       }
     ]
+  },
+  "crab.death": {
+    "subtitle": "subtitle.unnamedanimalmod.crab.death",
+    "sounds": [
+      {
+        "name": "unnamedanimalmod:crab/death"
+      }
+    ]
   }
 }

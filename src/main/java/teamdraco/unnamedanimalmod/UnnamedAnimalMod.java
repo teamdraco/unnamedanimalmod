@@ -1,12 +1,12 @@
 package teamdraco.unnamedanimalmod;
 
 import net.minecraft.entity.EntitySpawnPlacementRegistry;
-import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.fish.AbstractFishEntity;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.gen.Heightmap;
+import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -33,6 +33,7 @@ public class UnnamedAnimalMod {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         bus.addListener(this::registerClient);
         bus.addListener(this::registerCommon);
+        bus.addListener(this::registerEntityAttributes);
 
         UAMSounds.REGISTRY.register(bus);
         UAMBlocks.REGISTRY.register(bus);
@@ -46,7 +47,6 @@ public class UnnamedAnimalMod {
     }
 
     private void registerCommon(FMLCommonSetupEvent event) {
-        registerEntityAttributes();
         EntitySpawnPlacementRegistry.register(UAMEntities.BLACK_DIAMOND_STINGRAY.get(), EntitySpawnPlacementRegistry.PlacementType.IN_WATER, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AbstractFishEntity::checkFishSpawnRules);
         EntitySpawnPlacementRegistry.register(UAMEntities.GREATER_PRAIRIE_CHICKEN.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AnimalEntity::checkAnimalSpawnRules);
         EntitySpawnPlacementRegistry.register(UAMEntities.TOMATO_FROG.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AnimalEntity::checkAnimalSpawnRules);
@@ -58,24 +58,28 @@ public class UnnamedAnimalMod {
         EntitySpawnPlacementRegistry.register(UAMEntities.ELEPHANTNOSE_FISH.get(), EntitySpawnPlacementRegistry.PlacementType.IN_WATER, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AbstractFishEntity::checkFishSpawnRules);
         EntitySpawnPlacementRegistry.register(UAMEntities.PACMAN_FROG.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AnimalEntity::checkAnimalSpawnRules);
         EntitySpawnPlacementRegistry.register(UAMEntities.ROCKET_KILLIFISH.get(), EntitySpawnPlacementRegistry.PlacementType.IN_WATER, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AbstractFishEntity::checkFishSpawnRules);
+        EntitySpawnPlacementRegistry.register(UAMEntities.MANGROVE_SNAKE.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AnimalEntity::checkAnimalSpawnRules);
+        EntitySpawnPlacementRegistry.register(UAMEntities.SOUTHERN_RIGHT_WHALE.get(), EntitySpawnPlacementRegistry.PlacementType.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, SouthernRightWhaleEntity::checkWhaleSpawnRules);
+        EntitySpawnPlacementRegistry.register(UAMEntities.FIDDLER_CRAB.get(), EntitySpawnPlacementRegistry.PlacementType.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AnimalEntity::checkAnimalSpawnRules);
     }
 
-    private void registerEntityAttributes() {
-        GlobalEntityTypeAttributes.put(UAMEntities.BLACK_DIAMOND_STINGRAY.get(), BlackDiamondStingrayEntity.createAttributes().build());
-        GlobalEntityTypeAttributes.put(UAMEntities.TOMATO_FROG.get(), TomatoFrogEntity.createAttributes().build());
-        GlobalEntityTypeAttributes.put(UAMEntities.SOUTHERN_RIGHT_WHALE.get(), SouthernRightWhaleEntity.createAttributes().build());
-        GlobalEntityTypeAttributes.put(UAMEntities.GREATER_PRAIRIE_CHICKEN.get(), GreaterPrairieChickenEntity.createAttributes().build());
-        GlobalEntityTypeAttributes.put(UAMEntities.FLASHLIGHT_FISH.get(), AbstractFishEntity.createAttributes().build());
-        GlobalEntityTypeAttributes.put(UAMEntities.HUMPHEAD_PARROTFISH.get(), HumpheadParrotfishEntity.createAttributes().build());
-        GlobalEntityTypeAttributes.put(UAMEntities.MUSK_OX.get(), MuskOxEntity.createAttributes().build());
-        GlobalEntityTypeAttributes.put(UAMEntities.BANANA_SLUG.get(), BananaSlugEntity.createAttributes().build());
-        GlobalEntityTypeAttributes.put(UAMEntities.MARINE_IGUANA.get(), MarineIguanaEntity.createAttributes().build());
-        GlobalEntityTypeAttributes.put(UAMEntities.PLATYPUS.get(), PlatypusEntity.createAttributes().build());
-        GlobalEntityTypeAttributes.put(UAMEntities.ELEPHANTNOSE_FISH.get(), AbstractFishEntity.createAttributes().build());
-        GlobalEntityTypeAttributes.put(UAMEntities.PACMAN_FROG.get(), PacmanFrogEntity.createAttributes().build());
-        GlobalEntityTypeAttributes.put(UAMEntities.CAPYBARA.get(), CapybaraEntity.createAttributes().build());
-        GlobalEntityTypeAttributes.put(UAMEntities.ROCKET_KILLIFISH.get(), AbstractFishEntity.createAttributes().build());
-        GlobalEntityTypeAttributes.put(UAMEntities.MANGROVE_SNAKE.get(), MangroveSnakeEntity.createAttributes().build());
+    private void registerEntityAttributes(EntityAttributeCreationEvent event) {
+       event.put(UAMEntities.BLACK_DIAMOND_STINGRAY.get(), BlackDiamondStingrayEntity.createAttributes().build());
+       event.put(UAMEntities.TOMATO_FROG.get(), TomatoFrogEntity.createAttributes().build());
+       event.put(UAMEntities.SOUTHERN_RIGHT_WHALE.get(), SouthernRightWhaleEntity.createAttributes().build());
+       event.put(UAMEntities.GREATER_PRAIRIE_CHICKEN.get(), GreaterPrairieChickenEntity.createAttributes().build());
+       event.put(UAMEntities.FLASHLIGHT_FISH.get(), AbstractFishEntity.createAttributes().build());
+       event.put(UAMEntities.HUMPHEAD_PARROTFISH.get(), HumpheadParrotfishEntity.createAttributes().build());
+       event.put(UAMEntities.MUSK_OX.get(), MuskOxEntity.createAttributes().build());
+       event.put(UAMEntities.BANANA_SLUG.get(), BananaSlugEntity.createAttributes().build());
+       event.put(UAMEntities.MARINE_IGUANA.get(), MarineIguanaEntity.createAttributes().build());
+       event.put(UAMEntities.PLATYPUS.get(), PlatypusEntity.createAttributes().build());
+       event.put(UAMEntities.ELEPHANTNOSE_FISH.get(), AbstractFishEntity.createAttributes().build());
+       event.put(UAMEntities.PACMAN_FROG.get(), PacmanFrogEntity.createAttributes().build());
+       event.put(UAMEntities.CAPYBARA.get(), CapybaraEntity.createAttributes().build());
+       event.put(UAMEntities.ROCKET_KILLIFISH.get(), AbstractFishEntity.createAttributes().build());
+       event.put(UAMEntities.MANGROVE_SNAKE.get(), MangroveSnakeEntity.createAttributes().build());
+       event.put(UAMEntities.FIDDLER_CRAB.get(), FiddlerCrabEntity.createAttributes().build());
         // GlobalEntityTypeAttributes.put(UAMEntities.BLUBBER_JELLY.get(), BlubberJellyEntity.createAttributes().create());
     }
 

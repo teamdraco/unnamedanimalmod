@@ -1,5 +1,7 @@
 package teamdraco.unnamedanimalmod.common.entity;
 
+import net.minecraft.entity.passive.AnimalEntity;
+import net.minecraft.world.server.ServerWorld;
 import teamdraco.unnamedanimalmod.init.UAMItems;
 import teamdraco.unnamedanimalmod.init.UAMSounds;
 import net.minecraft.block.Blocks;
@@ -25,10 +27,10 @@ import net.minecraft.world.*;
 
 import javax.annotation.Nullable;
 
-public class MangroveSnakeEntity extends CreatureEntity {
+public class MangroveSnakeEntity extends AnimalEntity {
     private static final DataParameter<Integer> VARIANT = EntityDataManager.defineId(MangroveSnakeEntity.class, DataSerializers.INT);
 
-    public MangroveSnakeEntity(EntityType<? extends CreatureEntity> type, World worldIn) {
+    public MangroveSnakeEntity(EntityType<? extends AnimalEntity> type, World worldIn) {
         super(type, worldIn);
         this.moveControl = new MangroveSnakeEntity.MoveHelperController(this);
         this.setPathfindingMalus(PathNodeType.WATER, 0.0F);
@@ -52,6 +54,11 @@ public class MangroveSnakeEntity extends CreatureEntity {
     @Override
     protected PathNavigator createNavigation(World worldIn) {
         return new MangroveSnakeEntity.Navigator(this, level);
+    }
+
+    @Override
+    public int getAmbientSoundInterval() {
+        return 800;
     }
 
     @Override
@@ -88,6 +95,12 @@ public class MangroveSnakeEntity extends CreatureEntity {
         return spawnDataIn;
     }
 
+    @Nullable
+    @Override
+    public AgeableEntity getBreedOffspring(ServerWorld p_241840_1_, AgeableEntity p_241840_2_) {
+        return null;
+    }
+
     @Override
     public ItemStack getPickedResult(RayTraceResult target) {
         return new ItemStack(UAMItems.MANGROVE_SNAKE_SPAWN_EGG.get());
@@ -97,6 +110,11 @@ public class MangroveSnakeEntity extends CreatureEntity {
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(VARIANT, 0);
+    }
+
+    @Override
+    public boolean isFood(ItemStack p_70877_1_) {
+        return false;
     }
 
     public int getVariant() {

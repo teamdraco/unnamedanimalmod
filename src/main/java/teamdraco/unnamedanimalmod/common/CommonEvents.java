@@ -30,7 +30,6 @@ import java.util.List;
 @Mod.EventBusSubscriber
 public class CommonEvents {
 
-
     @SubscribeEvent
     public static void doSpawning(BiomeLoadingEvent event) {
         if (event.getCategory() == Biome.Category.JUNGLE) {
@@ -48,7 +47,7 @@ public class CommonEvents {
         }
 
         if (Biomes.COLD_OCEAN.location().equals(event.getName())) {
-            event.getSpawns().getSpawner(EntityClassification.CREATURE).add(new MobSpawnInfo.Spawners(UAMEntities.SOUTHERN_RIGHT_WHALE.get(), UAMConfig.Common.INSTANCE.southernRightWhaleSpawnWeight.get(), 2, 4));
+            event.getSpawns().getSpawner(EntityClassification.CREATURE).add(new MobSpawnInfo.Spawners(UAMEntities.SOUTHERN_RIGHT_WHALE.get(), UAMConfig.Common.INSTANCE.southernRightWhaleSpawnWeight.get(), 1, 3));
         }
 
         if (Biomes.WARM_OCEAN.location().equals(event.getName())) {

@@ -2,6 +2,7 @@ package teamdraco.unnamedanimalmod.common.block;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
+import net.minecraft.entity.CreatureAttribute;
 import teamdraco.unnamedanimalmod.common.entity.BananaSlugEntity;
 import teamdraco.unnamedanimalmod.init.UAMBlocks;
 import net.minecraft.block.Block;
@@ -26,8 +27,6 @@ import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 
 import java.util.Map;
-
-import net.minecraft.block.AbstractBlock.Properties;
 
 public class SaltPowderBlock extends Block {
     public static final EnumProperty<RedstoneSide> NORTH = BlockStateProperties.NORTH_REDSTONE;
@@ -66,7 +65,8 @@ public class SaltPowderBlock extends Block {
 
     @Override
     public void entityInside(BlockState state, World worldIn, BlockPos pos, Entity entityIn) {
-        if (entityIn instanceof BananaSlugEntity) {
+        LivingEntity livingEntity = (LivingEntity) entityIn;
+        if (entityIn instanceof BananaSlugEntity || livingEntity.getMobType() == CreatureAttribute.UNDEAD) {
             if (entityIn.level.getGameTime() % 20L == 0) {
                 entityIn.hurt(DamageSource.DRY_OUT, 1);
             }

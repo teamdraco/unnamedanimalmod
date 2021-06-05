@@ -11,17 +11,16 @@ import net.minecraftforge.common.ToolType;
 
 import net.minecraft.block.AbstractBlock.Properties;
 
-public class StripableLogBlock extends RotatedPillarBlock
-{
+public class StripableLogBlock extends RotatedPillarBlock {
     public final Block stripped;
-    public StripableLogBlock(Properties properties, Block stripped)
-    {
+
+    public StripableLogBlock(Properties properties, Block stripped) {
         super(properties);
         this.stripped = stripped;
     }
+
     @Override
-    public BlockState getToolModifiedState(BlockState state, World world, BlockPos pos, PlayerEntity player, ItemStack stack, ToolType toolType)
-    {
+    public BlockState getToolModifiedState(BlockState state, World world, BlockPos pos, PlayerEntity player, ItemStack stack, ToolType toolType) {
         return stripped.defaultBlockState().setValue(AXIS, state.getValue(AXIS));
     }
 }

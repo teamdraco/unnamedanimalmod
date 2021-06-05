@@ -73,16 +73,18 @@ public class SouthernRightWhaleModel<T extends Entity> extends AgeableModel<Sout
     public void setupAnim(SouthernRightWhaleEntity entityIn, float f, float f1, float ageInTicks, float netHeadYaw, float headPitch) {
         float motionY = (float) entityIn.getDeltaMovement().y;
 
+        this.body.xRot = headPitch * ((float)Math.PI / 180F);
+        this.body.yRot = netHeadYaw * ((float)Math.PI / 180F);
+
         if (Entity.getHorizontalDistanceSqr(entityIn.getDeltaMovement()) > 1.0E-7D) {
-            //this.body.rotateAngleX += -0.05F + -0.05F * MathHelper.cos(motionY * 0.3F);
-            if(!entityIn.isInWater()) {
+            if(!entityIn.isInWater() && !entityIn.isOnGround()) {
                 this.body.zRot = (float) Math.toRadians(-motionY * 180) * 0.8f;
             }
             else {
                 float speed = 0.6f;
                 float degree = 0.6f;
                 this.body.zRot = 0;
-                this.body.xRot = MathHelper.cos(f * speed * 0.4F) * degree * 0.25F * f1 + 0.01F;
+                this.body.xRot += MathHelper.cos(f * speed * 0.4F) * degree * 0.25F * f1 + 0.01F;
                 this.right_fin.zRot = MathHelper.cos(1.0F + f * speed * 0.4F) * degree * 0.6F * f1 + 0.2F;
                 this.left_fin.zRot = MathHelper.cos(1.0F + f * speed * 0.4F) * degree * -0.6F * f1 - 0.2F;
                 this.tail_stock1.xRot = MathHelper.cos(-1.0F + f * speed * 0.4F) * degree * 0.5F * f1;

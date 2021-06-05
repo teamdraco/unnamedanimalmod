@@ -44,25 +44,25 @@ public abstract class HumpheadParrotfishModel<T extends Entity> extends Segmente
     }
 
     @Override
-    public void setupAnim(HumpheadParrotfishEntity entityIn, float f, float f1, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void setupAnim(HumpheadParrotfishEntity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         if (this.young) {
             float speed = 0.6f;
             float degree = 0.4f;
-            this.bodyBaby.yRot = MathHelper.cos(f * speed * 0.4F) * degree * 0.2F * f1;
-            this.tailBaby.yRot = MathHelper.cos(f * speed * 0.4F) * degree * -0.4F * f1;
-            this.pelvicfinleftBaby.zRot = MathHelper.cos(f * speed * 0.4F) * degree * 0.4F * f1 - 0.5f;
-            this.pelvicfinrightBaby.zRot = MathHelper.cos(f * speed * 0.4F) * degree * -0.4F * f1 + 0.5f;
+            this.bodyBaby.yRot = MathHelper.cos(limbSwing * speed * 0.4F) * degree * 0.2F * limbSwingAmount;
+            this.tailBaby.yRot = MathHelper.cos(limbSwing * speed * 0.4F) * degree * -0.4F * limbSwingAmount;
+            this.pelvicfinleftBaby.zRot = MathHelper.cos(limbSwing * speed * 0.4F) * degree * 0.4F * limbSwingAmount - 0.5f;
+            this.pelvicfinrightBaby.zRot = MathHelper.cos(limbSwing * speed * 0.4F) * degree * -0.4F * limbSwingAmount + 0.5f;
         }
         else {
             float speed = 0.8f;
             float degree = 0.7f;
-            this.body.yRot = MathHelper.cos(f * speed * 0.4F) * degree * 0.2F * f1;
-            this.tail.yRot = MathHelper.cos(f * speed * 0.4F) * degree * -0.4F * f1;
-            this.finTail.yRot = MathHelper.cos(f * speed * 0.4F) * degree * -0.4F * f1;
-            this.finBottomLeft.zRot = MathHelper.cos(f * speed * 0.4F) * degree * 0.4F * f1 - 0.5f;
-            this.finBottomRight.zRot = MathHelper.cos(f * speed * 0.4F) * degree * -0.4F * f1 + 0.5f;
-            this.finPectoralLeft.zRot = MathHelper.cos(2.0F + 20 * speed * 0.4F) * 1.2F * 0.4F * f1 + 0.4F;
-            this.finPectoralRight.zRot = MathHelper.cos(2.0F + 20 * speed * 0.4F) * degree * -0.4F * f1 - 0.4F;
+            this.body.yRot = MathHelper.cos(limbSwing * speed * 0.4F) * degree * 0.2F * limbSwingAmount;
+            this.tail.yRot = MathHelper.cos(limbSwing * speed * 0.4F) * degree * -0.4F * limbSwingAmount;
+            this.finTail.yRot = MathHelper.cos(limbSwing * speed * 0.4F) * degree * -0.4F * limbSwingAmount;
+            this.finBottomLeft.zRot = MathHelper.cos(limbSwing * speed * 0.4F) * degree * 0.4F * limbSwingAmount - 0.5f;
+            this.finBottomRight.zRot = MathHelper.cos(limbSwing * speed * 0.4F) * degree * -0.4F * limbSwingAmount + 0.5f;
+            this.finPectoralLeft.zRot = MathHelper.cos(2.0F + 20 * speed * 0.4F) * 1.2F * 0.4F * limbSwingAmount + 0.4F;
+            this.finPectoralRight.zRot = MathHelper.cos(2.0F + 20 * speed * 0.4F) * degree * -0.4F * limbSwingAmount - 0.4F;
         }
     }
 

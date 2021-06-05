@@ -1,5 +1,7 @@
 package teamdraco.unnamedanimalmod.common.entity;
 
+import net.minecraft.entity.ai.controller.DolphinLookController;
+import net.minecraft.entity.passive.DolphinEntity;
 import teamdraco.unnamedanimalmod.common.entity.util.ai.WhaleBreachGoal;
 import teamdraco.unnamedanimalmod.init.UAMEntities;
 import teamdraco.unnamedanimalmod.init.UAMItems;
@@ -8,7 +10,6 @@ import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.ai.controller.DolphinLookController;
 import net.minecraft.entity.ai.controller.MovementController;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.monster.GuardianEntity;
@@ -42,6 +43,7 @@ import java.util.Random;
 
 public class SouthernRightWhaleEntity extends AnimalEntity {
     private static final DataParameter<Integer> VARIANT = EntityDataManager.defineId(SouthernRightWhaleEntity.class, DataSerializers.INT);
+    private static final DataParameter<Integer> MOISTNESS_LEVEL = EntityDataManager.defineId(SouthernRightWhaleEntity.class, DataSerializers.INT);
     protected boolean noBlow = false;
 
     public SouthernRightWhaleEntity(EntityType<? extends SouthernRightWhaleEntity> type, World world) {
@@ -72,6 +74,7 @@ public class SouthernRightWhaleEntity extends AnimalEntity {
         return MobEntity.createMobAttributes().add(Attributes.MAX_HEALTH, 120.0D).add(Attributes.MOVEMENT_SPEED, 1.2F).add(Attributes.ATTACK_DAMAGE, 4.0F);
     }
 
+    @Override
     public boolean hurt(DamageSource source, float amount) {
         if (this.isInvulnerableTo(source)) {
             return false;
@@ -85,6 +88,7 @@ public class SouthernRightWhaleEntity extends AnimalEntity {
         }
     }
 
+    @Override
     public boolean doHurtTarget(Entity entityIn) {
         boolean flag = entityIn.hurt(DamageSource.mobAttack(this), (float)((int)this.getAttributeValue(Attributes.ATTACK_DAMAGE)));
         if (flag) {
@@ -94,6 +98,15 @@ public class SouthernRightWhaleEntity extends AnimalEntity {
         return flag;
     }
 
+    public int getMoistnessLevel() {
+        return this.entityData.get(MOISTNESS_LEVEL);
+    }
+
+    public void setMoisntessLevel(int p_211137_1_) {
+        this.entityData.set(MOISTNESS_LEVEL, p_211137_1_);
+    }
+
+    @Override
     protected PathNavigator createNavigation(World worldIn) {
         return new SwimmerPathNavigator(this, worldIn);
     }
@@ -117,6 +130,7 @@ public class SouthernRightWhaleEntity extends AnimalEntity {
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(VARIANT, 0);
+        this.entityData.define(MOISTNESS_LEVEL, 2400);
     }
 
     public int getVariant() {
@@ -144,13 +158,14 @@ public class SouthernRightWhaleEntity extends AnimalEntity {
         super.readAdditionalSaveData(compound);
         setVariant(compound.getInt("Variant"));
     }
-    
+
+    @Override
     public boolean canBreatheUnderwater() {
         return true;
     }
 
-    public static boolean checkDolphinSpawnRules(EntityType<SouthernRightWhaleEntity> p_223364_0_, IWorld p_223364_1_, SpawnReason reason, BlockPos p_223364_3_, Random p_223364_4_) {
-        return (p_223364_1_.getFluidState(p_223364_3_).is(FluidTags.WATER));
+    public static boolean checkWhaleSpawnRules(EntityType<SouthernRightWhaleEntity> p_223364_0_, IWorld p_223364_1_, SpawnReason reason, BlockPos p_223364_3_, Random p_223364_4_) {
+        return p_223364_1_.getRandom().nextFloat() > 0.8F;
     }
 
     @Override
@@ -158,10 +173,12 @@ public class SouthernRightWhaleEntity extends AnimalEntity {
         return stack.getItem() == Items.SALMON;
     }
 
+    @Override
     protected float getStandingEyeHeight(Pose pose, EntitySize size) {
-        return this.isBaby() ? size.height * 0.4F : size.height * 0.85F;
+        return size.height * 0.4F;
     }
 
+    @Override
     public void tick() {
         super.tick();
         BlockPos pos = blockPosition().above();
@@ -172,6 +189,14 @@ public class SouthernRightWhaleEntity extends AnimalEntity {
         }
         if (wasTouchingWater && level.getBlockState(pos).getBlock() != Blocks.AIR){
             noBlow = false;
+        }
+        if (this.isInWaterRainOrBubble()) {
+            this.setMoisntessLevel(2400);
+        } else {
+            this.setMoisntessLevel(this.getMoistnessLevel() - 1);
+            if (this.getMoistnessLevel() <= 0) {
+                this.hurt(DamageSource.DRY_OUT, 1.0F);
+            }
         }
     }
 
@@ -206,6 +231,7 @@ public class SouthernRightWhaleEntity extends AnimalEntity {
         playSound(UAMSounds.SOUTHERN_RIGHT_WHALE_SONG.get(), 5.0f, 1.0f);
     }
 
+    @Override
     public void travel(Vector3d travelVector) {
         if (this.isEffectiveAi() && this.isInWater()) {
             this.moveRelative(this.getSpeed(), travelVector);
@@ -218,6 +244,40 @@ public class SouthernRightWhaleEntity extends AnimalEntity {
             super.travel(travelVector);
         }
     }
+
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return UAMSounds.SOUTHERN_RIGHT_WHALE_AMBIENT.get();
+    }
+
+    @Override
+    protected SoundEvent getDeathSound() {
+        return UAMSounds.SOUTHERN_RIGHT_WHALE_DEATH.get();
+    }
+
+    @Override
+    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+        return UAMSounds.SOUTHERN_RIGHT_WHALE_HURT.get();
+    }
+
+    @Override
+    public ItemStack getPickedResult(RayTraceResult target) {
+        return new ItemStack(UAMItems.SOUTHERN_RIGHT_WHALE_SPAWN_EGG.get());
+    }
+
+    static class SwimGoal extends RandomSwimmingGoal {
+        private final SouthernRightWhaleEntity whale;
+
+        public SwimGoal(SouthernRightWhaleEntity whale) {
+            super(whale, 1.0D, 2);
+            this.whale = whale;
+        }
+
+        public boolean canUse() {
+            return super.canUse();
+        }
+    }
+
 
     static class MoveHelperController extends MovementController {
         private final SouthernRightWhaleEntity whale;
@@ -244,7 +304,7 @@ public class SouthernRightWhaleEntity extends AnimalEntity {
                     this.whale.yRot = this.rotlerp(this.whale.yRot, f, 10.0F);
                     this.whale.yBodyRot = this.whale.yRot;
                     this.whale.yHeadRot = this.whale.yRot;
-                    float f1 = (float)(this.speedModifier * this.whale.getAttribute(Attributes.MOVEMENT_SPEED).getValue());
+                    float f1 = (float)(this.speedModifier * this.whale.getAttributeValue(Attributes.MOVEMENT_SPEED));
                     if (this.whale.isInWater()) {
                         this.whale.setSpeed(f1 * 0.02F);
                         float f2 = -((float)(MathHelper.atan2(d1, (double)MathHelper.sqrt(d0 * d0 + d2 * d2)) * (double)(180F / (float)Math.PI)));
@@ -257,6 +317,7 @@ public class SouthernRightWhaleEntity extends AnimalEntity {
                     } else {
                         this.whale.setSpeed(f1 * 0.1F);
                     }
+
                 }
             } else {
                 this.whale.setSpeed(0.0F);
@@ -264,36 +325,6 @@ public class SouthernRightWhaleEntity extends AnimalEntity {
                 this.whale.setYya(0.0F);
                 this.whale.setZza(0.0F);
             }
-        }
-    }
-
-    protected SoundEvent getAmbientSound() {
-        return UAMSounds.SOUTHERN_RIGHT_WHALE_AMBIENT.get();
-    }
-
-    protected SoundEvent getDeathSound() {
-        return UAMSounds.SOUTHERN_RIGHT_WHALE_DEATH.get();
-    }
-
-    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        return UAMSounds.SOUTHERN_RIGHT_WHALE_HURT.get();
-    }
-
-    @Override
-    public ItemStack getPickedResult(RayTraceResult target) {
-        return new ItemStack(UAMItems.SOUTHERN_RIGHT_WHALE_SPAWN_EGG.get());
-    }
-
-    static class SwimGoal extends RandomSwimmingGoal {
-        private final SouthernRightWhaleEntity whale;
-
-        public SwimGoal(SouthernRightWhaleEntity whale) {
-            super(whale, 1.0D, 5);
-            this.whale = whale;
-        }
-
-        public boolean canUse() {
-            return super.canUse();
         }
     }
 }
