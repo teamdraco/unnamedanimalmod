@@ -55,6 +55,10 @@ public class CommonEvents {
             event.getSpawns().getSpawner(EntityClassification.WATER_AMBIENT).add(new MobSpawnInfo.Spawners(UAMEntities.FLASHLIGHT_FISH.get(), UAMConfig.Common.INSTANCE.flashlightFishSpawnWeight.get(), 4, 8));
         }
 
+        if (Biomes.LUKEWARM_OCEAN.location().equals(event.getName()) || Biomes.DEEP_LUKEWARM_OCEAN.location().equals(event.getName())) {
+            event.getSpawns().getSpawner(EntityClassification.WATER_AMBIENT).add(new MobSpawnInfo.Spawners(UAMEntities.LEAFY_SEA_DRAGON.get(), UAMConfig.Common.INSTANCE.leafySeadragonSpawnWeight.get(), 1, 3));
+        }
+
         if (Biomes.STONE_SHORE.location().equals(event.getName())) {
             event.getSpawns().getSpawner(EntityClassification.CREATURE).add(new MobSpawnInfo.Spawners(UAMEntities.MARINE_IGUANA.get(), UAMConfig.Common.INSTANCE.marineIguanaSpawnWeight.get(), 4, 6));
         }

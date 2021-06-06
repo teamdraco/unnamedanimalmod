@@ -18,7 +18,7 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 import teamdraco.unnamedanimalmod.common.entity.*;
 import teamdraco.unnamedanimalmod.init.*;
-import teamdraco.unnamedanimalmod.client.ClientEventHandler;
+import teamdraco.unnamedanimalmod.client.ClientEvents;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,11 +35,11 @@ public class UnnamedAnimalMod {
         bus.addListener(this::registerCommon);
         bus.addListener(this::registerEntityAttributes);
 
-        UAMSounds.REGISTRY.register(bus);
-        UAMBlocks.REGISTRY.register(bus);
-        UAMItems.REGISTRY.register(bus);
-        UAMEntities.REGISTRY.register(bus);
-        UAMFeatures.REGISTRY.register(bus);
+        UAMSounds.SOUNDS.register(bus);
+        UAMBlocks.BLOCKS.register(bus);
+        UAMItems.ITEMS.register(bus);
+        UAMEntities.ENTITIES.register(bus);
+        UAMFeatures.FEATURES.register(bus);
         UAMBiomes.BIOMES.register(bus);
         UAMBiomes.BUILDERS.register(bus);
 
@@ -61,6 +61,9 @@ public class UnnamedAnimalMod {
         EntitySpawnPlacementRegistry.register(UAMEntities.MANGROVE_SNAKE.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AnimalEntity::checkAnimalSpawnRules);
         EntitySpawnPlacementRegistry.register(UAMEntities.SOUTHERN_RIGHT_WHALE.get(), EntitySpawnPlacementRegistry.PlacementType.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, SouthernRightWhaleEntity::checkWhaleSpawnRules);
         EntitySpawnPlacementRegistry.register(UAMEntities.FIDDLER_CRAB.get(), EntitySpawnPlacementRegistry.PlacementType.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AnimalEntity::checkAnimalSpawnRules);
+        EntitySpawnPlacementRegistry.register(UAMEntities.LEAFY_SEA_DRAGON.get(), EntitySpawnPlacementRegistry.PlacementType.IN_WATER, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, LeafySeadragonEntity::checkFishSpawnRules);
+        EntitySpawnPlacementRegistry.register(UAMEntities.HUMPHEAD_PARROTFISH.get(), EntitySpawnPlacementRegistry.PlacementType.IN_WATER, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, HumpheadParrotfishEntity::checkFishSpawnRules);
+        EntitySpawnPlacementRegistry.register(UAMEntities.SPOTTED_GARDEN_EEL.get(), EntitySpawnPlacementRegistry.PlacementType.IN_WATER, Heightmap.Type.OCEAN_FLOOR, AbstractFishEntity::checkFishSpawnRules);
     }
 
     private void registerEntityAttributes(EntityAttributeCreationEvent event) {
@@ -79,12 +82,14 @@ public class UnnamedAnimalMod {
        event.put(UAMEntities.CAPYBARA.get(), CapybaraEntity.createAttributes().build());
        event.put(UAMEntities.ROCKET_KILLIFISH.get(), AbstractFishEntity.createAttributes().build());
        event.put(UAMEntities.MANGROVE_SNAKE.get(), MangroveSnakeEntity.createAttributes().build());
-       event.put(UAMEntities.FIDDLER_CRAB.get(), FiddlerCrabEntity.createAttributes().build());
         // GlobalEntityTypeAttributes.put(UAMEntities.BLUBBER_JELLY.get(), BlubberJellyEntity.createAttributes().create());
+        event.put(UAMEntities.FIDDLER_CRAB.get(), FiddlerCrabEntity.createAttributes().build());
+        event.put(UAMEntities.LEAFY_SEA_DRAGON.get(), LeafySeadragonEntity.createAttributes().build());
+        event.put(UAMEntities.SPOTTED_GARDEN_EEL.get(), SpottedGardenEelEntity.createAttributes().build());
     }
 
     private void registerClient(FMLClientSetupEvent event) {
-        ClientEventHandler.init();
+        ClientEvents.init();
         CALLBACKS.forEach(Runnable::run);
         CALLBACKS.clear();
     }

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "unnamedanimalmod:item/spotted_garden_eel_bucket"
+  }
+}

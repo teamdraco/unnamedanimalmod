@@ -1,9 +1,10 @@
 package teamdraco.unnamedanimalmod.client;
 
+import net.minecraft.client.renderer.color.BlockColors;
+import net.minecraftforge.api.distmarker.Dist;
 import teamdraco.unnamedanimalmod.UnnamedAnimalMod;
-import teamdraco.unnamedanimalmod.client.renderer.item.GreaterPrairieChickenEggRenderer;
-import teamdraco.unnamedanimalmod.client.renderer.item.MarineIguanaEggRenderer;
-import teamdraco.unnamedanimalmod.client.renderer.item.PlatypusEggRenderer;
+import teamdraco.unnamedanimalmod.client.renderer.item.*;
+import teamdraco.unnamedanimalmod.common.block.SaltPowderBlock;
 import teamdraco.unnamedanimalmod.init.UAMBlocks;
 import teamdraco.unnamedanimalmod.init.UAMEntities;
 import teamdraco.unnamedanimalmod.common.item.UAMSpawnEggItem;
@@ -23,8 +24,8 @@ import teamdraco.unnamedanimalmod.client.renderer.*;
 import java.util.HashSet;
 import java.util.Set;
 
-@Mod.EventBusSubscriber(modid = UnnamedAnimalMod.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
-public class ClientEventHandler {
+@Mod.EventBusSubscriber(modid = UnnamedAnimalMod.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+public class ClientEvents {
 
     public static void init() {
         RenderingRegistry.registerEntityRenderingHandler(UAMEntities.BLACK_DIAMOND_STINGRAY.get(), BlackDiamondStingrayRenderer::new);
@@ -48,6 +49,9 @@ public class ClientEventHandler {
         RenderingRegistry.registerEntityRenderingHandler(UAMEntities.MANGROVE_BOAT.get(), MangroveBoatRenderer::new);
         // RenderingRegistry.registerEntityRenderingHandler(UAMEntities.BLUBBER_JELLY.get(), BlubberJellyRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(UAMEntities.FIDDLER_CRAB.get(), FiddlerCrabRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(UAMEntities.MANGROVE_SNAKE_EGG.get(), MangroveSnakeEggRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(UAMEntities.LEAFY_SEA_DRAGON.get(), LeafySeadragonRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(UAMEntities.SPOTTED_GARDEN_EEL.get(), SpottedGardenEelRenderer::new);
     }
 
     @SubscribeEvent
@@ -59,15 +63,22 @@ public class ClientEventHandler {
 
     @SubscribeEvent
     public static void setRenderLayers(FMLClientSetupEvent event) {
-        Set<RegistryObject<Block>> blocks = new HashSet<>(UAMBlocks.REGISTRY.getEntries());
+        Set<RegistryObject<Block>> blocks = new HashSet<>(UAMBlocks.BLOCKS.getEntries());
 
         blocks.stream().filter(b -> {
             final Block block = b.get();
-            return block instanceof BushBlock || block instanceof LeavesBlock || block instanceof TrapDoorBlock || block instanceof DoorBlock;
-        }).forEach(ClientEventHandler::setCutout);
+            return block instanceof BushBlock || block instanceof LeavesBlock || block instanceof TrapDoorBlock || block instanceof DoorBlock || block instanceof SaltPowderBlock;
+        }).forEach(ClientEvents::setCutout);
     }
 
     public static void setCutout(RegistryObject<Block> b) {
         RenderTypeLookup.setRenderLayer(b.get(), RenderType.cutout());
+    }
+
+    @SubscribeEvent
+    public static void blockColors(ColorHandlerEvent.Block event) {
+        BlockColors handler = event.getBlockColors();
+
+        handler.register((p_228059_0_, p_228059_1_, p_228059_2_, p_228059_3_) -> SaltPowderBlock.getColor(), UAMBlocks.SALT.get());
     }
 }

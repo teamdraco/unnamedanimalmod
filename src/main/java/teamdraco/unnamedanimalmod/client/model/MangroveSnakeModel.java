@@ -3,15 +3,19 @@ package teamdraco.unnamedanimalmod.client.model;
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
+import net.minecraft.client.renderer.entity.model.AgeableModel;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import teamdraco.unnamedanimalmod.common.entity.MangroveSnakeEntity;
+
+import java.util.Collections;
 
 @OnlyIn(Dist.CLIENT)
-public class MangroveSnakeModel<T extends Entity> extends EntityModel<T> {
+public class MangroveSnakeModel<T extends Entity> extends AgeableModel<MangroveSnakeEntity> {
     public ModelRenderer head;
     public ModelRenderer jaw;
     public ModelRenderer body1;
@@ -53,14 +57,17 @@ public class MangroveSnakeModel<T extends Entity> extends EntityModel<T> {
     }
 
     @Override
-    public void renderToBuffer(MatrixStack matrixStackIn, IVertexBuilder bufferIn, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) { 
-        ImmutableList.of(this.head).forEach((modelRenderer) -> { 
-            modelRenderer.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
-        });
+    protected Iterable<ModelRenderer> headParts() {
+        return Collections.EMPTY_LIST;
     }
 
     @Override
-    public void setupAnim(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+    protected Iterable<ModelRenderer> bodyParts() {
+        return ImmutableList.of(head);
+    }
+
+    @Override
+    public void setupAnim(MangroveSnakeEntity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         float speed = 1.5f;
         float degree = 1.5f;
         this.body1.yRot = MathHelper.cos(limbSwing * speed * 0.3F) * degree * -0.4F * limbSwingAmount;

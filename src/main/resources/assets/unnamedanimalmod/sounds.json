@@ -194,11 +194,11 @@
       }
     ]
   },
-  "crab.death": {
-    "subtitle": "subtitle.unnamedanimalmod.crab.death",
+  "fiddler_crab.death": {
+    "subtitle": "subtitle.unnamedanimalmod.fiddler_crab.death",
     "sounds": [
       {
-        "name": "unnamedanimalmod:crab/death"
+        "name": "unnamedanimalmod:fiddler_crab/death"
       }
     ]
   }

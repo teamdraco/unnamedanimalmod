@@ -81,7 +81,7 @@ public class HumpheadParrotfishEntity extends AnimalEntity {
     }
 
     public static boolean checkFishSpawnRules(EntityType<? extends HumpheadParrotfishEntity> type, IWorld worldIn, SpawnReason reason, BlockPos p_223363_3_, Random randomIn) {
-        return worldIn.getBlockState(p_223363_3_).is(Blocks.WATER) && worldIn.getBlockState(p_223363_3_.above()).is(Blocks.WATER) && worldIn.getLevelData().getDayTime() < 12000 && worldIn.getLevelData().getDayTime() > 24000;
+        return worldIn.getBlockState(p_223363_3_).is(Blocks.WATER) && worldIn.getBlockState(p_223363_3_.above()).is(Blocks.WATER) && worldIn.getLevelData().getDayTime() < 12000 && worldIn.getLevelData().getDayTime() > 24000 && randomIn.nextFloat() > 0.7F;
     }
 
     protected void updateAir(int air) {

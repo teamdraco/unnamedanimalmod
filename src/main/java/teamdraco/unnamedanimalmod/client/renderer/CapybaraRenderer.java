@@ -47,7 +47,7 @@ public class CapybaraRenderer extends MobRenderer<CapybaraEntity, CapybaraModel<
         super.setupRotations(entityLiving, matrixStackIn, ageInTicks, rotationYaw, partialTicks);
         matrixStackIn.scale(0.77f, 0.77f, 0.77f);
         if (entityLiving.isInWater() && !entityLiving.isBaby()) {
-            matrixStackIn.translate(0, -0.4, 0);
+            matrixStackIn.translate(0, -0.625, 0);
         }
     }
 }

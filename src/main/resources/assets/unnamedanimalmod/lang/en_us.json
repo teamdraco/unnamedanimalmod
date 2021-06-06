@@ -17,6 +17,7 @@
   "item.unnamedanimalmod.fried_prairie_chicken_egg": "Fried Prairie Chicken Egg",
   "item.unnamedanimalmod.rocket_killifish": "Rocket Killifish",
   "item.unnamedanimalmod.cooked_mangrove_fruit": "Cooked Mangrove Fruit",
+  "item.unnamedanimalmod.leafy_seadragon": "Leafy Seadragon",
 
   "item.unnamedanimalmod.pacman_frog_bowl": "Bowl of Pacman Frog",
   "item.unnamedanimalmod.tomato_frog_bowl": "Bowl of Tomato Frog",
@@ -29,12 +30,15 @@
   "item.unnamedanimalmod.baby_humphead_parrotfish_bucket": "Bucket of Baby Humphead Parrotfish",
   "item.unnamedanimalmod.blubber_jelly_bucket": "Bucket of Blubber Jelly",
   "item.unnamedanimalmod.fiddler_crab_bucket": "Bucket of Fiddler Crab",
+  "item.unnamedanimalmod.leafy_seadragon_bucket": "Bucket of Leafy Seadragon",
+  "item.unnamedanimalmod.spotted_garden_eel_bucket": "Bucket of Spotted Garden Eel",
 
   "item.unnamedanimalmod.platypus_egg": "Platypus Egg",
   "item.unnamedanimalmod.tomato_frog_egg": "Tomato Frog Egg",
   "item.unnamedanimalmod.pacman_frog_egg": "Pacman Frog Egg",
   "item.unnamedanimalmod.marine_iguana_egg": "Marine Iguana Egg",
   "item.unnamedanimalmod.greater_prairie_chicken_egg": "Greater Prairie Chicken Egg",
+  "item.unnamedanimalmod.mangrove_snake_egg": "Mangrove Snake Egg",
 
   "item.unnamedanimalmod.black_diamond_stingray_spawn_egg": "Black Diamond Stingray Spawn Egg",
   "item.unnamedanimalmod.tomato_frog_spawn_egg": "Tomato Frog Spawn Egg",
@@ -53,6 +57,8 @@
   "item.unnamedanimalmod.mangrove_snake_spawn_egg": "Mangrove Snake Spawn Egg",
   "item.unnamedanimalmod.blubber_jelly_spawn_egg": "Blubber Jelly Spawn Egg",
   "item.unnamedanimalmod.fiddler_crab_spawn_egg": "Fiddler Crab Spawn Egg",
+  "item.unnamedanimalmod.leafy_seadragon_spawn_egg": "Leafy Seadragon Spawn Egg",
+  "item.unnamedanimalmod.spotted_garden_eel_spawn_egg": "Spotted Garden Eel Spawn Egg",
 
   "entity.unnamedanimalmod.black_diamond_stingray": "Black Diamond Stingray",
   "entity.unnamedanimalmod.tomato_frog": "Tomato Frog",
@@ -75,6 +81,9 @@
   "entity.unnamedanimalmod.mangrove_boat": "Mangrove Boat",
   "entity.unnamedanimalmod.blubber_jelly": "Blubber Jelly",
   "entity.unnamedanimalmod.fiddler_crab": "Fiddler Crab",
+  "entity.unnamedanimalmod.mangrove_snake_egg": "Mangrove Snake Egg",
+  "entity.unnamedanimalmod.leafy_seadragon": "Leafy Seadragon",
+  "entity.unnamedanimalmod.spotted_garden_eel": "Spotted Garden Eel",
 
   "block.unnamedanimalmod.mangrove_door": "Mangrove Door",
   "block.unnamedanimalmod.mangrove_log": "Mangrove Log",

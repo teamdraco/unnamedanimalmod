@@ -35,50 +35,40 @@ public class MangroveLandTreeFeature extends Feature<NoFeatureConfig> {
 
         int trunkHeight = MangroveTreeHelper.minimumLandTrunkHeight + rand.nextInt(MangroveTreeHelper.landTrunkHeightExtra + 1);
         BlockPos trunkTop = pos.above(trunkHeight);
-        for (int i = 0; i <= trunkHeight; i++) //trunk placement
-        {
+        for (int i = 0; i <= trunkHeight; i++) {
             BlockPos trunkPos = pos.above(i);
-            if (MangroveTreeHelper.canPlace(reader, trunkPos))
-            {
+            if (MangroveTreeHelper.canPlace(reader, trunkPos)) {
                 filler.add(new Entry(trunkPos, defaultLog));
             }
-            else
-            {
+            else {
                 return false;
             }
         }
         MangroveTreeHelper.makeLeafBlob(leavesFiller, rand, pos, trunkHeight);
         Direction[] directions = new Direction[]{Direction.NORTH, Direction.SOUTH, Direction.WEST, Direction.EAST};
 
-        for (Direction direction : directions) //side trunk placement
-        {
+        for (Direction direction : directions) {
             int sideTrunkHeight = MangroveTreeHelper.minimumSideLandTrunkHeight + rand.nextInt(MangroveTreeHelper.sideLandTrunkHeightExtra + 1);
-            for (int i = 0; i <= sideTrunkHeight; i++) //trunk placement
-            {
+            for (int i = 0; i <= sideTrunkHeight; i++) {
                 BlockPos trunkPos = pos.relative(direction).above(i);
                 if (MangroveTreeHelper.canPlace(reader, trunkPos)) {
                     filler.add(new Entry(trunkPos, defaultLog));
                 }
-                else
-                {
+                else {
                     return false;
                 }
             }
             int i = 0;
-            do
-            {
+            do {
                 i++;
                 BlockPos trunkPos = pos.relative(direction).below(i);
-                if (MangroveTreeHelper.canPlace(reader, trunkPos))
-                {
+                if (MangroveTreeHelper.canPlace(reader, trunkPos)) {
                     filler.add(new Entry(trunkPos, defaultLog));
                 }
-                else
-                {
+                else {
                     break;
                 }
-                if (i > reader.getMaxBuildHeight())
-                {
+                if (i > reader.getMaxBuildHeight()) {
                     break;
                 }
             }
@@ -86,42 +76,33 @@ public class MangroveLandTreeFeature extends Feature<NoFeatureConfig> {
         }
         Direction highestDirection = directions[rand.nextInt(directions.length)];
         boolean failed = false;
-        for (Direction direction : directions) //tree top placement
-        {
+        for (Direction direction : directions) {
             int branchCoreOffset = rand.nextInt(MangroveTreeHelper.maximumDownwardsBranchOffset + 1);
-            if (direction.equals(highestDirection))
-            {
+            if (direction.equals(highestDirection)) {
                 branchCoreOffset = 0;
             }
-            else if (!failed && rand.nextFloat() < 0.25)
-            {
+            else if (!failed && rand.nextFloat() < 0.25) {
                 failed = true;
                 continue;
             }
             int branchOffset = MangroveTreeHelper.minimumBranchCoreOffset + rand.nextInt(MangroveTreeHelper.branchCoreOffsetExtra + 1);
             BlockPos branchStartPos = trunkTop.below(branchCoreOffset).relative(direction, branchOffset);
-            for (int i = 0; i < branchOffset; i++) //branch connection placement
-            {
+            for (int i = 0; i < branchOffset; i++) {
                 BlockPos branchConnectionPos = branchStartPos.relative(direction.getOpposite(), i);
-                if (MangroveTreeHelper.canPlace(reader, branchConnectionPos))
-                {
+                if (MangroveTreeHelper.canPlace(reader, branchConnectionPos)) {
                     filler.add(new Entry(branchConnectionPos, defaultLog.setValue(RotatedPillarBlock.AXIS, direction.getAxis())));
                 }
-                else
-                {
+                else {
                     return false;
                 }
             }
             int branchHeight = MangroveTreeHelper.minimumBranchHeight + rand.nextInt(MangroveTreeHelper.branchHeightExtra + 1);
-            for (int i = 0; i <= branchHeight; i++) //trunk placement
-            {
+            for (int i = 0; i <= branchHeight; i++) {
                 BlockPos branchPos = branchStartPos.above(i);
-                if (MangroveTreeHelper.canPlace(reader, branchPos))
-                {
+                if (MangroveTreeHelper.canPlace(reader, branchPos)) {
                     filler.add(new Entry(branchPos, defaultLog));
                 }
-                else
-                {
+                else {
                     return false;
                 }
             }

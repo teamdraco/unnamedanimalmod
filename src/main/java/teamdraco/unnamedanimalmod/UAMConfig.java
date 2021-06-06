@@ -20,6 +20,7 @@ public class UAMConfig {
     public static int bananaSlugSpawnWeight;
     public static int platypusSpawnWeight;
     public static int pacmanFrogSpawnWeight;
+    public static int leafySeadragonSpawnWeight;
 
     @SubscribeEvent
     public static void configLoad(ModConfig.ModConfigEvent event) {
@@ -54,6 +55,7 @@ public class UAMConfig {
         public final ForgeConfigSpec.IntValue bananaSlugSpawnWeight;
         public final ForgeConfigSpec.IntValue platypusSpawnWeight;
         public final ForgeConfigSpec.IntValue pacmanFrogSpawnWeight;
+        public final ForgeConfigSpec.IntValue leafySeadragonSpawnWeight;
 
         Common(ForgeConfigSpec.Builder builder) {
             builder.push("Animal Spawn Weight");
@@ -63,12 +65,13 @@ public class UAMConfig {
             southernRightWhaleSpawnWeight = builder.comment("Spawn weight of Southern Right Whales").defineInRange("southern_right_whale_spawn_weight", 1, 1, 1000);
             greaterPrairieChickenSpawnWeight = builder.comment("Spawn weight of Greater Prairie Chickens").defineInRange("greater_prairie_chicken_spawn_weight", 15, 1, 1000);
             muskOxSpawnWeight = builder.comment("Spawn weight of Musk Ox").defineInRange("musk_ox_spawn_weight", 1, 1, 1000);
-            humpheadParrotfishSpawnWeight = builder.comment("Spawn weight of Humphead Parrotfish").defineInRange("humphead_parrotfish_spawn_weight", 5, 1, 1000);
+            humpheadParrotfishSpawnWeight = builder.comment("Spawn weight of Humphead Parrotfish").defineInRange("humphead_parrotfish_spawn_weight", 1, 1, 1000);
             flashlightFishSpawnWeight = builder.comment("Spawn weight of Flashlight Fish").defineInRange("flashlight_fish_spawn_weight", 4, 1, 1000);
             marineIguanaSpawnWeight = builder.comment("Spawn weight of Marine Iguanas").defineInRange("marine_iguana_spawn_weight", 15, 1, 1000);
             bananaSlugSpawnWeight = builder.comment("Spawn weight of Banana Slugs").defineInRange("banana_slug_spawn_weight", 45, 1, 1000);
             platypusSpawnWeight = builder.comment("Spawn weight of Platypuses").defineInRange("platypus_spawn_weight", 5, 1, 1000);
             pacmanFrogSpawnWeight = builder.comment("Spawn weight of Pacman Frogs").defineInRange("pacman_spawn_weight", 2, 1, 1000);
+            leafySeadragonSpawnWeight = builder.comment("Spawn weight of Leafy Seadragons").defineInRange("leafy_seadragon_spawn_weight", 6, 1, 1000);
             builder.pop();
         }
 
@@ -85,6 +88,7 @@ public class UAMConfig {
             UAMConfig.bananaSlugSpawnWeight = INSTANCE.bananaSlugSpawnWeight.get();
             UAMConfig.platypusSpawnWeight = INSTANCE.platypusSpawnWeight.get();
             UAMConfig.pacmanFrogSpawnWeight = INSTANCE.pacmanFrogSpawnWeight.get();
+            UAMConfig.leafySeadragonSpawnWeight = INSTANCE.leafySeadragonSpawnWeight.get();
         }
     }
 }

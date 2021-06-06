@@ -2,6 +2,7 @@ package teamdraco.unnamedanimalmod.init;
 
 import teamdraco.unnamedanimalmod.UnnamedAnimalMod;
 import teamdraco.unnamedanimalmod.common.entity.item.GreaterPrairieChickenEggEntity;
+import teamdraco.unnamedanimalmod.common.entity.item.MangroveSnakeEggEntity;
 import teamdraco.unnamedanimalmod.common.entity.item.MarineIguanaEggEntity;
 import teamdraco.unnamedanimalmod.common.entity.item.PlatypusEggEntity;
 import net.minecraft.entity.Entity;
@@ -13,7 +14,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import teamdraco.unnamedanimalmod.common.entity.*;
 
 public class UAMEntities {
-    public static final DeferredRegister<EntityType<?>> REGISTRY = DeferredRegister.create(ForgeRegistries.ENTITIES, UnnamedAnimalMod.MOD_ID);
+    public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITIES, UnnamedAnimalMod.MOD_ID);
 
     public static final RegistryObject<EntityType<BlackDiamondStingrayEntity>> BLACK_DIAMOND_STINGRAY = create("black_diamond_stingray", EntityType.Builder.of(BlackDiamondStingrayEntity::new, EntityClassification.WATER_CREATURE).sized(0.8f, 0.2f));
     public static final RegistryObject<EntityType<TomatoFrogEntity>> TOMATO_FROG = create("tomato_frog", EntityType.Builder.of(TomatoFrogEntity::new, EntityClassification.CREATURE).sized(0.4f, 0.35f));
@@ -32,13 +33,16 @@ public class UAMEntities {
     public static final RegistryObject<EntityType<MangroveSnakeEntity>> MANGROVE_SNAKE = create("mangrove_snake", EntityType.Builder.of(MangroveSnakeEntity::new, EntityClassification.WATER_AMBIENT).sized(1.0f, 0.3f));
     // public static final RegistryObject<EntityType<BlubberJellyEntity>> BLUBBER_JELLY = create("blubber_jelly", EntityType.Builder.create(BlubberJellyEntity::new, EntityClassification.WATER_AMBIENT).size(0.4f, 0.25f));
     public static final RegistryObject<EntityType<FiddlerCrabEntity>> FIDDLER_CRAB = create("fiddler_crab", EntityType.Builder.of(FiddlerCrabEntity::new, EntityClassification.CREATURE).sized(0.65f, 0.325f));
+    public static final RegistryObject<EntityType<LeafySeadragonEntity>> LEAFY_SEA_DRAGON = create("leafy_sea_dragon", EntityType.Builder.of(LeafySeadragonEntity::new, EntityClassification.WATER_AMBIENT).sized(0.5f, 0.3f));
+    public static final RegistryObject<EntityType<SpottedGardenEelEntity>> SPOTTED_GARDEN_EEL = create("spotted_garden_eel", EntityType.Builder.of(SpottedGardenEelEntity::new, EntityClassification.WATER_CREATURE).sized(0.35f, 0.35f));
 
     public static final RegistryObject<EntityType<GreaterPrairieChickenEggEntity>> GREATER_PRAIRIE_CHICKEN_EGG = create("greater_prairie_chicken_egg", EntityType.Builder.<GreaterPrairieChickenEggEntity>of(GreaterPrairieChickenEggEntity::new, EntityClassification.MISC).sized(0.25f, 0.25f));
     public static final RegistryObject<EntityType<PlatypusEggEntity>> PLATYPUS_EGG = create("platypus_egg", EntityType.Builder.<PlatypusEggEntity>of(PlatypusEggEntity::new, EntityClassification.MISC).sized(0.25f, 0.25f));
     public static final RegistryObject<EntityType<MarineIguanaEggEntity>> MARINE_IGUANA_EGG = create("marine_iguana_egg", EntityType.Builder.<MarineIguanaEggEntity>of(MarineIguanaEggEntity::new, EntityClassification.MISC).sized(0.25f, 0.25f));
     public static final RegistryObject<EntityType<MangroveBoatEntity>> MANGROVE_BOAT = create("mangrove_boat", EntityType.Builder.<MangroveBoatEntity>of(MangroveBoatEntity::new, EntityClassification.MISC).sized(1.375F, 0.5625F).clientTrackingRange(10));
+    public static final RegistryObject<EntityType<MangroveSnakeEggEntity>> MANGROVE_SNAKE_EGG = create("mangrove_snake_egg", EntityType.Builder.<MangroveSnakeEggEntity>of(MangroveSnakeEggEntity::new, EntityClassification.MISC).sized(0.25f, 0.25f));
 
     private static <T extends Entity> RegistryObject<EntityType<T>> create(String name, EntityType.Builder<T> builder) {
-        return REGISTRY.register(name, () -> builder.build(UnnamedAnimalMod.MOD_ID + "." + name));
+        return ENTITIES.register(name, () -> builder.build(UnnamedAnimalMod.MOD_ID + "." + name));
     }
 }

@@ -3,6 +3,14 @@ package teamdraco.unnamedanimalmod.common.block;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 import net.minecraft.entity.CreatureAttribute;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Hand;
+import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.vector.Vector3f;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import teamdraco.unnamedanimalmod.common.entity.BananaSlugEntity;
 import teamdraco.unnamedanimalmod.init.UAMBlocks;
 import net.minecraft.block.Block;
@@ -52,6 +60,11 @@ public class SaltPowderBlock extends Block {
         }
     }
 
+    @OnlyIn(Dist.CLIENT)
+    public static int getColor() {
+        return MathHelper.color(224, 190, 183);
+    }
+
     @Override
     public VoxelShape getCollisionShape(BlockState state, IBlockReader world, BlockPos pos, ISelectionContext context) {
         if (context.getEntity() instanceof LivingEntity) {
@@ -65,15 +78,18 @@ public class SaltPowderBlock extends Block {
 
     @Override
     public void entityInside(BlockState state, World worldIn, BlockPos pos, Entity entityIn) {
-        LivingEntity livingEntity = (LivingEntity) entityIn;
-        if (entityIn instanceof BananaSlugEntity || livingEntity.getMobType() == CreatureAttribute.UNDEAD) {
-            if (entityIn.level.getGameTime() % 20L == 0) {
-                entityIn.hurt(DamageSource.DRY_OUT, 1);
+        if (entityIn instanceof LivingEntity) {
+            LivingEntity livingEntity = (LivingEntity) entityIn;
+            if (entityIn instanceof BananaSlugEntity || livingEntity.getMobType() == CreatureAttribute.UNDEAD) {
+                if (entityIn.level.getGameTime() % 20L == 0) {
+                    entityIn.hurt(DamageSource.DRY_OUT, 1);
+                }
             }
         }
+
         super.entityInside(state, worldIn, pos, entityIn);
     }
-    //everything below this point is copied from RedstoneWireBlock.java
+
     private VoxelShape getShapeForState(BlockState state) {
         VoxelShape voxelshape = BASE_SHAPE;
 
@@ -229,6 +245,87 @@ public class SaltPowderBlock extends Block {
 
             this.updateNeighboursStateChange(worldIn, pos);
         }
+    }
+
+    @Override
+    public ActionResultType use(BlockState p_225533_1_, World p_225533_2_, BlockPos p_225533_3_, PlayerEntity p_225533_4_, Hand p_225533_5_, BlockRayTraceResult p_225533_6_) {
+        if (!p_225533_4_.abilities.mayBuild) {
+            return ActionResultType.PASS;
+        } else {
+            if (isCross(p_225533_1_) || isDot(p_225533_1_)) {
+                BlockState blockstate = isCross(p_225533_1_) ? this.defaultBlockState() : this.sideBaseState;
+                blockstate = this.getConnectionState(p_225533_2_, blockstate, p_225533_3_);
+                if (blockstate != p_225533_1_) {
+                    p_225533_2_.setBlock(p_225533_3_, blockstate, 3);
+                    this.updatesOnShapeChange(p_225533_2_, p_225533_3_, p_225533_1_, blockstate);
+                    return ActionResultType.SUCCESS;
+                }
+            }
+
+            return ActionResultType.PASS;
+        }
+    }
+
+    private void updatesOnShapeChange(World p_235548_1_, BlockPos p_235548_2_, BlockState p_235548_3_, BlockState p_235548_4_) {
+        for(Direction direction : Direction.Plane.HORIZONTAL) {
+            BlockPos blockpos = p_235548_2_.relative(direction);
+            if (p_235548_3_.getValue(FACING_PROPERTY_MAP.get(direction)).isConnected() != p_235548_4_.getValue(FACING_PROPERTY_MAP.get(direction)).isConnected() && p_235548_1_.getBlockState(blockpos).isRedstoneConductor(p_235548_1_, blockpos)) {
+                p_235548_1_.updateNeighborsAtExceptFromFacing(blockpos, p_235548_4_.getBlock(), direction.getOpposite());
+            }
+        }
+    }
+
+    private BlockState getMissingConnections(IBlockReader p_235551_1_, BlockState p_235551_2_, BlockPos p_235551_3_) {
+        boolean flag = !p_235551_1_.getBlockState(p_235551_3_.above()).isRedstoneConductor(p_235551_1_, p_235551_3_);
+
+        for(Direction direction : Direction.Plane.HORIZONTAL) {
+            if (!p_235551_2_.getValue(FACING_PROPERTY_MAP.get(direction)).isConnected()) {
+                RedstoneSide redstoneside = this.recalculateSide(p_235551_1_, p_235551_3_, direction, flag);
+                p_235551_2_ = p_235551_2_.setValue(FACING_PROPERTY_MAP.get(direction), redstoneside);
+            }
+        }
+
+        return p_235551_2_;
+    }
+
+    private BlockState getConnectionState(IBlockReader p_235544_1_, BlockState p_235544_2_, BlockPos p_235544_3_) {
+        boolean flag = isDot(p_235544_2_);
+        p_235544_2_ = this.getMissingConnections(p_235544_1_, this.defaultBlockState(), p_235544_3_);
+        if (flag && isDot(p_235544_2_)) {
+            return p_235544_2_;
+        } else {
+            boolean flag1 = p_235544_2_.getValue(NORTH).isConnected();
+            boolean flag2 = p_235544_2_.getValue(SOUTH).isConnected();
+            boolean flag3 = p_235544_2_.getValue(EAST).isConnected();
+            boolean flag4 = p_235544_2_.getValue(WEST).isConnected();
+            boolean flag5 = !flag1 && !flag2;
+            boolean flag6 = !flag3 && !flag4;
+            if (!flag4 && flag5) {
+                p_235544_2_ = p_235544_2_.setValue(WEST, RedstoneSide.SIDE);
+            }
+
+            if (!flag3 && flag5) {
+                p_235544_2_ = p_235544_2_.setValue(EAST, RedstoneSide.SIDE);
+            }
+
+            if (!flag1 && flag6) {
+                p_235544_2_ = p_235544_2_.setValue(NORTH, RedstoneSide.SIDE);
+            }
+
+            if (!flag2 && flag6) {
+                p_235544_2_ = p_235544_2_.setValue(SOUTH, RedstoneSide.SIDE);
+            }
+
+            return p_235544_2_;
+        }
+    }
+
+    private static boolean isCross(BlockState p_235555_0_) {
+        return p_235555_0_.getValue(NORTH).isConnected() && p_235555_0_.getValue(SOUTH).isConnected() && p_235555_0_.getValue(EAST).isConnected() && p_235555_0_.getValue(WEST).isConnected();
+    }
+
+    private static boolean isDot(BlockState p_235556_0_) {
+        return !p_235556_0_.getValue(NORTH).isConnected() && !p_235556_0_.getValue(SOUTH).isConnected() && !p_235556_0_.getValue(EAST).isConnected() && !p_235556_0_.getValue(WEST).isConnected();
     }
 
     @Override

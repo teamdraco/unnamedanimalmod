@@ -7,7 +7,7 @@
       "model": "unnamedanimalmod:block/mud_brick_slab"
     },
     "type=double": {
-      "model": "unnamedanimalmod:block/mud_brick"
+      "model": "unnamedanimalmod:block/mud_bricks"
     }
   }
 }

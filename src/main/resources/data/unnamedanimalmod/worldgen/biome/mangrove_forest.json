@@ -8,11 +8,12 @@
       "offset": 2.0
     },
     "grass_color_modifier": "none",
-    "sky_color": 7907327,
-    "foliage_color": 6336574,
+    "sky_color": 10865067,
+    "foliage_color": 8242525,
+    "grass_color": 8242525,
     "fog_color": 12638463,
-    "water_color": 3586497,
-    "water_fog_color": 2124666
+    "water_color": 6012586,
+    "water_fog_color": 4696184
   },
   "surface_builder": "unnamedanimalmod:mangrove",
   "carvers": {

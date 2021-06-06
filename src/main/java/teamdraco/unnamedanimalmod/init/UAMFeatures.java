@@ -18,12 +18,12 @@ import static net.minecraft.world.gen.feature.Feature.DISK;
 import static net.minecraft.world.gen.feature.NoFeatureConfig.INSTANCE;
 
 public class UAMFeatures {
-    public static final DeferredRegister<Feature<?>> REGISTRY = DeferredRegister.create(ForgeRegistries.FEATURES, UnnamedAnimalMod.MOD_ID);
+    public static final DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(ForgeRegistries.FEATURES, UnnamedAnimalMod.MOD_ID);
 
     public static final Feature<NoFeatureConfig> WATER_TREE = new MangroveWaterTreeFeature();
     public static final Feature<NoFeatureConfig> LAND_TREE = new MangroveLandTreeFeature();
-    public static final RegistryObject<Feature<NoFeatureConfig>> WATER_TREE_FEATURE = REGISTRY.register("submerged_mangrove_tree", ()-> WATER_TREE);
-    public static final RegistryObject<Feature<NoFeatureConfig>> LAND_TREE_FEATURE = REGISTRY.register("mangrove_tree", ()-> LAND_TREE);
+    public static final RegistryObject<Feature<NoFeatureConfig>> WATER_TREE_FEATURE = FEATURES.register("submerged_mangrove_tree", ()-> WATER_TREE);
+    public static final RegistryObject<Feature<NoFeatureConfig>> LAND_TREE_FEATURE = FEATURES.register("mangrove_tree", ()-> LAND_TREE);
 
     static {
         Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, UnnamedAnimalMod.MOD_ID + ":" + "mangrove_tree_feature", LAND_TREE.configured(INSTANCE).decorated(Features.Placements.HEIGHTMAP_SQUARE).decorated(Placement.COUNT_EXTRA.configured(new AtSurfaceWithExtraConfig(2, 0.5F, 1))));

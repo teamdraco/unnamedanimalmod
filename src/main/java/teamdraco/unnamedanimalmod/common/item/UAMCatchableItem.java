@@ -6,14 +6,8 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.item.BucketItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUseContext;
-import net.minecraft.item.Items;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
+import net.minecraft.item.*;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
@@ -23,14 +17,14 @@ import javax.annotation.Nullable;
 import java.util.Objects;
 import java.util.function.Supplier;
 
-import net.minecraft.item.Item.Properties;
-
-public class UAMBowltem extends BucketItem {
+public class UAMCatchableItem extends BucketItem {
     private final Supplier<EntityType<?>> entityType;
+    private final Item item1;
 
-    public UAMBowltem(Supplier<EntityType<?>> entityType, Properties properties) {
+    public UAMCatchableItem(Supplier<EntityType<?>> entityType, Item item, Properties properties) {
         super(Fluids.EMPTY, properties);
         this.entityType = entityType;
+        this.item1 = item;
     }
 
     public ActionResultType useOn(ItemUseContext context) {
@@ -52,11 +46,12 @@ public class UAMBowltem extends BucketItem {
                 blockpos1 = blockpos.relative(direction);
             }
             Supplier<EntityType<?>> entitytype = entityType;
+            Item item = item1;
             Entity entityType = entitytype.get().spawn((ServerWorld) world, itemstack, context.getPlayer(), blockpos1, SpawnReason.BUCKET, true, !Objects.equals(blockpos, blockpos1) && direction == Direction.UP);
             if (entityType != null) {
                 if(!context.getPlayer().abilities.instabuild) {
                     itemstack.shrink(1);
-                    context.getPlayer().addItem(new ItemStack(Items.BOWL));
+                    context.getPlayer().addItem(new ItemStack(item));
                 }
 
                 playEmptySound(context.getPlayer(), world, blockpos);

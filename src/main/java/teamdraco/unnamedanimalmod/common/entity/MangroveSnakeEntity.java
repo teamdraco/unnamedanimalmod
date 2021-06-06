@@ -2,6 +2,7 @@ package teamdraco.unnamedanimalmod.common.entity;
 
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.world.server.ServerWorld;
+import teamdraco.unnamedanimalmod.init.UAMEntities;
 import teamdraco.unnamedanimalmod.init.UAMItems;
 import teamdraco.unnamedanimalmod.init.UAMSounds;
 import net.minecraft.block.Blocks;
@@ -98,7 +99,7 @@ public class MangroveSnakeEntity extends AnimalEntity {
     @Nullable
     @Override
     public AgeableEntity getBreedOffspring(ServerWorld p_241840_1_, AgeableEntity p_241840_2_) {
-        return null;
+        return UAMEntities.MANGROVE_SNAKE.get().create(p_241840_1_);
     }
 
     @Override
@@ -114,7 +115,7 @@ public class MangroveSnakeEntity extends AnimalEntity {
 
     @Override
     public boolean isFood(ItemStack p_70877_1_) {
-        return false;
+        return p_70877_1_.getItem() == UAMItems.FROG_LEGS.get();
     }
 
     public int getVariant() {

@@ -173,7 +173,7 @@ public class CapybaraEntity extends TameableEntity implements INamedContainerPro
         this.checkInsideBlocks();
         if (getPassengers().isEmpty()) {
             for (Entity e : level.getEntities(this, getBoundingBox().inflate(0.5))) {
-                if (e instanceof MobEntity && e.getBbWidth() <= 0.75f && e.getBbHeight() <= 0.75f && !this.isBaby()) {
+                if (e instanceof MobEntity && e.getBbWidth() <= 0.75f && e.getBbHeight() <= 0.75f && !this.isBaby() && ((MobEntity) e).getMobType() != CreatureAttribute.WATER) {
                     e.startRiding(this);
                 }
             }
