@@ -11,8 +11,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.Collections;
 
-@OnlyIn(Dist.CLIENT)
-public class CapybaraModel<T extends Entity> extends AgeableModel<CapybaraEntity> {
+public class CapybaraModel extends AgeableModel<CapybaraEntity> {
     public ModelRenderer body;
     public ModelRenderer rightBackLeg;
     public ModelRenderer leftBackLeg;
@@ -81,7 +80,7 @@ public class CapybaraModel<T extends Entity> extends AgeableModel<CapybaraEntity
 
     @Override
     protected Iterable<ModelRenderer> headParts() {
-        return Collections.EMPTY_LIST;
+        return Collections.emptyList();
     }
 
     @Override

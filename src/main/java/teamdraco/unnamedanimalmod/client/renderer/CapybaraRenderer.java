@@ -12,12 +12,12 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class CapybaraRenderer extends MobRenderer<CapybaraEntity, CapybaraModel<CapybaraEntity>> {
+public class CapybaraRenderer extends MobRenderer<CapybaraEntity, CapybaraModel> {
     private static final ResourceLocation TEXTURE = new ResourceLocation(UnnamedAnimalMod.MOD_ID, "textures/entity/capybara/capybara.png");
     private static final ResourceLocation MARIO = new ResourceLocation(UnnamedAnimalMod.MOD_ID, "textures/entity/capybara/mario.png");
 
     public CapybaraRenderer(EntityRendererManager renderManagerIn) {
-        super(renderManagerIn, new CapybaraModel<>(), 0.5F);
+        super(renderManagerIn, new CapybaraModel(), 0.5F);
         addLayer(new CapybaraChestLayer(this));
     }
 

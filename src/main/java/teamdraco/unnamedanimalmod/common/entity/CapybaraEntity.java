@@ -1,5 +1,8 @@
 package teamdraco.unnamedanimalmod.common.entity;
 
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import teamdraco.unnamedanimalmod.common.entity.util.ai.CapybaraAnimalAttractionGoal;
 import teamdraco.unnamedanimalmod.init.UAMEntities;
 import teamdraco.unnamedanimalmod.init.UAMItems;
@@ -46,6 +49,7 @@ public class CapybaraEntity extends TameableEntity implements INamedContainerPro
         Stream<IItemProvider> stream = Stream.of(Blocks.MELON, Items.APPLE, Items.SUGAR_CANE, Items.MELON_SLICE, UAMItems.MANGROVE_FRUIT.get());
         return stream.map(IItemProvider::asItem).collect(Collectors.toSet());
     });
+    private static final DataParameter<Integer> CHESTS = EntityDataManager.defineId(CapybaraEntity.class, DataSerializers.INT);
     public IInventory inventory;
 
     public CapybaraEntity(EntityType<? extends CapybaraEntity> type, World worldIn) {
@@ -65,6 +69,12 @@ public class CapybaraEntity extends TameableEntity implements INamedContainerPro
         this.goalSelector.addGoal(7, new LookAtGoal(this, PlayerEntity.class, 6.0F));
         this.goalSelector.addGoal(8, new LookRandomlyGoal(this));
         this.goalSelector.addGoal(9, new CapybaraAnimalAttractionGoal(this));
+    }
+
+    @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        entityData.define(CHESTS, 0);
     }
 
     public static AttributeModifierMap.MutableAttribute createAttributes() {
@@ -104,6 +114,7 @@ public class CapybaraEntity extends TameableEntity implements INamedContainerPro
             if (stack.getItem() == Blocks.CHEST.asItem()) {
                 if (inventory == null || inventory.getContainerSize() < 27) {
                     inventory = new Inventory(27);
+                    entityData.set(CHESTS, 1);
                     return ActionResultType.sidedSuccess(this.level.isClientSide);
                 }
                 else if (inventory.getContainerSize() < 54) {
@@ -112,6 +123,7 @@ public class CapybaraEntity extends TameableEntity implements INamedContainerPro
                         inv.setItem(i, inventory.getItem(i));
                     }
                     inventory = inv;
+                    entityData.set(CHESTS, 2);
                     return ActionResultType.sidedSuccess(this.level.isClientSide);
                 }
             }
@@ -238,6 +250,7 @@ public class CapybaraEntity extends TameableEntity implements INamedContainerPro
             for (int i = 0; i < inv.size(); i++) {
                 inventory.setItem(i, ItemStack.of(inv.getCompound(i)));
             }
+            entityData.set(CHESTS, inv.size() > 27 ? 2 : 1);
         }
     }
 
@@ -248,6 +261,10 @@ public class CapybaraEntity extends TameableEntity implements INamedContainerPro
             return null;
         }
         return inventory.getContainerSize() < 54 ? ChestContainer.threeRows(p_createMenu_1_, p_createMenu_2_, inventory) : ChestContainer.sixRows(p_createMenu_1_, p_createMenu_2_, inventory);
+    }
+
+    public int getChestCount() {
+        return entityData.get(CHESTS);
     }
 
     static class WaterPathNavigator extends GroundPathNavigator {
