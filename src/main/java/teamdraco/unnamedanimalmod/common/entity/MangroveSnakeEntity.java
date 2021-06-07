@@ -41,15 +41,16 @@ public class MangroveSnakeEntity extends AnimalEntity {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new PanicGoal(this, 1.5D));
-        this.goalSelector.addGoal(1, new LookRandomlyGoal(this));
-        this.goalSelector.addGoal(2, new RandomSwimmingGoal(this, 2.0D, 1) {
+        this.goalSelector.addGoal(1, new BreedGoal(this, 1.25D));
+        this.goalSelector.addGoal(2, new LookRandomlyGoal(this));
+        this.goalSelector.addGoal(3, new RandomSwimmingGoal(this, 2.0D, 1) {
             @Override
             public boolean canUse() {
                 return super.canUse() && isInWater();
             }
         });
-        this.goalSelector.addGoal(2, new MangroveSnakeEntity.WanderGoal(this, 1.0D, 10));
-        this.goalSelector.addGoal(3, new MangroveSnakeEntity.GoToWaterGoal(this, 1.0D));
+        this.goalSelector.addGoal(3, new MangroveSnakeEntity.WanderGoal(this, 1.0D, 10));
+        this.goalSelector.addGoal(4, new MangroveSnakeEntity.GoToWaterGoal(this, 1.0D));
     }
 
     @Override

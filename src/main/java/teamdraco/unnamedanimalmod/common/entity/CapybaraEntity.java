@@ -41,8 +41,6 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import net.minecraft.entity.AgeableEntity.AgeableData;
-
 public class CapybaraEntity extends TameableEntity implements INamedContainerProvider {
     private static final LazyValue<Set<IItemProvider>> TEMPT_ITEMS = new LazyValue<>(() -> {
         Stream<IItemProvider> stream = Stream.of(Blocks.MELON, Items.APPLE, Items.SUGAR_CANE, Items.MELON_SLICE, UAMItems.MANGROVE_FRUIT.get());
@@ -54,6 +52,7 @@ public class CapybaraEntity extends TameableEntity implements INamedContainerPro
         super(type, worldIn);
     }
 
+    @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new PanicGoal(this, 2.0D));
         this.goalSelector.addGoal(2, new BreedGoal(this, 1.0D));
@@ -98,6 +97,7 @@ public class CapybaraEntity extends TameableEntity implements INamedContainerPro
         this.playSound(SoundEvents.COW_STEP, 0.15F, 1.0F);
     }
 
+    @Override
     public ActionResultType mobInteract(PlayerEntity player, Hand hand) {
         final ItemStack stack = player.getItemInHand(hand);
         if (player.isShiftKeyDown()) {
@@ -149,14 +149,17 @@ public class CapybaraEntity extends TameableEntity implements INamedContainerPro
         return super.mobInteract(player, hand);
     }
 
+    @Override
     protected float getSoundVolume() {
         return 0.4F;
     }
 
+    @Override
     public CapybaraEntity getBreedOffspring(ServerWorld p_241840_1_, AgeableEntity p_241840_2_) {
         return UAMEntities.CAPYBARA.get().create(p_241840_1_);
     }
 
+    @Override
     protected float getStandingEyeHeight(Pose poseIn, EntitySize sizeIn) {
         return this.isBaby() ? 0.5F : 0.9F;
     }
@@ -190,6 +193,7 @@ public class CapybaraEntity extends TameableEntity implements INamedContainerPro
         return this.getPassengers().isEmpty() ? null : this.getPassengers().get(0);
     }
 
+    @Override
     public boolean canBeControlledByRider() {
         return false;
     }

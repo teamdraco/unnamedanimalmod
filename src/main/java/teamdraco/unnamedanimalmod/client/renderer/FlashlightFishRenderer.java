@@ -3,6 +3,7 @@ package teamdraco.unnamedanimalmod.client.renderer;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import teamdraco.unnamedanimalmod.UnnamedAnimalMod;
 import teamdraco.unnamedanimalmod.client.model.FlashlightFishModel;
+import teamdraco.unnamedanimalmod.client.renderer.layer.FlashlightFishGlowLayer;
 import teamdraco.unnamedanimalmod.common.entity.FlashlightFishEntity;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;

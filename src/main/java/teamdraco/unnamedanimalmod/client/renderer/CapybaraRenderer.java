@@ -3,6 +3,7 @@ package teamdraco.unnamedanimalmod.client.renderer;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import teamdraco.unnamedanimalmod.UnnamedAnimalMod;
 import teamdraco.unnamedanimalmod.client.model.CapybaraModel;
+import teamdraco.unnamedanimalmod.client.renderer.layer.CapybaraChestLayer;
 import teamdraco.unnamedanimalmod.common.entity.CapybaraEntity;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
@@ -13,30 +14,16 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 @OnlyIn(Dist.CLIENT)
 public class CapybaraRenderer extends MobRenderer<CapybaraEntity, CapybaraModel<CapybaraEntity>> {
     private static final ResourceLocation TEXTURE = new ResourceLocation(UnnamedAnimalMod.MOD_ID, "textures/entity/capybara/capybara.png");
-    private static final ResourceLocation SINGLE_CHEST = new ResourceLocation(UnnamedAnimalMod.MOD_ID, "textures/entity/capybara/single_chest.png");
-    private static final ResourceLocation DOUBLE_CHEST = new ResourceLocation(UnnamedAnimalMod.MOD_ID, "textures/entity/capybara/double_chest.png");
     private static final ResourceLocation MARIO = new ResourceLocation(UnnamedAnimalMod.MOD_ID, "textures/entity/capybara/mario.png");
-    private static final ResourceLocation MARIO_SINGLE_CHEST = new ResourceLocation(UnnamedAnimalMod.MOD_ID, "textures/entity/capybara/mario_single_chest.png");
-    private static final ResourceLocation MARIO_DOUBLE_CHEST = new ResourceLocation(UnnamedAnimalMod.MOD_ID, "textures/entity/capybara/mario_double_chest.png");
 
     public CapybaraRenderer(EntityRendererManager renderManagerIn) {
         super(renderManagerIn, new CapybaraModel<>(), 0.5F);
+        addLayer(new CapybaraChestLayer(this));
     }
 
+    @Override
     public ResourceLocation getTextureLocation(CapybaraEntity entity) {
-        if (entity.inventory != null && entity.inventory.getContainerSize() / 27 == 1 && !entity.getName().getString().equals("Mario")) {
-            return SINGLE_CHEST;
-        }
-        else if (entity.inventory != null && entity.inventory.getContainerSize() / 27 == 2 && !entity.getName().getString().equals("Mario")) {
-            return DOUBLE_CHEST;
-        }
-        else if (entity.inventory != null && entity.inventory.getContainerSize() / 27 == 1 && entity.getName().getString().equals("Mario")) {
-            return MARIO_SINGLE_CHEST;
-        }
-        else if (entity.inventory != null && entity.inventory.getContainerSize() / 27 == 2 && entity.getName().getString().equals("Mario")) {
-            return MARIO_DOUBLE_CHEST;
-        }
-        else if (entity.getName().getString().equals("Mario")) {
+        if (entity.getName().getString().equals("Mario")) {
             return MARIO;
         }
         return TEXTURE;

@@ -1,5 +1,10 @@
 package teamdraco.unnamedanimalmod.common.entity;
 
+import net.minecraft.entity.ILivingEntityData;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.IServerWorld;
+import teamdraco.unnamedanimalmod.init.UAMEntities;
 import teamdraco.unnamedanimalmod.init.UAMItems;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;

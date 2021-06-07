@@ -3,6 +3,7 @@ package teamdraco.unnamedanimalmod.client.renderer;
 import com.google.common.collect.Maps;
 import teamdraco.unnamedanimalmod.UnnamedAnimalMod;
 import teamdraco.unnamedanimalmod.client.model.MarineIguanaModel;
+import teamdraco.unnamedanimalmod.client.renderer.layer.MarineIguanaGlowLayer;
 import teamdraco.unnamedanimalmod.common.entity.MarineIguanaEntity;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
