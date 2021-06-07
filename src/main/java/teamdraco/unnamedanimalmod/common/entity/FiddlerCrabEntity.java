@@ -13,12 +13,15 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.IServerWorld;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
@@ -29,6 +32,7 @@ import javax.annotation.Nullable;
 import java.util.Random;
 
 public class FiddlerCrabEntity extends AnimalEntity {
+    private static final DataParameter<Integer> VARIANT = EntityDataManager.defineId(FiddlerCrabEntity.class, DataSerializers.INT);
     private static final DataParameter<Boolean> FROM_BUCKET = EntityDataManager.defineId(FiddlerCrabEntity.class, DataSerializers.BOOLEAN);
 
     public FiddlerCrabEntity(EntityType<? extends AnimalEntity> type, World worldIn) {
@@ -52,6 +56,32 @@ public class FiddlerCrabEntity extends AnimalEntity {
         this.playSound(SoundEvents.ENDERMITE_STEP, 0.15F, 1.0F);
     }
 
+    public int getVariant() {
+        return this.entityData.get(VARIANT);
+    }
+
+    private void setVariant(int variant) {
+        this.entityData.set(VARIANT, variant);
+    }
+
+    @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(VARIANT, 0);
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundNBT compound) {
+        super.addAdditionalSaveData(compound);
+        compound.putInt("Variant", getVariant());
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundNBT compound) {
+        super.readAdditionalSaveData(compound);
+        setVariant(compound.getInt("Variant"));
+    }
+
     @Override
     protected float getWaterSlowDown() {
         return 0.99F;
@@ -69,6 +99,7 @@ public class FiddlerCrabEntity extends AnimalEntity {
         return UAMSounds.FIDDLER_CRAB_DEATH.get();
     }
 
+    @Override
     protected float getStandingEyeHeight(Pose pose, EntitySize size) {
         return 0.3F;
     }
@@ -116,5 +147,17 @@ public class FiddlerCrabEntity extends AnimalEntity {
             return ActionResultType.SUCCESS;
         }
         return super.mobInteract(player, hand);
+    }
+
+    @Nullable
+    @Override
+    public ILivingEntityData finalizeSpawn(IServerWorld p_213386_1_, DifficultyInstance p_213386_2_, SpawnReason p_213386_3_, @Nullable ILivingEntityData p_213386_4_, @Nullable CompoundNBT nbt) {
+        if (nbt == null) {
+            setVariant(random.nextInt(20));
+        }
+        else if (nbt.contains("Variant", 3)) {
+            this.setVariant(nbt.getInt("Variant"));
+        }
+        return super.finalizeSpawn(p_213386_1_, p_213386_2_, p_213386_3_, p_213386_4_, nbt);
     }
 }

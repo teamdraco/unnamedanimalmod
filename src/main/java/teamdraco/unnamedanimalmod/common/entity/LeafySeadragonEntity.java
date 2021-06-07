@@ -83,11 +83,6 @@ public class LeafySeadragonEntity extends AbstractFishEntity {
         return super.finalizeSpawn(p_213386_1_, p_213386_2_, p_213386_3_, p_213386_4_, nbt);
     }
 
-    protected void setBucketData(ItemStack bucket) {
-        CompoundNBT compoundnbt = bucket.getOrCreateTag();
-        compoundnbt.putInt("BucketVariantTag", this.getVariant());
-    }
-
     @Override
     protected ItemStack getBucketItemStack() {
         return new ItemStack(UAMItems.LEAFY_SEADRAGON_BUCKET.get());

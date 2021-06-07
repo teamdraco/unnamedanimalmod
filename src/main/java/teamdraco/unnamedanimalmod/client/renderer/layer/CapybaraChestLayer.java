@@ -29,7 +29,7 @@ public class CapybaraChestLayer extends LayerRenderer<CapybaraEntity, CapybaraMo
             model.setupAnim(entity, p_225628_5_, p_225628_6_, p_225628_8_, p_225628_9_, p_225628_10_);
             IVertexBuilder ivertexbuilderSingle = p_225628_2_.getBuffer(RenderType.entityCutoutNoCull(SINGLE_CHEST));
             IVertexBuilder ivertexbuilderDouble = p_225628_2_.getBuffer(RenderType.entityCutoutNoCull(DOUBLE_CHEST));
-            if (entity.inventory != null && entity.hasChest()) {
+            if (entity.inventory != null && entity.inventory.getContainerSize() / 27 == 1) {
                 model.renderToBuffer(p_225628_1_, ivertexbuilderSingle, p_225628_3_, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
             }
             if (entity.inventory != null && entity.inventory.getContainerSize() / 27 == 2) {
