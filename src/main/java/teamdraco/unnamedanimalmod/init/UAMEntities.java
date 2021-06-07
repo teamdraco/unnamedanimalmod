@@ -33,7 +33,7 @@ public class UAMEntities {
     public static final RegistryObject<EntityType<MangroveSnakeEntity>> MANGROVE_SNAKE = create("mangrove_snake", EntityType.Builder.of(MangroveSnakeEntity::new, EntityClassification.WATER_AMBIENT).sized(1.0f, 0.3f));
     // public static final RegistryObject<EntityType<BlubberJellyEntity>> BLUBBER_JELLY = create("blubber_jelly", EntityType.Builder.create(BlubberJellyEntity::new, EntityClassification.WATER_AMBIENT).size(0.4f, 0.25f));
     public static final RegistryObject<EntityType<FiddlerCrabEntity>> FIDDLER_CRAB = create("fiddler_crab", EntityType.Builder.of(FiddlerCrabEntity::new, EntityClassification.CREATURE).sized(0.65f, 0.325f));
-    public static final RegistryObject<EntityType<LeafySeadragonEntity>> LEAFY_SEA_DRAGON = create("leafy_sea_dragon", EntityType.Builder.of(LeafySeadragonEntity::new, EntityClassification.WATER_AMBIENT).sized(0.5f, 0.3f));
+    public static final RegistryObject<EntityType<LeafySeadragonEntity>> LEAFY_SEA_DRAGON = create("leafy_sea_dragon", EntityType.Builder.of(LeafySeadragonEntity::new, EntityClassification.WATER_AMBIENT).sized(0.4f, 0.3f));
     public static final RegistryObject<EntityType<SpottedGardenEelEntity>> SPOTTED_GARDEN_EEL = create("spotted_garden_eel", EntityType.Builder.of(SpottedGardenEelEntity::new, EntityClassification.WATER_CREATURE).sized(0.35f, 0.35f));
 
     public static final RegistryObject<EntityType<GreaterPrairieChickenEggEntity>> GREATER_PRAIRIE_CHICKEN_EGG = create("greater_prairie_chicken_egg", EntityType.Builder.<GreaterPrairieChickenEggEntity>of(GreaterPrairieChickenEggEntity::new, EntityClassification.MISC).sized(0.25f, 0.25f));
