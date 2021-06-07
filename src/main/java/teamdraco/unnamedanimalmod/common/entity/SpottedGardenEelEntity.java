@@ -1,7 +1,6 @@
 package teamdraco.unnamedanimalmod.common.entity;
 
 import net.minecraft.entity.passive.fish.AbstractFishEntity;
-import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
@@ -9,9 +8,7 @@ import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.controller.MovementController;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
@@ -33,7 +30,6 @@ import java.util.EnumSet;
 
 public class SpottedGardenEelEntity extends AbstractFishEntity {
     private static final DataParameter<Boolean> HIDDEN = EntityDataManager.defineId(SpottedGardenEelEntity.class, DataSerializers.BOOLEAN);
-    private static final DataParameter<Boolean> FROM_BUCKET = EntityDataManager.defineId(SpottedGardenEelEntity.class, DataSerializers.BOOLEAN);
     private static final String HIDDEN_DATA = "Hidden";
 
     public SpottedGardenEelEntity(EntityType<? extends SpottedGardenEelEntity> type, World world) {
@@ -64,7 +60,6 @@ public class SpottedGardenEelEntity extends AbstractFishEntity {
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(HIDDEN, false);
-        this.entityData.define(FROM_BUCKET, false);
     }
 
     @Override
@@ -76,22 +71,12 @@ public class SpottedGardenEelEntity extends AbstractFishEntity {
     public void readAdditionalSaveData(CompoundNBT compound) {
         super.readAdditionalSaveData(compound);
         this.setBurrowed(compound.getBoolean(HIDDEN_DATA));
-        this.setFromBucket(compound.getBoolean("FromBucket"));
     }
 
     @Override
     public void addAdditionalSaveData(CompoundNBT compound) {
         super.addAdditionalSaveData(compound);
         compound.putBoolean(HIDDEN_DATA, false);
-        compound.putBoolean("FromBucket", this.isFromBucket());
-    }
-
-    private boolean isFromBucket() {
-        return this.entityData.get(FROM_BUCKET);
-    }
-
-    public void setFromBucket(boolean p_203706_1_) {
-        this.entityData.set(FROM_BUCKET, p_203706_1_);
     }
 
     public boolean isHidden() {
@@ -146,13 +131,6 @@ public class SpottedGardenEelEntity extends AbstractFishEntity {
         return MobEntity.createMobAttributes().add(Attributes.MAX_HEALTH, 8.0D).add(Attributes.KNOCKBACK_RESISTANCE, 10.0D).add(Attributes.MOVEMENT_SPEED, 0.7D);
     }
 
-/*
-    @Override
-    protected float getStandingEyeHeight(Pose poseIn, EntitySize sizeIn) {
-        return isHidden() ? 0.65f : 0.1F;
-    }
-*/
-
     @Override
     public float getEyeHeight(Pose p_213307_1_) {
         return isHidden() ? 0.65F : 0.1F;
@@ -165,6 +143,7 @@ public class SpottedGardenEelEntity extends AbstractFishEntity {
         return spawnDataIn;
     }
 
+    @Override
     public void travel(Vector3d travelVector) {
         if (this.isEffectiveAi() && this.isInWater()) {
             this.moveRelative(0.01F, travelVector);

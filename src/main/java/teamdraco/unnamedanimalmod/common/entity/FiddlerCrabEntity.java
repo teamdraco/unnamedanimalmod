@@ -119,6 +119,8 @@ public class FiddlerCrabEntity extends AnimalEntity {
         if (this.hasCustomName()) {
             bucket.setHoverName(this.getCustomName());
         }
+        CompoundNBT compoundnbt = bucket.getOrCreateTag();
+        compoundnbt.putInt("Variant", this.getVariant());
     }
 
     @Override
@@ -130,7 +132,7 @@ public class FiddlerCrabEntity extends AnimalEntity {
     public ActionResultType mobInteract(PlayerEntity player, Hand hand) {
         ItemStack heldItem = player.getItemInHand(hand);
 
-        if (heldItem.getItem() == Items.BUCKET && this.isAlive() && !this.isBaby()) {
+        if (heldItem.getItem() == Items.WATER_BUCKET && this.isAlive() && !this.isBaby()) {
             playSound(SoundEvents.ITEM_FRAME_ADD_ITEM, 1.0F, 1.0F);
             heldItem.shrink(1);
             ItemStack itemstack1 = new ItemStack(UAMItems.FIDDLER_CRAB_BUCKET.get());

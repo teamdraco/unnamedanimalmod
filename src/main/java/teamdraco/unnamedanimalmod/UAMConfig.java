@@ -71,7 +71,7 @@ public class UAMConfig {
             bananaSlugSpawnWeight = builder.comment("Spawn weight of Banana Slugs").defineInRange("banana_slug_spawn_weight", 45, 1, 1000);
             platypusSpawnWeight = builder.comment("Spawn weight of Platypuses").defineInRange("platypus_spawn_weight", 5, 1, 1000);
             pacmanFrogSpawnWeight = builder.comment("Spawn weight of Pacman Frogs").defineInRange("pacman_spawn_weight", 2, 1, 1000);
-            leafySeadragonSpawnWeight = builder.comment("Spawn weight of Leafy Seadragons").defineInRange("leafy_seadragon_spawn_weight", 6, 1, 1000);
+            leafySeadragonSpawnWeight = builder.comment("Spawn weight of Leafy Seadragons").defineInRange("leafy_seadragon_spawn_weight", 3, 1, 1000);
             builder.pop();
         }
 

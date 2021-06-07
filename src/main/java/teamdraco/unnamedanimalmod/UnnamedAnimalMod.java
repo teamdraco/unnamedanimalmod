@@ -63,7 +63,7 @@ public class UnnamedAnimalMod {
         EntitySpawnPlacementRegistry.register(UAMEntities.FIDDLER_CRAB.get(), EntitySpawnPlacementRegistry.PlacementType.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AnimalEntity::checkAnimalSpawnRules);
         EntitySpawnPlacementRegistry.register(UAMEntities.LEAFY_SEA_DRAGON.get(), EntitySpawnPlacementRegistry.PlacementType.IN_WATER, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, LeafySeadragonEntity::checkFishSpawnRules);
         EntitySpawnPlacementRegistry.register(UAMEntities.HUMPHEAD_PARROTFISH.get(), EntitySpawnPlacementRegistry.PlacementType.IN_WATER, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, HumpheadParrotfishEntity::checkFishSpawnRules);
-        EntitySpawnPlacementRegistry.register(UAMEntities.SPOTTED_GARDEN_EEL.get(), EntitySpawnPlacementRegistry.PlacementType.IN_WATER, Heightmap.Type.OCEAN_FLOOR, AbstractFishEntity::checkFishSpawnRules);
+        EntitySpawnPlacementRegistry.register(UAMEntities.SPOTTED_GARDEN_EEL.get(), EntitySpawnPlacementRegistry.PlacementType.IN_WATER, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AbstractFishEntity::checkFishSpawnRules);
     }
 
     private void registerEntityAttributes(EntityAttributeCreationEvent event) {
