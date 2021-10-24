@@ -1,6 +1,8 @@
 package teamdraco.unnamedanimalmod.client.renderer;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.entity.model.EntityModel;
 import teamdraco.unnamedanimalmod.UnnamedAnimalMod;
 import teamdraco.unnamedanimalmod.client.model.CapybaraModel;
 import teamdraco.unnamedanimalmod.client.renderer.layer.CapybaraChestLayer;

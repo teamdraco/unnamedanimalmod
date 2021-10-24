@@ -18,8 +18,7 @@ import java.util.function.Supplier;
 
 import static teamdraco.unnamedanimalmod.UnnamedAnimalMod.MOD_ID;
 
-public class UAMBiomes
-{
+public class UAMBiomes {
     
     public static final DeferredRegister<Biome> BIOMES = DeferredRegister.create(ForgeRegistries.BIOMES, UnnamedAnimalMod.MOD_ID);
     
@@ -36,8 +35,7 @@ public class UAMBiomes
     
     public static final DeferredRegister<SurfaceBuilder<?>> BUILDERS = DeferredRegister.create(ForgeRegistries.SURFACE_BUILDERS, UnnamedAnimalMod.MOD_ID);
     
-    static
-    {
+    static {
         BUILDERS.register("mangrove", () -> new DefaultSurfaceBuilder(SurfaceBuilderConfig.CODEC));
     }
 }

@@ -169,7 +169,7 @@
       },
       {
         "type": "unnamedanimalmod:fiddler_crab",
-        "weight": 20,
+        "weight": 30,
         "minCount": 1,
         "maxCount": 2
       }
@@ -188,6 +188,12 @@
         "weight": 4,
         "minCount": 1,
         "maxCount": 2
+      },
+      {
+        "type": "unnamedanimalmod:mudskipper",
+        "weight": 1,
+        "minCount": 1,
+        "maxCount": 1
       }
     ],
     "water_ambient": [

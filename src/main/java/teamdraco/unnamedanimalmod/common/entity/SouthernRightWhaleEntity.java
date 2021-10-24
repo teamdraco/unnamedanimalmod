@@ -165,7 +165,7 @@ public class SouthernRightWhaleEntity extends AnimalEntity {
     }
 
     public static boolean checkWhaleSpawnRules(EntityType<SouthernRightWhaleEntity> p_223364_0_, IWorld p_223364_1_, SpawnReason reason, BlockPos p_223364_3_, Random p_223364_4_) {
-        return p_223364_1_.getRandom().nextFloat() > 0.8F;
+        return p_223364_1_.getRandom().nextFloat() > 0.99F && p_223364_1_.getBlockState(p_223364_3_.below()).is(Blocks.WATER);
     }
 
     @Override

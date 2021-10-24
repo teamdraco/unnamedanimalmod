@@ -57,6 +57,13 @@ public class LeafySeadragonEntity extends AbstractFishEntity {
     }
 
     @Override
+    protected void saveToBucketTag(ItemStack bucket) {
+        super.saveToBucketTag(bucket);
+        CompoundNBT compoundnbt = bucket.getOrCreateTag();
+        compoundnbt.putInt("Variant", this.getVariant());
+    }
+
+    @Override
     public ItemStack getPickedResult(RayTraceResult result) {
         return new ItemStack(UAMItems.LEAFY_SEADRAGON_SPAWN_EGG.get());
     }
@@ -76,8 +83,8 @@ public class LeafySeadragonEntity extends AbstractFishEntity {
             }
         }
         else {
-            if (nbt.contains("BucketVariantTag", 3)) {
-                this.setVariant(nbt.getInt("BucketVariantTag"));
+            if (nbt.contains("Variant", 3)) {
+                this.setVariant(nbt.getInt("Variant"));
             }
         }
         return super.finalizeSpawn(p_213386_1_, p_213386_2_, p_213386_3_, p_213386_4_, nbt);

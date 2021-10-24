@@ -136,8 +136,8 @@ public class MarineIguanaEntity extends AnimalEntity {
         if (dataTag == null) {
             setVariant(random.nextInt(4));
         } else {
-            if (dataTag.contains("BucketVariantTag", 3)){
-                this.setVariant(dataTag.getInt("BucketVariantTag"));
+            if (dataTag.contains("Variant", 3)){
+                this.setVariant(dataTag.getInt("Variant"));
             }
         }
         return spawnDataIn;
@@ -160,14 +160,14 @@ public class MarineIguanaEntity extends AnimalEntity {
     @Override
     public void addAdditionalSaveData(CompoundNBT compound) {
         super.addAdditionalSaveData(compound);
-        compound.putInt("BucketVariantTag", getVariant());
+        compound.putInt("Variant", getVariant());
         compound.putInt("SneezeTime", this.timeUntilNextSneeze);
     }
 
     @Override
     public void readAdditionalSaveData(CompoundNBT compound) {
         super.readAdditionalSaveData(compound);
-        setVariant(compound.getInt("BucketVariantTag"));
+        setVariant(compound.getInt("Variant"));
         if (compound.contains("SneezeTime")) {
             this.timeUntilNextSneeze = compound.getInt("SneezeTime");
         }
@@ -209,7 +209,7 @@ public class MarineIguanaEntity extends AnimalEntity {
 
     @Override
     protected float getSoundVolume() {
-        return 0.4F;
+        return 0.2F;
     }
 
     @Override

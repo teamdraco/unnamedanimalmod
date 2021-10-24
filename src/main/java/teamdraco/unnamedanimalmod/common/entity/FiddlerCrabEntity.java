@@ -33,7 +33,6 @@ import java.util.Random;
 
 public class FiddlerCrabEntity extends AnimalEntity {
     private static final DataParameter<Integer> VARIANT = EntityDataManager.defineId(FiddlerCrabEntity.class, DataSerializers.INT);
-    private static final DataParameter<Boolean> FROM_BUCKET = EntityDataManager.defineId(FiddlerCrabEntity.class, DataSerializers.BOOLEAN);
 
     public FiddlerCrabEntity(EntityType<? extends AnimalEntity> type, World worldIn) {
         super(type, worldIn);
@@ -149,6 +148,10 @@ public class FiddlerCrabEntity extends AnimalEntity {
             return ActionResultType.SUCCESS;
         }
         return super.mobInteract(player, hand);
+    }
+
+    public static boolean canCrabSpawn(EntityType<? extends FiddlerCrabEntity> p_223363_0_, IWorld p_223363_1_, SpawnReason p_223363_2_, BlockPos p_223363_3_, Random p_223363_4_) {
+        return p_223363_1_.getBlockState(p_223363_3_.below()).is(Blocks.WATER);
     }
 
     @Nullable

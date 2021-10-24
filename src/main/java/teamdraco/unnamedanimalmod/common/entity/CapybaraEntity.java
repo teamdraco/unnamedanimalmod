@@ -1,5 +1,6 @@
 package teamdraco.unnamedanimalmod.common.entity;
 
+import net.minecraft.entity.projectile.AbstractArrowEntity;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
@@ -59,16 +60,17 @@ public class CapybaraEntity extends TameableEntity implements INamedContainerPro
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new PanicGoal(this, 2.0D));
-        this.goalSelector.addGoal(2, new BreedGoal(this, 1.0D));
-        this.goalSelector.addGoal(3, new TemptGoal(this, 1.25D, Ingredient.of(TEMPT_ITEMS.get().toArray(new IItemProvider[0])), false));
-        this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.25D));
-        this.goalSelector.addGoal(5, new RandomWalkingGoal(this, 1.0D));
-        this.goalSelector.addGoal(6, new FollowOwnerGoal(this, 1.0D, 10.0F, 2.0F, false));
-        this.goalSelector.addGoal(6, new LookAtGoal(this, PlayerEntity.class, 6.0F));
-        this.goalSelector.addGoal(7, new LookRandomlyGoal(this));
+        this.goalSelector.addGoal(2, new SitGoal(this));
+        this.goalSelector.addGoal(3, new BreedGoal(this, 1.0D));
+        this.goalSelector.addGoal(4, new TemptGoal(this, 1.25D, Ingredient.of(TEMPT_ITEMS.get().toArray(new IItemProvider[0])), false));
+        this.goalSelector.addGoal(5, new FollowParentGoal(this, 1.25D));
+        this.goalSelector.addGoal(6, new RandomWalkingGoal(this, 1.0D));
+        this.goalSelector.addGoal(7, new FollowOwnerGoal(this, 1.0D, 10.0F, 2.0F, false));
         this.goalSelector.addGoal(7, new LookAtGoal(this, PlayerEntity.class, 6.0F));
         this.goalSelector.addGoal(8, new LookRandomlyGoal(this));
-        this.goalSelector.addGoal(9, new CapybaraAnimalAttractionGoal(this));
+        this.goalSelector.addGoal(8, new LookAtGoal(this, PlayerEntity.class, 6.0F));
+        this.goalSelector.addGoal(9, new LookRandomlyGoal(this));
+        this.goalSelector.addGoal(10, new CapybaraAnimalAttractionGoal(this));
     }
 
     @Override
@@ -107,6 +109,20 @@ public class CapybaraEntity extends TameableEntity implements INamedContainerPro
         this.playSound(SoundEvents.COW_STEP, 0.15F, 1.0F);
     }
 
+    public boolean hurt(DamageSource p_70097_1_, float p_70097_2_) {
+        if (this.isInvulnerableTo(p_70097_1_)) {
+            return false;
+        } else {
+            Entity entity = p_70097_1_.getEntity();
+            this.setOrderedToSit(false);
+            if (entity != null && !(entity instanceof PlayerEntity) && !(entity instanceof AbstractArrowEntity)) {
+                p_70097_2_ = (p_70097_2_ + 1.0F) / 2.0F;
+            }
+
+            return super.hurt(p_70097_1_, p_70097_2_);
+        }
+    }
+
     @Override
     public ActionResultType mobInteract(PlayerEntity player, Hand hand) {
         final ItemStack stack = player.getItemInHand(hand);
@@ -115,6 +131,9 @@ public class CapybaraEntity extends TameableEntity implements INamedContainerPro
                 if (inventory == null || inventory.getContainerSize() < 27) {
                     inventory = new Inventory(27);
                     entityData.set(CHESTS, 1);
+                    if (!player.abilities.instabuild) {
+                        stack.shrink(1);
+                    }
                     return ActionResultType.sidedSuccess(this.level.isClientSide);
                 }
                 else if (inventory.getContainerSize() < 54) {
@@ -124,8 +143,14 @@ public class CapybaraEntity extends TameableEntity implements INamedContainerPro
                     }
                     inventory = inv;
                     entityData.set(CHESTS, 2);
+                    if (!player.abilities.instabuild) {
+                        stack.shrink(1);
+                    }
                     return ActionResultType.sidedSuccess(this.level.isClientSide);
                 }
+            }
+            if (stack.getItem() == Items.STICK) {
+                this.setOrderedToSit(!this.isOrderedToSit());
             }
             else {
                 player.openMenu(this);
@@ -140,12 +165,15 @@ public class CapybaraEntity extends TameableEntity implements INamedContainerPro
                 this.setOrderedToSit(true);
                 this.level.broadcastEntityEvent(this, (byte) 7);
             }
+            if (!player.abilities.instabuild) {
+                stack.shrink(1);
+            }
             else {
                 this.level.broadcastEntityEvent(this, (byte) 6);
             }
             return ActionResultType.sidedSuccess(this.level.isClientSide);
         }
-        else if (!this.isVehicle() && !player.isSecondaryUseActive() && !this.isBaby()) {
+        else if (!this.isVehicle() && !player.isSecondaryUseActive() && !this.isBaby() && !isInSittingPose()) {
             boolean flag = this.isFood(player.getItemInHand(hand));
             if (!flag && !this.isVehicle() && !player.isSecondaryUseActive()) {
                 if (!this.level.isClientSide) {
@@ -188,10 +216,13 @@ public class CapybaraEntity extends TameableEntity implements INamedContainerPro
         this.checkInsideBlocks();
         if (getPassengers().isEmpty()) {
             for (Entity e : level.getEntities(this, getBoundingBox().inflate(0.5))) {
-                if (e instanceof MobEntity && e.getBbWidth() <= 0.75f && e.getBbHeight() <= 0.75f && !this.isBaby() && ((MobEntity) e).getMobType() != CreatureAttribute.WATER) {
+                if (e instanceof MobEntity && e.getBbWidth() <= 0.75f && e.getBbHeight() <= 0.75f && !this.isBaby() && ((MobEntity) e).getMobType() != CreatureAttribute.WATER && !isInWater()) {
                     e.startRiding(this);
                 }
             }
+        }
+        else if (!getPassengers().isEmpty() && isInWater()) {
+            ejectPassengers();
         }
     }
 

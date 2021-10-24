@@ -55,6 +55,9 @@ public class PacmanFrogRenderer extends MobRenderer<PacmanFrogEntity, PacmanFrog
         if (!entity.isBaby()) {
             matrix.translate(-0.03,0, 0);
         }
+        else {
+            matrix.translate(0.0, 0.0, 0.15);
+        }
         if (entity.isHidden()) {
             matrix.translate(0, -0.3, 0);
             matrix.mulPose(Vector3f.XP.rotationDegrees(25));

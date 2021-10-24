@@ -39,7 +39,7 @@ public abstract class PacmanFrogModel<T extends Entity> extends SegmentedModel<P
     @Override
     public void setupAnim(PacmanFrogEntity entityIn, float f, float f1, float ageInTicks, float netHeadYaw, float headPitch) {
         if (this.young) {
-            this.tailTadpole.yRot = MathHelper.cos(2.0F + f * 1.0f * 0.3F) * 1.0f * 0.3F * f1;
+            this.tailTadpole.yRot = MathHelper.cos(2.0F + f * 1.0f * 0.3F) * 1.5f * 0.65F * f1;
         }
         else {
             float speed = 1.0f;
@@ -102,14 +102,14 @@ public abstract class PacmanFrogModel<T extends Entity> extends SegmentedModel<P
     public static class Child extends PacmanFrogModel {
         @Override
         protected void setAngles() {
-            this.texWidth = 10;
-            this.texHeight = 7;
-            this.tailTadpole = new ModelRenderer(this, 1, 2);
-            this.tailTadpole.setPos(0.0F, 0.0F, 1.5F);
-            this.tailTadpole.addBox(0.0F, -1.0F, 0.0F, 0.0F, 2.0F, 3.0F, 0.0F, 0.0F, 0.0F);
+            this.texWidth = 16;
+            this.texHeight = 16;
             this.bodyTadpole = new ModelRenderer(this, 0, 0);
-            this.bodyTadpole.setPos(0.0F, 23.0F, -1.0F);
-            this.bodyTadpole.addBox(-1.0F, -1.0F, -1.5F, 2.0F, 2.0F, 3.0F, 0.0F, 0.0F, 0.0F);
+            this.bodyTadpole.setPos(0.0F, 22.5F, -2.0F);
+            this.bodyTadpole.addBox(-2.0F, -1.5F, -2.0F, 4.0F, 3.0F, 4.0F, 0.0F, 0.0F, 0.0F);
+            this.tailTadpole = new ModelRenderer(this, 0, 2);
+            this.tailTadpole.setPos(0.0F, 0.0F, 2.0F);
+            this.tailTadpole.addBox(0.0F, -1.5F, 0.0F, 0.0F, 3.0F, 5.0F, 0.0F, 0.0F, 0.0F);
             this.bodyTadpole.addChild(this.tailTadpole);
         }
     }

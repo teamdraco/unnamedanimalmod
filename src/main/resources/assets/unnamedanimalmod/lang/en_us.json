@@ -32,6 +32,7 @@
   "item.unnamedanimalmod.fiddler_crab_bucket": "Bucket of Fiddler Crab",
   "item.unnamedanimalmod.leafy_seadragon_bucket": "Bucket of Leafy Seadragon",
   "item.unnamedanimalmod.spotted_garden_eel_bucket": "Bucket of Spotted Garden Eel",
+  "item.unnamedanimalmod.mudskipper_bucket": "Bucket of Mudskipper",
 
   "item.unnamedanimalmod.platypus_egg": "Platypus Egg",
   "item.unnamedanimalmod.tomato_frog_egg": "Tomato Frog Egg",
@@ -59,6 +60,7 @@
   "item.unnamedanimalmod.fiddler_crab_spawn_egg": "Fiddler Crab Spawn Egg",
   "item.unnamedanimalmod.leafy_seadragon_spawn_egg": "Leafy Seadragon Spawn Egg",
   "item.unnamedanimalmod.spotted_garden_eel_spawn_egg": "Spotted Garden Eel Spawn Egg",
+  "item.unnamedanimalmod.mudskipper_spawn_egg": "Mudskipper Spawn Egg",
 
   "entity.unnamedanimalmod.black_diamond_stingray": "Black Diamond Stingray",
   "entity.unnamedanimalmod.tomato_frog": "Tomato Frog",
@@ -84,6 +86,7 @@
   "entity.unnamedanimalmod.mangrove_snake_egg": "Mangrove Snake Egg",
   "entity.unnamedanimalmod.leafy_seadragon": "Leafy Seadragon",
   "entity.unnamedanimalmod.spotted_garden_eel": "Spotted Garden Eel",
+  "entity.unnamedanimalmod.mudskipper": "Mudskipper",
 
   "block.unnamedanimalmod.mangrove_door": "Mangrove Door",
   "block.unnamedanimalmod.mangrove_log": "Mangrove Log",
@@ -117,6 +120,8 @@
   "block.unnamedanimalmod.chiseled_dried_mud_bricks": "Chiseled Dried Mud Bricks",
   "block.unnamedanimalmod.dried_mud_brick_slab": "Dried Mud Brick Slab",
   "block.unnamedanimalmod.dried_mud_brick_stairs": "Dried Mud Brick Stairs",
+
+  "biome.unnamedanimalmod.mangrove_forest": "Mangrove Forest",
 
   "subtitle.unnamedanimalmod.frog.ambient": "Frog croaks",
   "subtitle.unnamedanimalmod.frog.hurt": "Frog hurts",

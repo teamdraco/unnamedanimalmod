@@ -128,7 +128,7 @@ public class SpottedGardenEelEntity extends AbstractFishEntity {
     }
 
     public static AttributeModifierMap.MutableAttribute createAttributes() {
-        return MobEntity.createMobAttributes().add(Attributes.MAX_HEALTH, 8.0D).add(Attributes.KNOCKBACK_RESISTANCE, 10.0D).add(Attributes.MOVEMENT_SPEED, 0.7D);
+        return MobEntity.createMobAttributes().add(Attributes.MAX_HEALTH, 8.0D).add(Attributes.MOVEMENT_SPEED, 0.7D);
     }
 
     @Override
@@ -172,35 +172,37 @@ public class SpottedGardenEelEntity extends AbstractFishEntity {
     }
 
     static class MoveHelperController extends MovementController {
-        private final SpottedGardenEelEntity eel;
-        MoveHelperController(SpottedGardenEelEntity eel) {
-            super(eel);
-            this.eel = eel;
+        private final AbstractFishEntity fish;
+
+        MoveHelperController(AbstractFishEntity p_i48857_1_) {
+            super(p_i48857_1_);
+            this.fish = p_i48857_1_;
         }
 
         public void tick() {
-            if (this.eel.isEyeInFluid(FluidTags.WATER)) {
-                this.eel.setDeltaMovement(this.eel.getDeltaMovement().add(0.0D, 0.005D, 0.0D));
+            if (this.fish.isEyeInFluid(FluidTags.WATER)) {
+                this.fish.setDeltaMovement(this.fish.getDeltaMovement().add(0.0D, 0.005D, 0.0D));
             }
 
-            if (this.operation == MovementController.Action.MOVE_TO && !this.eel.getNavigation().isDone()) {
-                float f = (float)(this.speedModifier * this.eel.getAttributeValue(Attributes.MOVEMENT_SPEED));
-                this.eel.setSpeed(MathHelper.lerp(0.125F, this.eel.getSpeed(), f));
-                double d0 = this.wantedY - this.eel.getY();
-                double d1 = this.wantedX - this.eel.getY();
-                double d2 = this.wantedZ - this.eel.getZ();
+            if (this.operation == MovementController.Action.MOVE_TO && !this.fish.getNavigation().isDone()) {
+                float f = (float)(this.speedModifier * this.fish.getAttributeValue(Attributes.MOVEMENT_SPEED));
+                this.fish.setSpeed(MathHelper.lerp(0.125F, this.fish.getSpeed(), f));
+                double d0 = this.wantedX - this.fish.getX();
+                double d1 = this.wantedY - this.fish.getY();
+                double d2 = this.wantedZ - this.fish.getZ();
                 if (d1 != 0.0D) {
                     double d3 = (double)MathHelper.sqrt(d0 * d0 + d1 * d1 + d2 * d2);
-                    this.eel.setDeltaMovement(this.eel.getDeltaMovement().add(0.0D, (double)this.eel.getSpeed() * (d1 / d3) * 0.1D, 0.0D));
+                    this.fish.setDeltaMovement(this.fish.getDeltaMovement().add(0.0D, (double)this.fish.getSpeed() * (d1 / d3) * 0.1D, 0.0D));
                 }
 
                 if (d0 != 0.0D || d2 != 0.0D) {
                     float f1 = (float)(MathHelper.atan2(d2, d0) * (double)(180F / (float)Math.PI)) - 90.0F;
-                    this.eel.yRot = this.rotlerp(this.eel.yRot, f1, 90.0F);
-                    this.eel.yRotO = this.eel.yRot;
+                    this.fish.yRot = this.rotlerp(this.fish.yRot, f1, 90.0F);
+                    this.fish.yBodyRot = this.fish.yRot;
                 }
+
             } else {
-                this.eel.setSpeed(0.0F);
+                this.fish.setSpeed(0.0F);
             }
         }
     }

@@ -105,12 +105,43 @@ public class CapybaraModel extends AgeableModel<CapybaraEntity> {
             this.rightFrontLeg.xRot = MathHelper.cos(1.0F + ageInTicks * speed * 0.4F) * degree * 0.8F * 0.2F + 0.45F;
             this.leftFrontLeg.xRot = MathHelper.cos(1.0F + ageInTicks * speed * 0.4F) * degree * -0.8F * 0.2F + 0.45F;
             this.head.xRot += MathHelper.cos(ageInTicks * speed * 0.4F) * degree * 0.2F * 0.2F - 0.25F;
-        } else {
-            this.leftBackLeg.xRot = MathHelper.cos(1.0F + limbSwing * speed * 0.4F) * degree * 0.8F * limbSwingAmount;
-            this.rightBackLeg.xRot = MathHelper.cos(1.0F + limbSwing * speed * 0.4F) * degree * -0.8F * limbSwingAmount;
-            this.rightFrontLeg.xRot = MathHelper.cos(1.0F + limbSwing * speed * 0.4F) * degree * 0.8F * limbSwingAmount;
-            this.leftFrontLeg.xRot = MathHelper.cos(1.0F + limbSwing * speed * 0.4F) * degree * -0.8F * limbSwingAmount;
-            // this.head.rotateAngleX = MathHelper.cos(1.0F + limbSwing * speed * 0.4F) * degree * 0.2F * limbSwingAmount + 0.2F;
+        }
+        else {
+            if (entityIn.isInSittingPose()) {
+                this.body.y = 17.0F;
+                this.body.yRot = 0.0F;
+                this.rightBackLeg.y = 21.3F;
+                this.rightBackLeg.yRot = -0.3490658503988659F;
+                this.rightBackLeg.xRot = 1.5708F;
+                this.leftBackLeg.y = 21.3F;
+                this.leftBackLeg.yRot = 0.3490658503988659F;
+                this.leftBackLeg.xRot = 1.5708F;
+                this.rightFrontLeg.y = 22.3F;
+                this.rightFrontLeg.yRot = 0.3490658503988659F;
+                this.rightFrontLeg.xRot = -1.5708F;
+                this.leftFrontLeg.y = 22.3F;
+                this.leftFrontLeg.yRot = -0.3490658503988659F;
+                this.leftFrontLeg.xRot = -1.5708F;
+                this.head.y = 10.5F;
+            }
+            else {
+                this.body.y = 11.0F;
+                this.body.yRot = 0.0F;
+                this.rightBackLeg.y = 13.3F;
+                this.rightBackLeg.yRot = 0.0F;
+                this.leftBackLeg.y = 13.3F;
+                this.leftBackLeg.yRot = 0.0F;
+                this.rightFrontLeg.y = 13.3F;
+                this.rightFrontLeg.yRot = 0.0F;
+                this.leftFrontLeg.y = 13.3F;
+                this.leftFrontLeg.yRot = 0.0F;
+                this.head.y = 4.5F;
+
+                this.leftBackLeg.xRot = MathHelper.cos(1.0F + limbSwing * speed * 0.4F) * degree * 0.8F * limbSwingAmount;
+                this.rightBackLeg.xRot = MathHelper.cos(1.0F + limbSwing * speed * 0.4F) * degree * -0.8F * limbSwingAmount;
+                this.rightFrontLeg.xRot = MathHelper.cos(1.0F + limbSwing * speed * 0.4F) * degree * 0.8F * limbSwingAmount;
+                this.leftFrontLeg.xRot = MathHelper.cos(1.0F + limbSwing * speed * 0.4F) * degree * -0.8F * limbSwingAmount;
+            }
         }
     }
 

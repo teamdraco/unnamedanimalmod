@@ -85,6 +85,11 @@ public class MangroveSnakeEntity extends AnimalEntity {
         return UAMSounds.MANGROVE_SNAKE_HURT.get();
     }
 
+    @Override
+    protected float getSoundVolume() {
+        return 0.1f;
+    }
+
     @Nullable
     @Override
     public ILivingEntityData finalizeSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason, @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {

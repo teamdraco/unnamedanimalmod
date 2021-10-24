@@ -50,6 +50,9 @@ public class TomatoFrogRenderer extends MobRenderer<TomatoFrogEntity, TomatoFrog
                 matrix.translate(0.0, 0.10000000149011612D, 0.0D);
                 matrix.mulPose(Vector3f.ZP.rotationDegrees(90.0F));
             }
+            if (entity.isBaby()) {
+                matrix.translate(0.0, 0.0, 0.15);
+            }
         }
     }
 }

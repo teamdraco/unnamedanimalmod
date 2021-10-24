@@ -40,6 +40,7 @@ public class FiddlerCrabRenderer extends MobRenderer<FiddlerCrabEntity, FiddlerC
         hashMap.put(17, new ResourceLocation(UnnamedAnimalMod.MOD_ID, "textures/entity/fiddler_crab/body_18.png"));
         hashMap.put(18, new ResourceLocation(UnnamedAnimalMod.MOD_ID, "textures/entity/fiddler_crab/body_19.png"));
         hashMap.put(19, new ResourceLocation(UnnamedAnimalMod.MOD_ID, "textures/entity/fiddler_crab/body_20.png"));
+        hashMap.put(20, new ResourceLocation(UnnamedAnimalMod.MOD_ID, "textures/entity/fiddler_crab/kungsime.png"));
     });
 
     public FiddlerCrabRenderer(EntityRendererManager manager) {
@@ -48,7 +49,14 @@ public class FiddlerCrabRenderer extends MobRenderer<FiddlerCrabEntity, FiddlerC
 
     @Override
     public ResourceLocation getTextureLocation(FiddlerCrabEntity entity) {
-        return TEXTURES.getOrDefault(entity.getVariant(), TEXTURES.get(0));
+        String s = entity.getName().getString();
+
+        if (s.equals("Kungsime")) {
+            return TEXTURES.get(20);
+        }
+        else {
+            return TEXTURES.getOrDefault(entity.getVariant(), TEXTURES.get(0));
+        }
     }
 
     @Override

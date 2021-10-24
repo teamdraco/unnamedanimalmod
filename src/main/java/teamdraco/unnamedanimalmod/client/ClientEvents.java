@@ -50,8 +50,9 @@ public class ClientEvents {
         // RenderingRegistry.registerEntityRenderingHandler(UAMEntities.BLUBBER_JELLY.get(), BlubberJellyRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(UAMEntities.FIDDLER_CRAB.get(), FiddlerCrabRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(UAMEntities.MANGROVE_SNAKE_EGG.get(), MangroveSnakeEggRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(UAMEntities.LEAFY_SEA_DRAGON.get(), LeafySeadragonRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(UAMEntities.LEAFY_SEADRAGON.get(), LeafySeadragonRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(UAMEntities.SPOTTED_GARDEN_EEL.get(), SpottedGardenEelRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(UAMEntities.MUDSKIPPER.get(), MudskipperRenderer::new);
     }
 
     @SubscribeEvent
@@ -78,7 +79,6 @@ public class ClientEvents {
     @SubscribeEvent
     public static void blockColors(ColorHandlerEvent.Block event) {
         BlockColors handler = event.getBlockColors();
-
         handler.register((p_228059_0_, p_228059_1_, p_228059_2_, p_228059_3_) -> SaltPowderBlock.getColor(), UAMBlocks.SALT.get());
     }
 }

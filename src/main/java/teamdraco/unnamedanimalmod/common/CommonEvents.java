@@ -56,7 +56,8 @@ public class CommonEvents {
         }
 
         if (Biomes.LUKEWARM_OCEAN.location().equals(event.getName()) || Biomes.DEEP_LUKEWARM_OCEAN.location().equals(event.getName())) {
-            event.getSpawns().getSpawner(EntityClassification.WATER_AMBIENT).add(new MobSpawnInfo.Spawners(UAMEntities.LEAFY_SEA_DRAGON.get(), UAMConfig.Common.INSTANCE.leafySeadragonSpawnWeight.get(), 1, 3));
+            event.getSpawns().getSpawner(EntityClassification.WATER_CREATURE).add(new MobSpawnInfo.Spawners(UAMEntities.LEAFY_SEADRAGON.get(), UAMConfig.Common.INSTANCE.leafySeadragonSpawnWeight.get(), 1, 3));
+            event.getSpawns().getSpawner(EntityClassification.WATER_CREATURE).add(new MobSpawnInfo.Spawners(UAMEntities.SPOTTED_GARDEN_EEL.get(), UAMConfig.Common.INSTANCE.spottedGardenEelSpawnWeight.get(), 3, 6));
         }
 
         if (Biomes.STONE_SHORE.location().equals(event.getName())) {
