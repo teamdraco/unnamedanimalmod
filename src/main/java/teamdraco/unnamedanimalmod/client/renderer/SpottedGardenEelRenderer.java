@@ -2,7 +2,7 @@ package teamdraco.unnamedanimalmod.client.renderer;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.entity.EntityRendererManager;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.resources.ResourceLocation;
@@ -16,7 +16,7 @@ public class SpottedGardenEelRenderer extends MobRenderer<SpottedGardenEelEntity
     private static final SpottedGardenEelModel MODEL = new SpottedGardenEelModel();
     private static final SpottedGardenEelHidingModel HIDING_MODEL = new SpottedGardenEelHidingModel();
 
-    public SpottedGardenEelRenderer(EntityRendererManager p_i48864_1_) {
+    public SpottedGardenEelRenderer(EntityRendererProvider.Context p_i48864_1_) {
         super(p_i48864_1_, MODEL, 0.1F);
     }
 

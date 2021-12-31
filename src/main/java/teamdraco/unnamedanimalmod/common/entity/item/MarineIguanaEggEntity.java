@@ -5,23 +5,23 @@ import teamdraco.unnamedanimalmod.init.UAMEntities;
 import teamdraco.unnamedanimalmod.init.UAMItems;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.projectile.ProjectileItemEntity;
+import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.network.IPacket;
-import net.minecraft.particles.ItemParticleData;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.util.math.EntityHitResult;
+import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fml.network.NetworkHooks;
+import net.minecraftforge.network.NetworkHooks;
 
 import javax.annotation.Nonnull;
 
-public class MarineIguanaEggEntity extends ProjectileItemEntity {
+public class MarineIguanaEggEntity extends ThrowableItemProjectile {
     public MarineIguanaEggEntity(EntityType<? extends MarineIguanaEggEntity> p_i50154_1_, Level p_i50154_2_) {
         super(p_i50154_1_, p_i50154_2_);
     }
@@ -40,7 +40,7 @@ public class MarineIguanaEggEntity extends ProjectileItemEntity {
             double d0 = 0.08D;
 
             for(int i = 0; i < 8; ++i) {
-                this.level.addParticle(new ItemParticleData(ParticleTypes.ITEM, this.getItem()), this.getX(), this.getY(), this.getZ(), ((double)this.random.nextFloat() - 0.5D) * 0.08D, ((double)this.random.nextFloat() - 0.5D) * 0.08D, ((double)this.random.nextFloat() - 0.5D) * 0.08D);
+                this.level.addParticle(new ItemParticleOption(ParticleTypes.ITEM, this.getItem()), this.getX(), this.getY(), this.getZ(), ((double)this.random.nextFloat() - 0.5D) * 0.08D, ((double)this.random.nextFloat() - 0.5D) * 0.08D, ((double)this.random.nextFloat() - 0.5D) * 0.08D);
             }
         }
 
@@ -61,14 +61,14 @@ public class MarineIguanaEggEntity extends ProjectileItemEntity {
                     MarineIguanaEntity marineiguanaentity = UAMEntities.MARINE_IGUANA.get().create(this.level);
                     marineiguanaentity.setAge(-24000);
                     marineiguanaentity.setVariant(random.nextInt(4));
-                    marineiguanaentity.moveTo(this.getX(), this.getY(), this.getZ(), this.yRot, 0.0F);
+                    marineiguanaentity.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), 0.0F);
                     this.level.addFreshEntity(marineiguanaentity);
 
                 }
             }
 
             this.level.broadcastEntityEvent(this, (byte)3);
-            this.remove();
+            this.discard();
         }
 
     }
@@ -84,7 +84,7 @@ public class MarineIguanaEggEntity extends ProjectileItemEntity {
 
     @Nonnull
     @Override
-    public IPacket<?> getAddEntityPacket() {
+    public Packet<?> getAddEntityPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 }

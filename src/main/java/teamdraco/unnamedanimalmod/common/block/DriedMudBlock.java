@@ -1,14 +1,13 @@
 package teamdraco.unnamedanimalmod.common.block;
 
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.tags.FluidTags;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.item.BlockItemUseContext;
-import net.minecraft.tags.FluidTags;
-import net.minecraft.core.Direction;
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.IWorld;
 
 public class DriedMudBlock extends Block {
     private final BlockState solidifiedState;
@@ -18,7 +17,7 @@ public class DriedMudBlock extends Block {
         this.solidifiedState = solidifiedState;
     }
 
-    public BlockState getStateForPlacement(BlockItemUseContext context) {
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
         BlockGetter iblockreader = context.getLevel();
         BlockPos blockpos = context.getClickedPos();
         BlockState blockstate = iblockreader.getBlockState(blockpos);
@@ -31,7 +30,7 @@ public class DriedMudBlock extends Block {
 
     private static boolean isTouchingLiquid(BlockGetter reader, BlockPos pos) {
         boolean flag = false;
-        BlockPos.Mutable blockpos$mutable = pos.mutable();
+        BlockPos.MutableBlockPos blockpos$mutable = pos.mutable();
 
         for(Direction direction : Direction.values()) {
             BlockState blockstate = reader.getBlockState(blockpos$mutable);

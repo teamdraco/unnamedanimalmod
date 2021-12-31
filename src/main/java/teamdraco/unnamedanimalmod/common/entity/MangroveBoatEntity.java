@@ -1,22 +1,23 @@
 package teamdraco.unnamedanimalmod.common.entity;
 
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.tags.FluidTags;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.vehicle.Boat;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.GameRules;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.network.NetworkHooks;
 import teamdraco.unnamedanimalmod.init.UAMBlocks;
 import teamdraco.unnamedanimalmod.init.UAMEntities;
 import teamdraco.unnamedanimalmod.init.UAMItems;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.item.BoatEntity;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
-import net.minecraft.network.IPacket;
-import net.minecraft.tags.FluidTags;
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.phys.Vec3;
-import net.minecraft.world.GameRules;
-import net.minecraft.world.level.Level;
-import net.minecraftforge.fml.network.NetworkHooks;
 
-public class MangroveBoatEntity extends BoatEntity {
+public class MangroveBoatEntity extends Boat {
     public MangroveBoatEntity(EntityType<? extends MangroveBoatEntity> type, Level world) {
         super(type, world);
     }
@@ -41,9 +42,9 @@ public class MangroveBoatEntity extends BoatEntity {
 //                        return;
 //                    }
 
-                    this.causeFallDamage(this.fallDistance, 1.0F);
+                    this.causeFallDamage(this.fallDistance, 1.0F, DamageSource.FALL);
                     if (!this.level.isClientSide && isAlive()) {
-                        this.remove();
+                        this.discard();
                         if (this.level.getGameRules().getBoolean(GameRules.RULE_DOENTITYDROPS)) {
                             for(int i = 0; i < 3; ++i) {
                                 this.spawnAtLocation(UAMBlocks.MANGROVE_PLANKS.get());
@@ -69,7 +70,7 @@ public class MangroveBoatEntity extends BoatEntity {
     }
 
     @Override
-    public IPacket<?> getAddEntityPacket() {
+    public Packet<?> getAddEntityPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 }

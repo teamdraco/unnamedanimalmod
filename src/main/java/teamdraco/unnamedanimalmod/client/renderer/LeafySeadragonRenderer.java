@@ -2,7 +2,7 @@ package teamdraco.unnamedanimalmod.client.renderer;
 
 import com.google.common.collect.Maps;
 import com.mojang.blaze3d.matrix.MatrixStack;
-import net.minecraft.client.renderer.entity.EntityRendererManager;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Util;
@@ -27,7 +27,7 @@ public class LeafySeadragonRenderer extends MobRenderer<LeafySeadragonEntity, Le
         hashMap.put(3, new ResourceLocation(UnnamedAnimalMod.MOD_ID, "textures/entity/leafy_seadragon/leafy_seadragon_4.png"));
     });
 
-    public LeafySeadragonRenderer(EntityRendererManager p_i48864_1_) {
+    public LeafySeadragonRenderer(EntityRendererProvider.Context p_i48864_1_) {
         super(p_i48864_1_, new LeafySeadragonModel<>(), 0.3F);
     }
 

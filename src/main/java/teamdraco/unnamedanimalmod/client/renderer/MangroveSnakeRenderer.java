@@ -4,7 +4,7 @@ import com.google.common.collect.Maps;
 import teamdraco.unnamedanimalmod.UnnamedAnimalMod;
 import teamdraco.unnamedanimalmod.client.model.MangroveSnakeModel;
 import teamdraco.unnamedanimalmod.common.entity.MangroveSnakeEntity;
-import net.minecraft.client.renderer.entity.EntityRendererManager;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Util;
@@ -20,7 +20,7 @@ public class MangroveSnakeRenderer extends MobRenderer<MangroveSnakeEntity, Mang
         hashMap.put(1, new ResourceLocation(UnnamedAnimalMod.MOD_ID, "textures/entity/mangrove_snake/mangrove_snake_sulawesi.png"));
     });
 
-    public MangroveSnakeRenderer(EntityRendererManager renderManagerIn) {
+    public MangroveSnakeRenderer(EntityRendererProvider.Context renderManagerIn) {
         super(renderManagerIn, new MangroveSnakeModel<>(), 0.5F);
     }
 

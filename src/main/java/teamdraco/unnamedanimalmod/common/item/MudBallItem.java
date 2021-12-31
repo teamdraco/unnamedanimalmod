@@ -8,10 +8,10 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemUseContext;
 import net.minecraft.particles.BlockParticleData;
-import net.minecraft.particles.ItemParticleData;
+import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.util.InteractionResult;
-import net.minecraft.util.SoundCategory;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.phys.Vec3;
@@ -40,9 +40,9 @@ public class MudBallItem extends Item
                 addItemParticles(context.getPlayer(), pos);
             }
             else {
-                world.playSound(null, pos, SoundEvents.GRASS_BREAK, SoundCategory.BLOCKS, 1, 1f);
-                world.playSound(null, pos, SoundEvents.GRASS_BREAK, SoundCategory.BLOCKS, 1, 0.75f);
-                world.playSound(null, pos, SoundEvents.GRASS_BREAK, SoundCategory.BLOCKS, 1, 0.5f);
+                world.playSound(null, pos, SoundEvents.GRASS_BREAK, SoundSource.BLOCKS, 1, 1f);
+                world.playSound(null, pos, SoundEvents.GRASS_BREAK, SoundSource.BLOCKS, 1, 0.75f);
+                world.playSound(null, pos, SoundEvents.GRASS_BREAK, SoundSource.BLOCKS, 1, 0.5f);
             }
             return InteractionResult.SUCCESS;
         }
@@ -65,7 +65,7 @@ public class MudBallItem extends Item
             Vec3 velocity = new Vec3(((double) playerEntity.level.random.nextFloat() - 0.5D) * 0.2D, Math.random() * 0.1D + 0.1D, 0.0D);
             velocity = velocity.xRot(-playerEntity.xRot * ((float) Math.PI / 180F));
             velocity = velocity.yRot(-playerEntity.yRot * ((float) Math.PI / 180F));
-            playerEntity.level.addParticle(new ItemParticleData(ParticleTypes.ITEM, UAMItems.MUD_BALL.get().getDefaultInstance()), position.x, position.y, position.z, velocity.x, velocity.y + 0.05D, velocity.z);
+            playerEntity.level.addParticle(new ItemParticleOption(ParticleTypes.ITEM, UAMItems.MUD_BALL.get().getDefaultInstance()), position.x, position.y, position.z, velocity.x, velocity.y + 0.05D, velocity.z);
         }
     }
 }

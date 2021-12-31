@@ -1,7 +1,7 @@
 package teamdraco.unnamedanimalmod.client.renderer;
 
 import com.google.common.collect.Maps;
-import net.minecraft.client.renderer.entity.EntityRendererManager;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Util;
@@ -25,7 +25,7 @@ public class MudskipperRenderer extends MobRenderer<MudskipperEntity, Mudskipper
         hashMap.put(4, new ResourceLocation(UnnamedAnimalMod.MOD_ID, "textures/entity/mudskipper/mudskipper_5.png"));
     });
 
-    public MudskipperRenderer(EntityRendererManager manager) {
+    public MudskipperRenderer(EntityRendererProvider.Context manager) {
         super(manager, new MudskipperModel<>(), 0.15f);
     }
 

@@ -2,7 +2,7 @@ package teamdraco.unnamedanimalmod.client.renderer;
 
 import com.google.common.collect.Maps;
 import com.mojang.blaze3d.matrix.MatrixStack;
-import net.minecraft.client.renderer.entity.EntityRendererManager;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Util;
@@ -43,7 +43,7 @@ public class FiddlerCrabRenderer extends MobRenderer<FiddlerCrabEntity, FiddlerC
         hashMap.put(20, new ResourceLocation(UnnamedAnimalMod.MOD_ID, "textures/entity/fiddler_crab/kungsime.png"));
     });
 
-    public FiddlerCrabRenderer(EntityRendererManager manager) {
+    public FiddlerCrabRenderer(EntityRendererProvider.Context manager) {
         super(manager, new FiddlerCrabModel<>(), 0.3f);
     }
 

@@ -61,6 +61,6 @@ public class UAMCatchableItem extends BucketItem {
     }
 
     protected void playEmptySound(@Nullable Player player, LevelAccessor worldIn, BlockPos pos) {
-        worldIn.playSound(player, pos, SoundEvents.ITEM_FRAME_REMOVE_ITEM, SoundCategory.NEUTRAL, 1.0F, 1.0F);
+        worldIn.playSound(player, pos, SoundEvents.ITEM_FRAME_REMOVE_ITEM, SoundSource.NEUTRAL, 1.0F, 1.0F);
     }
 }

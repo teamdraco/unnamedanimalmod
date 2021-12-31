@@ -1,9 +1,10 @@
 package teamdraco.unnamedanimalmod;
 
-import net.minecraft.world.entity.EntitySpawnPlacementRegistry;
-import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.animal.AbstractFish;
-import net.minecraft.world.item.ItemGroup;
+import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.animal.WaterAnimal;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
@@ -14,11 +15,10 @@ import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import teamdraco.unnamedanimalmod.common.entity.*;
 import teamdraco.unnamedanimalmod.init.*;
-import teamdraco.unnamedanimalmod.client.ClientEvents;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,24 +47,24 @@ public class UnnamedAnimalMod {
     }
 
     private void registerCommon(FMLCommonSetupEvent event) {
-        EntitySpawnPlacementRegistry.register(UAMEntities.BLACK_DIAMOND_STINGRAY.get(), EntitySpawnPlacementRegistry.PlacementType.IN_WATER, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AbstractFish::checkFishSpawnRules);
-        EntitySpawnPlacementRegistry.register(UAMEntities.GREATER_PRAIRIE_CHICKEN.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, Animal::checkAnimalSpawnRules);
-        EntitySpawnPlacementRegistry.register(UAMEntities.TOMATO_FROG.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, Animal::checkAnimalSpawnRules);
-        EntitySpawnPlacementRegistry.register(UAMEntities.FLASHLIGHT_FISH.get(), EntitySpawnPlacementRegistry.PlacementType.IN_WATER, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, FlashlightFishEntity::checkFishSpawnRules);
-        EntitySpawnPlacementRegistry.register(UAMEntities.MUSK_OX.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MuskOxEntity::canAnimalSpawn);
-        EntitySpawnPlacementRegistry.register(UAMEntities.MARINE_IGUANA.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MarineIguanaEntity::canAnimalSpawn);
-        EntitySpawnPlacementRegistry.register(UAMEntities.PLATYPUS.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, Animal::checkAnimalSpawnRules);
-        EntitySpawnPlacementRegistry.register(UAMEntities.BANANA_SLUG.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, BananaSlugEntity::canAnimalSpawn);
-        EntitySpawnPlacementRegistry.register(UAMEntities.ELEPHANTNOSE_FISH.get(), EntitySpawnPlacementRegistry.PlacementType.IN_WATER, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AbstractFish::checkFishSpawnRules);
-        EntitySpawnPlacementRegistry.register(UAMEntities.PACMAN_FROG.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, Animal::checkAnimalSpawnRules);
-        EntitySpawnPlacementRegistry.register(UAMEntities.ROCKET_KILLIFISH.get(), EntitySpawnPlacementRegistry.PlacementType.IN_WATER, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AbstractFish::checkFishSpawnRules);
-        EntitySpawnPlacementRegistry.register(UAMEntities.MANGROVE_SNAKE.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, Animal::checkAnimalSpawnRules);
-        EntitySpawnPlacementRegistry.register(UAMEntities.SOUTHERN_RIGHT_WHALE.get(), EntitySpawnPlacementRegistry.PlacementType.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, SouthernRightWhaleEntity::checkWhaleSpawnRules);
-        EntitySpawnPlacementRegistry.register(UAMEntities.FIDDLER_CRAB.get(), EntitySpawnPlacementRegistry.PlacementType.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, FiddlerCrabEntity::canCrabSpawn);
-        EntitySpawnPlacementRegistry.register(UAMEntities.LEAFY_SEADRAGON.get(), EntitySpawnPlacementRegistry.PlacementType.IN_WATER, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, LeafySeadragonEntity::checkFishSpawnRules);
-        EntitySpawnPlacementRegistry.register(UAMEntities.HUMPHEAD_PARROTFISH.get(), EntitySpawnPlacementRegistry.PlacementType.IN_WATER, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, HumpheadParrotfishEntity::checkFishSpawnRules);
-        EntitySpawnPlacementRegistry.register(UAMEntities.SPOTTED_GARDEN_EEL.get(), EntitySpawnPlacementRegistry.PlacementType.IN_WATER, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AbstractFish::checkFishSpawnRules);
-        EntitySpawnPlacementRegistry.register(UAMEntities.MUDSKIPPER.get(), EntitySpawnPlacementRegistry.PlacementType.IN_WATER, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MudskipperEntity::checkMudskipperSpawnRules);
+        SpawnPlacements.register(UAMEntities.BLACK_DIAMOND_STINGRAY.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules);
+        SpawnPlacements.register(UAMEntities.GREATER_PRAIRIE_CHICKEN.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Animal::checkAnimalSpawnRules);
+        SpawnPlacements.register(UAMEntities.TOMATO_FROG.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Animal::checkAnimalSpawnRules);
+        SpawnPlacements.register(UAMEntities.FLASHLIGHT_FISH.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, FlashlightFishEntity::checkFishSpawnRules);
+        SpawnPlacements.register(UAMEntities.MUSK_OX.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, MuskOxEntity::canAnimalSpawn);
+        SpawnPlacements.register(UAMEntities.MARINE_IGUANA.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, MarineIguanaEntity::canAnimalSpawn);
+        SpawnPlacements.register(UAMEntities.PLATYPUS.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Animal::checkAnimalSpawnRules);
+        SpawnPlacements.register(UAMEntities.BANANA_SLUG.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, BananaSlugEntity::canAnimalSpawn);
+        SpawnPlacements.register(UAMEntities.ELEPHANTNOSE_FISH.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules);
+        SpawnPlacements.register(UAMEntities.PACMAN_FROG.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Animal::checkAnimalSpawnRules);
+        SpawnPlacements.register(UAMEntities.ROCKET_KILLIFISH.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules);
+        SpawnPlacements.register(UAMEntities.MANGROVE_SNAKE.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Animal::checkAnimalSpawnRules);
+        SpawnPlacements.register(UAMEntities.SOUTHERN_RIGHT_WHALE.get(), SpawnPlacements.Type.NO_RESTRICTIONS, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SouthernRightWhaleEntity::checkWhaleSpawnRules);
+        SpawnPlacements.register(UAMEntities.FIDDLER_CRAB.get(), SpawnPlacements.Type.NO_RESTRICTIONS, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, FiddlerCrabEntity::canCrabSpawn);
+        SpawnPlacements.register(UAMEntities.LEAFY_SEADRAGON.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules);
+        SpawnPlacements.register(UAMEntities.HUMPHEAD_PARROTFISH.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, HumpheadParrotfishEntity::checkFishSpawnRules);
+        SpawnPlacements.register(UAMEntities.SPOTTED_GARDEN_EEL.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules);
+        SpawnPlacements.register(UAMEntities.MUDSKIPPER.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, MudskipperEntity::checkMudskipperSpawnRules);
     }
 
     private void registerEntityAttributes(EntityAttributeCreationEvent event) {
@@ -90,12 +90,12 @@ public class UnnamedAnimalMod {
     }
 
     private void registerClient(FMLClientSetupEvent event) {
-        ClientEvents.init();
+//        ClientEvents.init();
         CALLBACKS.forEach(Runnable::run);
         CALLBACKS.clear();
     }
 
-    public final static ItemGroup GROUP = new ItemGroup(MOD_ID) {
+    public final static CreativeModeTab GROUP = new CreativeModeTab(MOD_ID) {
         @Override
         public ItemStack makeIcon() {
             return new ItemStack(UAMItems.MARINE_IGUANA_EGG.get());

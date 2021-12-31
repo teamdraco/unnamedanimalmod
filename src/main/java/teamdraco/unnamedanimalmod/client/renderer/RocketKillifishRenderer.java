@@ -4,7 +4,7 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import teamdraco.unnamedanimalmod.UnnamedAnimalMod;
 import teamdraco.unnamedanimalmod.client.model.RocketKillifishModel;
 import teamdraco.unnamedanimalmod.common.entity.RocketKillifishEntity;
-import net.minecraft.client.renderer.entity.EntityRendererManager;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
@@ -16,7 +16,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class RocketKillifishRenderer extends MobRenderer<RocketKillifishEntity, RocketKillifishModel<RocketKillifishEntity>> {
     private static final ResourceLocation TEXTURE = new ResourceLocation(UnnamedAnimalMod.MOD_ID, "textures/entity/rocket_killifish.png");
 
-    public RocketKillifishRenderer(EntityRendererManager renderManagerIn) {
+    public RocketKillifishRenderer(EntityRendererProvider.Context renderManagerIn) {
         super(renderManagerIn, new RocketKillifishModel<>(), 0.1F);
     }
 

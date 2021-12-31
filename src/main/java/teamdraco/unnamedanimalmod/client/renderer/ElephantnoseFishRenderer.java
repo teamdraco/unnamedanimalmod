@@ -4,7 +4,7 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import teamdraco.unnamedanimalmod.UnnamedAnimalMod;
 import teamdraco.unnamedanimalmod.client.model.ElephantnoseFishModel;
 import teamdraco.unnamedanimalmod.common.entity.ElephantnoseFishEntity;
-import net.minecraft.client.renderer.entity.EntityRendererManager;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
@@ -16,7 +16,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class ElephantnoseFishRenderer extends MobRenderer<ElephantnoseFishEntity, ElephantnoseFishModel<ElephantnoseFishEntity>> {
     private static final ResourceLocation TEXTURE = new ResourceLocation(UnnamedAnimalMod.MOD_ID, "textures/entity/elephantnose_fish.png");
 
-    public ElephantnoseFishRenderer(EntityRendererManager renderManagerIn) {
+    public ElephantnoseFishRenderer(EntityRendererProvider.Context renderManagerIn) {
         super(renderManagerIn, new ElephantnoseFishModel<>(), 0.1F);
     }
 

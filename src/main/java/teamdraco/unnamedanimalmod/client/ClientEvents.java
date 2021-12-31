@@ -1,29 +1,35 @@
 package teamdraco.unnamedanimalmod.client;
 
-import net.minecraft.client.renderer.color.BlockColors;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.EntityRenderersEvent;
-import teamdraco.unnamedanimalmod.UnnamedAnimalMod;
-import teamdraco.unnamedanimalmod.client.renderer.item.*;
-import teamdraco.unnamedanimalmod.common.block.SaltPowderBlock;
-import teamdraco.unnamedanimalmod.init.UAMBlocks;
-import teamdraco.unnamedanimalmod.init.UAMEntities;
-import teamdraco.unnamedanimalmod.common.item.UAMSpawnEggItem;
-import net.minecraft.world.level.block.*;
+import net.minecraft.client.color.block.BlockColors;
+import net.minecraft.client.color.item.ItemColor;
+import net.minecraft.client.color.item.ItemColors;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.RenderTypeLookup;
-import net.minecraft.client.renderer.color.IItemColor;
-import net.minecraft.client.renderer.color.ItemColors;
+import net.minecraft.client.renderer.item.ItemProperties;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.*;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ColorHandlerEvent;
+import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.registries.RegistryObject;
-import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.registries.RegistryObject;
+import teamdraco.unnamedanimalmod.UnnamedAnimalMod;
 import teamdraco.unnamedanimalmod.client.renderer.*;
+import teamdraco.unnamedanimalmod.client.renderer.item.GreaterPrairieChickenEggRenderer;
+import teamdraco.unnamedanimalmod.client.renderer.item.MangroveSnakeEggRenderer;
+import teamdraco.unnamedanimalmod.client.renderer.item.MarineIguanaEggRenderer;
+import teamdraco.unnamedanimalmod.client.renderer.item.PlatypusEggRenderer;
+import teamdraco.unnamedanimalmod.common.block.SaltPowderBlock;
+import teamdraco.unnamedanimalmod.common.item.UAMSpawnEggItem;
+import teamdraco.unnamedanimalmod.common.item.UAMWaterBucketItem;
+import teamdraco.unnamedanimalmod.init.UAMBlocks;
+import teamdraco.unnamedanimalmod.init.UAMEntities;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.function.Consumer;
 
 @Mod.EventBusSubscriber(modid = UnnamedAnimalMod.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class ClientEvents {
@@ -60,7 +66,7 @@ public class ClientEvents {
     @SubscribeEvent
     public static void itemColors(ColorHandlerEvent.Item event) {
         ItemColors handler = event.getItemColors();
-        IItemColor eggColor = (stack, tintIndex) -> ((UAMSpawnEggItem) stack.getItem()).getColor(tintIndex);
+        ItemColor eggColor = (stack, tintIndex) -> ((UAMSpawnEggItem) stack.getItem()).getColor(tintIndex);
         for (UAMSpawnEggItem e : UAMSpawnEggItem.UNADDED_EGGS) handler.register(eggColor, e);
     }
 
@@ -75,12 +81,22 @@ public class ClientEvents {
     }
 
     public static void setCutout(RegistryObject<Block> b) {
-        RenderTypeLookup.setRenderLayer(b.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(b.get(), RenderType.cutout());
     }
 
     @SubscribeEvent
     public static void blockColors(ColorHandlerEvent.Block event) {
         BlockColors handler = event.getBlockColors();
         handler.register((p_228059_0_, p_228059_1_, p_228059_2_, p_228059_3_) -> SaltPowderBlock.getColor(), UAMBlocks.SALT.get());
+    }
+
+    // avert your eyes for whatever this is...
+    public static void registerBucketVariant(UAMWaterBucketItem item) {
+        ItemProperties.register(item, new ResourceLocation(UnnamedAnimalMod.MOD_ID, "variant"),
+                (stack, world, player, x) -> stack.hasTag() ? stack.getTag().getInt("Variant") : 0);
+    }
+
+    public static Consumer<UAMWaterBucketItem> registerBucketVariantCallable() {
+        return ClientEvents::registerBucketVariant;
     }
 }

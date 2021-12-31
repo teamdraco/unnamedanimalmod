@@ -5,7 +5,7 @@ import teamdraco.unnamedanimalmod.UnnamedAnimalMod;
 import teamdraco.unnamedanimalmod.client.model.TomatoFrogModel;
 import teamdraco.unnamedanimalmod.common.entity.TomatoFrogEntity;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.entity.EntityRendererManager;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
@@ -20,7 +20,7 @@ public class TomatoFrogRenderer extends MobRenderer<TomatoFrogEntity, TomatoFrog
     private final TomatoFrogModel adult;
     private final TomatoFrogModel child;
 
-    public TomatoFrogRenderer(EntityRendererManager manager) {
+    public TomatoFrogRenderer(EntityRendererProvider.Context manager) {
         super(manager, new TomatoFrogModel.Adult(), 0.2f);
         adult = model;
         child = new TomatoFrogModel.Child();

@@ -1,14 +1,13 @@
 package teamdraco.unnamedanimalmod.client.renderer;
 
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import teamdraco.unnamedanimalmod.UnnamedAnimalMod;
-import teamdraco.unnamedanimalmod.client.model.BlackDiamondStingrayModel;
-import teamdraco.unnamedanimalmod.common.entity.BlackDiamondStingrayEntity;
-import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import teamdraco.unnamedanimalmod.UnnamedAnimalMod;
+import teamdraco.unnamedanimalmod.client.model.BlackDiamondStingrayModel;
+import teamdraco.unnamedanimalmod.common.entity.BlackDiamondStingrayEntity;
 
 @OnlyIn(Dist.CLIENT)
 public class BlackDiamondStingrayRenderer extends MobRenderer<BlackDiamondStingrayEntity, BlackDiamondStingrayModel<BlackDiamondStingrayEntity>> {

@@ -5,7 +5,7 @@ import teamdraco.unnamedanimalmod.UnnamedAnimalMod;
 import teamdraco.unnamedanimalmod.client.model.MarineIguanaModel;
 import teamdraco.unnamedanimalmod.client.renderer.layer.MarineIguanaGlowLayer;
 import teamdraco.unnamedanimalmod.common.entity.MarineIguanaEntity;
-import net.minecraft.client.renderer.entity.EntityRendererManager;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Util;
@@ -21,7 +21,7 @@ public class MarineIguanaRenderer extends MobRenderer<MarineIguanaEntity, Marine
         hashMap.put(4, new ResourceLocation(UnnamedAnimalMod.MOD_ID, "textures/entity/marine_iguana/marine_iguana_5.png"));
     });
 
-    public MarineIguanaRenderer(EntityRendererManager manager) {
+    public MarineIguanaRenderer(EntityRendererProvider.Context manager) {
         super(manager, new MarineIguanaModel<>(), 0.4f);
         this.addLayer(new MarineIguanaGlowLayer(this));
     }

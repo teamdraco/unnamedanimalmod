@@ -7,7 +7,7 @@ import teamdraco.unnamedanimalmod.UnnamedAnimalMod;
 import teamdraco.unnamedanimalmod.client.model.CapybaraModel;
 import teamdraco.unnamedanimalmod.client.renderer.layer.CapybaraChestLayer;
 import teamdraco.unnamedanimalmod.common.entity.CapybaraEntity;
-import net.minecraft.client.renderer.entity.EntityRendererManager;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
@@ -18,7 +18,7 @@ public class CapybaraRenderer extends MobRenderer<CapybaraEntity, CapybaraModel>
     private static final ResourceLocation TEXTURE = new ResourceLocation(UnnamedAnimalMod.MOD_ID, "textures/entity/capybara/capybara.png");
     private static final ResourceLocation MARIO = new ResourceLocation(UnnamedAnimalMod.MOD_ID, "textures/entity/capybara/mario.png");
 
-    public CapybaraRenderer(EntityRendererManager renderManagerIn) {
+    public CapybaraRenderer(EntityRendererProvider.Context renderManagerIn) {
         super(renderManagerIn, new CapybaraModel(), 0.5F);
         addLayer(new CapybaraChestLayer(this));
     }

@@ -4,7 +4,7 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import teamdraco.unnamedanimalmod.UnnamedAnimalMod;
 import teamdraco.unnamedanimalmod.client.model.PlatypusModel;
 import teamdraco.unnamedanimalmod.common.entity.PlatypusEntity;
-import net.minecraft.client.renderer.entity.EntityRendererManager;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 
@@ -13,7 +13,7 @@ public class PlatypusRenderer extends MobRenderer<PlatypusEntity, PlatypusModel<
     protected static final ResourceLocation AGENT_P = new ResourceLocation(UnnamedAnimalMod.MOD_ID, "textures/entity/platypus/agent_p.png");
     protected static final ResourceLocation PERRY = new ResourceLocation(UnnamedAnimalMod.MOD_ID, "textures/entity/platypus/perry.png");
 
-    public PlatypusRenderer(EntityRendererManager manager) {
+    public PlatypusRenderer(EntityRendererProvider.Context manager) {
         super(manager, new PlatypusModel<>(), 0.3f);
     }
 

@@ -7,7 +7,7 @@ import net.minecraft.world.level.block.IWaterLoggable;
 import net.minecraft.world.level.block.SaplingBlock;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraft.world.item.BlockItemUseContext;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
@@ -42,7 +42,7 @@ public class MangroveSaplingBlock extends SaplingBlock implements IWaterLoggable
         return super.updateShape(stateIn, facing, facingState, worldIn, currentPos, facingPos);
     }
     @Nullable
-    public BlockState getStateForPlacement(BlockItemUseContext context)
+    public BlockState getStateForPlacement(BlockPlaceContext context)
     {
         BlockPos blockpos = context.getClickedPos();
         FluidState fluidstate = context.getLevel().getFluidState(blockpos);

@@ -43,7 +43,7 @@ public class FrogEggItem extends Item {
             frog.setAge(-24000);
             frog.setPos(blockpos1.getX() + 0.5F, blockpos1.getY() + 0.5F, blockpos1.getZ() + 0.5F);
             world.addFreshEntity(frog);
-            world.playSound(player, player.blockPosition(), SoundEvents.ITEM_FRAME_REMOVE_ITEM, SoundCategory.NEUTRAL, 1.0F, 1.0F);
+            world.playSound(player, player.blockPosition(), SoundEvents.ITEM_FRAME_REMOVE_ITEM, SoundSource.NEUTRAL, 1.0F, 1.0F);
         }
 
         player.awardStat(Stats.ITEM_USED.get(this));

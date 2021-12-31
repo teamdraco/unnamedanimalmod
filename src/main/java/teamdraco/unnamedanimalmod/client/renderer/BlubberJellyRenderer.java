@@ -4,7 +4,7 @@ import com.google.common.collect.Maps;
 import teamdraco.unnamedanimalmod.UnnamedAnimalMod;
 import teamdraco.unnamedanimalmod.client.model.BlubberJellyModel;
 import teamdraco.unnamedanimalmod.common.entity.BlubberJellyEntity;
-import net.minecraft.client.renderer.entity.EntityRendererManager;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Util;
@@ -29,7 +29,7 @@ public class BlubberJellyRenderer extends MobRenderer<BlubberJellyEntity, Blubbe
         hashMap.put(10, new ResourceLocation(UnnamedAnimalMod.MOD_ID, "textures/entity/blubber_jelly/blubber_jelly_11.png"));
     });
 
-    public BlubberJellyRenderer(EntityRendererManager renderManagerIn) {
+    public BlubberJellyRenderer(EntityRendererProvider.Context renderManagerIn) {
         super(renderManagerIn, new BlubberJellyModel<>(), 0.25F);
     }
 

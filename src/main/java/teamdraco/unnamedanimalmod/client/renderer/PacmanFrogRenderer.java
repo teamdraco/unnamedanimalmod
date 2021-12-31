@@ -5,7 +5,7 @@ import teamdraco.unnamedanimalmod.UnnamedAnimalMod;
 import teamdraco.unnamedanimalmod.client.model.PacmanFrogModel;
 import teamdraco.unnamedanimalmod.common.entity.PacmanFrogEntity;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.entity.EntityRendererManager;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
@@ -20,7 +20,7 @@ public class PacmanFrogRenderer extends MobRenderer<PacmanFrogEntity, PacmanFrog
     private final PacmanFrogModel adult;
     private final PacmanFrogModel child;
 
-    public PacmanFrogRenderer(EntityRendererManager manager) {
+    public PacmanFrogRenderer(EntityRendererProvider.Context manager) {
         super(manager, new PacmanFrogModel.Adult(), 0.2f);
         adult = model;
         child = new PacmanFrogModel.Child();

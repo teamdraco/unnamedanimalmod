@@ -5,7 +5,7 @@ import teamdraco.unnamedanimalmod.UnnamedAnimalMod;
 import teamdraco.unnamedanimalmod.client.model.FlashlightFishModel;
 import teamdraco.unnamedanimalmod.client.renderer.layer.FlashlightFishGlowLayer;
 import teamdraco.unnamedanimalmod.common.entity.FlashlightFishEntity;
-import net.minecraft.client.renderer.entity.EntityRendererManager;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
@@ -17,7 +17,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class FlashlightFishRenderer extends MobRenderer<FlashlightFishEntity, FlashlightFishModel<FlashlightFishEntity>> {
     private static final ResourceLocation TEXTURE = new ResourceLocation(UnnamedAnimalMod.MOD_ID, "textures/entity/flashlight_fish/flashlight_fish.png");
 
-    public FlashlightFishRenderer(EntityRendererManager renderManagerIn) {
+    public FlashlightFishRenderer(EntityRendererProvider.Context renderManagerIn) {
         super(renderManagerIn, new FlashlightFishModel<>(), 0.1F);
         this.addLayer(new FlashlightFishGlowLayer(this));
     }
