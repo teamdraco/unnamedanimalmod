@@ -1,6 +1,6 @@
 package teamdraco.unnamedanimalmod.client.renderer;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import teamdraco.unnamedanimalmod.UnnamedAnimalMod;
 import teamdraco.unnamedanimalmod.client.model.ElephantnoseFishModel;
 import teamdraco.unnamedanimalmod.common.entity.ElephantnoseFishEntity;
@@ -24,7 +24,7 @@ public class ElephantnoseFishRenderer extends MobRenderer<ElephantnoseFishEntity
         return TEXTURE;
     }
 
-    protected void setupRotations(ElephantnoseFishEntity entityLiving, MatrixStack matrixStackIn, float ageInTicks, float rotationYaw, float partialTicks) {
+    protected void setupRotations(ElephantnoseFishEntity entityLiving, PoseStack matrixStackIn, float ageInTicks, float rotationYaw, float partialTicks) {
         super.setupRotations(entityLiving, matrixStackIn, ageInTicks, rotationYaw, partialTicks);
         float f = 4.3F * Mth.sin(0.6F * ageInTicks);
         matrixStackIn.mulPose(Vector3f.YP.rotationDegrees(f));

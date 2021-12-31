@@ -1,10 +1,10 @@
 package teamdraco.unnamedanimalmod.client.renderer;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import teamdraco.unnamedanimalmod.UnnamedAnimalMod;
 import teamdraco.unnamedanimalmod.client.model.HumpheadParrotfishModel;
 import teamdraco.unnamedanimalmod.common.entity.HumpheadParrotfishEntity;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
@@ -27,7 +27,7 @@ public class HumpheadParrotfishRenderer extends MobRenderer<HumpheadParrotfishEn
     }
 
     @Override
-    public void render(HumpheadParrotfishEntity entity, float yaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
+    public void render(HumpheadParrotfishEntity entity, float yaw, float partialTicks, PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn) {
         model = entity.isBaby() ? child : adult;
         super.render(entity, yaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
     }
@@ -40,7 +40,7 @@ public class HumpheadParrotfishRenderer extends MobRenderer<HumpheadParrotfishEn
         }
     }
 
-    protected void setupRotations(HumpheadParrotfishEntity entityLiving, MatrixStack matrixStackIn, float ageInTicks, float rotationYaw, float partialTicks) {
+    protected void setupRotations(HumpheadParrotfishEntity entityLiving, PoseStack matrixStackIn, float ageInTicks, float rotationYaw, float partialTicks) {
         super.setupRotations(entityLiving, matrixStackIn, ageInTicks, rotationYaw, partialTicks);
         float f = 4.3F * Mth.sin(0.6F * ageInTicks);
         matrixStackIn.mulPose(Vector3f.YP.rotationDegrees(f));

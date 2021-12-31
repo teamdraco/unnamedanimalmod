@@ -3,6 +3,7 @@ package teamdraco.unnamedanimalmod.client;
 import net.minecraft.client.color.block.BlockColors;
 import net.minecraft.client.color.item.ItemColor;
 import net.minecraft.client.color.item.ItemColors;
+import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.item.ItemProperties;
@@ -16,6 +17,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.registries.RegistryObject;
 import teamdraco.unnamedanimalmod.UnnamedAnimalMod;
+import teamdraco.unnamedanimalmod.client.model.CapybaraModel;
 import teamdraco.unnamedanimalmod.client.renderer.*;
 import teamdraco.unnamedanimalmod.client.renderer.item.GreaterPrairieChickenEggRenderer;
 import teamdraco.unnamedanimalmod.client.renderer.item.MangroveSnakeEggRenderer;
@@ -33,6 +35,11 @@ import java.util.function.Consumer;
 
 @Mod.EventBusSubscriber(modid = UnnamedAnimalMod.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class ClientEvents {
+
+    @SubscribeEvent
+    public static void onEntityLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
+        event.registerLayerDefinition(UAMModelLayers.CAPYBARA, CapybaraModel::createLayers);
+    }
 
     @SubscribeEvent
     public static void onEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {

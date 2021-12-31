@@ -1,6 +1,7 @@
 package teamdraco.unnamedanimalmod.client.model;
 
 import com.google.common.collect.ImmutableList;
+import net.minecraft.client.model.AgeableListModel;
 import net.minecraft.client.renderer.entity.model.AgeableModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.world.entity.Entity;
@@ -11,7 +12,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import java.util.Collections;
 
 @OnlyIn(Dist.CLIENT)
-public class MarineIguanaModel<T extends Entity> extends AgeableModel<T> {
+public class MarineIguanaModel<T extends Entity> extends AgeableListModel<T> {
     public ModelPart body;
     public ModelPart tailBase;
     public ModelPart armLeft;

@@ -1,6 +1,6 @@
 package teamdraco.unnamedanimalmod.client.renderer;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import teamdraco.unnamedanimalmod.UnnamedAnimalMod;
 import teamdraco.unnamedanimalmod.client.model.FlashlightFishModel;
 import teamdraco.unnamedanimalmod.client.renderer.layer.FlashlightFishGlowLayer;
@@ -26,7 +26,7 @@ public class FlashlightFishRenderer extends MobRenderer<FlashlightFishEntity, Fl
         return TEXTURE;
     }
 
-    protected void setupRotations(FlashlightFishEntity entityLiving, MatrixStack matrixStackIn, float ageInTicks, float rotationYaw, float partialTicks) {
+    protected void setupRotations(FlashlightFishEntity entityLiving, PoseStack matrixStackIn, float ageInTicks, float rotationYaw, float partialTicks) {
         super.setupRotations(entityLiving, matrixStackIn, ageInTicks, rotationYaw, partialTicks);
         float f = 4.3F * Mth.sin(0.6F * ageInTicks);
         matrixStackIn.mulPose(Vector3f.YP.rotationDegrees(f));

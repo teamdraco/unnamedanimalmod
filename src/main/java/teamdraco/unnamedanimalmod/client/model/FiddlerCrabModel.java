@@ -1,8 +1,8 @@
 package teamdraco.unnamedanimalmod.client.model;
 
 import com.google.common.collect.ImmutableList;
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.vertex.IVertexBuilder;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.world.entity.Entity;
@@ -95,7 +95,7 @@ public class FiddlerCrabModel<T extends Entity> extends EntityModel<T> {
     }
 
     @Override
-    public void renderToBuffer(MatrixStack matrixStackIn, IVertexBuilder bufferIn, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
+    public void renderToBuffer(PoseStack matrixStackIn, VertexConsumer bufferIn, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
         ImmutableList.of(this.leg_left_front, this.leg_right_back, this.claw_right, this.body, this.leg_right_mid2, this.leg_right_mid1, this.leg_right_front, this.leg_left_mid1, this.claw_left, this.leg_left_back, this.leg_left_mid2).forEach((modelRenderer) -> { 
             modelRenderer.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
         });

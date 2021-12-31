@@ -1,10 +1,10 @@
 package teamdraco.unnamedanimalmod.client.renderer;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import teamdraco.unnamedanimalmod.UnnamedAnimalMod;
 import teamdraco.unnamedanimalmod.client.model.TomatoFrogModel;
 import teamdraco.unnamedanimalmod.common.entity.TomatoFrogEntity;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
@@ -27,7 +27,7 @@ public class TomatoFrogRenderer extends MobRenderer<TomatoFrogEntity, TomatoFrog
     }
 
     @Override
-    public void render(TomatoFrogEntity entity, float yaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
+    public void render(TomatoFrogEntity entity, float yaw, float partialTicks, PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn) {
         model = entity.isBaby() ? child : adult;
         super.render(entity, yaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
     }
@@ -41,7 +41,7 @@ public class TomatoFrogRenderer extends MobRenderer<TomatoFrogEntity, TomatoFrog
         }
     }
 
-    protected void setupRotations(TomatoFrogEntity entity, MatrixStack matrix, float var1, float var2, float var3) {
+    protected void setupRotations(TomatoFrogEntity entity, PoseStack matrix, float var1, float var2, float var3) {
         super.setupRotations(entity, matrix, var1, var2, var3);
         if(entity.isBaby()) {
             float rotate = 4.3F * Mth.sin(0.6F * var1);

@@ -1,6 +1,6 @@
 package teamdraco.unnamedanimalmod.client.renderer;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import teamdraco.unnamedanimalmod.UnnamedAnimalMod;
 import teamdraco.unnamedanimalmod.client.model.PlatypusModel;
 import teamdraco.unnamedanimalmod.common.entity.PlatypusEntity;
@@ -31,7 +31,7 @@ public class PlatypusRenderer extends MobRenderer<PlatypusEntity, PlatypusModel<
     }
 
     @Override
-    protected void setupRotations(PlatypusEntity entityLiving, MatrixStack matrixStackIn, float ageInTicks, float rotationYaw, float partialTicks) {
+    protected void setupRotations(PlatypusEntity entityLiving, PoseStack matrixStackIn, float ageInTicks, float rotationYaw, float partialTicks) {
         super.setupRotations(entityLiving, matrixStackIn, ageInTicks, rotationYaw, partialTicks);
         //matrixStackIn.translate((double)0.0F, (double)-1.1F, (double)0.0F);
     }
