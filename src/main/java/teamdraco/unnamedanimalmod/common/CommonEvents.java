@@ -1,7 +1,7 @@
 package teamdraco.unnamedanimalmod.common;
 
-import net.minecraft.entity.*;
-import net.minecraft.entity.passive.WolfEntity;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.animal.WolfEntity;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.biome.MobSpawnInfo;
@@ -9,15 +9,15 @@ import net.minecraftforge.event.world.BiomeLoadingEvent;
 import teamdraco.unnamedanimalmod.UAMConfig;
 import teamdraco.unnamedanimalmod.common.block.RichFarmlandBlock;
 import teamdraco.unnamedanimalmod.common.entity.MuskOxEntity;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.CropsBlock;
-import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
-import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.CropsBlock;
+import net.minecraft.world.entity.ai.goal.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -76,12 +76,12 @@ public class CommonEvents {
 
     @SubscribeEvent
     public static void harvest(BlockEvent.BreakEvent event) {
-        if (event.getWorld() instanceof ServerWorld) {
+        if (event.getWorld() instanceof ServerLevel) {
             BlockState cropState = event.getState();
             if (cropState.getBlock() instanceof CropsBlock) {
                 CropsBlock block = (CropsBlock) cropState.getBlock();
                 if (block.isMaxAge(cropState)) {
-                    ServerWorld world = (ServerWorld) event.getWorld();
+                    ServerLevel world = (ServerLevel) event.getWorld();
                     BlockState farmlandState = world.getBlockState(event.getPos().below());
                     if (farmlandState.getBlock() instanceof RichFarmlandBlock) {
                         List<ItemStack> drops = Block.getDrops(cropState, world, event.getPos(), null);

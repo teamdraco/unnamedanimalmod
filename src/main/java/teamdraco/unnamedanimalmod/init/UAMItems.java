@@ -1,11 +1,13 @@
 package teamdraco.unnamedanimalmod.init;
 
-import net.minecraft.item.*;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.item.*;
 import teamdraco.unnamedanimalmod.UnnamedAnimalMod;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Effects;
-import net.minecraftforge.fml.RegistryObject;
+import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraftforge.registries.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import teamdraco.unnamedanimalmod.common.item.*;
@@ -22,18 +24,18 @@ public class UAMItems {
     public static final RegistryObject<Item> DRIED_MUD_BRICK = ITEMS.register("dried_mud_brick", () -> new Item(defaultProperties()));
     public static final RegistryObject<Item> MANGROVE_BOAT = ITEMS.register("mangrove_boat", () -> new MangroveBoatItem(defaultProperties().stacksTo(1)));
 
-    // Food
-    public static final RegistryObject<Item> FRIED_PRAIRIE_CHICKEN_EGG = ITEMS.register("fried_prairie_chicken_egg", () -> new Item(defaultProperties().stacksTo(64).food(new Food.Builder().saturationMod(0.6f).nutrition(6).build())));
-    public static final RegistryObject<Item> ELEPHANTNOSE_FISH = ITEMS.register("elephantnose_fish", () -> new Item(defaultProperties().food(new Food.Builder().saturationMod(0.2f).nutrition(1).build())));
-    public static final RegistryObject<Item> FLASHLIGHT_FISH = ITEMS.register("flashlight_fish", () -> new Item(defaultProperties().food(new Food.Builder().saturationMod(0.2f).nutrition(1).effect(() -> new EffectInstance(Effects.GLOWING, 100, 1), 1F).build())));
-    public static final RegistryObject<Item> ROCKET_KILLIFISH = ITEMS.register("rocket_killifish", () -> new Item(defaultProperties().food(new Food.Builder().saturationMod(0.2f).nutrition(1).build())));
-    public static final RegistryObject<Item> MUSK_OX_SHANK = ITEMS.register("musk_ox_shank", () -> new Item(defaultProperties().food(new Food.Builder().nutrition(4).saturationMod(0.2f).effect(() -> new EffectInstance(Effects.MOVEMENT_SLOWDOWN, 100, 0), 0.75f).meat().build())));
-    public static final RegistryObject<Item> COOKED_MUSK_OX_SHANK = ITEMS.register("cooked_musk_ox_shank", () -> new Item(defaultProperties().food(new Food.Builder().nutrition(10).saturationMod(0.6f).effect(() -> new EffectInstance(Effects.MOVEMENT_SLOWDOWN, 100, 0), 0.25f).meat().build())));
-    public static final RegistryObject<Item> FROG_LEGS = ITEMS.register("frog_legs", () -> new Item(defaultProperties().food(new Food.Builder().nutrition(2).saturationMod(0.2f).meat().build())));
-    public static final RegistryObject<Item> COOKED_FROG_LEGS = ITEMS.register("cooked_frog_legs", () -> new Item(defaultProperties().food(new Food.Builder().nutrition(5).saturationMod(0.3f).meat().build())));
-    public static final RegistryObject<Item> MANGROVE_FRUIT = ITEMS.register("mangrove_fruit", () -> new BlockItem(UAMBlocks.MANGROVE_FRUIT.get(), defaultProperties().food(new Food.Builder().nutrition(2).saturationMod(0.1f).effect(() -> new EffectInstance(Effects.HUNGER, 100, 0), 1f).build())));
-    public static final RegistryObject<Item> COOKED_MANGROVE_FRUIT = ITEMS.register("cooked_mangrove_fruit", () -> new Item(defaultProperties().food(new Food.Builder().nutrition(6).saturationMod(0.5f).build())));
-    public static final RegistryObject<Item> LEAFY_SEADRAGON = ITEMS.register("leafy_seadragon", () -> new Item(defaultProperties().food(new Food.Builder().nutrition(1).saturationMod(0.05f).build())));
+    // FoodProperties
+    public static final RegistryObject<Item> FRIED_PRAIRIE_CHICKEN_EGG = ITEMS.register("fried_prairie_chicken_egg", () -> new Item(defaultProperties().stacksTo(64).food(new FoodProperties.Builder().saturationMod(0.6f).nutrition(6).build())));
+    public static final RegistryObject<Item> ELEPHANTNOSE_FISH = ITEMS.register("elephantnose_fish", () -> new Item(defaultProperties().food(new FoodProperties.Builder().saturationMod(0.2f).nutrition(1).build())));
+    public static final RegistryObject<Item> FLASHLIGHT_FISH = ITEMS.register("flashlight_fish", () -> new Item(defaultProperties().food(new FoodProperties.Builder().saturationMod(0.2f).nutrition(1).effect(() -> new MobEffectInstance(MobEffects.GLOWING, 100, 1), 1F).build())));
+    public static final RegistryObject<Item> ROCKET_KILLIFISH = ITEMS.register("rocket_killifish", () -> new Item(defaultProperties().food(new FoodProperties.Builder().saturationMod(0.2f).nutrition(1).build())));
+    public static final RegistryObject<Item> MUSK_OX_SHANK = ITEMS.register("musk_ox_shank", () -> new Item(defaultProperties().food(new FoodProperties.Builder().nutrition(4).saturationMod(0.2f).effect(() -> new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, 0), 0.75f).meat().build())));
+    public static final RegistryObject<Item> COOKED_MUSK_OX_SHANK = ITEMS.register("cooked_musk_ox_shank", () -> new Item(defaultProperties().food(new FoodProperties.Builder().nutrition(10).saturationMod(0.6f).effect(() -> new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, 0), 0.25f).meat().build())));
+    public static final RegistryObject<Item> FROG_LEGS = ITEMS.register("frog_legs", () -> new Item(defaultProperties().food(new FoodProperties.Builder().nutrition(2).saturationMod(0.2f).meat().build())));
+    public static final RegistryObject<Item> COOKED_FROG_LEGS = ITEMS.register("cooked_frog_legs", () -> new Item(defaultProperties().food(new FoodProperties.Builder().nutrition(5).saturationMod(0.3f).meat().build())));
+    public static final RegistryObject<Item> MANGROVE_FRUIT = ITEMS.register("mangrove_fruit", () -> new BlockItem(UAMBlocks.MANGROVE_FRUIT.get(), defaultProperties().food(new FoodProperties.Builder().nutrition(2).saturationMod(0.1f).effect(() -> new MobEffectInstance(MobEffects.HUNGER, 100, 0), 1f).build())));
+    public static final RegistryObject<Item> COOKED_MANGROVE_FRUIT = ITEMS.register("cooked_mangrove_fruit", () -> new Item(defaultProperties().food(new FoodProperties.Builder().nutrition(6).saturationMod(0.5f).build())));
+    public static final RegistryObject<Item> LEAFY_SEADRAGON = ITEMS.register("leafy_seadragon", () -> new Item(defaultProperties().food(new FoodProperties.Builder().nutrition(1).saturationMod(0.05f).build())));
 
     // Eggs & Buckets
     public static final RegistryObject<Item> TOMATO_FROG_EGG = ITEMS.register("tomato_frog_egg", () -> new FrogEggItem(UAMEntities.TOMATO_FROG::get, defaultProperties().stacksTo(16)));
@@ -41,19 +43,19 @@ public class UAMItems {
     public static final RegistryObject<Item> GREATER_PRAIRIE_CHICKEN_EGG = ITEMS.register("greater_prairie_chicken_egg", () -> new GreaterPrairieChickenEggItem(defaultProperties().stacksTo(16)));
     public static final RegistryObject<Item> PLATYPUS_EGG = ITEMS.register("platypus_egg", () -> new PlatypusEggItem(defaultProperties().stacksTo(16)));
     public static final RegistryObject<Item> MARINE_IGUANA_EGG = ITEMS.register("marine_iguana_egg", () -> new MarineIguanaEggItem(defaultProperties().stacksTo(16)));
-    public static final RegistryObject<Item> FLASHLIGHT_FISH_BUCKET = ITEMS.register("flashlight_fish_bucket", () -> new FishBucketItem(UAMEntities.FLASHLIGHT_FISH, () -> Fluids.WATER, defaultProperties().stacksTo(1)));
+    public static final RegistryObject<Item> FLASHLIGHT_FISH_BUCKET = ITEMS.register("flashlight_fish_bucket", () -> new MobBucketItem(UAMEntities.FLASHLIGHT_FISH::get, () -> Fluids.WATER, () -> SoundEvents.BUCKET_EMPTY_FISH, defaultProperties().stacksTo(1)));
     public static final RegistryObject<Item> PLATYPUS_BUCKET = ITEMS.register("platypus_bucket", () -> new UAMCatchableItem(UAMEntities.PLATYPUS::get, Items.BUCKET, defaultProperties().stacksTo(1)));
-    public static final RegistryObject<Item> ELEPHANTNOSE_FISH_BUCKET = ITEMS.register("elephantnose_fish_bucket", () -> new FishBucketItem(UAMEntities.ELEPHANTNOSE_FISH, () -> Fluids.WATER, defaultProperties().stacksTo(1)));
-    public static final RegistryObject<Item> BLACK_DIAMOND_STINGRAY_BUCKET = ITEMS.register("black_diamond_stingray_bucket", () -> new FishBucketItem(UAMEntities.BLACK_DIAMOND_STINGRAY, () -> Fluids.WATER, defaultProperties().stacksTo(1)));
+    public static final RegistryObject<Item> ELEPHANTNOSE_FISH_BUCKET = ITEMS.register("elephantnose_fish_bucket", () -> new MobBucketItem(() -> UAMEntities.ELEPHANTNOSE_FISH.get(), () -> Fluids.WATER, defaultProperties().stacksTo(1)));
+    public static final RegistryObject<Item> BLACK_DIAMOND_STINGRAY_BUCKET = ITEMS.register("black_diamond_stingray_bucket", () -> new MobBucketItem(() -> UAMEntities.BLACK_DIAMOND_STINGRAY, () -> Fluids.WATER, defaultProperties().stacksTo(1)));
     public static final RegistryObject<Item> BANANA_SLUG_POT = ITEMS.register("banana_slug_pot", () -> new UAMCatchableItem(UAMEntities.BANANA_SLUG::get, Items.FLOWER_POT, defaultProperties().stacksTo(1)));
     public static final RegistryObject<Item> TOMATO_FROG_BOWL = ITEMS.register("tomato_frog_bowl", () -> new UAMCatchableItem(UAMEntities.TOMATO_FROG::get, Items.BOWL, defaultProperties().stacksTo(1)));
     public static final RegistryObject<Item> PACMAN_FROG_BOWL = ITEMS.register("pacman_frog_bowl", () -> new UAMCatchableItem(UAMEntities.PACMAN_FROG::get, Items.BOWL, defaultProperties().stacksTo(1)));
-    public static final RegistryObject<Item> ROCKET_KILLIFISH_BUCKET = ITEMS.register("rocket_killifish_bucket", () -> new FishBucketItem(UAMEntities.ROCKET_KILLIFISH, () -> Fluids.WATER, defaultProperties().stacksTo(1)));
+    public static final RegistryObject<Item> ROCKET_KILLIFISH_BUCKET = ITEMS.register("rocket_killifish_bucket", () -> new MobBucketItem(() -> UAMEntities.ROCKET_KILLIFISH, () -> Fluids.WATER, defaultProperties().stacksTo(1)));
     public static final RegistryObject<Item> BABY_HUMPHEAD_PARROTFISH_BUCKET = ITEMS.register("baby_humphead_parrotfish_bucket", () -> new BabyHumpheadParrotfishBucketItem(UAMEntities.HUMPHEAD_PARROTFISH::get, () -> Fluids.WATER, defaultProperties().stacksTo(1)));
     // public static final RegistryObject<Item> BLUBBER_JELLY_BUCKET = REGISTRY.register("blubber_jelly_bucket", () -> new UAMWaterBucketItem(() -> UAMEntities.BLUBBER_JELLY.get(), defaultProperties().maxStackSize(1)));
     public static final RegistryObject<Item> FIDDLER_CRAB_BUCKET = ITEMS.register("fiddler_crab_bucket", () -> new UAMWaterBucketItem(UAMEntities.FIDDLER_CRAB::get, () -> Fluids.WATER, defaultProperties().stacksTo(1)));
-    public static final RegistryObject<Item> LEAFY_SEADRAGON_BUCKET = ITEMS.register("leafy_seadragon_bucket", () -> new FishBucketItem(UAMEntities.LEAFY_SEADRAGON, () -> Fluids.WATER, defaultProperties().stacksTo(1)));
-    public static final RegistryObject<Item> SPOTTED_GARDEN_EEL_BUCKET = ITEMS.register("spotted_garden_eel_bucket", () -> new FishBucketItem(UAMEntities.SPOTTED_GARDEN_EEL, () -> Fluids.WATER, defaultProperties().stacksTo(1)));
+    public static final RegistryObject<Item> LEAFY_SEADRAGON_BUCKET = ITEMS.register("leafy_seadragon_bucket", () -> new MobBucketItem(() -> UAMEntities.LEAFY_SEADRAGON, () -> Fluids.WATER, defaultProperties().stacksTo(1)));
+    public static final RegistryObject<Item> SPOTTED_GARDEN_EEL_BUCKET = ITEMS.register("spotted_garden_eel_bucket", () -> new MobBucketItem(() -> UAMEntities.SPOTTED_GARDEN_EEL, () -> Fluids.WATER, defaultProperties().stacksTo(1)));
     public static final RegistryObject<Item> MUDSKIPPER_BUCKET = ITEMS.register("mudskipper_bucket", () -> new UAMWaterBucketItem(UAMEntities.MUDSKIPPER::get, () -> Fluids.WATER, defaultProperties().stacksTo(1)));
 
     // Spawn Eggs

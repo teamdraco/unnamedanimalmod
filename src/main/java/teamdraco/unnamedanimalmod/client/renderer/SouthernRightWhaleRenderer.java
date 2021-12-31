@@ -6,7 +6,7 @@ import teamdraco.unnamedanimalmod.client.model.SouthernRightWhaleModel;
 import teamdraco.unnamedanimalmod.common.entity.SouthernRightWhaleEntity;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Util;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;

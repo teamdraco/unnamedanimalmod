@@ -1,29 +1,28 @@
 package teamdraco.unnamedanimalmod.common.block;
 
-import net.minecraft.block.*;
-import net.minecraft.entity.Entity;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.FarmBlock;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.common.PlantType;
 
-import net.minecraft.block.AbstractBlock.Properties;
-
-public class RichFarmlandBlock extends FarmlandBlock
+public class RichFarmlandBlock extends FarmBlock
 {
     public RichFarmlandBlock(Properties properties)
     {
         super(properties);
     }
-    
+
     @Override
-    public void fallOn(World worldIn, BlockPos pos, Entity entityIn, float fallDistance) {
+    public void fallOn(Level worldIn, BlockState state, BlockPos pos, Entity entity, float fallDistance) {
     }
-    
+
     @Override
-    public boolean canSustainPlant(BlockState state, IBlockReader world, BlockPos pos, Direction facing, IPlantable plantable)
+    public boolean canSustainPlant(BlockState state, BlockGetter world, BlockPos pos, Direction facing, IPlantable plantable)
     {
         net.minecraftforge.common.PlantType type = plantable.getPlantType(world, pos.relative(facing));
         if (PlantType.CROP.equals(type)) {

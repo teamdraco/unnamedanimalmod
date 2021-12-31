@@ -3,13 +3,13 @@ package teamdraco.unnamedanimalmod.common.worldgen.trees.mangrove;
 import teamdraco.unnamedanimalmod.UAMHelper;
 import teamdraco.unnamedanimalmod.common.block.MangroveSaplingBlock;
 import teamdraco.unnamedanimalmod.init.UAMBlocks;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.LeavesBlock;
-import net.minecraft.block.VineBlock;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.ISeedReader;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.LeavesBlock;
+import net.minecraft.world.level.block.VineBlock;
+import net.minecraft.core.Direction;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.Level;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -58,7 +58,7 @@ public class MangroveTreeHelper
     public static int minimumVineHeight = 7; //the minimum possible height of vines
     public static int vineHeightExtra = 2; //I don't think I need to even write anything here
 
-    public static void fill(ISeedReader reader, ArrayList<Entry> filler)
+    public static void fill(WorldGenLevel reader, ArrayList<Entry> filler)
     {
         for (Entry entry : filler)
         {
@@ -66,7 +66,7 @@ public class MangroveTreeHelper
         }
     }
 
-    public static void fillLeaves(ISeedReader reader, Random rand, ArrayList<Entry> filler)
+    public static void fillLeaves(WorldGenLevel reader, Random rand, ArrayList<Entry> filler)
     {
         Collection<Entry> vineFiller = UAMHelper.takeAll(filler, p -> p.state.getBlock() instanceof VineBlock);
         for (Entry entry : filler)
@@ -163,7 +163,7 @@ public class MangroveTreeHelper
         }
     }
 
-    public static boolean canPlace(ISeedReader reader, BlockPos pos)
+    public static boolean canPlace(WorldGenLevel reader, BlockPos pos)
     {
         if (!World.isInWorldBounds(pos))
         {

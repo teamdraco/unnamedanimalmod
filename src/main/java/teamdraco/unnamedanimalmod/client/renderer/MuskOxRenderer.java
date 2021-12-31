@@ -5,7 +5,7 @@ import teamdraco.unnamedanimalmod.client.model.MuskOxModel;
 import teamdraco.unnamedanimalmod.common.entity.MuskOxEntity;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 

@@ -1,32 +1,32 @@
 package teamdraco.unnamedanimalmod.common.entity;
 
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ILivingEntityData;
-import net.minecraft.entity.MobEntity;
-import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.ai.attributes.AttributeModifierMap;
-import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.passive.fish.AbstractFishEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.network.datasync.DataSerializers;
-import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.animal.AbstractFish;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.IServerWorld;
-import net.minecraft.world.World;
+import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.Level;
 import teamdraco.unnamedanimalmod.init.UAMItems;
 
 import javax.annotation.Nullable;
 
-public class LeafySeadragonEntity extends AbstractFishEntity {
-    private static final DataParameter<Integer> VARIANT = EntityDataManager.defineId(LeafySeadragonEntity.class, DataSerializers.INT);
+public class LeafySeadragonEntity extends AbstractFish {
+    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(LeafySeadragonEntity.class, EntityDataSerializers.INT);
 
-    public LeafySeadragonEntity(EntityType<? extends LeafySeadragonEntity> type, World world) {
+    public LeafySeadragonEntity(EntityType<? extends LeafySeadragonEntity> type, Level world) {
         super(type, world);
     }
 
@@ -45,32 +45,32 @@ public class LeafySeadragonEntity extends AbstractFishEntity {
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundNBT compound) {
+    public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
         compound.putInt("Variant", getVariant());
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundNBT compound) {
+    public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
         setVariant(compound.getInt("Variant"));
     }
 
     @Override
-    protected void saveToBucketTag(ItemStack bucket) {
+    public void saveToBucketTag(ItemStack bucket) {
         super.saveToBucketTag(bucket);
-        CompoundNBT compoundnbt = bucket.getOrCreateTag();
+        CompoundTag compoundnbt = bucket.getOrCreateTag();
         compoundnbt.putInt("Variant", this.getVariant());
     }
 
     @Override
-    public ItemStack getPickedResult(RayTraceResult result) {
+    public ItemStack getPickedResult(HitResult result) {
         return new ItemStack(UAMItems.LEAFY_SEADRAGON_SPAWN_EGG.get());
     }
 
     @Nullable
     @Override
-    public ILivingEntityData finalizeSpawn(IServerWorld p_213386_1_, DifficultyInstance p_213386_2_, SpawnReason p_213386_3_, @Nullable ILivingEntityData p_213386_4_, @Nullable CompoundNBT nbt) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_213386_1_, DifficultyInstance p_213386_2_, MobSpawnType p_213386_3_, @Nullable SpawnGroupData p_213386_4_, @Nullable CompoundTag nbt) {
         if (nbt == null) {
             if (random.nextInt(4) == 0) {
                 setVariant(random.nextInt(3));
@@ -91,12 +91,12 @@ public class LeafySeadragonEntity extends AbstractFishEntity {
     }
 
     @Override
-    protected ItemStack getBucketItemStack() {
+    public ItemStack getBucketItemStack() {
         return new ItemStack(UAMItems.LEAFY_SEADRAGON_BUCKET.get());
     }
 
-    public static AttributeModifierMap.MutableAttribute createAttributes() {
-        return MobEntity.createMobAttributes().add(Attributes.MAX_HEALTH, 8.0D);
+    public static AttributeSupplier.Builder createAttributes() {
+        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 8.0D);
     }
 
     protected SoundEvent getAmbientSound() {

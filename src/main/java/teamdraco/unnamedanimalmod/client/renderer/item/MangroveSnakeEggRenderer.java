@@ -8,7 +8,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import teamdraco.unnamedanimalmod.common.entity.item.MangroveSnakeEggEntity;
 
 @OnlyIn(Dist.CLIENT)
-public class MangroveSnakeEggRenderer extends SpriteRenderer<MangroveSnakeEggEntity> {
+public class MangroveSnakeEggRenderer extends SpriteRe<MangroveSnakeEggEntity> {
 
     public MangroveSnakeEggRenderer(EntityRendererManager renderManagerIn) {
         super(renderManagerIn, Minecraft.getInstance().getItemRenderer());

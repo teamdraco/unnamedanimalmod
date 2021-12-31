@@ -7,9 +7,9 @@ import teamdraco.unnamedanimalmod.common.entity.HumpheadParrotfishEntity;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.vector.Vector3f;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
+import com.mojang.math.Vector3f;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -42,7 +42,7 @@ public class HumpheadParrotfishRenderer extends MobRenderer<HumpheadParrotfishEn
 
     protected void setupRotations(HumpheadParrotfishEntity entityLiving, MatrixStack matrixStackIn, float ageInTicks, float rotationYaw, float partialTicks) {
         super.setupRotations(entityLiving, matrixStackIn, ageInTicks, rotationYaw, partialTicks);
-        float f = 4.3F * MathHelper.sin(0.6F * ageInTicks);
+        float f = 4.3F * Mth.sin(0.6F * ageInTicks);
         matrixStackIn.mulPose(Vector3f.YP.rotationDegrees(f));
         if (!entityLiving.isInWater()) {
             matrixStackIn.translate((double)0.1F, (double)0.1F, (double)-0.1F);

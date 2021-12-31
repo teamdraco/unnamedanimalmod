@@ -2,14 +2,14 @@ package teamdraco.unnamedanimalmod.client.renderer;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.entity.model.EntityModel;
+import net.minecraft.client.model.EntityModel;
 import teamdraco.unnamedanimalmod.UnnamedAnimalMod;
 import teamdraco.unnamedanimalmod.client.model.CapybaraModel;
 import teamdraco.unnamedanimalmod.client.renderer.layer.CapybaraChestLayer;
 import teamdraco.unnamedanimalmod.common.entity.CapybaraEntity;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 

@@ -1,12 +1,13 @@
 package teamdraco.unnamedanimalmod.common.block;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.item.BlockItemUseContext;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.item.BlockItemUseContext;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.core.Direction;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.IWorld;
 
 public class DriedMudBlock extends Block {
@@ -18,17 +19,17 @@ public class DriedMudBlock extends Block {
     }
 
     public BlockState getStateForPlacement(BlockItemUseContext context) {
-        IBlockReader iblockreader = context.getLevel();
+        BlockGetter iblockreader = context.getLevel();
         BlockPos blockpos = context.getClickedPos();
         BlockState blockstate = iblockreader.getBlockState(blockpos);
         return shouldSolidify(iblockreader, blockpos, blockstate) ? this.solidifiedState : super.getStateForPlacement(context);
     }
 
-    private static boolean shouldSolidify(IBlockReader reader, BlockPos pos, BlockState state) {
+    private static boolean shouldSolidify(BlockGetter reader, BlockPos pos, BlockState state) {
         return causesSolidify(state) || isTouchingLiquid(reader, pos);
     }
 
-    private static boolean isTouchingLiquid(IBlockReader reader, BlockPos pos) {
+    private static boolean isTouchingLiquid(BlockGetter reader, BlockPos pos) {
         boolean flag = false;
         BlockPos.Mutable blockpos$mutable = pos.mutable();
 
@@ -51,7 +52,7 @@ public class DriedMudBlock extends Block {
         return state.getFluidState().is(FluidTags.WATER);
     }
 
-    public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
+    public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, LevelAccessor worldIn, BlockPos currentPos, BlockPos facingPos) {
         return isTouchingLiquid(worldIn, currentPos) ? this.solidifiedState : super.updateShape(stateIn, facing, facingState, worldIn, currentPos, facingPos);
     }
 }

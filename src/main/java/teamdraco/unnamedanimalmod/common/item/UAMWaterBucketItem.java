@@ -1,28 +1,28 @@
 package teamdraco.unnamedanimalmod.common.item;
 
 import net.minecraft.advancements.CriteriaTriggers;
-import net.minecraft.block.ILiquidContainer;
-import net.minecraft.entity.passive.fish.AbstractFishEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.world.level.block.ILiquidContainer;
+import net.minecraft.world.entity.animal.AbstractFish;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.stats.Stats;
-import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.BlockHitResult;
 import net.minecraft.util.math.RayTraceContext;
-import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.world.phys.HitResult;
 import net.minecraftforge.event.ForgeEventFactory;
 import teamdraco.unnamedanimalmod.UnnamedAnimalMod;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.item.*;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.item.*;
 import net.minecraft.util.*;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.IWorld;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.world.level.Level;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.DistExecutor;
 
@@ -30,7 +30,7 @@ import javax.annotation.Nullable;
 import java.util.Objects;
 import java.util.function.Supplier;
 
-import net.minecraft.item.Item.Properties;
+import net.minecraft.world.item.Item.Properties;
 
 public class UAMWaterBucketItem extends BucketItem {
     private final Supplier<EntityType<?>> entityType;
@@ -44,14 +44,14 @@ public class UAMWaterBucketItem extends BucketItem {
     }
 
     @Override
-    public ActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand handIn) {
+    public ActionResult<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {
         ItemStack itemstack = playerIn.getItemInHand(handIn);
-        BlockRayTraceResult raytraceresult = getPlayerPOVHitResult(worldIn, playerIn, RayTraceContext.FluidMode.NONE);
+        BlockHitResult raytraceresult = getPlayerPOVHitResult(worldIn, playerIn, RayTraceContext.FluidMode.NONE);
         ActionResult<ItemStack> ret = ForgeEventFactory.onBucketUse(playerIn, worldIn, itemstack, raytraceresult);
         if (ret != null) return ret;
-        if (raytraceresult.getType() == RayTraceResult.Type.MISS) {
+        if (raytraceresult.getType() == HitResult.Type.MISS) {
             return ActionResult.pass(itemstack);
-        } else if (raytraceresult.getType() != RayTraceResult.Type.BLOCK) {
+        } else if (raytraceresult.getType() != HitResult.Type.BLOCK) {
             return ActionResult.pass(itemstack);
         } else {
             BlockPos blockpos = raytraceresult.getBlockPos();
@@ -61,9 +61,9 @@ public class UAMWaterBucketItem extends BucketItem {
                 BlockState blockstate = worldIn.getBlockState(blockpos);
                 BlockPos blockpos2 = blockstate.getBlock() instanceof ILiquidContainer && ((ILiquidContainer) blockstate.getBlock()).canPlaceLiquid(worldIn, blockpos, blockstate, fluid.get()) ? blockpos : blockpos1;
                 this.emptyBucket(playerIn, worldIn, blockpos2, raytraceresult);
-                if (worldIn instanceof ServerWorld) this.placeEntity((ServerWorld)worldIn, itemstack, blockpos2);
-                if (playerIn instanceof ServerPlayerEntity) {
-                    CriteriaTriggers.PLACED_BLOCK.trigger((ServerPlayerEntity) playerIn, blockpos2, itemstack);
+                if (worldIn instanceof ServerLevel) this.placeEntity((ServerLevel)worldIn, itemstack, blockpos2);
+                if (playerIn instanceof ServerPlayer) {
+                    CriteriaTriggers.PLACED_BLOCK.trigger((ServerPlayer) playerIn, blockpos2, itemstack);
                 }
 
                 playerIn.awardStat(Stats.ITEM_USED.get(this));
@@ -74,16 +74,16 @@ public class UAMWaterBucketItem extends BucketItem {
         }
     }
 
-    private void placeEntity(ServerWorld worldIn, ItemStack stack, BlockPos pos) {
-        Entity entity = this.entityType.get().spawn(worldIn, stack, (PlayerEntity)null, pos, SpawnReason.BUCKET, true, false);
+    private void placeEntity(ServerLevel worldIn, ItemStack stack, BlockPos pos) {
+        Entity entity = this.entityType.get().spawn(worldIn, stack, (Player)null, pos, MobSpawnType.BUCKET, true, false);
         if (entity != null) {
-            if (entity instanceof AbstractFishEntity) {
-                ((AbstractFishEntity)entity).setFromBucket(true);
+            if (entity instanceof AbstractFish) {
+                ((AbstractFish)entity).setFromBucket(true);
             }
         }
     }
 
-    protected void playEmptySound(@Nullable PlayerEntity player, IWorld worldIn, BlockPos pos) {
+    protected void playEmptySound(@Nullable Player player, LevelAccessor worldIn, BlockPos pos) {
         worldIn.playSound(player, pos, SoundEvents.BUCKET_EMPTY_FISH, SoundCategory.NEUTRAL, 1.0F, 1.0F);
     }
 }

@@ -2,20 +2,21 @@ package teamdraco.unnamedanimalmod.client;
 
 import net.minecraft.client.renderer.color.BlockColors;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.EntityRenderersEvent;
 import teamdraco.unnamedanimalmod.UnnamedAnimalMod;
 import teamdraco.unnamedanimalmod.client.renderer.item.*;
 import teamdraco.unnamedanimalmod.common.block.SaltPowderBlock;
 import teamdraco.unnamedanimalmod.init.UAMBlocks;
 import teamdraco.unnamedanimalmod.init.UAMEntities;
 import teamdraco.unnamedanimalmod.common.item.UAMSpawnEggItem;
-import net.minecraft.block.*;
+import net.minecraft.world.level.block.*;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.registries.RegistryObject;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -27,32 +28,33 @@ import java.util.Set;
 @Mod.EventBusSubscriber(modid = UnnamedAnimalMod.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class ClientEvents {
 
-    public static void init() {
-        RenderingRegistry.registerEntityRenderingHandler(UAMEntities.BLACK_DIAMOND_STINGRAY.get(), BlackDiamondStingrayRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(UAMEntities.TOMATO_FROG.get(), TomatoFrogRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(UAMEntities.SOUTHERN_RIGHT_WHALE.get(), SouthernRightWhaleRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(UAMEntities.GREATER_PRAIRIE_CHICKEN.get(), GreaterPrairieChickenRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(UAMEntities.GREATER_PRAIRIE_CHICKEN_EGG.get(), GreaterPrairieChickenEggRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(UAMEntities.FLASHLIGHT_FISH.get(), FlashlightFishRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(UAMEntities.HUMPHEAD_PARROTFISH.get(), HumpheadParrotfishRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(UAMEntities.MUSK_OX.get(), MuskOxRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(UAMEntities.BANANA_SLUG.get(), BananaSlugRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(UAMEntities.MARINE_IGUANA.get(), MarineIguanaRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(UAMEntities.PLATYPUS.get(), PlatypusRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(UAMEntities.PLATYPUS_EGG.get(), PlatypusEggRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(UAMEntities.MARINE_IGUANA_EGG.get(), MarineIguanaEggRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(UAMEntities.ELEPHANTNOSE_FISH.get(), ElephantnoseFishRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(UAMEntities.PACMAN_FROG.get(), PacmanFrogRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(UAMEntities.CAPYBARA.get(), CapybaraRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(UAMEntities.ROCKET_KILLIFISH.get(), RocketKillifishRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(UAMEntities.MANGROVE_SNAKE.get(), MangroveSnakeRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(UAMEntities.MANGROVE_BOAT.get(), MangroveBoatRenderer::new);
-        // RenderingRegistry.registerEntityRenderingHandler(UAMEntities.BLUBBER_JELLY.get(), BlubberJellyRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(UAMEntities.FIDDLER_CRAB.get(), FiddlerCrabRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(UAMEntities.MANGROVE_SNAKE_EGG.get(), MangroveSnakeEggRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(UAMEntities.LEAFY_SEADRAGON.get(), LeafySeadragonRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(UAMEntities.SPOTTED_GARDEN_EEL.get(), SpottedGardenEelRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(UAMEntities.MUDSKIPPER.get(), MudskipperRenderer::new);
+    @SubscribeEvent
+    public static void onEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
+        event.registerEntityRenderer(UAMEntities.BLACK_DIAMOND_STINGRAY.get(), BlackDiamondStingrayRenderer::new);
+        event.registerEntityRenderer(UAMEntities.TOMATO_FROG.get(), TomatoFrogRenderer::new);
+        event.registerEntityRenderer(UAMEntities.SOUTHERN_RIGHT_WHALE.get(), SouthernRightWhaleRenderer::new);
+        event.registerEntityRenderer(UAMEntities.GREATER_PRAIRIE_CHICKEN.get(), GreaterPrairieChickenRenderer::new);
+        event.registerEntityRenderer(UAMEntities.GREATER_PRAIRIE_CHICKEN_EGG.get(), GreaterPrairieChickenEggRenderer::new);
+        event.registerEntityRenderer(UAMEntities.FLASHLIGHT_FISH.get(), FlashlightFishRenderer::new);
+        event.registerEntityRenderer(UAMEntities.HUMPHEAD_PARROTFISH.get(), HumpheadParrotfishRenderer::new);
+        event.registerEntityRenderer(UAMEntities.MUSK_OX.get(), MuskOxRenderer::new);
+        event.registerEntityRenderer(UAMEntities.BANANA_SLUG.get(), BananaSlugRenderer::new);
+        event.registerEntityRenderer(UAMEntities.MARINE_IGUANA.get(), MarineIguanaRenderer::new);
+        event.registerEntityRenderer(UAMEntities.PLATYPUS.get(), PlatypusRenderer::new);
+        event.registerEntityRenderer(UAMEntities.PLATYPUS_EGG.get(), PlatypusEggRenderer::new);
+        event.registerEntityRenderer(UAMEntities.MARINE_IGUANA_EGG.get(), MarineIguanaEggRenderer::new);
+        event.registerEntityRenderer(UAMEntities.ELEPHANTNOSE_FISH.get(), ElephantnoseFishRenderer::new);
+        event.registerEntityRenderer(UAMEntities.PACMAN_FROG.get(), PacmanFrogRenderer::new);
+        event.registerEntityRenderer(UAMEntities.CAPYBARA.get(), CapybaraRenderer::new);
+        event.registerEntityRenderer(UAMEntities.ROCKET_KILLIFISH.get(), RocketKillifishRenderer::new);
+        event.registerEntityRenderer(UAMEntities.MANGROVE_SNAKE.get(), MangroveSnakeRenderer::new);
+        event.registerEntityRenderer(UAMEntities.MANGROVE_BOAT.get(), MangroveBoatRenderer::new);
+        // event.registerEntityRenderer(UAMEntities.BLUBBER_JELLY.get(), BlubberJellyRenderer::new);
+        event.registerEntityRenderer(UAMEntities.FIDDLER_CRAB.get(), FiddlerCrabRenderer::new);
+        event.registerEntityRenderer(UAMEntities.MANGROVE_SNAKE_EGG.get(), MangroveSnakeEggRenderer::new);
+        event.registerEntityRenderer(UAMEntities.LEAFY_SEADRAGON.get(), LeafySeadragonRenderer::new);
+        event.registerEntityRenderer(UAMEntities.SPOTTED_GARDEN_EEL.get(), SpottedGardenEelRenderer::new);
+        event.registerEntityRenderer(UAMEntities.MUDSKIPPER.get(), MudskipperRenderer::new);
     }
 
     @SubscribeEvent

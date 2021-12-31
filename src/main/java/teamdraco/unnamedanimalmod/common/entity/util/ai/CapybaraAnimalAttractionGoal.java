@@ -1,12 +1,12 @@
 package teamdraco.unnamedanimalmod.common.entity.util.ai;
 
-import net.minecraft.entity.MobEntity;
-import net.minecraft.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.animal.Animal;
 
 public class CapybaraAnimalAttractionGoal extends Goal {
-    private final MobEntity entity;
+    private final Animal entity;
 
-    public CapybaraAnimalAttractionGoal(MobEntity entity) {
+    public CapybaraAnimalAttractionGoal(Animal entity) {
         this.entity = entity;
     }
 
@@ -23,7 +23,7 @@ public class CapybaraAnimalAttractionGoal extends Goal {
     @Override
     public void start() {
         super.start();
-        for (MobEntity mobEntity : entity.level.getEntitiesOfClass(MobEntity.class, entity.getBoundingBox().inflate(5), e -> e != entity && e.getVehicle() == null)) {
+        for (Animal mobEntity : entity.level.getEntitiesOfClass(Animal.class, entity.getBoundingBox().inflate(5), e -> e != entity && e.getVehicle() == null)) {
             if (mobEntity.getBbWidth() <= 0.75f && mobEntity.getBbHeight() <= 0.75f) {
                 mobEntity.getNavigation().moveTo(entity, mobEntity.getSpeed() + 0.4);
             }

@@ -3,28 +3,28 @@ package teamdraco.unnamedanimalmod.common.entity;
 import teamdraco.unnamedanimalmod.init.UAMBlocks;
 import teamdraco.unnamedanimalmod.init.UAMEntities;
 import teamdraco.unnamedanimalmod.init.UAMItems;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.item.BoatEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.Items;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.item.BoatEntity;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.network.IPacket;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.GameRules;
-import net.minecraft.world.World;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.fml.network.NetworkHooks;
 
 public class MangroveBoatEntity extends BoatEntity {
-    public MangroveBoatEntity(EntityType<? extends MangroveBoatEntity> type, World world) {
+    public MangroveBoatEntity(EntityType<? extends MangroveBoatEntity> type, Level world) {
         super(type, world);
     }
 
-    public MangroveBoatEntity(World worldIn, double x, double y, double z) {
+    public MangroveBoatEntity(Level worldIn, double x, double y, double z) {
         super(UAMEntities.MANGROVE_BOAT.get(), worldIn);
         this.setPos(x, y, z);
-        this.setDeltaMovement(Vector3d.ZERO);
+        this.setDeltaMovement(Vec3.ZERO);
         this.xo = x;
         this.yo = y;
         this.zo = z;

@@ -3,18 +3,18 @@ package teamdraco.unnamedanimalmod.common.entity.item;
 import teamdraco.unnamedanimalmod.common.entity.PlatypusEntity;
 import teamdraco.unnamedanimalmod.init.UAMEntities;
 import teamdraco.unnamedanimalmod.init.UAMItems;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.projectile.ProjectileItemEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.projectile.ProjectileItemEntity;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.network.IPacket;
 import net.minecraft.particles.ItemParticleData;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.math.EntityRayTraceResult;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.world.World;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.util.math.EntityHitResult;
+import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.network.NetworkHooks;
@@ -22,15 +22,15 @@ import net.minecraftforge.fml.network.NetworkHooks;
 import javax.annotation.Nonnull;
 
 public class PlatypusEggEntity extends ProjectileItemEntity {
-    public PlatypusEggEntity(EntityType<? extends PlatypusEggEntity> p_i50154_1_, World p_i50154_2_) {
+    public PlatypusEggEntity(EntityType<? extends PlatypusEggEntity> p_i50154_1_, Level p_i50154_2_) {
         super(p_i50154_1_, p_i50154_2_);
     }
 
-    public PlatypusEggEntity(World worldIn, LivingEntity throwerIn) {
+    public PlatypusEggEntity(Level worldIn, LivingEntity throwerIn) {
         super(UAMEntities.PLATYPUS_EGG.get(), throwerIn, worldIn);
     }
 
-    public PlatypusEggEntity(World worldIn, double x, double y, double z) {
+    public PlatypusEggEntity(Level worldIn, double x, double y, double z) {
         super(UAMEntities.PLATYPUS_EGG.get(), x, y, z, worldIn);
     }
 
@@ -46,12 +46,12 @@ public class PlatypusEggEntity extends ProjectileItemEntity {
 
     }
 
-    protected void onHitEntity(EntityRayTraceResult p_213868_1_) {
+    protected void onHitEntity(EntityHitResult p_213868_1_) {
         super.onHitEntity(p_213868_1_);
         p_213868_1_.getEntity().hurt(DamageSource.thrown(this, this.getOwner()), 0.0F);
     }
 
-    protected void onHit(RayTraceResult result) {
+    protected void onHit(HitResult result) {
         super.onHit(result);
         if (!this.level.isClientSide) {
             if (this.random.nextInt(3) == 0) {

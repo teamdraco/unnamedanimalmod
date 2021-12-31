@@ -5,8 +5,8 @@ import teamdraco.unnamedanimalmod.client.model.GreaterPrairieChickenModel;
 import teamdraco.unnamedanimalmod.common.entity.GreaterPrairieChickenEntity;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -24,8 +24,8 @@ public class GreaterPrairieChickenRenderer extends MobRenderer<GreaterPrairieChi
     }
 
     protected float getBob(GreaterPrairieChickenEntity livingBase, float partialTicks) {
-        float f = MathHelper.lerp(partialTicks, livingBase.oFlap, livingBase.wingRotation);
-        float f1 = MathHelper.lerp(partialTicks, livingBase.oFlapSpeed, livingBase.destPos);
-        return (MathHelper.sin(f) + 1.0F) * f1;
+        float f = Mth.lerp(partialTicks, livingBase.oFlap, livingBase.wingRotation);
+        float f1 = Mth.lerp(partialTicks, livingBase.oFlapSpeed, livingBase.destPos);
+        return (Mth.sin(f) + 1.0F) * f1;
     }
 }

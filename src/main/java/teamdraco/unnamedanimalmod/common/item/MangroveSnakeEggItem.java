@@ -1,14 +1,14 @@
 package teamdraco.unnamedanimalmod.common.item;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.world.World;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.level.Level;
 import teamdraco.unnamedanimalmod.common.entity.item.MangroveSnakeEggEntity;
 import teamdraco.unnamedanimalmod.common.entity.item.MarineIguanaEggEntity;
 
@@ -17,7 +17,7 @@ public class MangroveSnakeEggItem extends Item {
         super(builder);
     }
 
-    public ActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand handIn) {
+    public ActionResult<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {
         ItemStack itemstack = playerIn.getItemInHand(handIn);
         worldIn.playSound(null, playerIn.getX(), playerIn.getY(), playerIn.getZ(), SoundEvents.EGG_THROW, SoundCategory.NEUTRAL, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
         if (!worldIn.isClientSide) {

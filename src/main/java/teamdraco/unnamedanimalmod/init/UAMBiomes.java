@@ -2,15 +2,15 @@ package teamdraco.unnamedanimalmod.init;
 
 import teamdraco.unnamedanimalmod.UnnamedAnimalMod;
 import net.minecraft.util.RegistryKey;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeMaker;
-import net.minecraft.world.gen.surfacebuilders.DefaultSurfaceBuilder;
-import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
-import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
+import net.minecraft.world.level.levelgen.surfacebuilders.DefaultSurfaceBuilder;
+import net.minecraft.world.level.levelgen.surfacebuilders.SurfaceBuilder;
+import net.minecraft.world.level.levelgen.surfacebuilders.SurfaceBuilderConfig;
 import net.minecraftforge.common.BiomeManager;
-import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.registries.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 

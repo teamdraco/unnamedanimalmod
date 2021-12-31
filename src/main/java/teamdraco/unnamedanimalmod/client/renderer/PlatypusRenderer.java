@@ -6,7 +6,7 @@ import teamdraco.unnamedanimalmod.client.model.PlatypusModel;
 import teamdraco.unnamedanimalmod.common.entity.PlatypusEntity;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 
 public class PlatypusRenderer extends MobRenderer<PlatypusEntity, PlatypusModel<PlatypusEntity>> {
     protected static final ResourceLocation TEXTURE = new ResourceLocation(UnnamedAnimalMod.MOD_ID, "textures/entity/platypus/platypus.png");

@@ -1,51 +1,53 @@
 package teamdraco.unnamedanimalmod.common.entity;
 
 import com.google.common.collect.Sets;
+import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.FluidTags;
+import net.minecraft.util.Mth;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.control.MoveControl;
+import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
+import net.minecraft.world.entity.ai.targeting.TargetingConditions;
+import net.minecraft.world.entity.ai.util.LandRandomPos;
+import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.material.Material;
+import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.Vec3;
+import teamdraco.unnamedanimalmod.common.entity.util.GroundAndSwimmerNavigator;
 import teamdraco.unnamedanimalmod.init.UAMItems;
 import teamdraco.unnamedanimalmod.init.UAMSounds;
-import teamdraco.unnamedanimalmod.common.entity.util.GroundAndSwimmerNavigator;
-import net.minecraft.advancements.CriteriaTriggers;
-import net.minecraft.block.material.Material;
-import net.minecraft.entity.*;
-import net.minecraft.entity.ai.RandomPositionGenerator;
-import net.minecraft.entity.ai.attributes.AttributeModifierMap;
-import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.ai.controller.MovementController;
-import net.minecraft.entity.ai.goal.*;
-import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.network.datasync.DataSerializers;
-import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.pathfinding.PathNavigator;
-import net.minecraft.tags.FluidTags;
-import net.minecraft.util.*;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
 import java.util.Set;
 
-import net.minecraft.entity.ai.controller.MovementController.Action;
-import net.minecraft.entity.ai.goal.Goal.Flag;
-
-public class PacmanFrogEntity extends AnimalEntity {
+public class PacmanFrogEntity extends Animal {
     private static final String HIDDEN_DATA = "Hidden";
-    private static final DataParameter<Boolean> HIDDEN = EntityDataManager.defineId(PacmanFrogEntity.class, DataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> HIDDEN = SynchedEntityData.defineId(PacmanFrogEntity.class, EntityDataSerializers.BOOLEAN);
     private Goal swimGoal;
     private boolean wasOnGround;
     private int currentMoveTypeDuration;
 
-    public PacmanFrogEntity(EntityType<? extends PacmanFrogEntity> type, World world) {
+    public PacmanFrogEntity(EntityType<? extends PacmanFrogEntity> type, Level world) {
         super(type, world);
         this.moveControl = new FrogMoveController(this);
         this.maxUpStep = 1;
@@ -55,12 +57,12 @@ public class PacmanFrogEntity extends AnimalEntity {
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new HideGoal());
         if (!this.isHidden()) {
-            this.goalSelector.addGoal(0, swimGoal = new SwimGoal(this));
+            this.goalSelector.addGoal(0, swimGoal = new RandomSwimmingGoal(this, 1.0D, 40));
             this.goalSelector.addGoal(0, new PanicGoal(this, 1.25D));
             this.goalSelector.addGoal(1, new BreedGoal(this, 0.8D));
             this.goalSelector.addGoal(2, new FrogMovementGoal(this));
             this.goalSelector.addGoal(3, new PacmanFrogEntity.PlayerTemptGoal(this, 1.0D, Items.SPIDER_EYE));
-            this.goalSelector.addGoal(5, new LookAtGoal(this, PlayerEntity.class, 10.0F));
+            this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 10.0F));
         }
     }
 
@@ -78,7 +80,7 @@ public class PacmanFrogEntity extends AnimalEntity {
         }
     }
 
-    protected PathNavigator createNavigation(World world) {
+    protected PathNavigation createNavigation(Level world) {
         return new GroundAndSwimmerNavigator(this, world);
     }
 
@@ -108,13 +110,13 @@ public class PacmanFrogEntity extends AnimalEntity {
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundNBT compound) {
+    public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
         compound.putBoolean(HIDDEN_DATA, false);
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundNBT compound) {
+    public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
         setHidden(compound.getBoolean(HIDDEN_DATA));
     }
@@ -160,19 +162,19 @@ public class PacmanFrogEntity extends AnimalEntity {
 
     @Nullable
     @Override
-    public AgeableEntity getBreedOffspring(ServerWorld p_241840_1_, AgeableEntity p_241840_2_) {
+    public AgeableMob getBreedOffspring(ServerLevel p_241840_1_, AgeableMob p_241840_2_) {
         this.spawnAtLocation(new ItemStack(UAMItems.PACMAN_FROG_EGG.get(), getRandom().nextInt(3) + 1));
         this.playSound(SoundEvents.CHICKEN_EGG, 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
-        ((AnimalEntity) p_241840_2_).resetLove();
+        ((Animal) p_241840_2_).resetLove();
         return null;
     }
 
-    public static AttributeModifierMap.MutableAttribute createAttributes() {
-        return MobEntity.createMobAttributes().add(Attributes.MAX_HEALTH, 8.0D).add(Attributes.MOVEMENT_SPEED, 0.25D);
+    public static AttributeSupplier.Builder createAttributes() {
+        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 8.0D).add(Attributes.MOVEMENT_SPEED, 0.25D);
     }
 
     @Override
-    public ActionResultType mobInteract(PlayerEntity player, Hand hand) {
+    public InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack heldItem = player.getItemInHand(hand);
 
         if (heldItem.getItem() == Items.BOWL && this.isAlive() && !this.isBaby()) {
@@ -181,15 +183,15 @@ public class PacmanFrogEntity extends AnimalEntity {
             ItemStack itemstack1 = new ItemStack(UAMItems.PACMAN_FROG_BOWL.get());
             this.setBucketData(itemstack1);
             if (!this.level.isClientSide) {
-                CriteriaTriggers.FILLED_BUCKET.trigger((ServerPlayerEntity) player, itemstack1);
+                CriteriaTriggers.FILLED_BUCKET.trigger((ServerPlayer) player, itemstack1);
             }
             if (heldItem.isEmpty()) {
                 player.setItemInHand(hand, itemstack1);
-            } else if (!player.inventory.add(itemstack1)) {
+            } else if (!player.getInventory().add(itemstack1)) {
                 player.drop(itemstack1, false);
             }
-            this.remove();
-            return ActionResultType.SUCCESS;
+            this.discard();
+            return InteractionResult.SUCCESS;
         }
         return super.mobInteract(player, hand);
     }
@@ -233,12 +235,12 @@ public class PacmanFrogEntity extends AnimalEntity {
         return false;
     }
 
-    public CreatureAttribute getMobType() {
-        return this.isBaby() ? CreatureAttribute.WATER : CreatureAttribute.UNDEFINED;
+    public MobType getMobType() {
+        return this.isBaby() ? MobType.WATER : MobType.UNDEFINED;
     }
 
     private void calculateRotationYaw(double x, double z) {
-        this.yRot = (float) (MathHelper.atan2(z - this.getZ(), x - this.getX()) * (double) (180F / (float) Math.PI)) - 90.0F;
+        this.setYRot((float) (Mth.atan2(z - this.getZ(), x - this.getX()) * (double) (180F / (float) Math.PI)) - 90.0F);
     }
 
     private void updateMoveTypeDuration() {
@@ -282,7 +284,7 @@ public class PacmanFrogEntity extends AnimalEntity {
     }
 
     @Override
-    public void travel(Vector3d p_213352_1_) {
+    public void travel(Vec3 p_213352_1_) {
         if (isBaby() && this.isEffectiveAi() && this.isInWater()) {
             this.moveRelative(0.01F, p_213352_1_);
             this.move(MoverType.SELF, this.getDeltaMovement());
@@ -296,11 +298,11 @@ public class PacmanFrogEntity extends AnimalEntity {
     }
 
     @Override
-    public ItemStack getPickedResult(RayTraceResult target) {
+    public ItemStack getPickedResult(HitResult target) {
         return new ItemStack(UAMItems.PACMAN_FROG_SPAWN_EGG.get());
     }
 
-    private static class FrogMoveController extends MovementController {
+    private static class FrogMoveController extends MoveControl {
         private final PacmanFrogEntity frog;
 
         private FrogMoveController(PacmanFrogEntity frog) {
@@ -313,20 +315,20 @@ public class PacmanFrogEntity extends AnimalEntity {
                 this.frog.setDeltaMovement(this.frog.getDeltaMovement().add(0.0D, 0.005D, 0.0D));
             }
 
-            if (this.operation == Action.MOVE_TO && !this.frog.getNavigation().isDone()) {
+            if (this.operation == Operation.MOVE_TO && !this.frog.getNavigation().isDone()) {
                 double d0 = this.wantedX - this.frog.getX();
                 double d1 = this.wantedY - this.frog.getY();
                 double d2 = this.wantedZ - this.frog.getZ();
-                double d3 = MathHelper.sqrt(d0 * d0 + d1 * d1 + d2 * d2);
+                double d3 = Math.sqrt(d0 * d0 + d1 * d1 + d2 * d2);
                 d1 = d1 / d3;
-                float f = (float) (MathHelper.atan2(d2, d0) * (double) (180F / (float) Math.PI)) - 90.0F;
-                this.frog.yRot = this.rotlerp(this.frog.yRot, f, 90.0F);
-                this.frog.yBodyRot = this.frog.yRot;
+                float f = (float) (Mth.atan2(d2, d0) * (double) (180F / (float) Math.PI)) - 90.0F;
+                this.frog.setYRot(this.rotlerp(this.frog.getYRot(), f, 90.0F));
+                this.frog.yBodyRot = this.frog.getYRot();
                 float f1 = (float) (this.speedModifier * this.frog.getAttribute(Attributes.MOVEMENT_SPEED).getValue());
                 if (frog.isBaby()) {
                     f1 *= 2.8;
                 }
-                this.frog.setSpeed(MathHelper.lerp(0.125F, this.frog.getSpeed(), f1));
+                this.frog.setSpeed(Mth.lerp(0.125F, this.frog.getSpeed(), f1));
                 this.frog.setDeltaMovement(this.frog.getDeltaMovement().add(0.0D, (double) this.frog.getSpeed() * d1 * 0.1D, 0.0D));
             } else {
                 this.frog.setSpeed(0.0F);
@@ -335,10 +337,10 @@ public class PacmanFrogEntity extends AnimalEntity {
     }
 
     private static class PlayerTemptGoal extends Goal {
-        private static final EntityPredicate TEMPT_TARGETING = (new EntityPredicate()).range(10.0D).allowSameTeam().allowInvulnerable();
+        private static final TargetingConditions TEMPT_TARGETING = TargetingConditions.forNonCombat().range(10.0D);
         private final PacmanFrogEntity frog;
         private final double speed;
-        private PlayerEntity tempter;
+        private Player tempter;
         private int cooldown;
         private final Set<Item> temptItems;
 
@@ -387,14 +389,14 @@ public class PacmanFrogEntity extends AnimalEntity {
         }
     }
 
-    private static class FrogMovementGoal extends WaterAvoidingRandomWalkingGoal {
-        public FrogMovementGoal(CreatureEntity creature) {
+    private static class FrogMovementGoal extends WaterAvoidingRandomStrollGoal {
+        public FrogMovementGoal(PathfinderMob creature) {
             super(creature, 1.0D, 100);
         }
 
         @Override
-        protected Vector3d getPosition() {
-            if (mob.isBaby()) return RandomPositionGenerator.getPos(this.mob, 10, 7);
+        protected Vec3 getPosition() {
+            if (mob.isBaby()) return LandRandomPos.getPos(this.mob, 10, 7);
             return super.getPosition();
         }
     }

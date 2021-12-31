@@ -7,7 +7,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.IEntityRenderer;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 import teamdraco.unnamedanimalmod.UnnamedAnimalMod;
 import teamdraco.unnamedanimalmod.client.model.CapybaraModel;
 import teamdraco.unnamedanimalmod.common.entity.CapybaraEntity;
