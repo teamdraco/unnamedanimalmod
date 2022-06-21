@@ -1,13 +1,13 @@
 package teamdraco.unnamedanimalmod.common.block;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.item.BlockItemUseContext;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorld;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 
 public class DriedMudBlock extends Block {
     private final BlockState solidifiedState;
@@ -17,20 +17,20 @@ public class DriedMudBlock extends Block {
         this.solidifiedState = solidifiedState;
     }
 
-    public BlockState getStateForPlacement(BlockItemUseContext context) {
-        IBlockReader iblockreader = context.getLevel();
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
+        BlockGetter iblockreader = context.getLevel();
         BlockPos blockpos = context.getClickedPos();
         BlockState blockstate = iblockreader.getBlockState(blockpos);
         return shouldSolidify(iblockreader, blockpos, blockstate) ? this.solidifiedState : super.getStateForPlacement(context);
     }
 
-    private static boolean shouldSolidify(IBlockReader reader, BlockPos pos, BlockState state) {
+    private static boolean shouldSolidify(BlockGetter reader, BlockPos pos, BlockState state) {
         return causesSolidify(state) || isTouchingLiquid(reader, pos);
     }
 
-    private static boolean isTouchingLiquid(IBlockReader reader, BlockPos pos) {
+    private static boolean isTouchingLiquid(BlockGetter reader, BlockPos pos) {
         boolean flag = false;
-        BlockPos.Mutable blockpos$mutable = pos.mutable();
+        BlockPos.MutableBlockPos blockpos$mutable = pos.mutable();
 
         for(Direction direction : Direction.values()) {
             BlockState blockstate = reader.getBlockState(blockpos$mutable);
@@ -51,7 +51,7 @@ public class DriedMudBlock extends Block {
         return state.getFluidState().is(FluidTags.WATER);
     }
 
-    public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
+    public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, LevelAccessor worldIn, BlockPos currentPos, BlockPos facingPos) {
         return isTouchingLiquid(worldIn, currentPos) ? this.solidifiedState : super.updateShape(stateIn, facing, facingState, worldIn, currentPos, facingPos);
     }
 }

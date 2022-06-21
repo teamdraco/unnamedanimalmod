@@ -1,17 +1,15 @@
 package teamdraco.unnamedanimalmod.client.renderer.item;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.entity.EntityRendererManager;
-import net.minecraft.client.renderer.entity.SpriteRenderer;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import teamdraco.unnamedanimalmod.common.entity.item.MangroveSnakeEggEntity;
 
 @OnlyIn(Dist.CLIENT)
-public class MangroveSnakeEggRenderer extends SpriteRenderer<MangroveSnakeEggEntity> {
-
-    public MangroveSnakeEggRenderer(EntityRendererManager renderManagerIn) {
-        super(renderManagerIn, Minecraft.getInstance().getItemRenderer());
+public class MangroveSnakeEggRenderer extends ThrownItemRenderer<MangroveSnakeEggEntity> {
+    public MangroveSnakeEggRenderer(EntityRendererProvider.Context renderManagerIn) {
+        super(renderManagerIn);
     }
 }
 

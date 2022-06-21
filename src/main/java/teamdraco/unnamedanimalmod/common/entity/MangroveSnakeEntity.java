@@ -1,40 +1,46 @@
 package teamdraco.unnamedanimalmod.common.entity;
 
-import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.pathfinder.AmphibiousNodeEvaluator;
+import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.level.pathfinder.PathFinder;
 import teamdraco.unnamedanimalmod.init.UAMEntities;
 import teamdraco.unnamedanimalmod.init.UAMItems;
 import teamdraco.unnamedanimalmod.init.UAMSounds;
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.*;
-import net.minecraft.entity.ai.attributes.AttributeModifierMap;
-import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.ai.controller.MovementController;
-import net.minecraft.entity.ai.goal.*;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.network.datasync.DataSerializers;
-import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.pathfinding.*;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.control.MoveControl;
+import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.world.entity.ai.navigation.*;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.core.BlockPos;
+import net.minecraft.util.Mth;
+import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.*;
 
 import javax.annotation.Nullable;
 
-public class MangroveSnakeEntity extends AnimalEntity {
-    private static final DataParameter<Integer> VARIANT = EntityDataManager.defineId(MangroveSnakeEntity.class, DataSerializers.INT);
+public class MangroveSnakeEntity extends Animal {
+    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(MangroveSnakeEntity.class, EntityDataSerializers.INT);
 
-    public MangroveSnakeEntity(EntityType<? extends AnimalEntity> type, World worldIn) {
+    public MangroveSnakeEntity(EntityType<? extends Animal> type, Level worldIn) {
         super(type, worldIn);
         this.moveControl = new MangroveSnakeEntity.MoveHelperController(this);
-        this.setPathfindingMalus(PathNodeType.WATER, 0.0F);
+        this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
         this.maxUpStep = 1;
     }
 
@@ -42,7 +48,7 @@ public class MangroveSnakeEntity extends AnimalEntity {
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new PanicGoal(this, 1.5D));
         this.goalSelector.addGoal(1, new BreedGoal(this, 1.25D));
-        this.goalSelector.addGoal(2, new LookRandomlyGoal(this));
+        this.goalSelector.addGoal(2, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(3, new RandomSwimmingGoal(this, 2.0D, 1) {
             @Override
             public boolean canUse() {
@@ -54,7 +60,7 @@ public class MangroveSnakeEntity extends AnimalEntity {
     }
 
     @Override
-    protected PathNavigator createNavigation(World worldIn) {
+    protected PathNavigation createNavigation(Level worldIn) {
         return new MangroveSnakeEntity.Navigator(this, level);
     }
 
@@ -92,7 +98,7 @@ public class MangroveSnakeEntity extends AnimalEntity {
 
     @Nullable
     @Override
-    public ILivingEntityData finalizeSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason, @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
         if (random.nextFloat() > 0.2D) {
             setVariant(0);
         }
@@ -104,12 +110,12 @@ public class MangroveSnakeEntity extends AnimalEntity {
 
     @Nullable
     @Override
-    public AgeableEntity getBreedOffspring(ServerWorld p_241840_1_, AgeableEntity p_241840_2_) {
+    public AgeableMob getBreedOffspring(ServerLevel p_241840_1_, AgeableMob p_241840_2_) {
         return UAMEntities.MANGROVE_SNAKE.get().create(p_241840_1_);
     }
 
     @Override
-    public ItemStack getPickedResult(RayTraceResult target) {
+    public ItemStack getPickedResult(HitResult target) {
         return new ItemStack(UAMItems.MANGROVE_SNAKE_SPAWN_EGG.get());
     }
 
@@ -133,19 +139,19 @@ public class MangroveSnakeEntity extends AnimalEntity {
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundNBT compound) {
+    public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
         compound.putInt("Variant", getVariant());
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundNBT compound) {
+    public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
         setVariant(compound.getInt("Variant"));
     }
 
     @Override
-    public void travel(Vector3d travelVector) {
+    public void travel(Vec3 travelVector) {
         if (this.isEffectiveAi() && this.isInWater()) {
             this.moveRelative(0.1F, travelVector);
             this.move(MoverType.SELF, this.getDeltaMovement());
@@ -158,11 +164,11 @@ public class MangroveSnakeEntity extends AnimalEntity {
         }
     }
 
-    public static AttributeModifierMap.MutableAttribute createAttributes() {
-        return MobEntity.createMobAttributes().add(Attributes.MAX_HEALTH, 10).add(Attributes.MOVEMENT_SPEED, 0.15).add(Attributes.ATTACK_DAMAGE, 1.0);
+    public static AttributeSupplier.Builder createAttributes() {
+        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 10).add(Attributes.MOVEMENT_SPEED, 0.15).add(Attributes.ATTACK_DAMAGE, 1.0);
     }
 
-    public float getWalkTargetValue(BlockPos pos, IWorldReader worldIn) {
+    public float getWalkTargetValue(BlockPos pos, LevelReader worldIn) {
         if (worldIn.getFluidState(pos).is(FluidTags.WATER)) {
             return 10.0F;
         } else {
@@ -170,7 +176,7 @@ public class MangroveSnakeEntity extends AnimalEntity {
         }
     }
 
-    static class MoveHelperController extends MovementController {
+    static class MoveHelperController extends MoveControl {
         private final MangroveSnakeEntity snake;
 
         MoveHelperController(MangroveSnakeEntity snake) {
@@ -193,17 +199,17 @@ public class MangroveSnakeEntity extends AnimalEntity {
 
         public void tick() {
             this.updateSpeed();
-            if (this.operation == MovementController.Action.MOVE_TO && !this.snake.getNavigation().isDone()) {
+            if (this.operation == MoveControl.Operation.MOVE_TO && !this.snake.getNavigation().isDone()) {
                 double d0 = this.wantedX - this.snake.getX();
                 double d1 = this.wantedY - this.snake.getY();
                 double d2 = this.wantedZ - this.snake.getZ();
-                double d3 = (double) MathHelper.sqrt(d0 * d0 + d1 * d1 + d2 * d2);
+                double d3 = (double) Math.sqrt(d0 * d0 + d1 * d1 + d2 * d2);
                 d1 = d1 / d3;
-                float f = (float)(MathHelper.atan2(d2, d0) * (double)(180F / (float)Math.PI)) - 90.0F;
-                this.snake.yRot = this.rotlerp(this.snake.yRot, f, 90.0F);
-                this.snake.yBodyRot = this.snake.yRot;
+                float f = (float)(Mth.atan2(d2, d0) * (double)(180F / (float)Math.PI)) - 90.0F;
+                this.snake.setYRot(this.rotlerp(this.snake.getYRot(), f, 90.0F));
+                this.snake.yBodyRot = this.snake.getYRot();
                 float f1 = (float)(this.speedModifier * this.snake.getAttributeValue(Attributes.MOVEMENT_SPEED));
-                this.snake.setSpeed(MathHelper.lerp(0.125F, this.snake.getSpeed(), f1));
+                this.snake.setSpeed(Mth.lerp(0.125F, this.snake.getSpeed(), f1));
                 this.snake.setDeltaMovement(this.snake.getDeltaMovement().add(0.0D, (double)this.snake.getSpeed() * d1 * 0.1D, 0.0D));
             } else {
                 this.snake.setSpeed(0.0F);
@@ -211,8 +217,8 @@ public class MangroveSnakeEntity extends AnimalEntity {
         }
     }
 
-    static class Navigator extends SwimmerPathNavigator {
-        Navigator(MangroveSnakeEntity snake, World worldIn) {
+    static class Navigator extends WaterBoundPathNavigation {
+        Navigator(MangroveSnakeEntity snake, Level worldIn) {
             super(snake, worldIn);
         }
 
@@ -221,7 +227,7 @@ public class MangroveSnakeEntity extends AnimalEntity {
         }
 
         protected PathFinder createPathFinder(int p_179679_1_) {
-            this.nodeEvaluator = new WalkAndSwimNodeProcessor();
+            this.nodeEvaluator = new AmphibiousNodeEvaluator(true);
             return new PathFinder(this.nodeEvaluator, p_179679_1_);
         }
 
@@ -233,7 +239,7 @@ public class MangroveSnakeEntity extends AnimalEntity {
         }
     }
 
-    static class WanderGoal extends RandomWalkingGoal {
+    static class WanderGoal extends RandomStrollGoal {
         private final MangroveSnakeEntity snake;
 
         private WanderGoal(MangroveSnakeEntity snake, double speedIn, int chance) {
@@ -271,7 +277,7 @@ public class MangroveSnakeEntity extends AnimalEntity {
             return this.tryTicks % 160 == 0;
         }
 
-        protected boolean isValidTarget(IWorldReader worldIn, BlockPos pos) {
+        protected boolean isValidTarget(LevelReader worldIn, BlockPos pos) {
             return worldIn.getBlockState(pos).is(Blocks.WATER);
         }
     }

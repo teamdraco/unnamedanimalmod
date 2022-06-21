@@ -1,51 +1,60 @@
 package teamdraco.unnamedanimalmod.common.entity;
 
+import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.FluidTags;
+import net.minecraft.util.Mth;
+import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.control.MoveControl;
+import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
+import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
+import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.pathfinder.AmphibiousNodeEvaluator;
+import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.level.pathfinder.PathFinder;
+import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.Vec3;
 import teamdraco.unnamedanimalmod.init.UAMItems;
 import teamdraco.unnamedanimalmod.init.UAMSounds;
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.*;
-import net.minecraft.entity.ai.attributes.AttributeModifierMap;
-import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.ai.controller.MovementController;
-import net.minecraft.entity.ai.goal.*;
-import net.minecraft.entity.effect.LightningBoltEntity;
-import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.network.datasync.DataSerializers;
-import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.pathfinding.*;
-import net.minecraft.tags.FluidTags;
-import net.minecraft.util.*;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.world.*;
-import net.minecraft.world.server.ServerWorld;
 
 import javax.annotation.Nullable;
 import java.util.Random;
 import java.util.UUID;
 
-public class MarineIguanaEntity extends AnimalEntity {
-    private static final DataParameter<Integer> VARIANT = EntityDataManager.defineId(MarineIguanaEntity.class, DataSerializers.INT);
+public class MarineIguanaEntity extends Animal {
+    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(MarineIguanaEntity.class, EntityDataSerializers.INT);
     public int timeUntilNextSneeze = this.random.nextInt(8000) + 8000;
     private UUID lightningUUID;
     private boolean didSneeze;
 
-    public MarineIguanaEntity(EntityType<? extends MarineIguanaEntity> type, World world) {
+    public MarineIguanaEntity(EntityType<? extends MarineIguanaEntity> type, Level world) {
         super(type, world);
         this.moveControl = new MarineIguanaEntity.MoveHelperController(this);
-        this.setPathfindingMalus(PathNodeType.WATER, 0.0F);
+        this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
         this.maxUpStep = 1;
     }
 
     @Override
-    protected PathNavigator createNavigation(World worldIn) {
+    protected PathNavigation createNavigation(Level worldIn) {
         return new MarineIguanaEntity.Navigator(this, level);
     }
 
@@ -68,7 +77,7 @@ public class MarineIguanaEntity extends AnimalEntity {
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new PanicGoal(this, 1.5D));
         this.goalSelector.addGoal(1, new BreedGoal(this, 1.5D));
-        this.goalSelector.addGoal(1, new LookRandomlyGoal(this));
+        this.goalSelector.addGoal(1, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(2, new RandomSwimmingGoal(this, 2.0D, 1) {
             @Override
             public boolean canUse() {
@@ -84,11 +93,11 @@ public class MarineIguanaEntity extends AnimalEntity {
         return stack.getItem() == Items.SEAGRASS;
     }
 
-    public static AttributeModifierMap.MutableAttribute createAttributes() {
-        return MobEntity.createMobAttributes().add(Attributes.MAX_HEALTH, 10).add(Attributes.MOVEMENT_SPEED, 0.15);
+    public static AttributeSupplier.Builder createAttributes() {
+        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 10).add(Attributes.MOVEMENT_SPEED, 0.15);
     }
 
-    public float getWalkTargetValue(BlockPos pos, IWorldReader worldIn) {
+    public float getWalkTargetValue(BlockPos pos, LevelReader worldIn) {
         if (worldIn.getFluidState(pos).is(FluidTags.WATER)) {
             return 10.0F;
         } else {
@@ -97,7 +106,7 @@ public class MarineIguanaEntity extends AnimalEntity {
     }
 
     @Override
-    public void travel(Vector3d travelVector) {
+    public void travel(Vec3 travelVector) {
         if (this.isEffectiveAi() && this.isInWater()) {
             this.moveRelative(0.1F, travelVector);
             this.move(MoverType.SELF, this.getDeltaMovement());
@@ -115,7 +124,7 @@ public class MarineIguanaEntity extends AnimalEntity {
         super.aiStep();
         if (!this.level.isClientSide && this.isAlive() && !this.isBaby() && --this.timeUntilNextSneeze <= 0) {
             if (!this.isSilent()) {
-                this.level.playSound((PlayerEntity)null, this.getX(), this.getY(), this.getZ(), SoundEvents.LLAMA_SPIT, this.getSoundSource(), 1.0F, 1.0F + (this.random.nextFloat() - this.random.nextFloat()) * 0.2F);
+                this.level.playSound((Player)null, this.getX(), this.getY(), this.getZ(), SoundEvents.LLAMA_SPIT, this.getSoundSource(), 1.0F, 1.0F + (this.random.nextFloat() - this.random.nextFloat()) * 0.2F);
             }
             this.spawnAtLocation(new ItemStack(UAMItems.SALT.get(), random.nextInt(4)));
             MarineIguanaEntity iguanaEntity = (MarineIguanaEntity)this;
@@ -126,13 +135,13 @@ public class MarineIguanaEntity extends AnimalEntity {
         }
     }
 
-    public static boolean canAnimalSpawn(EntityType<? extends AnimalEntity> animal, IWorld worldIn, SpawnReason reason, BlockPos pos, Random random) {
+    public static boolean canAnimalSpawn(EntityType<? extends Animal> animal, LevelAccessor worldIn, MobSpawnType reason, BlockPos pos, Random random) {
         return worldIn.getBlockState(pos.below()).is(Blocks.STONE) && worldIn.getRawBrightness(pos, 0) > 8;
     }
 
     @Nullable
     @Override
-    public ILivingEntityData finalizeSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason, @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
         if (dataTag == null) {
             setVariant(random.nextInt(4));
         } else {
@@ -158,14 +167,14 @@ public class MarineIguanaEntity extends AnimalEntity {
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundNBT compound) {
+    public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
         compound.putInt("Variant", getVariant());
         compound.putInt("SneezeTime", this.timeUntilNextSneeze);
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundNBT compound) {
+    public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
         setVariant(compound.getInt("Variant"));
         if (compound.contains("SneezeTime")) {
@@ -173,8 +182,9 @@ public class MarineIguanaEntity extends AnimalEntity {
         }
    }
 
-    public void thunderHit(ServerWorld p_241841_1_, LightningBoltEntity p_241841_2_) {
-        UUID uuid = p_241841_2_.getUUID();
+    @Override
+    public void thunderHit(ServerLevel p_19927_, LightningBolt p_19928_) {
+        UUID uuid = p_19928_.getUUID();
         if (!uuid.equals(this.lightningUUID)) {
             this.setVariant(4);
             this.lightningUUID = uuid;
@@ -184,10 +194,10 @@ public class MarineIguanaEntity extends AnimalEntity {
 
     @Nullable
     @Override
-    public AgeableEntity getBreedOffspring(ServerWorld p_241840_1_, AgeableEntity p_241840_2_) {
+    public AgeableMob getBreedOffspring(ServerLevel p_241840_1_, AgeableMob p_241840_2_) {
         this.spawnAtLocation(new ItemStack(UAMItems.MARINE_IGUANA_EGG.get(), getRandom().nextInt(1) + 1));
         this.playSound(SoundEvents.CHICKEN_EGG, 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
-        ((AnimalEntity) p_241840_2_).resetLove();
+        ((Animal) p_241840_2_).resetLove();
         return null;
     }
 
@@ -213,11 +223,11 @@ public class MarineIguanaEntity extends AnimalEntity {
     }
 
     @Override
-    public ItemStack getPickedResult(RayTraceResult target) {
+    public ItemStack getPickedResult(HitResult target) {
         return new ItemStack(UAMItems.MARINE_IGUANA_SPAWN_EGG.get());
     }
 
-    static class MoveHelperController extends MovementController {
+    static class MoveHelperController extends MoveControl {
         private final MarineIguanaEntity iguana;
 
         MoveHelperController(MarineIguanaEntity iguana) {
@@ -240,17 +250,17 @@ public class MarineIguanaEntity extends AnimalEntity {
 
         public void tick() {
             this.updateSpeed();
-            if (this.operation == MovementController.Action.MOVE_TO && !this.iguana.getNavigation().isDone()) {
+            if (this.operation == MoveControl.Operation.MOVE_TO && !this.iguana.getNavigation().isDone()) {
                 double d0 = this.wantedX - this.iguana.getX();
                 double d1 = this.wantedY - this.iguana.getY();
                 double d2 = this.wantedZ - this.iguana.getZ();
-                double d3 = (double)MathHelper.sqrt(d0 * d0 + d1 * d1 + d2 * d2);
+                double d3 = (double)Math.sqrt(d0 * d0 + d1 * d1 + d2 * d2);
                 d1 = d1 / d3;
-                float f = (float)(MathHelper.atan2(d2, d0) * (double)(180F / (float)Math.PI)) - 90.0F;
-                this.iguana.yRot = this.rotlerp(this.iguana.yRot, f, 90.0F);
-                this.iguana.yBodyRot = this.iguana.yRot;
+                float f = (float)(Mth.atan2(d2, d0) * (double)(180F / (float)Math.PI)) - 90.0F;
+                this.iguana.setYRot(this.rotlerp(this.iguana.getYRot(), f, 90.0F));
+                this.iguana.yBodyRot = this.iguana.getYRot();
                 float f1 = (float)(this.speedModifier * this.iguana.getAttributeValue(Attributes.MOVEMENT_SPEED));
-                this.iguana.setSpeed(MathHelper.lerp(0.125F, this.iguana.getSpeed(), f1));
+                this.iguana.setSpeed(Mth.lerp(0.125F, this.iguana.getSpeed(), f1));
                 this.iguana.setDeltaMovement(this.iguana.getDeltaMovement().add(0.0D, (double)this.iguana.getSpeed() * d1 * 0.1D, 0.0D));
             } else {
                 this.iguana.setSpeed(0.0F);
@@ -258,8 +268,8 @@ public class MarineIguanaEntity extends AnimalEntity {
         }
     }
 
-    static class Navigator extends SwimmerPathNavigator {
-        Navigator(MarineIguanaEntity iguana, World worldIn) {
+    static class Navigator extends WaterBoundPathNavigation {
+        Navigator(MarineIguanaEntity iguana, Level worldIn) {
             super(iguana, worldIn);
         }
 
@@ -268,7 +278,7 @@ public class MarineIguanaEntity extends AnimalEntity {
         }
 
         protected PathFinder createPathFinder(int p_179679_1_) {
-            this.nodeEvaluator = new WalkAndSwimNodeProcessor();
+            this.nodeEvaluator = new AmphibiousNodeEvaluator(true);
             return new PathFinder(this.nodeEvaluator, p_179679_1_);
         }
 
@@ -280,7 +290,7 @@ public class MarineIguanaEntity extends AnimalEntity {
         }
     }
 
-    static class WanderGoal extends RandomWalkingGoal {
+    static class WanderGoal extends RandomStrollGoal {
         private final MarineIguanaEntity iguana;
 
         private WanderGoal(MarineIguanaEntity iguana, double speedIn, int chance) {
@@ -318,7 +328,7 @@ public class MarineIguanaEntity extends AnimalEntity {
             return this.tryTicks % 160 == 0;
         }
 
-        protected boolean isValidTarget(IWorldReader worldIn, BlockPos pos) {
+        protected boolean isValidTarget(LevelReader worldIn, BlockPos pos) {
             return worldIn.getBlockState(pos).is(Blocks.WATER);
         }
     }

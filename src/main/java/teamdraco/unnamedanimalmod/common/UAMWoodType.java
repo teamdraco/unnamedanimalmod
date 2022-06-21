@@ -1,7 +1,7 @@
 package teamdraco.unnamedanimalmod.common;
 
 import it.unimi.dsi.fastutil.objects.ObjectArraySet;
-import net.minecraft.block.WoodType;
+import net.minecraft.world.level.block.WoodType;
 
 import java.util.Set;
 import java.util.stream.Stream;

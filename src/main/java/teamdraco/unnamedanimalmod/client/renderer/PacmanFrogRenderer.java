@@ -1,15 +1,15 @@
 package teamdraco.unnamedanimalmod.client.renderer;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import teamdraco.unnamedanimalmod.UnnamedAnimalMod;
 import teamdraco.unnamedanimalmod.client.model.PacmanFrogModel;
 import teamdraco.unnamedanimalmod.common.entity.PacmanFrogEntity;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.entity.EntityRendererManager;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.vector.Vector3f;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
+import com.mojang.math.Vector3f;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -20,14 +20,14 @@ public class PacmanFrogRenderer extends MobRenderer<PacmanFrogEntity, PacmanFrog
     private final PacmanFrogModel adult;
     private final PacmanFrogModel child;
 
-    public PacmanFrogRenderer(EntityRendererManager manager) {
+    public PacmanFrogRenderer(EntityRendererProvider.Context manager) {
         super(manager, new PacmanFrogModel.Adult(), 0.2f);
         adult = model;
         child = new PacmanFrogModel.Child();
     }
 
     @Override
-    public void render(PacmanFrogEntity entity, float yaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
+    public void render(PacmanFrogEntity entity, float yaw, float partialTicks, PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn) {
         model = entity.isBaby() ? child : adult;
         super.render(entity, yaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
     }
@@ -42,10 +42,10 @@ public class PacmanFrogRenderer extends MobRenderer<PacmanFrogEntity, PacmanFrog
         }
     }
 
-    protected void setupRotations(PacmanFrogEntity entity, MatrixStack matrix, float var1, float var2, float var3) {
+    protected void setupRotations(PacmanFrogEntity entity, PoseStack matrix, float var1, float var2, float var3) {
         super.setupRotations(entity, matrix, var1, var2, var3);
         if (entity.isBaby()) {
-            float rotate = 4.3F * MathHelper.sin(0.6F * var1);
+            float rotate = 4.3F * Mth.sin(0.6F * var1);
             matrix.mulPose(Vector3f.YP.rotationDegrees(rotate));
             if (!entity.isInWater()) {
                 matrix.translate(0.0, 0.10000000149011612D, 0.0D);

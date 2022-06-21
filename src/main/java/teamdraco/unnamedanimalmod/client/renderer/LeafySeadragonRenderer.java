@@ -1,19 +1,16 @@
 package teamdraco.unnamedanimalmod.client.renderer;
 
 import com.google.common.collect.Maps;
-import com.mojang.blaze3d.matrix.MatrixStack;
-import net.minecraft.client.renderer.entity.EntityRendererManager;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Vector3f;
+import net.minecraft.Util;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.Util;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.vector.Vector3f;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import teamdraco.unnamedanimalmod.UnnamedAnimalMod;
-import teamdraco.unnamedanimalmod.client.model.ElephantnoseFishModel;
 import teamdraco.unnamedanimalmod.client.model.LeafySeadragonModel;
-import teamdraco.unnamedanimalmod.common.entity.ElephantnoseFishEntity;
 import teamdraco.unnamedanimalmod.common.entity.LeafySeadragonEntity;
 
 import java.util.Map;
@@ -27,7 +24,7 @@ public class LeafySeadragonRenderer extends MobRenderer<LeafySeadragonEntity, Le
         hashMap.put(3, new ResourceLocation(UnnamedAnimalMod.MOD_ID, "textures/entity/leafy_seadragon/leafy_seadragon_4.png"));
     });
 
-    public LeafySeadragonRenderer(EntityRendererManager p_i48864_1_) {
+    public LeafySeadragonRenderer(EntityRendererProvider.Context p_i48864_1_) {
         super(p_i48864_1_, new LeafySeadragonModel<>(), 0.3F);
     }
 
@@ -37,7 +34,7 @@ public class LeafySeadragonRenderer extends MobRenderer<LeafySeadragonEntity, Le
     }
 
     @Override
-    protected void setupRotations(LeafySeadragonEntity entity, MatrixStack matrixStack, float p_225621_3_, float p_225621_4_, float p_225621_5_) {
+    protected void setupRotations(LeafySeadragonEntity entity, PoseStack matrixStack, float p_225621_3_, float p_225621_4_, float p_225621_5_) {
         super.setupRotations(entity, matrixStack, p_225621_3_, p_225621_4_, p_225621_5_);
         if (!entity.isInWater()) {
             matrixStack.translate(0.10000000149011612D, 0.10000000149011612D, -0.10000000149011612D);

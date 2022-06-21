@@ -2,37 +2,37 @@ package teamdraco.unnamedanimalmod.common.block;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
-import net.minecraft.entity.CreatureAttribute;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.vector.Vector3f;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.util.Mth;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.MobType;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.level.block.state.properties.RedstoneSide;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.EntityCollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import teamdraco.unnamedanimalmod.common.entity.BananaSlugEntity;
 import teamdraco.unnamedanimalmod.init.UAMBlocks;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.state.EnumProperty;
-import net.minecraft.state.StateContainer;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.state.properties.RedstoneSide;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.shapes.VoxelShapes;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorld;
-import net.minecraft.world.IWorldReader;
-import net.minecraft.world.World;
 
 import java.util.Map;
 
@@ -42,10 +42,10 @@ public class SaltPowderBlock extends Block {
     public static final EnumProperty<RedstoneSide> SOUTH = BlockStateProperties.SOUTH_REDSTONE;
     public static final EnumProperty<RedstoneSide> WEST = BlockStateProperties.WEST_REDSTONE;
     public static final Map<Direction, EnumProperty<RedstoneSide>> FACING_PROPERTY_MAP = Maps.newEnumMap(ImmutableMap.of(Direction.NORTH, NORTH, Direction.EAST, EAST, Direction.SOUTH, SOUTH, Direction.WEST, WEST));
-    private static final VoxelShape BARRIER_SHAPE = VoxelShapes.box(0, -4, 0, 1, 5, 1);
+    private static final VoxelShape BARRIER_SHAPE = Shapes.box(0, -4, 0, 1, 5, 1);
     private static final VoxelShape BASE_SHAPE = Block.box(3.0D, 0.0D, 3.0D, 13.0D, 1.0D, 13.0D);
     private static final Map<Direction, VoxelShape> SIDE_TO_SHAPE = Maps.newEnumMap(ImmutableMap.of(Direction.NORTH, Block.box(3.0D, 0.0D, 0.0D, 13.0D, 1.0D, 13.0D), Direction.SOUTH, Block.box(3.0D, 0.0D, 3.0D, 13.0D, 1.0D, 16.0D), Direction.EAST, Block.box(3.0D, 0.0D, 3.0D, 16.0D, 1.0D, 13.0D), Direction.WEST, Block.box(0.0D, 0.0D, 3.0D, 13.0D, 1.0D, 13.0D)));
-    private static final Map<Direction, VoxelShape> SIDE_TO_ASCENDING_SHAPE = Maps.newEnumMap(ImmutableMap.of(Direction.NORTH, VoxelShapes.or(SIDE_TO_SHAPE.get(Direction.NORTH), Block.box(3.0D, 0.0D, 0.0D, 13.0D, 16.0D, 1.0D)), Direction.SOUTH, VoxelShapes.or(SIDE_TO_SHAPE.get(Direction.SOUTH), Block.box(3.0D, 0.0D, 15.0D, 13.0D, 16.0D, 16.0D)), Direction.EAST, VoxelShapes.or(SIDE_TO_SHAPE.get(Direction.EAST), Block.box(15.0D, 0.0D, 3.0D, 16.0D, 16.0D, 13.0D)), Direction.WEST, VoxelShapes.or(SIDE_TO_SHAPE.get(Direction.WEST), Block.box(0.0D, 0.0D, 3.0D, 1.0D, 16.0D, 13.0D))));
+    private static final Map<Direction, VoxelShape> SIDE_TO_ASCENDING_SHAPE = Maps.newEnumMap(ImmutableMap.of(Direction.NORTH, Shapes.or(SIDE_TO_SHAPE.get(Direction.NORTH), Block.box(3.0D, 0.0D, 0.0D, 13.0D, 16.0D, 1.0D)), Direction.SOUTH, Shapes.or(SIDE_TO_SHAPE.get(Direction.SOUTH), Block.box(3.0D, 0.0D, 15.0D, 13.0D, 16.0D, 16.0D)), Direction.EAST, Shapes.or(SIDE_TO_SHAPE.get(Direction.EAST), Block.box(15.0D, 0.0D, 3.0D, 16.0D, 16.0D, 13.0D)), Direction.WEST, Shapes.or(SIDE_TO_SHAPE.get(Direction.WEST), Block.box(0.0D, 0.0D, 3.0D, 1.0D, 16.0D, 13.0D))));
     private final Map<BlockState, VoxelShape> stateToShapeMap = Maps.newHashMap();
     private final BlockState sideBaseState;
 
@@ -62,13 +62,16 @@ public class SaltPowderBlock extends Block {
 
     @OnlyIn(Dist.CLIENT)
     public static int getColor() {
-        return MathHelper.color(224, 190, 183);
+        return Mth.color(224, 190, 183);
     }
 
     @Override
-    public VoxelShape getCollisionShape(BlockState state, IBlockReader world, BlockPos pos, ISelectionContext context) {
-        if (context.getEntity() instanceof LivingEntity) {
-            LivingEntity entity = (LivingEntity) context.getEntity();
+    public VoxelShape getCollisionShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext ctx) {
+        if (!(ctx instanceof EntityCollisionContext context)) {
+            return super.getCollisionShape(state, world, pos, ctx);
+        }
+
+        if (context.getEntity() instanceof LivingEntity entity) {
             if (entity.isInvertedHealAndHarm()) {
                 return BARRIER_SHAPE;
             }
@@ -77,10 +80,9 @@ public class SaltPowderBlock extends Block {
     }
 
     @Override
-    public void entityInside(BlockState state, World worldIn, BlockPos pos, Entity entityIn) {
-        if (entityIn instanceof LivingEntity) {
-            LivingEntity livingEntity = (LivingEntity) entityIn;
-            if (entityIn instanceof BananaSlugEntity || livingEntity.getMobType() == CreatureAttribute.UNDEAD) {
+    public void entityInside(BlockState state, Level worldIn, BlockPos pos, Entity entityIn) {
+        if (entityIn instanceof LivingEntity livingEntity) {
+            if (entityIn instanceof BananaSlugEntity || livingEntity.getMobType() == MobType.UNDEAD) {
                 if (entityIn.level.getGameTime() % 20L == 0) {
                     entityIn.hurt(DamageSource.DRY_OUT, 1);
                 }
@@ -96,10 +98,10 @@ public class SaltPowderBlock extends Block {
         for (Direction direction : Direction.Plane.HORIZONTAL) {
             RedstoneSide redstoneside = state.getValue(FACING_PROPERTY_MAP.get(direction));
             if (redstoneside == RedstoneSide.SIDE) {
-                voxelshape = VoxelShapes.or(voxelshape, SIDE_TO_SHAPE.get(direction));
+                voxelshape = Shapes.or(voxelshape, SIDE_TO_SHAPE.get(direction));
             }
             else if (redstoneside == RedstoneSide.UP) {
-                voxelshape = VoxelShapes.or(voxelshape, SIDE_TO_ASCENDING_SHAPE.get(direction));
+                voxelshape = Shapes.or(voxelshape, SIDE_TO_ASCENDING_SHAPE.get(direction));
             }
         }
 
@@ -114,7 +116,7 @@ public class SaltPowderBlock extends Block {
         return state.getValue(NORTH).isConnected() && state.getValue(SOUTH).isConnected() && state.getValue(EAST).isConnected() && state.getValue(WEST).isConnected();
     }
 
-    private BlockState recalculateFacingState(IBlockReader reader, BlockState state, BlockPos pos) {
+    private BlockState recalculateFacingState(BlockGetter reader, BlockState state, BlockPos pos) {
         boolean flag = !reader.getBlockState(pos.above()).isRedstoneConductor(reader, pos);
 
         for (Direction direction : Direction.Plane.HORIZONTAL) {
@@ -127,12 +129,12 @@ public class SaltPowderBlock extends Block {
         return state;
     }
 
-    private RedstoneSide getSide(IBlockReader worldIn, BlockPos pos, Direction face) {
+    private RedstoneSide getSide(BlockGetter worldIn, BlockPos pos, Direction face) {
         return this.recalculateSide(worldIn, pos, face, !worldIn.getBlockState(pos.above()).isRedstoneConductor(worldIn, pos));
     }
 
-    public void updateIndirectNeighbourShapes(BlockState state, IWorld worldIn, BlockPos pos, int flags, int recursionLeft) {
-        BlockPos.Mutable blockpos$mutable = new BlockPos.Mutable();
+    public void updateIndirectNeighbourShapes(BlockState state, LevelAccessor worldIn, BlockPos pos, int flags, int recursionLeft) {
+        BlockPos.MutableBlockPos blockpos$mutable = new BlockPos.MutableBlockPos();
 
         for (Direction direction : Direction.Plane.HORIZONTAL)
         {
@@ -159,7 +161,7 @@ public class SaltPowderBlock extends Block {
     }
 
     @Override
-    public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
+    public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, LevelAccessor worldIn, BlockPos currentPos, BlockPos facingPos) {
         if (facing == Direction.DOWN) {
             return stateIn;
         }
@@ -172,7 +174,7 @@ public class SaltPowderBlock extends Block {
         }
     }
 
-    private RedstoneSide recalculateSide(IBlockReader reader, BlockPos pos, Direction direction, boolean nonNormalCubeAbove) {
+    private RedstoneSide recalculateSide(BlockGetter reader, BlockPos pos, Direction direction, boolean nonNormalCubeAbove) {
         BlockPos blockpos = pos.relative(direction);
         BlockState blockstate = reader.getBlockState(blockpos);
         if (nonNormalCubeAbove) {
@@ -189,11 +191,11 @@ public class SaltPowderBlock extends Block {
         return !canConnectTo(blockstate, reader, blockpos, direction) && (blockstate.isRedstoneConductor(reader, blockpos) || !canConnectTo(reader.getBlockState(blockpos.below()), reader, blockpos.below(), null)) ? RedstoneSide.NONE : RedstoneSide.SIDE;
     }
 
-    private boolean canPlaceOnTopOf(IBlockReader reader, BlockPos pos, BlockState state) {
+    private boolean canPlaceOnTopOf(BlockGetter reader, BlockPos pos, BlockState state) {
         return state.isFaceSturdy(reader, pos, Direction.UP);
     }
 
-    private BlockState getUpdatedState(IBlockReader reader, BlockState state, BlockPos pos) {
+    private BlockState getUpdatedState(BlockGetter reader, BlockState state, BlockPos pos) {
         boolean flag = areAllSidesInvalid(state);
         state = this.recalculateFacingState(reader, this.defaultBlockState(), pos);
         if (flag && areAllSidesInvalid(state)) {
@@ -227,17 +229,17 @@ public class SaltPowderBlock extends Block {
     }
 
     @Override
-    public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+    public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
         return this.stateToShapeMap.get(state);
     }
 
     @Override
-    public BlockState getStateForPlacement(BlockItemUseContext context) {
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
         return this.getUpdatedState(context.getLevel(), this.sideBaseState, context.getClickedPos());
     }
 
     @Override
-    public void onPlace(BlockState state, World worldIn, BlockPos pos, BlockState oldState, boolean isMoving) {
+    public void onPlace(BlockState state, Level worldIn, BlockPos pos, BlockState oldState, boolean isMoving) {
         if (!oldState.is(state.getBlock()) && !worldIn.isClientSide) {
             for (Direction direction : Direction.Plane.VERTICAL) {
                 worldIn.updateNeighborsAt(pos.relative(direction), this);
@@ -248,34 +250,34 @@ public class SaltPowderBlock extends Block {
     }
 
     @Override
-    public ActionResultType use(BlockState p_225533_1_, World p_225533_2_, BlockPos p_225533_3_, PlayerEntity p_225533_4_, Hand p_225533_5_, BlockRayTraceResult p_225533_6_) {
-        if (!p_225533_4_.abilities.mayBuild) {
-            return ActionResultType.PASS;
+    public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult p_225533_6_) {
+        if (!player.getAbilities().mayBuild) {
+            return InteractionResult.PASS;
         } else {
-            if (isCross(p_225533_1_) || isDot(p_225533_1_)) {
-                BlockState blockstate = isCross(p_225533_1_) ? this.defaultBlockState() : this.sideBaseState;
-                blockstate = this.getConnectionState(p_225533_2_, blockstate, p_225533_3_);
-                if (blockstate != p_225533_1_) {
-                    p_225533_2_.setBlock(p_225533_3_, blockstate, 3);
-                    this.updatesOnShapeChange(p_225533_2_, p_225533_3_, p_225533_1_, blockstate);
-                    return ActionResultType.SUCCESS;
+            if (isCross(state) || isDot(state)) {
+                BlockState blockstate = isCross(state) ? this.defaultBlockState() : this.sideBaseState;
+                blockstate = this.getConnectionState(world, blockstate, pos);
+                if (blockstate != state) {
+                    world.setBlock(pos, blockstate, 3);
+                    this.updatesOnShapeChange(world, pos, state, blockstate);
+                    return InteractionResult.SUCCESS;
                 }
             }
 
-            return ActionResultType.PASS;
+            return InteractionResult.PASS;
         }
     }
 
-    private void updatesOnShapeChange(World p_235548_1_, BlockPos p_235548_2_, BlockState p_235548_3_, BlockState p_235548_4_) {
+    private void updatesOnShapeChange(Level world, BlockPos pos, BlockState oldState, BlockState newState) {
         for(Direction direction : Direction.Plane.HORIZONTAL) {
-            BlockPos blockpos = p_235548_2_.relative(direction);
-            if (p_235548_3_.getValue(FACING_PROPERTY_MAP.get(direction)).isConnected() != p_235548_4_.getValue(FACING_PROPERTY_MAP.get(direction)).isConnected() && p_235548_1_.getBlockState(blockpos).isRedstoneConductor(p_235548_1_, blockpos)) {
-                p_235548_1_.updateNeighborsAtExceptFromFacing(blockpos, p_235548_4_.getBlock(), direction.getOpposite());
+            BlockPos blockpos = pos.relative(direction);
+            if (oldState.getValue(FACING_PROPERTY_MAP.get(direction)).isConnected() != newState.getValue(FACING_PROPERTY_MAP.get(direction)).isConnected() && world.getBlockState(blockpos).isRedstoneConductor(world, blockpos)) {
+                world.updateNeighborsAtExceptFromFacing(blockpos, newState.getBlock(), direction.getOpposite());
             }
         }
     }
 
-    private BlockState getMissingConnections(IBlockReader p_235551_1_, BlockState p_235551_2_, BlockPos p_235551_3_) {
+    private BlockState getMissingConnections(BlockGetter p_235551_1_, BlockState p_235551_2_, BlockPos p_235551_3_) {
         boolean flag = !p_235551_1_.getBlockState(p_235551_3_.above()).isRedstoneConductor(p_235551_1_, p_235551_3_);
 
         for(Direction direction : Direction.Plane.HORIZONTAL) {
@@ -288,7 +290,7 @@ public class SaltPowderBlock extends Block {
         return p_235551_2_;
     }
 
-    private BlockState getConnectionState(IBlockReader p_235544_1_, BlockState p_235544_2_, BlockPos p_235544_3_) {
+    private BlockState getConnectionState(BlockGetter p_235544_1_, BlockState p_235544_2_, BlockPos p_235544_3_) {
         boolean flag = isDot(p_235544_2_);
         p_235544_2_ = this.getMissingConnections(p_235544_1_, this.defaultBlockState(), p_235544_3_);
         if (flag && isDot(p_235544_2_)) {
@@ -329,19 +331,19 @@ public class SaltPowderBlock extends Block {
     }
 
     @Override
-    public boolean collisionExtendsVertically(BlockState state, IBlockReader world, BlockPos pos, Entity entity) {
+    public boolean collisionExtendsVertically(BlockState state, BlockGetter world, BlockPos pos, Entity entity) {
         return entity instanceof LivingEntity && ((LivingEntity) entity).isInvertedHealAndHarm();
     }
 
     @Override
-    public boolean canSurvive(BlockState state, IWorldReader worldIn, BlockPos pos) {
+    public boolean canSurvive(BlockState state, LevelReader worldIn, BlockPos pos) {
         BlockPos blockpos = pos.below();
         BlockState blockstate = worldIn.getBlockState(blockpos);
         return this.canPlaceOnTopOf(worldIn, blockpos, blockstate);
     }
 
     @Override
-    public void onRemove(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
+    public void onRemove(BlockState state, Level worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
         if (!isMoving && !state.is(newState.getBlock())) {
             super.onRemove(state, worldIn, pos, newState, isMoving);
             if (!worldIn.isClientSide) {
@@ -354,7 +356,7 @@ public class SaltPowderBlock extends Block {
         }
     }
 
-    private void notifyWireNeighborsOfStateChange(World worldIn, BlockPos pos) {
+    private void notifyWireNeighborsOfStateChange(Level worldIn, BlockPos pos) {
         if (worldIn.getBlockState(pos).is(this)) {
             worldIn.updateNeighborsAt(pos, this);
 
@@ -364,7 +366,7 @@ public class SaltPowderBlock extends Block {
         }
     }
 
-    private void updateNeighboursStateChange(World world, BlockPos pos) {
+    private void updateNeighboursStateChange(Level world, BlockPos pos) {
         for (Direction direction : Direction.Plane.HORIZONTAL){
             this.notifyWireNeighborsOfStateChange(world, pos.relative(direction));
         }
@@ -382,7 +384,7 @@ public class SaltPowderBlock extends Block {
     }
 
     @Override
-    public void neighborChanged(BlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving) {
+    public void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving) {
         if (!worldIn.isClientSide) {
             if (!state.canSurvive(worldIn, pos)) {
                 dropResources(state, worldIn, pos);
@@ -391,12 +393,12 @@ public class SaltPowderBlock extends Block {
         }
     }
 
-    protected static boolean canConnectTo(BlockState blockState, IBlockReader world, BlockPos pos, Direction side) {
+    protected static boolean canConnectTo(BlockState blockState, BlockGetter world, BlockPos pos, Direction side) {
         return blockState.is(UAMBlocks.SALT.get());
     }
 
     @Override
-    protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(NORTH, EAST, SOUTH, WEST);
     }
 }

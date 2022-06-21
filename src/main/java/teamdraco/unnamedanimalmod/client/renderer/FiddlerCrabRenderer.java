@@ -1,12 +1,12 @@
 package teamdraco.unnamedanimalmod.client.renderer;
 
 import com.google.common.collect.Maps;
-import com.mojang.blaze3d.matrix.MatrixStack;
-import net.minecraft.client.renderer.entity.EntityRendererManager;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.Util;
-import net.minecraft.util.math.vector.Vector3f;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.Util;
+import com.mojang.math.Vector3f;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import teamdraco.unnamedanimalmod.UnnamedAnimalMod;
@@ -43,7 +43,7 @@ public class FiddlerCrabRenderer extends MobRenderer<FiddlerCrabEntity, FiddlerC
         hashMap.put(20, new ResourceLocation(UnnamedAnimalMod.MOD_ID, "textures/entity/fiddler_crab/kungsime.png"));
     });
 
-    public FiddlerCrabRenderer(EntityRendererManager manager) {
+    public FiddlerCrabRenderer(EntityRendererProvider.Context manager) {
         super(manager, new FiddlerCrabModel<>(), 0.3f);
     }
 
@@ -60,7 +60,7 @@ public class FiddlerCrabRenderer extends MobRenderer<FiddlerCrabEntity, FiddlerC
     }
 
     @Override
-    protected void setupRotations(FiddlerCrabEntity p_225621_1_, MatrixStack p_225621_2_, float p_225621_3_, float p_225621_4_, float p_225621_5_) {
+    protected void setupRotations(FiddlerCrabEntity p_225621_1_, PoseStack p_225621_2_, float p_225621_3_, float p_225621_4_, float p_225621_5_) {
         super.setupRotations(p_225621_1_, p_225621_2_, p_225621_3_, p_225621_4_, p_225621_5_);
         p_225621_2_.mulPose(Vector3f.YP.rotationDegrees(90));
     }

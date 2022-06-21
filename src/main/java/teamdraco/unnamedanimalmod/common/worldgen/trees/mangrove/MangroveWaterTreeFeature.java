@@ -1,22 +1,22 @@
 package teamdraco.unnamedanimalmod.common.worldgen.trees.mangrove;
 
 import teamdraco.unnamedanimalmod.init.UAMBlocks;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.RotatedPillarBlock;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.ISeedReader;
-import net.minecraft.world.gen.ChunkGenerator;
-import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.NoFeatureConfig;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.RotatedPillarBlock;
+import net.minecraft.core.Direction;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.chunk.ChunkGenerator;
+import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-import static net.minecraft.world.gen.feature.NoFeatureConfig.CODEC;
+import static net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration.CODEC;
 
-public class MangroveWaterTreeFeature extends Feature<NoFeatureConfig> {
+public class MangroveWaterTreeFeature extends Feature<NoneFeatureConfiguration> {
 
     public MangroveWaterTreeFeature()
     {
@@ -24,7 +24,7 @@ public class MangroveWaterTreeFeature extends Feature<NoFeatureConfig> {
     }
 
     @Override
-    public boolean place(ISeedReader reader, ChunkGenerator generator, Random rand, BlockPos pos, NoFeatureConfig config)
+    public boolean place(WorldGenLevel reader, ChunkGenerator generator, Random rand, BlockPos pos, NoneFeatureConfiguration config)
     {
         if (!reader.isWaterAt(pos))
         {

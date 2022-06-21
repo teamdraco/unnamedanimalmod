@@ -1,35 +1,35 @@
 package teamdraco.unnamedanimalmod.common.entity;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.*;
-import net.minecraft.entity.ai.attributes.AttributeModifierMap;
-import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.passive.fish.AbstractFishEntity;
-import net.minecraft.fluid.FluidState;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.network.datasync.DataSerializers;
-import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.potion.Effects;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.animal.AbstractFish;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.core.BlockPos;
+import net.minecraft.util.Mth;
+import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.IServerWorld;
-import net.minecraft.world.World;
+import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nullable;
 
-public class BlubberJellyEntity extends AbstractFishEntity {
-    private static final DataParameter<Integer> VARIANT = EntityDataManager.defineId(MangroveSnakeEntity.class, DataSerializers.INT);
+public class BlubberJellyEntity extends AbstractFish {
+    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(MangroveSnakeEntity.class, EntityDataSerializers.INT);
     public float squidPitch;
     public float prevSquidPitch;
     public float squidYaw;
@@ -45,7 +45,7 @@ public class BlubberJellyEntity extends AbstractFishEntity {
     private float randomMotionVecY;
     private float randomMotionVecZ;
 
-    public BlubberJellyEntity(EntityType<? extends AbstractFishEntity> type, World p_i48565_2_) {
+    public BlubberJellyEntity(EntityType<? extends AbstractFish> type, Level p_i48565_2_) {
         super(type, p_i48565_2_);
         this.random.setSeed((long)this.getId());
         this.rotationVelocity = 1.0F / (this.random.nextFloat() + 1.0F) * 0.2F;
@@ -53,7 +53,7 @@ public class BlubberJellyEntity extends AbstractFishEntity {
 
     @Nullable
     @Override
-    public ILivingEntityData finalizeSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason, @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
         if (dataTag == null) {
             setVariant(random.nextInt(12));
         } else {
@@ -69,18 +69,18 @@ public class BlubberJellyEntity extends AbstractFishEntity {
         this.goalSelector.addGoal(1, new BlubberJellyEntity.FleeGoal());
     }
 
-    public static AttributeModifierMap.MutableAttribute createAttributes() {
-        return MobEntity.createMobAttributes().add(Attributes.MAX_HEALTH, 10.0D);
+    public static AttributeSupplier.Builder createAttributes() {
+        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 10.0D);
     }
 
     /*    @Override
-    public ItemStack getPickedResult(RayTraceResult target) {
+    public ItemStack getPickedResult(HitResult target) {
         return new ItemStack(UAMItems.BLUBBER_JELLY_SPAWN_EGG.get());
     }*/
 
-    protected void saveToBucketTag(ItemStack bucket) {
+    public void saveToBucketTag(ItemStack bucket) {
         super.saveToBucketTag(bucket);
-        CompoundNBT compoundnbt = bucket.getOrCreateTag();
+        CompoundTag compoundnbt = bucket.getOrCreateTag();
         compoundnbt.putInt("Variant", this.getVariant());
         if (this.hasCustomName()) {
             bucket.setHoverName(this.getCustomName());
@@ -88,13 +88,13 @@ public class BlubberJellyEntity extends AbstractFishEntity {
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundNBT compound) {
+    public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
         compound.putInt("Variant", getVariant());
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundNBT compound) {
+    public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
         setVariant(compound.getInt("Variant"));
     }
@@ -113,7 +113,7 @@ public class BlubberJellyEntity extends AbstractFishEntity {
         this.entityData.set(VARIANT, variant);
     }
 
-    protected float getStandingEyeHeight(Pose poseIn, EntitySize sizeIn) {
+    protected float getStandingEyeHeight(Pose poseIn, EntityDimensions sizeIn) {
         return sizeIn.height * 0.5F;
     }
 
@@ -148,7 +148,7 @@ public class BlubberJellyEntity extends AbstractFishEntity {
         if (this.isInWaterOrBubble()) {
             if (this.squidRotation < (float)Math.PI) {
                 float f = this.squidRotation / (float)Math.PI;
-                this.tentacleAngle = MathHelper.sin(f * f * (float)Math.PI) * (float)Math.PI * 0.25F;
+                this.tentacleAngle = Mth.sin(f * f * (float)Math.PI) * (float)Math.PI * 0.25F;
                 if ((double)f > 0.75D) {
                     this.randomMotionSpeed = 1.0F;
                     this.rotateSpeed = 1.0F;
@@ -165,18 +165,18 @@ public class BlubberJellyEntity extends AbstractFishEntity {
                 this.setDeltaMovement((double)(this.randomMotionVecX * this.randomMotionSpeed), (double)(this.randomMotionVecY * this.randomMotionSpeed), (double)(this.randomMotionVecZ * this.randomMotionSpeed));
             }
 
-            Vector3d vector3d = this.getDeltaMovement();
-            float f1 = MathHelper.sqrt(getHorizontalDistanceSqr(vector3d));
-            this.yBodyRot += (-((float)MathHelper.atan2(vector3d.x, vector3d.z)) * (180F / (float)Math.PI) - this.yBodyRot) * 0.1F;
-            this.yRot = this.yBodyRot;
+            Vec3 vector3d = this.getDeltaMovement();
+            float f1 = (float) Math.sqrt(distanceToSqr(vector3d));
+            this.yBodyRot += (-((float)Mth.atan2(vector3d.x, vector3d.z)) * (180F / (float)Math.PI) - this.yBodyRot) * 0.1F;
+            this.setYRot(this.yBodyRot);
             this.squidYaw = (float)((double)this.squidYaw + Math.PI * (double)this.rotateSpeed * 1.5D);
-            this.squidPitch += (-((float)MathHelper.atan2((double)f1, vector3d.y)) * (180F / (float)Math.PI) - this.squidPitch) * 0.1F;
+            this.squidPitch += (-((float)Mth.atan2((double)f1, vector3d.y)) * (180F / (float)Math.PI) - this.squidPitch) * 0.1F;
         } else {
-            this.tentacleAngle = MathHelper.abs(MathHelper.sin(this.squidRotation)) * (float)Math.PI * 0.25F;
+            this.tentacleAngle = Mth.abs(Mth.sin(this.squidRotation)) * (float)Math.PI * 0.25F;
             if (!this.level.isClientSide) {
                 double d0 = this.getDeltaMovement().y;
-                if (this.hasEffect(Effects.LEVITATION)) {
-                    d0 = 0.05D * (double)(this.getEffect(Effects.LEVITATION).getAmplifier() + 1);
+                if (this.hasEffect(MobEffects.LEVITATION)) {
+                    d0 = 0.05D * (double)(this.getEffect(MobEffects.LEVITATION).getAmplifier() + 1);
                 } else if (!this.isNoGravity()) {
                     d0 -= 0.08D;
                 }
@@ -189,7 +189,7 @@ public class BlubberJellyEntity extends AbstractFishEntity {
 
     }
 
-    public void travel(Vector3d travelVector) {
+    public void travel(Vec3 travelVector) {
         this.move(MoverType.SELF, this.getDeltaMovement());
     }
 
@@ -204,7 +204,7 @@ public class BlubberJellyEntity extends AbstractFishEntity {
     }
 
     @Override
-    protected ItemStack getBucketItemStack() {
+    public ItemStack getBucketItemStack() {
         return /*new ItemStack(UAMItems.BLUBBER_JELLY_BUCKET.get())*/ null;
     }
 
@@ -246,7 +246,7 @@ public class BlubberJellyEntity extends AbstractFishEntity {
             ++this.tickCounter;
             LivingEntity livingentity = BlubberJellyEntity.this.getLastHurtByMob();
             if (livingentity != null) {
-                Vector3d vector3d = new Vector3d(BlubberJellyEntity.this.getX() - livingentity.getX(), BlubberJellyEntity.this.getY() - livingentity.getY(), BlubberJellyEntity.this.getZ() - livingentity.getZ());
+                Vec3 vector3d = new Vec3(BlubberJellyEntity.this.getX() - livingentity.getX(), BlubberJellyEntity.this.getY() - livingentity.getY(), BlubberJellyEntity.this.getZ() - livingentity.getZ());
                 BlockState blockstate = BlubberJellyEntity.this.level.getBlockState(new BlockPos(BlubberJellyEntity.this.getX() + vector3d.x, BlubberJellyEntity.this.getY() + vector3d.y, BlubberJellyEntity.this.getZ() + vector3d.z));
                 FluidState fluidstate = BlubberJellyEntity.this.level.getFluidState(new BlockPos(BlubberJellyEntity.this.getX() + vector3d.x, BlubberJellyEntity.this.getY() + vector3d.y, BlubberJellyEntity.this.getZ() + vector3d.z));
                 if (fluidstate.is(FluidTags.WATER) || blockstate.isAir()) {
@@ -295,9 +295,9 @@ public class BlubberJellyEntity extends AbstractFishEntity {
                 this.jelly.setMovementVector(0.0F, 0.0F, 0.0F);
             } else if (this.jelly.getRandom().nextInt(50) == 0 || !this.jelly.wasTouchingWater || !this.jelly.hasMovementVector()) {
                 float f = this.jelly.getRandom().nextFloat() * ((float)Math.PI * 2F);
-                float f1 = MathHelper.cos(f) * 0.2F;
+                float f1 = Mth.cos(f) * 0.2F;
                 float f2 = -0.1F + this.jelly.getRandom().nextFloat() * 0.2F;
-                float f3 = MathHelper.sin(f) * 0.2F;
+                float f3 = Mth.sin(f) * 0.2F;
                 this.jelly.setMovementVector(f1, f2, f3);
             }
 

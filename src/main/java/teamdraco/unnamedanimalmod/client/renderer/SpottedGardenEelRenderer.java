@@ -1,11 +1,11 @@
 package teamdraco.unnamedanimalmod.client.renderer;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.entity.EntityRendererManager;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.client.renderer.entity.model.EntityModel;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.client.model.EntityModel;
+import net.minecraft.resources.ResourceLocation;
 import teamdraco.unnamedanimalmod.UnnamedAnimalMod;
 import teamdraco.unnamedanimalmod.client.model.SpottedGardenEelHidingModel;
 import teamdraco.unnamedanimalmod.client.model.SpottedGardenEelModel;
@@ -16,7 +16,7 @@ public class SpottedGardenEelRenderer extends MobRenderer<SpottedGardenEelEntity
     private static final SpottedGardenEelModel MODEL = new SpottedGardenEelModel();
     private static final SpottedGardenEelHidingModel HIDING_MODEL = new SpottedGardenEelHidingModel();
 
-    public SpottedGardenEelRenderer(EntityRendererManager p_i48864_1_) {
+    public SpottedGardenEelRenderer(EntityRendererProvider.Context p_i48864_1_) {
         super(p_i48864_1_, MODEL, 0.1F);
     }
 
@@ -26,7 +26,7 @@ public class SpottedGardenEelRenderer extends MobRenderer<SpottedGardenEelEntity
     }
 
     @Override
-    public void render(SpottedGardenEelEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
+    public void render(SpottedGardenEelEntity entityIn, float entityYaw, float partialTicks, PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn) {
         if (entityIn.isHidden()) {
             model = HIDING_MODEL;
         }

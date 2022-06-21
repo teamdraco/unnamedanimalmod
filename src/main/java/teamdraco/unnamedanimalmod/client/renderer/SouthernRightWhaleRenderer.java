@@ -4,10 +4,10 @@ import com.google.common.collect.Maps;
 import teamdraco.unnamedanimalmod.UnnamedAnimalMod;
 import teamdraco.unnamedanimalmod.client.model.SouthernRightWhaleModel;
 import teamdraco.unnamedanimalmod.common.entity.SouthernRightWhaleEntity;
-import net.minecraft.client.renderer.entity.EntityRendererManager;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.Util;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.Util;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -22,7 +22,7 @@ public class SouthernRightWhaleRenderer extends MobRenderer<SouthernRightWhaleEn
         hashMap.put(3, new ResourceLocation(UnnamedAnimalMod.MOD_ID, "textures/entity/southern_right_whale/southern_right_whale_4.png"));
     });
 
-    public SouthernRightWhaleRenderer(EntityRendererManager renderManagerIn) {
+    public SouthernRightWhaleRenderer(EntityRendererProvider.Context renderManagerIn) {
         super(renderManagerIn, new SouthernRightWhaleModel<>(), 2.25F);
     }
 
